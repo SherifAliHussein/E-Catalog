@@ -1,0 +1,31 @@
+<div class="modal-content">
+	<div class="modal-header bordered">
+		<button class="close" type="button" ng-click="editRestTypeDlCtrl.close()">×</button>
+		<h2 class="pmd-card-title-text">{{'UpdateRestaurantTypeLbl' | translate}}</h2>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal" name="editTypeForm">
+			<div ng-if="editRestTypeDlCtrl.mode=='map'">
+				<select required class="select-simple form-control pmd-select2" 
+						ng-options="item.typeName for item in editRestTypeDlCtrl.englishRestaurantType"  
+						ng-model="editRestTypeDlCtrl.selectedType">
+				</select>
+				<div ng-if="editRestTypeDlCtrl.englishRestaurantType.length <=0">{{'NoSideItemDefault' | translate}} </div>                    				
+			</div>
+			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+				<label for="first-name">{{'Name' | translate}}</label>
+				<input required type="text" class="mat-input form-control" name="typeName" ng-model="editRestTypeDlCtrl.typeName" ng-minlength="3" ng-maxlength="100">
+				<div ng-messages="editTypeForm.typeName.$error" >
+					<div ng-if="editTypeForm.typeName.$error.required && !editTypeForm.typeName.$pristine">{{'requiredErr' | translate}}</div>
+					<div ng-if="(editTypeForm.typeName.$error.minlength || editTypeForm.typeName.$error.maxlength) && !editTypeForm.typeName.$error.required">{{'NameLengthError' | translate}}</div>
+                </div>
+			</div>
+		</form>
+	</div>
+	<div class="pmd-modal-action text-right">
+		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editRestTypeDlCtrl.updateType()">{{'saveChangesBtn' | translate}}</button>
+		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editRestTypeDlCtrl.close()">{{'DiscardBtn' | translate}}</button>
+	</div>
+</div>
+
+	

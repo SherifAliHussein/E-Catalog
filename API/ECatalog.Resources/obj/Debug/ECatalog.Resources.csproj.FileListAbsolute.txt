@@ -1,0 +1,10 @@
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\bin\Debug\ECatalog.Resources.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\bin\Debug\ECatalog.Resources.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\obj\Debug\ECatalog.Resources.Resource.resources
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\obj\Debug\ECatalog.Resources.csproj.GenerateResource.Cache
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\obj\Debug\ECatalog.Resources.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\obj\Debug\ECatalog.Resources.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\bin\Debug\ar-EG\ECatalog.Resources.resources.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\obj\Debug\ECatalog.Resources.Resource.ar-EG.resources
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\obj\Debug\ar-EG\ECatalog.Resources.resources.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Resources\obj\Debug\ECatalog.Resources.csprojResolveAssemblyReference.cache

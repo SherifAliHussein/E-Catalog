@@ -1,0 +1,30 @@
+(function () {
+    'use strict';
+	
+    angular
+        .module('home')
+        .controller('restaurantTypeDialogController', ['$uibModalInstance', 'RestaurantTypeResource','ToastService','callBackFunction','$rootScope',  restaurantTypeDialogController])
+
+	function restaurantTypeDialogController($uibModalInstance, RestaurantTypeResource,ToastService,callBackFunction,$rootScope){
+		var vm = this;
+		vm.typeName = "";
+		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
+		
+		vm.AddNewType = function(){
+			var newType = new RestaurantTypeResource();
+            newType.typeName = vm.typeName;
+            newType.$create().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp","restaurant type added successfully.","success");
+					$uibModalInstance.dismiss('cancel');
+					callBackFunction();
+                },
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+		}
+	}	
+}());

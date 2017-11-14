@@ -1,0 +1,12 @@
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.dll.config
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.pdb
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.csprojResolveAssemblyReference.cache
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.dll.config
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.pdb

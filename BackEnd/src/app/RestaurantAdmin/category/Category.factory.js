@@ -1,0 +1,33 @@
+(function() {
+    angular
+      .module('home')
+      .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource])
+      .factory('GetCategoriesResource', ['$resource', 'appCONSTANTS', GetCategoriesResource])
+      .factory('ActivateCategoryResource', ['$resource', 'appCONSTANTS', ActivateCategoryResource])
+      .factory('DeactivateCategoryResource', ['$resource', 'appCONSTANTS', DeactivateCategoryResource]);
+  
+    function CategoryResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId', {}, {
+        create: { method: 'POST', useToken: true },
+        deleteCategory: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+    function GetCategoriesResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId/Categories', {}, {
+          getAllCategories: { method: 'GET', useToken: true, params:{lang:'@lang'} }
+        })
+    }
+
+    function ActivateCategoryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/Activate', {}, {
+          Activate: { method: 'GET', useToken: true}
+        })
+    }
+    function DeactivateCategoryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/DeActivate', {}, {
+          Deactivate: { method: 'GET', useToken: true }
+        })
+    }
+}());
+  

@@ -1,0 +1,32 @@
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll.config
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.pdb
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\System.Net.Http.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.pdb
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.xml
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.xml
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.pdb
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.xml
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.dll
+E:\Vlabs\Backend\API\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll.config
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\System.Net.Http.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.xml
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.xml
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.pdb

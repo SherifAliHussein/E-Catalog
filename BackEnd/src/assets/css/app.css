@@ -1,0 +1,26 @@
+.deleteButton{
+	color:red;
+}
+.cursorPointer{
+	cursor:pointer;
+}
+.font25{
+	font-size: 25px !important;
+}
+.loginFailed{
+	padding-left: 16px;
+    color: red;
+}
+.warrningIcon{
+	font-size: 20px !important;
+	color: #d7e15e !important;
+}
+.font12{
+	font-size:12px;
+}
+.disabled {
+	cursor: not-allowed;
+  }
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+	display: none !important;
+  }

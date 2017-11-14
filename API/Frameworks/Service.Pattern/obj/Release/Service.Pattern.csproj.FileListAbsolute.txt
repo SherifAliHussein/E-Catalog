@@ -1,0 +1,7 @@
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\bin\Release\Service.Pattern.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\bin\Release\Service.Pattern.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.pdb
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\obj\Release\Service.Pattern.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\obj\Release\Service.Pattern.dll
+C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\obj\Release\Service.Pattern.pdb

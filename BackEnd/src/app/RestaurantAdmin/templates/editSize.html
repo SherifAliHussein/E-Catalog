@@ -1,0 +1,32 @@
+<div class="modal-content">
+        <div class="modal-header bordered">
+            <button class="close" type="button" ng-click="editSizeDlCtrl.close()">×</button>
+            <h2 class="pmd-card-title-text">{{'UpdateSizeLbl' | translate}}</h2>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" name="editSizeForm">
+                <div ng-if="editSizeDlCtrl.mode=='map'">
+                    <select required class="select-simple form-control pmd-select2" 
+                            ng-options="item.sizeName for item in editSizeDlCtrl.englishSizes"  
+                            ng-model="editSizeDlCtrl.selectedSize">
+                    </select>
+                    <div ng-if="editSizeDlCtrl.englishSizes.length <=0">{{'NoSizeDefault' | translate}} </div>
+                </div>
+                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'Name' | translate}}</label>
+                    <input required type="text" class="mat-input form-control" name="sizeName" ng-model="editSizeDlCtrl.sizeName" ng-minlength="3" ng-maxlength="100">
+                    <div ng-messages="editSizeForm.sizeName.$error" >
+                        <div ng-if="editSizeForm.sizeName.$error.required && !editSizeForm.sizeName.$pristine">{{'requiredErr' | translate}}</div>
+                        <div ng-if="(editSizeForm.sizeName.$error.minlength || editSizeForm.sizeName.$error.maxlength) && !editSizeForm.sizeName.$error.required">{{'NameLengthError' | translate}}</div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="pmd-modal-action text-right">
+            <button ng-disabled="editSizeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editSizeDlCtrl.updateSize()">{{'saveChangesBtn' | translate}}</button>
+            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editSizeDlCtrl.close()">{{'DiscardBtn' | translate}}</button>
+        </div>
+    </div>
+    
+        
+    
