@@ -201,6 +201,64 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\10\10-thumbnail.png" />
+    <Content Include="Images\10\10.png" />
+    <Content Include="Images\1\1-thumbnail.png" />
+    <Content Include="Images\1\1.png" />
+    <Content Include="Images\1\2\1-thumbnail.png" />
+    <Content Include="Images\1\2\1.png" />
+    <Content Include="Images\1\2\2-thumbnail.png" />
+    <Content Include="Images\1\2\2.png" />
+    <Content Include="Images\1\2\3-thumbnail.png" />
+    <Content Include="Images\1\2\3.png" />
+    <Content Include="Images\1\2\3\14-thumbnail.png" />
+    <Content Include="Images\1\2\3\14.png" />
+    <Content Include="Images\2\1\1-thumbnail.png" />
+    <Content Include="Images\2\1\1.png" />
+    <Content Include="Images\2\1\1\1-thumbnail.png" />
+    <Content Include="Images\2\1\1\1.png" />
+    <Content Include="Images\2\2-thumbnail.png" />
+    <Content Include="Images\2\2.png" />
+    <Content Include="Images\5\5-thumbnail.png" />
+    <Content Include="Images\5\5.png" />
+    <Content Include="Images\7\7-thumbnail.png" />
+    <Content Include="Images\7\7.png" />
+    <Content Include="Images\8\8-thumbnail.png" />
+    <Content Include="Images\8\8.png" />
+    <Content Include="Images\9\13\6-thumbnail.png" />
+    <Content Include="Images\9\13\6.png" />
+    <Content Include="Images\9\13\6\10-thumbnail.png" />
+    <Content Include="Images\9\13\6\10.png" />
+    <Content Include="Images\9\13\6\11-thumbnail.png" />
+    <Content Include="Images\9\13\6\11.png" />
+    <Content Include="Images\9\13\6\12-thumbnail.png" />
+    <Content Include="Images\9\13\6\12.png" />
+    <Content Include="Images\9\13\6\13-thumbnail.png" />
+    <Content Include="Images\9\13\6\13.png" />
+    <Content Include="Images\9\13\6\9-thumbnail.png" />
+    <Content Include="Images\9\13\6\9.png" />
+    <Content Include="Images\9\14\4-thumbnail.png" />
+    <Content Include="Images\9\14\4.png" />
+    <Content Include="Images\9\14\4\1-thumbnail.png" />
+    <Content Include="Images\9\14\4\1.png" />
+    <Content Include="Images\9\14\4\2-thumbnail.png" />
+    <Content Include="Images\9\14\4\2.png" />
+    <Content Include="Images\9\14\4\3-thumbnail.png" />
+    <Content Include="Images\9\14\4\3.png" />
+    <Content Include="Images\9\14\4\4-thumbnail.png" />
+    <Content Include="Images\9\14\4\4.png" />
+    <Content Include="Images\9\14\4\5-thumbnail.png" />
+    <Content Include="Images\9\14\4\5.png" />
+    <Content Include="Images\9\14\4\6-thumbnail.png" />
+    <Content Include="Images\9\14\4\6.png" />
+    <Content Include="Images\9\14\5-thumbnail.png" />
+    <Content Include="Images\9\14\5.png" />
+    <Content Include="Images\9\14\5\7-thumbnail.png" />
+    <Content Include="Images\9\14\5\7.png" />
+    <Content Include="Images\9\14\5\8-thumbnail.png" />
+    <Content Include="Images\9\14\5\8.png" />
+    <Content Include="Images\9\9-thumbnail.png" />
+    <Content Include="Images\9\9.png" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Web.config">
@@ -254,6 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\6\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ECatalog.BLL\ECatalog.BLL.csproj">
