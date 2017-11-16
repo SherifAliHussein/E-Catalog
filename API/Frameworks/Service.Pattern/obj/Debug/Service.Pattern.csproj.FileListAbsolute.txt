@@ -5,3 +5,10 @@ C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Servic
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.pdb
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb

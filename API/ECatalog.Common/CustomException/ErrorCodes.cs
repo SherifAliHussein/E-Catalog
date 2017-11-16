@@ -73,6 +73,10 @@ namespace ECatalog.Common.CustomException
         RestaurantIsNotReady,
         RestaurantTypeIsNotTranslated,
         EmptyRestaurantWaiterUserName,
-        RestaurantWaiterNameExceedLength
+        RestaurantWaiterNameExceedLength,
+        BackgroundNotFound,
+        BackgroundDeleted,
+        BackgroundItemsDoesNotActivated,
+        EmptyBackgroundImage
     }
 }

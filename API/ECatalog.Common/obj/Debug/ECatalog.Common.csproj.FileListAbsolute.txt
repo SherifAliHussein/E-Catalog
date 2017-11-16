@@ -3,3 +3,7 @@ C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Common\b
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Common\obj\Debug\ECatalog.Common.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Common\obj\Debug\ECatalog.Common.dll
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.Common\obj\Debug\ECatalog.Common.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\bin\Debug\ECatalog.Common.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\bin\Debug\ECatalog.Common.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.pdb

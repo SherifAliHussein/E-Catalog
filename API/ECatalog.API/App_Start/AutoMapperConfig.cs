@@ -42,6 +42,11 @@ namespace ECatalog.API.App_Start
             mapperConfiguration.CreateMap<RestaurantWaiterModel, RestaurantWaiterDTO>();
             mapperConfiguration.CreateMap<RestaurantWaiterDTO, RestaurantWaiterModel>();
 
+
+            mapperConfiguration.CreateMap<BackgroundModel, BackgroundDto>();
+            mapperConfiguration.CreateMap<BackgroundDto, BackgroundModel>();
+
+
             ECatalogBLLConfig.RegisterMappings(mapperConfiguration);
             //Mapper.Initialize(m =>
             //{

@@ -68,6 +68,7 @@
     <Compile Include="ECatalogDALConfig.cs" />
     <Compile Include="Entities\ECatalogContext.cs" />
     <Compile Include="Entities\fakeData.cs" />
+    <Compile Include="Entities\Model\Background.cs" />
     <Compile Include="Entities\Model\Category.cs" />
     <Compile Include="Entities\Model\CategoryTranslation.cs" />
     <Compile Include="Entities\Model\Item.cs" />

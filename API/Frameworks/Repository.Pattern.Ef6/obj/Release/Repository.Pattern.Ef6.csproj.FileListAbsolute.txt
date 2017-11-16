@@ -30,3 +30,19 @@ C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Reposi
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.dll
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.pdb
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll.config
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.Ef6.pdb
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\System.Net.Http.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\Repository.Pattern.pdb
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.xml
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\EntityFramework.SqlServer.xml
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.pdb
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\bin\Release\LinqKit.xml
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.dll
+E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern.Ef6\obj\Release\Repository.Pattern.Ef6.pdb

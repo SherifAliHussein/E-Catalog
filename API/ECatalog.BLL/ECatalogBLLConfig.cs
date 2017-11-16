@@ -99,13 +99,13 @@ namespace ECatalog.BLL
             mapperConfiguration.CreateMap<RestaurantWaiterDTO, RestaurantWaiter>();
             mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>();
 
+            mapperConfiguration.CreateMap<Background, BackgroundDto>();
             Mapper.Initialize(mapperConfiguration);
             //Mapper.Initialize(m =>
             //{
             //    m.CreateMap<User, UserDto>();
 
             //});
-
         }
 
         public static void RegisterTypes(IUnityContainer container)
@@ -131,7 +131,8 @@ namespace ECatalog.BLL
                 .RegisterType<ISideItemTranslationService, SideItemTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IItemSideItemService, ItemSideItemService>(new PerResolveLifetimeManager())
                 .RegisterType<IItemSizeService, ItemSizeService>(new PerResolveLifetimeManager())
-                .RegisterType<IRestaurantWaiterService, RestaurantWaiterService>(new PerResolveLifetimeManager());
+                .RegisterType<IRestaurantWaiterService, RestaurantWaiterService>(new PerResolveLifetimeManager())
+                .RegisterType<IBackgroundService, BackgroundService>(new PerResolveLifetimeManager());
         }
     }
 

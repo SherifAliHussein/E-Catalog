@@ -8,7 +8,7 @@ using Repository.Pattern.Ef6;
 
 namespace ECatalog.DAL.Entities.Model
 {
-    public class Restaurant:Entity
+    public class Restaurant : Entity
     {
         public Restaurant()
         {
@@ -24,18 +24,22 @@ namespace ECatalog.DAL.Entities.Model
         public virtual ICollection<RestaurantTranslation> RestaurantTranslations { get; set; }
         public virtual ICollection<Menu> Menus { get; set; }
         public long RestaurantTypeId { get; set; }
-        public virtual RestaurantType RestaurantType{ get; set; }
+        public virtual RestaurantType RestaurantType { get; set; }
 
         [ForeignKey("RestaurantAdmin")]
         public long RestaurantAdminId { get; set; }
-        public virtual RestaurantAdmin RestaurantAdmin{ get; set; }
+        public virtual RestaurantAdmin RestaurantAdmin { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsReady { get; set; }
-        public virtual ICollection<SideItem> SideItems{ get; set; }
-        public virtual ICollection<Size> Sizes{ get; set; }
+        public virtual ICollection<SideItem> SideItems { get; set; }
+        public virtual ICollection<Size> Sizes { get; set; }
 
         //[ForeignKey("RestaurantWaiter")]
         //public long RestaurantWaiterId { get; set; }
         public virtual ICollection<RestaurantWaiter> RestaurantWaiters { get; set; }
+
+        [ForeignKey("Background")]
+        public long BackgroundId { get; set; }
+        public virtual Background Background { get; set; }
     }
 }
