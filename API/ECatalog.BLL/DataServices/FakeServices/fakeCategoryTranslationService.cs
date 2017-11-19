@@ -90,6 +90,26 @@ namespace ECatalog.BLL.DataServices.FakeServices
             return results;
         }
 
+        public List<CategoryNamesDTO> GetAllCategoriesNameByMenuId(string language, long menuId)
+        {
+            List<Category> categories;
+            categories = dbFakeData._CategoryTranslations.Where(x => !x.Category.IsDeleted && x.Category.IsActive && x.Language.ToLower() == language.ToLower() && x.Category.MenuId == menuId)
+                .Select(x => x.Category).OrderBy(x => x.CategoryId).ToList();
+            return Mapper.Map<List<Category>, List<CategoryNamesDTO>>(categories, opt =>
+            {
+                opt.BeforeMap((src, dest) =>
+                    {
+                        foreach (Category category in src)
+                        {
+                            category.CategoryTranslations = category.CategoryTranslations
+                                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                        }
+
+                    }
+                );
+            });
+        }
+
         public override void InsertRange(IEnumerable<CategoryTranslation> entities)
         {
             dbFakeData._CategoryTranslations.AddRange(entities);

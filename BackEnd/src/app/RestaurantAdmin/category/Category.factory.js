@@ -3,6 +3,7 @@
       .module('home')
       .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource])
       .factory('GetCategoriesResource', ['$resource', 'appCONSTANTS', GetCategoriesResource])
+      .factory('GetCategoriesNameResource', ['$resource', 'appCONSTANTS', GetCategoriesNameResource])
       .factory('ActivateCategoryResource', ['$resource', 'appCONSTANTS', ActivateCategoryResource])
       .factory('DeactivateCategoryResource', ['$resource', 'appCONSTANTS', DeactivateCategoryResource]);
   
@@ -18,6 +19,12 @@
           getAllCategories: { method: 'GET', useToken: true, params:{lang:'@lang'} }
         })
     }
+    
+    function GetCategoriesNameResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId/Categories/Name', {}, {
+        getAllCategoriesName: { method: 'GET', useToken: true, params:{lang:'@lang'},isArray: true }
+      })
+  }
 
     function ActivateCategoryResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/Activate', {}, {

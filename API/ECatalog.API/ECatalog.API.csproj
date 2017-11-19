@@ -259,6 +259,7 @@
     <Content Include="Images\9\14\5\8.png" />
     <Content Include="Images\9\9-thumbnail.png" />
     <Content Include="Images\9\9.png" />
+    <Content Include="Images\Templates\1\1.png" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Web.config">
@@ -276,6 +277,7 @@
     <Compile Include="Controllers\RestaurantsController.cs" />
     <Compile Include="Controllers\SideItemsController.cs" />
     <Compile Include="Controllers\SizesController.cs" />
+    <Compile Include="Controllers\TemplatesController.cs" />
     <Compile Include="Controllers\WaitersController.cs" />
     <Compile Include="Infrastructure\ActionResult\PagedResponseActionResult.cs" />
     <Compile Include="Infrastructure\AddAuthorizationHeader.cs" />
@@ -283,14 +285,18 @@
     <Compile Include="Infrastructure\Filters\CustomExceptionFilter.cs" />
     <Compile Include="Infrastructure\LanguageMessageHandler.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\CategoryNameModel.cs" />
+    <Compile Include="Models\CategoryTemplatesModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ItemNameModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Models\RestaurantTypeModel.cs" />
     <Compile Include="Models\SideItemModel.cs" />
     <Compile Include="Models\SizeModel.cs" />
     <Compile Include="Models\RestaurantWaiterModel.cs" />
+    <Compile Include="Models\TemplateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthorizeRolesAttribute.cs" />
     <Compile Include="Providers\RefreshTokenProvider.cs" />

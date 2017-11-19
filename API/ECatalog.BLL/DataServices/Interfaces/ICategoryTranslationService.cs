@@ -15,5 +15,6 @@ namespace ECatalog.BLL.DataServices.Interfaces
         PagedResultsDto GetAllCategoriesByMenuId(string language, long menuId, int page, int pageSize);
         bool CheckCategoryByLanguage(long categoryId, string language);
         PagedResultsDto GetActivatedCategoriesByMenuId(string language, long menuId, int page, int pageSize);
+        List<CategoryNamesDTO> GetAllCategoriesNameByMenuId(string language, long menuId);
     }
 }

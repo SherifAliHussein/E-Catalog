@@ -17,5 +17,6 @@ namespace ECatalog.BLL.Services.Interfaces
         void DeleteCategory(long categoryId);
         void UpdateCategory(CategoryDTO categoryDto, string language, string path);
         PagedResultsDto GetActivatedCategoriesByMenuId(string language, long menuId, int page, int pageSize);
+        List<CategoryNamesDTO> GetAllCategoriesNameByMenuId(string language, long menuId);
     }
 }

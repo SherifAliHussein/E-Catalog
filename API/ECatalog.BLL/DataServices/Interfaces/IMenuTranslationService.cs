@@ -15,5 +15,6 @@ namespace ECatalog.BLL.DataServices.Interfaces
         PagedResultsDto GetAllMenusByRestaurantAdminId(string language, long restaurantAdminId, int page, int pageSize);
         bool CheckMenuByLanguage(long menuId, string language);
         PagedResultsDto GetActivatedMenusByRestaurantId(string language, long restaurantId, int page, int pageSize);
+        List<MenuDTO> GetAllMenusNameByRestaurantAdminId(string language, long restaurantAdminId);
     }
 }

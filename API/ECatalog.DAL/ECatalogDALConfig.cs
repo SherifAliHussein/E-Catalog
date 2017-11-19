@@ -45,7 +45,9 @@ namespace ECatalog.DAL
                 .RegisterType<IRepositoryAsync<SideItem>, Repository<SideItem>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<SideItemTranslation>, Repository<SideItemTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<ItemSideItem>, Repository<ItemSideItem>>(new PerResolveLifetimeManager())
-                .RegisterType<IRepositoryAsync<ItemSize>, Repository<ItemSize>>(new PerResolveLifetimeManager());
+                .RegisterType<IRepositoryAsync<ItemSize>, Repository<ItemSize>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Template>, Repository<Template>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Page>, Repository<Page>>(new PerResolveLifetimeManager());
 
 
         }

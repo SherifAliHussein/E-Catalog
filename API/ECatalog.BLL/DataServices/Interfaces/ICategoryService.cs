@@ -12,5 +12,6 @@ namespace ECatalog.BLL.DataServices.Interfaces
     public interface ICategoryService:IService<Category>
     {
        // PagedResultsDto GetAllCategoriesByMenuId(string language, long menuId, int page, int pageSize);
+        bool CategoryHasValidTemplates(long categoryId);
     }
 }

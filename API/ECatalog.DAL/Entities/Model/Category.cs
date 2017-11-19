@@ -14,6 +14,7 @@ namespace ECatalog.DAL.Entities.Model
         {
             CategoryTranslations = new List<CategoryTranslation>();
             Items = new List<Item>();
+            Pages = new List<Page>();
         }
         public long CategoryId { get; set; }
         public virtual ICollection<CategoryTranslation> CategoryTranslations { get; set; }
@@ -24,5 +25,7 @@ namespace ECatalog.DAL.Entities.Model
         public bool IsActive { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public virtual ICollection<Page> Pages { get; set; }
     }
 }

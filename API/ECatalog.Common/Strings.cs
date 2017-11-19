@@ -18,5 +18,7 @@ namespace ECatalog.Common
         public static readonly List<string> SupportedLanguages = new List<string> { "ar-eg",  "en-US" };
         public const string DefaultLanguage = "en-US";
 
+
+        public const long DefaultTemplateId = 1;
     }
 }

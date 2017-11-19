@@ -82,6 +82,26 @@ namespace ECatalog.BLL.DataServices
             return results;
         }
 
+        public List<CategoryNamesDTO> GetAllCategoriesNameByMenuId(string language, long menuId)
+        {
+            List<Category> categories;
+                categories = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Category.MenuId == menuId)
+                .Select(x => x.Category).OrderBy(x => x.CategoryId).ToList();
+            return Mapper.Map<List<Category>, List<CategoryNamesDTO>>(categories, opt =>
+            {
+                opt.BeforeMap((src, dest) =>
+                    {
+                        foreach (Category category in src)
+                        {
+                            category.CategoryTranslations = category.CategoryTranslations
+                                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                        }
+
+                    }
+                );
+            });
+        }
+
         public bool CheckCategoryByLanguage(long categoryId, string language)
         {
             return _repository.Query(x => x.CategoryId == categoryId && x.Language.ToLower() == language.ToLower() && !x.Category.IsDeleted).Select()

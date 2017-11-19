@@ -30,3 +30,35 @@ C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL.Test
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL.Test\bin\Debug\ECatalog.Common.dll
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL.Test\bin\Debug\AutoMapper.xml
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL.Test\bin\Debug\ECatalog.Common.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.BLL.Test.dll.config
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.BLL.Test.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.BLL.Test.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\AutoMapper.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.BLL.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.Common.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\nunit.framework.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\TechTalk.SpecFlow.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.DAL.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Repository.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\EntityFramework.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Repository.Pattern.Ef6.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\LinqKit.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.BLL.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.Common.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\AutoMapper.xml
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\nunit.framework.xml
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\ECatalog.DAL.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Repository.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\EntityFramework.xml
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\Repository.Pattern.Ef6.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\LinqKit.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\bin\Debug\LinqKit.xml
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\obj\Debug\ECatalog.BLL.Test.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\obj\Debug\ECatalog.BLL.Test.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL.Test\obj\Debug\ECatalog.BLL.Test.pdb

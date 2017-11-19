@@ -34,6 +34,10 @@ namespace ECatalog.DAL.Entities
         public DbSet<SideItemTranslation> SideItemTranslations{ get; set; }
         public DbSet<ItemSideItem> ItemSideItems { get; set; }
         public DbSet<ItemSize> ItemSizes { get; set; }
+        public DbSet<Template> Templates { get; set; }
+        public DbSet<Page> Pages { get; set; }
+
+
         public ECatalogContext() : base("name=ECatalogDB")
         {
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<ECatalogContext, Configuration>());

@@ -18,6 +18,13 @@ namespace ECatalog.BLL.DataServices
         {
             
         }
+
+        public bool CategoryHasValidTemplates(long categoryId)
+        {
+            var category = Find(categoryId);
+            var iis = category.Pages.Select(x => x.Template.ItemCount).Sum() >= category.Items.Count(x=>x.IsActive);
+            return iis;
+        }
         //public PagedResultsDto GetAllCategoriesByMenuId(string language, long menuId, int page, int pageSize)
         //{
         //    var query = Queryable().Where(x => x.MenuId == menuId);

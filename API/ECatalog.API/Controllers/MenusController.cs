@@ -56,6 +56,16 @@ namespace ECatalog.API.Controllers
         }
 
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [Route("api/Menus/Name", Name = "GetAllMenuNameForRestaurant")]
+        [HttpGet]
+        [ResponseType(typeof(List<MenuModel>))]
+        public IHttpActionResult GetAllMenuNameForRestaurant()
+        {
+            var menus = _menuFacade.GetAllAcivatedMenusNameByRestaurantId(Language, UserId);
+            return Ok(menus);
+        }
+
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
         [Route("api/Menus/{menuId:long}", Name = "DeleteMenu")]
         [HttpDelete]
         public IHttpActionResult DeleteMenu(long menuId)
@@ -106,6 +116,16 @@ namespace ECatalog.API.Controllers
                 category.ImageURL = Url.Link("CategoryImage", new { category.RestaurantId, category.MenuId, category.CategoryId });
             }
             return PagedResponse("GetAllCategoriesForMenu", page, pagesize, categories.TotalCount, data, categories.IsParentTranslated);
+        }
+
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [Route("api/Menus/{menuId:long}/Categories/Name", Name = "GetAllCategoriesNameForMenu")]
+        [HttpGet]
+        [ResponseType(typeof(List<CategoryNameModel>))]
+        public IHttpActionResult GetAllCategoriesNameForMenu(long menuId)
+        {
+            var data = Mapper.Map<List<CategoryNameModel>>(_categoryFacade.GetAllCategoriesNameByMenuId(Language, menuId));
+            return Ok(data);
         }
     }
 }

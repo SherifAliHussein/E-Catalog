@@ -31,6 +31,12 @@ namespace ECatalog.BLL.DataServices.FakeServices
             category = entity;
         }
 
+        public bool CategoryHasValidTemplates(long categoryId)
+        {
+            var category = Find(categoryId);
+            return category.Pages.Select(x => x.Template.ItemCount).Sum() >= category.Items.Count;
+        }
+
         //public PagedResultsDto GetAllCategoriesByMenuId(string language, long menuId, int page, int pageSize)
         //{
         //    var query = dbFakeData._Categories.Where(x => x.MenuId == menuId);

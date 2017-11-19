@@ -143,6 +143,23 @@
                             waitersPrepService: waitersPrepService
                         }
                     })
+                    .state('Template', {
+                        url: '/Template',
+                        templateUrl: './app/RestaurantAdmin/templates/categoryTemplate.html',
+                        controller: 'CategoryTemplateController',
+                        'controllerAs': 'CategoryTemplateCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                                redirectTo: 'root'
+                            },
+                            displayName: 'Templates'
+                        },
+                        resolve: {
+                            allMenuPrepService: allMenuPrepService,
+                            templatesPrepService: templatesPrepService
+                        }
+                    })
         });
         
         menuPrepService.$inject = ['MenuResource']
@@ -202,5 +219,16 @@
         waitersPrepService.$inject = ['WaiterResource']
         function waitersPrepService(WaiterResource) {
             return WaiterResource.getAllWaiters().$promise;
+        }
+
+        
+        templatesPrepService.$inject = ['TemplateResource']
+        function templatesPrepService(TemplateResource) {
+            return TemplateResource.getTemplates().$promise;
+        }
+        
+        allMenuPrepService.$inject = ['ActivatedMenuResource']
+        function allMenuPrepService(ActivatedMenuResource) {
+            return ActivatedMenuResource.getAllMenusName().$promise;
         }
 }());

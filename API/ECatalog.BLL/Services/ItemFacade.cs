@@ -29,10 +29,12 @@ namespace ECatalog.BLL.Services
         private IMenuService _menuService;
         private IRestaurantService _restaurantService;
 
+        private IPageService _pageService;
+        private ITemplateService _templateService;
 
         public ItemFacade(ICategoryService categoryService,IitemService itemService,IitemTranslationService itemTranslationService, IItemSizeService itemSizeService, IItemSideItemService itemSideItemService
             , IManageStorage manageStorage, ISizeTranslationService sizeTranslationService, ISideItemTranslationService sideItemTranslationService, ICategoryTranslationService categoryTranslationService,
-            IMenuService menuService , IRestaurantService restaurantService, IUnitOfWorkAsync unitOfWork):base(unitOfWork)
+            IMenuService menuService , IRestaurantService restaurantService,IPageService pageService, ITemplateService templateService, IUnitOfWorkAsync unitOfWork):base(unitOfWork)
         {
             _categoryService = categoryService;
             _itemService = itemService;
@@ -45,6 +47,9 @@ namespace ECatalog.BLL.Services
             _sideItemTranslationService = sideItemTranslationService;
             _menuService = menuService;
             _restaurantService = restaurantService;
+
+            _pageService = pageService;
+            _templateService = templateService;
         }
 
         public ItemFacade(ICategoryService categoryService, IitemService itemService, IitemTranslationService itemTranslationService, IItemSizeService itemSizeService, 
@@ -106,6 +111,9 @@ namespace ECatalog.BLL.Services
             _itemSizeService.InsertRange(item.ItemSizes);
             _itemTranslationService.InsertRange(item.ItemTranslations);
             _itemService.Insert(item);
+
+            
+
             SaveChanges();
             _manageStorage.UploadImage(path + "\\" + category.Menu.RestaurantId + "\\" + category.MenuId + "\\"+ item.CategoryId, itemDto.Image, item.ItemId);
         }
@@ -169,6 +177,24 @@ namespace ECatalog.BLL.Services
                 throw new ValidationException(ErrorCodes.ItemIsNotTranslated);
             item.IsActive = true;
             _itemService.Update(item);
+
+            var itemCountForAllTemplates = item.Category.Pages.Select(x => x.Template.ItemCount).Sum();
+            var totalItemCount = item.Category.Items.Count(x => x.IsActive);
+            if (totalItemCount > itemCountForAllTemplates)
+            {
+                var template = _templateService.Find(Strings.DefaultTemplateId);
+                var pageNumber = _pageService.GetLastPageNumberForCategory(item.CategoryId) +1;
+                while (totalItemCount > itemCountForAllTemplates)
+                {
+                    var page = new Page();
+                    page.TemplateId = template.Id;
+                    page.CategoryId = item.CategoryId;
+                    page.PageNumber = pageNumber;
+                    _pageService.Insert(page);
+                    itemCountForAllTemplates += template.ItemCount;
+                }
+            }
+
             SaveChanges();
         }
 

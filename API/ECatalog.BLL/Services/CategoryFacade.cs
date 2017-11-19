@@ -100,6 +100,14 @@ namespace ECatalog.BLL.Services
             return results;
         }
 
+        public List<CategoryNamesDTO> GetAllCategoriesNameByMenuId(string language, long menuId)
+        {
+            var menu = _menuService.Find(menuId);
+            if (menu == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
+            if (menu.IsDeleted) throw new ValidationException(ErrorCodes.MenuDeleted);
+            return _categoryTranslationService.GetAllCategoriesNameByMenuId(language, menuId);
+        }
+
         public PagedResultsDto GetActivatedCategoriesByMenuId(string language, long menuId, int page, int pageSize)
         {
             var menu = _menuService.Find(menuId);
@@ -119,6 +127,8 @@ namespace ECatalog.BLL.Services
             if (Strings.SupportedLanguages.Any(x => !category.CategoryTranslations.Select(m => m.Language.ToLower())
                 .Contains(x.ToLower())))
                 throw new ValidationException(ErrorCodes.CategoryIsNotTranslated);
+            //if(!_categoryService.CategoryHasValidTemplates(categoryId))
+            //    throw new ValidationException(ErrorCodes.CategoryTemplatesInvalid);
             category.IsActive = true;
             _categoryService.Update(category);
             SaveChanges();

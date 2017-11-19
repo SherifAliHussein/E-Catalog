@@ -24,10 +24,13 @@ namespace ECatalog.API.Controllers
     {
         private ICategoryFacade _categoryFacade;
         private IitemFacade _itemFacade;
-        public CategoriesController(ICategoryFacade categoryFacade,IitemFacade itemFacade)
+        private ITemplateFacade _templateFacade;
+
+        public CategoriesController(ICategoryFacade categoryFacade,IitemFacade itemFacade, ITemplateFacade templateFacade)
         {
             _categoryFacade = categoryFacade;
             _itemFacade = itemFacade;
+            _templateFacade = templateFacade;
         }
 
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
@@ -166,6 +169,16 @@ namespace ECatalog.API.Controllers
         {
             var data = Mapper.Map<List<ItemNameModel>>(_itemFacade.GetAllItemNamesByCategoryId(Language, categoryId));
             return Ok(data);
+        }
+
+
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [Route("api/Categories/{categoryId:long}/Template/", Name = "AddCategoryTemplate")]
+        [HttpPost]
+        public IHttpActionResult AddCategoryTemplate(long categoryId,[FromBody] CategoryTemplatesModel categoryTemplatesModel)
+        {
+            _templateFacade.AddTemplateForCategory(categoryId, Mapper.Map<List<PageDTO>>(categoryTemplatesModel.PageModels));
+            return Ok();
         }
     }
 }

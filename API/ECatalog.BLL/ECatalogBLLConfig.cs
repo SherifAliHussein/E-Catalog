@@ -99,6 +99,15 @@ namespace ECatalog.BLL
             mapperConfiguration.CreateMap<RestaurantWaiterDTO, RestaurantWaiter>();
             mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>();
 
+            mapperConfiguration.CreateMap<Template, TemplateDTO>();
+
+            mapperConfiguration.CreateMap<Category, CategoryNamesDTO>()
+                .ForMember(dest => dest.ItemCount, m => m.MapFrom(src => src.Items.Count(x=>x.IsActive)))
+                .ForMember(dest => dest.CategoryName, m => m.MapFrom(src => src.CategoryTranslations.FirstOrDefault().CategoryName));
+
+            mapperConfiguration.CreateMap<PageDTO, Page>();
+
+
             Mapper.Initialize(mapperConfiguration);
             //Mapper.Initialize(m =>
             //{
@@ -131,7 +140,9 @@ namespace ECatalog.BLL
                 .RegisterType<ISideItemTranslationService, SideItemTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IItemSideItemService, ItemSideItemService>(new PerResolveLifetimeManager())
                 .RegisterType<IItemSizeService, ItemSizeService>(new PerResolveLifetimeManager())
-                .RegisterType<IRestaurantWaiterService, RestaurantWaiterService>(new PerResolveLifetimeManager());
+                .RegisterType<IRestaurantWaiterService, RestaurantWaiterService>(new PerResolveLifetimeManager())
+                .RegisterType<ITemplateService, TemplateService>(new PerResolveLifetimeManager())
+                .RegisterType<IPageService, PageService>(new PerResolveLifetimeManager());
         }
     }
 

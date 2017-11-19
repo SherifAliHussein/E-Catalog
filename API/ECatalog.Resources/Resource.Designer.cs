@@ -115,6 +115,15 @@ namespace ECatalog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please update category templates.
+        /// </summary>
+        public static string CategoryTemplatesInvalid {
+            get {
+                return ResourceManager.GetString("CategoryTemplatesInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category image is requied.
         /// </summary>
         public static string EmptyCategoryImage {
@@ -615,6 +624,15 @@ namespace ECatalog.Resources {
         public static string SizeNotFound {
             get {
                 return ResourceManager.GetString("SizeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template not found.
+        /// </summary>
+        public static string TemplateNotFound {
+            get {
+                return ResourceManager.GetString("TemplateNotFound", resourceCulture);
             }
         }
         

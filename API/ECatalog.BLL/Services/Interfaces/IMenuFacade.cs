@@ -17,5 +17,6 @@ namespace ECatalog.BLL.Services.Interfaces
         void ActivateMenu(long menuId);
         void UpdateMenu(MenuDTO menuDto, long restaurantAdminId, string language);
         PagedResultsDto GetActivatedMenusByRestaurantId(string language, long userId, int page, int pageSize);
+        List<MenuDTO> GetAllAcivatedMenusNameByRestaurantId(string language, long restaurantAdminId);
     }
 }

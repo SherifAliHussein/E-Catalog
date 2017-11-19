@@ -2,6 +2,7 @@
     angular
       .module('home')
       .factory('MenuResource', ['$resource', 'appCONSTANTS', MenuResource])
+      .factory('ActivatedMenuResource', ['$resource', 'appCONSTANTS', ActivatedMenuResource])
       .factory('ActivateMenuResource', ['$resource', 'appCONSTANTS', ActivateMenuResource])
       .factory('DeactivateMenuResource', ['$resource', 'appCONSTANTS', DeactivateMenuResource])
       .factory('CheckRestaurantReadyResource', ['$resource', 'appCONSTANTS', CheckRestaurantReadyResource])
@@ -34,6 +35,12 @@
     function PublishRestaurantResource($resource, appCONSTANTS) {
       return $resource(appCONSTANTS.API_URL + 'Restaurants/Publish', {}, {
         Publish: { method: 'GET', useToken: true }
+      })
+    }
+
+    function ActivatedMenuResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Menus/Name', {}, {
+        getAllMenusName: { method: 'GET', useToken: true, params:{lang:'@lang'},isArray:true }
       })
     }
 

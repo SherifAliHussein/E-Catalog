@@ -92,6 +92,30 @@ namespace ECatalog.BLL.DataServices.FakeServices
             return results;
         }
 
+        public List<MenuDTO> GetAllMenusNameByRestaurantAdminId(string language, long restaurantAdminId)
+        {
+
+            var menus = dbFakeData._MenuTranslations.Where(x => !x.Menu.IsDeleted && x.Language.ToLower() == language.ToLower()
+                                               && x.Menu.Restaurant.RestaurantAdminId == restaurantAdminId
+                                               && x.Menu.Categories.Count > 0)
+                .Select(x => x.Menu)
+                .OrderBy(x => x.MenuId).ToList();
+            return Mapper.Map<List<Menu>, List<MenuDTO>>(menus, opt =>
+            {
+                opt.BeforeMap((src, dest) =>
+                    {
+                        foreach (Menu menu in src)
+                        {
+                            menu.MenuTranslations = menu.MenuTranslations
+                                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                        }
+
+                    }
+                );
+
+            });
+        }
+
         public override void InsertRange(IEnumerable<MenuTranslation> entities)
         {
             dbFakeData._MenuTranslations.AddRange(entities);

@@ -14,7 +14,7 @@ namespace ECatalog.DAL.Migrations
         {
             AutomaticMigrationsEnabled = true;
             //AutomaticMigrationDataLossAllowed = true;
-        }
+        }   
 
         protected override void Seed(ECatalog.DAL.Entities.ECatalogContext context)
         {
@@ -32,6 +32,13 @@ namespace ECatalog.DAL.Migrations
             //    Password = "wArilz/QIT55GuLgpRQlCHX0lir/WTXM8yc33MPiN3Bl26dnvS752gHPadYZoL20",
             //    UserName = "devWaiter",
             //    Role = Enums.RoleType.Waiter
+            //});
+
+
+            //context.Templates.Add(new Template()
+            //{
+            //    Id = 1,
+            //    ItemCount = 3
             //});
         }
     }

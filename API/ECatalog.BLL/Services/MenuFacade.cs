@@ -93,6 +93,11 @@ namespace ECatalog.BLL.Services
             return result;
         }
 
+        public List<MenuDTO> GetAllAcivatedMenusNameByRestaurantId(string language, long restaurantAdminId)
+        {
+            return _menuTranslationService.GetAllMenusNameByRestaurantAdminId(language, restaurantAdminId);
+        }
+
         public PagedResultsDto GetActivatedMenusByRestaurantId(string language, long userId, int page, int pageSize)
         {
             var waiter = _restaurantWaiterService.Find(userId);

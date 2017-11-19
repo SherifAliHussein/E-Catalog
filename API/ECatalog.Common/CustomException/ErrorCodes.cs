@@ -73,6 +73,8 @@ namespace ECatalog.Common.CustomException
         RestaurantIsNotReady,
         RestaurantTypeIsNotTranslated,
         EmptyRestaurantWaiterUserName,
-        RestaurantWaiterNameExceedLength
+        RestaurantWaiterNameExceedLength,
+        TemplateNotFound,
+        CategoryTemplatesInvalid
     }
 }
