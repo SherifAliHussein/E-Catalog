@@ -732,6 +732,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div ng-if="(editMenuDlCtrl.menuName.$error.minlength || editMenuDlCtrl.menuName.$error.maxlength) && !editMenuDlCtrl.menuName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
     '                </div>\n' +
     '			</div>\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"ng-if="editMenuDlCtrl.mode==\'edit\'" >       \n' +
+    '					<input id="menuImage" name="menuImage" style="display: none;" onchange="angular.element(this).scope().AddMenuImage(this.files)" type="file" required>\n' +
+    '					<button ng-click="editMenuDlCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '					<img ng-src="{{editMenuDlCtrl.menuImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '					<div ng-messages="editMenuForm.menuImage.$error" >\n' +
+    '						<div ng-if="editMenuForm.menuImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '			</div>\n' +
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
@@ -895,6 +903,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<thead>\n' +
     '					<tr>\n' +
     '						<th >{{\'Name\' | translate}}</th>\n' +
+    '						<th >{{\'Imagelbl\' | translate}}</th>\n' +
     '						<th >{{\'status\' | translate}}</th>\n' +
     '						<th ></th>\n' +
     '						<th ></th>\n' +
@@ -903,6 +912,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<tbody>\n' +
     '					<tr ng-repeat="menu in menuCtrl.menus.results">\n' +
     '						<td data-title="Name" width="50%">{{menu.menuName}}</td>\n' +
+    '						<td data-title="Image" ><img ng-src="{{menu.imageURL}}?type=\'thumbnail\'&date={{menuCtrl.Now}}" ng-alt="{{menu.menuName}}" style="max-height: 200px;max-width: 200px;"/></td>\n' +
     '						<td>\n' +
     '							<a ng-show="!menu.isActive" ng-click="menuCtrl.Activate(menu)" class="cursorPointer">{{\'ActivateBtn\' | translate}}</a>\n' +
     '							<a ng-show="menu.isActive" ng-click="menuCtrl.Deactivate(menu)" class="cursorPointer">{{\'DeActivateBtn\' | translate}}</a>   \n' +
@@ -1098,6 +1108,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <div ng-if="newMenuForm.menuName.$error.required && !newMenuForm.menuName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(newMenuForm.menuName.$error.minlength || newMenuForm.menuName.$error.maxlength) && !newMenuForm.menuName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
     '                </div>\n' +
+    '			</div>\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       \n' +
+    '					<input id="menuImage" name="menuImage" style="display: none;" onchange="angular.element(this).scope().AddMenuImage(this.files)" type="file" required>\n' +
+    '					<button ng-click="menuDlCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '					<img ng-src="{{menuDlCtrl.menuImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '					<div ng-messages="newMenuForm.menuImage.$error" >\n' +
+    '						<div ng-if="newMenuForm.menuImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '					</div>\n' +
     '			</div>\n' +
     '		</form>\n' +
     '	</div>\n' +

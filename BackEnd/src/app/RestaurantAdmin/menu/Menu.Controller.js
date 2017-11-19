@@ -10,6 +10,7 @@
         var vm = this;
 		vm.menus = menuPrepService;
 		vm.RestaurantIsReady = RestaurantIsReadyPrepService.isReady;
+		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
 		

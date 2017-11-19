@@ -285,5 +285,33 @@ namespace ECatalog.API.Controllers
         {
             return Ok(_restaurantFacade.CheckRestaurantReady(UserId));
         }
+
+
+        [Route("api/Restaurants/{restaurantId:long}/Menu/{menuId:long}/", Name = "MenuImage")]
+        public HttpResponseMessage GetMenuImage(long restaurantId, long menuId, string type = "orignal")
+        {
+            try
+            {
+                string filePath = type == "orignal"
+                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId )
+                        .FirstOrDefault(x => Path.GetFileName(x).Contains(menuId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
+                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId )
+                        .FirstOrDefault(x => Path.GetFileName(x).Contains(menuId.ToString()) && Path.GetFileName(x).Contains("thumb"));
+
+
+                HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
+
+                byte[] fileData = File.ReadAllBytes(filePath);
+
+                Response.Content = new ByteArrayContent(fileData);
+                Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+
+                return Response;
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage();
+            }
+        }
     }
 }

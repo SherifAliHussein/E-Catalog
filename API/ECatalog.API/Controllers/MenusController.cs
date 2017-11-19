@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Script.Serialization;
 using AutoMapper;
 using ECatalog.API.Infrastructure;
 using ECatalog.API.Models;
@@ -12,6 +16,7 @@ using ECatalog.API.Providers;
 using ECatalog.BLL.DTOs;
 using ECatalog.BLL.Services.Interfaces;
 using ECatalog.Common;
+using ECatalog.Common.CustomException;
 
 namespace ECatalog.API.Controllers
 {
@@ -29,9 +34,33 @@ namespace ECatalog.API.Controllers
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
         [Route("api/Menus", Name = "AddMenu")]
         [HttpPost]
-        public IHttpActionResult AddMenu([FromBody] MenuModel menuModel)
+        public IHttpActionResult AddMenu()
         {
-            _menuFacade.AddMenu(Mapper.Map<MenuDTO>(menuModel),UserId,Language);
+            if (!HttpContext.Current.Request.Files.AllKeys.Any())
+                throw new ValidationException(ErrorCodes.EmptyCategoryImage);
+            var httpPostedFile = HttpContext.Current.Request.Files[0];
+
+            var menuModel = new JavaScriptSerializer().Deserialize<MenuModel>(HttpContext.Current.Request.Form.Get(0));
+
+            if (httpPostedFile == null)
+                throw new ValidationException(ErrorCodes.EmptyCategoryImage);
+
+            if (httpPostedFile.ContentLength > 2 * 1024 * 1000)
+                throw new ValidationException(ErrorCodes.ImageExceedSize);
+
+
+            if (Path.GetExtension(httpPostedFile.FileName).ToLower() != ".jpg" &&
+                Path.GetExtension(httpPostedFile.FileName).ToLower() != ".png" &&
+                Path.GetExtension(httpPostedFile.FileName).ToLower() != ".jpeg")
+
+                throw new ValidationException(ErrorCodes.InvalidImageType);
+
+            var menuDto = Mapper.Map<MenuDTO>(menuModel);
+            //restaurantDto.Image = (MemoryStream) restaurant.Image.InputStream;
+            menuDto.Image = new MemoryStream();
+            httpPostedFile.InputStream.CopyTo(menuDto.Image);
+
+            _menuFacade.AddMenu(menuDto, UserId,Language, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 
@@ -52,7 +81,12 @@ namespace ECatalog.API.Controllers
         {
             PagedResultsDto menus;
             menus = UserRole == Enums.RoleType.RestaurantAdmin.ToString() ? _menuFacade.GetAllMenusByRestaurantId(Language, UserId, page, pagesize) : _menuFacade.GetActivatedMenusByRestaurantId(Language, UserId, page, pagesize);
-            return PagedResponse("GetAllMenuForRestaurant", page, pagesize, menus.TotalCount, Mapper.Map<List<MenuModel>>(menus.Data), menus.IsParentTranslated);
+            var data = Mapper.Map<List<MenuModel>>(menus.Data);
+            foreach (var menu in data)
+            {
+                menu.ImageURL = Url.Link("MenuImage", new { menu.RestaurantId, menu.MenuId });
+            }
+            return PagedResponse("GetAllMenuForRestaurant", page, pagesize, menus.TotalCount,data, menus.IsParentTranslated);
         }
 
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
@@ -95,9 +129,35 @@ namespace ECatalog.API.Controllers
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
         [Route("api/Menus", Name = "UpdateMenu")]
         [HttpPut]
-        public IHttpActionResult UpdateMenu([FromBody] MenuModel menuModel)
+        public IHttpActionResult UpdateMenu()
         {
-            _menuFacade.UpdateMenu(Mapper.Map<MenuDTO>(menuModel), UserId, Language);
+            var menuModel =
+                new JavaScriptSerializer().Deserialize<MenuModel>(HttpContext.Current.Request.Form.Get(0));
+            var menuDto = Mapper.Map<MenuDTO>(menuModel);
+            if (menuDto.IsImageChange)
+            {
+                if (!HttpContext.Current.Request.Files.AllKeys.Any())
+                    throw new ValidationException(ErrorCodes.EmptyCategoryImage);
+                var httpPostedFile = HttpContext.Current.Request.Files[0];
+
+
+                if (httpPostedFile == null)
+                    throw new ValidationException(ErrorCodes.EmptyCategoryImage);
+
+                if (httpPostedFile.ContentLength > 2 * 1024 * 1000)
+                    throw new ValidationException(ErrorCodes.ImageExceedSize);
+
+
+                if (Path.GetExtension(httpPostedFile.FileName).ToLower() != ".jpg" &&
+                    Path.GetExtension(httpPostedFile.FileName).ToLower() != ".png" &&
+                    Path.GetExtension(httpPostedFile.FileName).ToLower() != ".jpeg")
+
+                    throw new ValidationException(ErrorCodes.InvalidImageType);
+                
+                menuDto.Image = new MemoryStream();
+                httpPostedFile.InputStream.CopyTo(menuDto.Image);
+            }
+            _menuFacade.UpdateMenu(menuDto, UserId, Language, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 

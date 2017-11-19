@@ -14,6 +14,7 @@
 				<thead>
 					<tr>
 						<th >{{'Name' | translate}}</th>
+						<th >{{'Imagelbl' | translate}}</th>
 						<th >{{'status' | translate}}</th>
 						<th ></th>
 						<th ></th>
@@ -22,6 +23,7 @@
 				<tbody>
 					<tr ng-repeat="menu in menuCtrl.menus.results">
 						<td data-title="Name" width="50%">{{menu.menuName}}</td>
+						<td data-title="Image" ><img ng-src="{{menu.imageURL}}?type='thumbnail'&date={{menuCtrl.Now}}" ng-alt="{{menu.menuName}}" style="max-height: 200px;max-width: 200px;"/></td>
 						<td>
 							<a ng-show="!menu.isActive" ng-click="menuCtrl.Activate(menu)" class="cursorPointer">{{'ActivateBtn' | translate}}</a>
 							<a ng-show="menu.isActive" ng-click="menuCtrl.Deactivate(menu)" class="cursorPointer">{{'DeActivateBtn' | translate}}</a>   

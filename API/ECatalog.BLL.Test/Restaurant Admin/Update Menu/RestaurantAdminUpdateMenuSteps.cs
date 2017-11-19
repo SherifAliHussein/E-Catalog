@@ -66,7 +66,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Menu
         {
             try
             {
-                _MenuFacade.UpdateMenu(_menuDto,2,Strings.DefaultLanguage);
+                _MenuFacade.UpdateMenu(_menuDto,2,Strings.DefaultLanguage,"");
             }
             catch (ValidationException ex)
             {

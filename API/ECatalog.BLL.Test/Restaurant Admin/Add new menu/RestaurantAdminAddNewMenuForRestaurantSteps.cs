@@ -58,7 +58,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_menu
         {
             try
             {
-                _MenuFacade.AddMenu(_menuDto,2, Strings.DefaultLanguage);
+                _MenuFacade.AddMenu(_menuDto,2, Strings.DefaultLanguage,"");
             }
             catch (ValidationException ex)
             {

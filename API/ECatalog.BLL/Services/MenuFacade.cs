@@ -7,6 +7,7 @@ using AutoMapper;
 using ECatalog.BLL.DataServices.Interfaces;
 using ECatalog.BLL.DTOs;
 using ECatalog.BLL.Services.Interfaces;
+using ECatalog.BLL.Services.ManageStorage;
 using ECatalog.Common;
 using ECatalog.Common.CustomException;
 using ECatalog.DAL.Entities.Model;
@@ -21,15 +22,18 @@ namespace ECatalog.BLL.Services
         private IRestaurantService _restaurantService;
         private IRestaurantTranslationService _restaurantTranslationService;
         private IRestaurantWaiterService _restaurantWaiterService;
+        private IManageStorage _manageStorage;
+
 
         public MenuFacade(IMenuService menuService,IMenuTranslationService menuTranslationService, IRestaurantService restaurantService, IRestaurantTranslationService restaurantTranslationService
-            ,IRestaurantWaiterService restaurantWaiterService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
+            ,IRestaurantWaiterService restaurantWaiterService, IManageStorage manageStorage, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
             _menuService = menuService;
             _menuTranslationService = menuTranslationService;
             _restaurantService = restaurantService;
             _restaurantTranslationService = restaurantTranslationService;
             _restaurantWaiterService = restaurantWaiterService;
+            _manageStorage = manageStorage;
         }
 
         public MenuFacade(IMenuService menuService, IMenuTranslationService menuTranslationService, IRestaurantService restaurantService, IRestaurantTranslationService restaurantTranslationService
@@ -42,7 +46,7 @@ namespace ECatalog.BLL.Services
             _restaurantWaiterService = restaurantWaiterService;
         }
 
-        public void AddMenu(MenuDTO menuDto,long restaurantAdminId,string language)
+        public void AddMenu(MenuDTO menuDto,long restaurantAdminId,string language,string path)
         {
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
@@ -58,6 +62,7 @@ namespace ECatalog.BLL.Services
             _menuService.Insert(menu);
             _menuTranslationService.InsertRange(menu.MenuTranslations);
             SaveChanges();
+            _manageStorage.UploadImage(path + "\\" + menu.RestaurantId +  "\\", menuDto.Image, menu.MenuId);
         }
 
         public MenuDTO GetMenu(long menuId, string language)
@@ -152,7 +157,7 @@ namespace ECatalog.BLL.Services
             SaveChanges();
         }
 
-        public void UpdateMenu(MenuDTO menuDto, long restaurantAdminId, string language)
+        public void UpdateMenu(MenuDTO menuDto, long restaurantAdminId, string language, string path)
         {
             var menu = _menuService.Find(menuDto.MenuId);
             if (menu == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
@@ -171,9 +176,10 @@ namespace ECatalog.BLL.Services
                 menuTranslation.MenuName = menuDto.MenuName;
             }
 
-
             _menuService.Update(menu);
             SaveChanges();
+            if (menuDto.IsImageChange)
+                _manageStorage.UploadImage(path + "\\" + menu.RestaurantId + "\\", menuDto.Image, menu.MenuId);
         }
     }
 }

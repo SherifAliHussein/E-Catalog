@@ -9,13 +9,13 @@ namespace ECatalog.BLL.Services.Interfaces
 {
     public interface IMenuFacade
     {
-        void AddMenu(MenuDTO menuDto, long restaurantAdminId,string language);
+        void AddMenu(MenuDTO menuDto, long restaurantAdminId,string language, string path);
         MenuDTO GetMenu(long menuId, string language);
         PagedResultsDto GetAllMenusByRestaurantId(string language,long restaurantAdminId, int page, int pageSize);
         void DeleteMenu(long menuId);
         void DeActivateMenu(long menuId);
         void ActivateMenu(long menuId);
-        void UpdateMenu(MenuDTO menuDto, long restaurantAdminId, string language);
+        void UpdateMenu(MenuDTO menuDto, long restaurantAdminId, string language, string path);
         PagedResultsDto GetActivatedMenusByRestaurantId(string language, long userId, int page, int pageSize);
         List<MenuDTO> GetAllAcivatedMenusNameByRestaurantId(string language, long restaurantAdminId);
     }
