@@ -118,6 +118,8 @@
             "backgroundAddSuccess":"background added successfully.",
             "CurrentBtn":"Current Background",
             "NotCurrentBtn":" Not", 
+
+            "Template":"Template"
         }
         
         var ar_translations = {
@@ -240,6 +242,8 @@
             "backgroundAddSuccess":"خلفيه المنيو تم ادخال",
             "CurrentBtn":"الخلفيه الحاليه",
             "NotCurrentBtn":" ليست الخفيه الحاليه", 
+
+            "Template":"نموذج"
         }
         
         $translateProvider.translations('en',en_translations);

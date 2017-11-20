@@ -53,8 +53,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			'API_URL': 'http://localhost:28867/api/',
-			// 'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
+			// 'API_URL': 'http://localhost:28867/api/',
+			'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
 			'defaultLanguage':'en'
 		})
 		.constant('messageTypeEnum', {
@@ -249,6 +249,8 @@ angular.module('core')
             "backgroundAddSuccess":"background added successfully.",
             "CurrentBtn":"Current Background",
             "NotCurrentBtn":" Not", 
+
+            "Template":"Template"
         }
         
         var ar_translations = {
@@ -371,6 +373,8 @@ angular.module('core')
             "backgroundAddSuccess":"خلفيه المنيو تم ادخال",
             "CurrentBtn":"الخلفيه الحاليه",
             "NotCurrentBtn":" ليست الخفيه الحاليه", 
+
+            "Template":"نموذج"
         }
         
         $translateProvider.translations('en',en_translations);

@@ -442,8 +442,56 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/RestaurantAdmin/templates/background.html',
+    '<div >\n' +
+    '       \n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '            <button  ng-click="backgroundCtrl.openbackgroundDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddbackgroundBtn\' | translate}}</button>\n' +
+    '            <!-- <span ng-if="!backgroundCtrl.Backgrounds.isParentTranslated"> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'MenuNotTranslated\' | translate}}</span> -->\n' +
+    '        </div> \n' +
+    '        <div ng-if="backgroundCtrl.Backgrounds.results.length == 0">\n' +
+    '                <span>{{\'NoBackgroundAvailable\' | translate}}</span>\n' +
+    '        </div>\n' +
+    '        <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="backgroundCtrl.Backgrounds.results.length > 0">\n' +
+    '            <div class="table-responsive">\n' +
+    '                <table class="table pmd-table table-hover">\n' +
+    '                    <thead>\n' +
+    '                        <tr> \n' +
+    '                            <th >{{\'Imagelbl\' | translate}}</th>\n' +
+    '                            <th >{{\'status\' | translate}}</th>\n' +
+    '                            <th ></th>\n' +
+    '                        </tr>\n' +
+    '                    </thead>\n' +
+    '                    <tbody>\n' +
+    '                        <tr ng-repeat="Background in backgroundCtrl.Backgrounds.results"> \n' +
+    '                            <td data-title="Image" ><img ng-src="{{Background.imageUrl}}" ng-alt="{{Background.BackgroundName}}" style="max-height: 200px;max-width: 200px;"/></td>\n' +
+    '                            <!-- <td></td> -->\n' +
+    '                            <td>\n' +
+    '                                 <a ng-show="Background.isActive"   class="cursorPointer">{{\'CurrentBtn\' | translate}}</a>\n' +
+    '                                 <a ng-show="!Background.isActive" ng-click="backgroundCtrl.Activate(Background)" class="cursorPointer">{{\'NotCurrentBtn\' | translate}}</a>\n' +
+    '                            </td>\n' +
+    '                          \n' +
+    '                        </tr>\n' +
+    '                    </tbody>\n' +
+    '                </table>\n' +
+    '            </div>\n' +
+    '            <div style="text-align:center;" paging page="1" page-size="10" total="backgroundCtrl.Backgrounds.totalCount" paging-action="backgroundCtrl.changePage( page)"\n' +
+    '            flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '               </div>\n' +
+    '        </div> \n' +
+    '    \n' +
+    '    \n' +
+    '    </div>					\n' +
+    '    ');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/RestaurantAdmin/templates/categoryTemplate.html',
-    '<div class="modal-content">\n' +
+    '<div ng-if="CategoryTemplateCtrl.menus.length == 0">\n' +
+    '        <span>{{\'NoMenusAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '   \n' +
+    '<div class="modal-content" ng-if="CategoryTemplateCtrl.menus.length > 0">\n' +
     '   \n' +
     '    <div class="modal-header bordered" >        \n' +
     '            <div class="row">\n' +
@@ -943,7 +991,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<div class="modal-content">\n' +
     '        <div class="modal-header bordered">\n' +
     '            <button class="close" type="button" ng-click="backgroundCtrl.close()">×</button>\n' +
-    '            <h2 class="pmd-card-title-text">{{\'newbackgroundLbl\' | translate}}</h2>\n' +
+    '            <h2 class="pmd-card-title-text">{{\'NewbackgroundLbl\' | translate}}</h2>\n' +
     '        </div>\n' +
     '        <div class="modal-body">\n' +
     '            <form class="form-horizontal" name="newbackgroundForm">\n' +

@@ -17,6 +17,8 @@
         var totalItemsCount = 0;
         vm.isCategoryTemplateReady = false;
         function loadCategory(){
+            if(vm.selectedMenu != null){
+                
             GetCategoriesNameResource.getAllCategoriesName({ MenuId: vm.selectedMenu.menuId })
             .$promise.then(function(results) {
                 vm.categories = results;                
@@ -34,6 +36,7 @@
             function(data, status) {
 				ToastService.show("right","bottom","fadeInUp",data.message,"error");
             });
+            }
         }
         loadCategory();
         vm.changeMenu = function(){

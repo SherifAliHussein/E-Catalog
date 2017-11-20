@@ -142,7 +142,7 @@ gulp.task('copy-core', function() {
 //concatination js
 gulp.task('copy-app', function() {
      gulp.src(paths.app)
-    .pipe(concat('app.js', {newLine: ';'}))
+    .pipe(concat('app.js', {newLine: ''}))
     //.pipe(uglify())
     .pipe(strip())
     .pipe(gulp.dest(paths.build + '/'));

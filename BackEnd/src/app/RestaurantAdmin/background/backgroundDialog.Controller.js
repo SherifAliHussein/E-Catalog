@@ -57,7 +57,7 @@
 
 						reader.onloadend = function() {
 							vm.backgroundImage= reader.result;
-							// $scope.Photo = reader.result;
+							
 							$scope.$apply();
 						};
 						if (imageFile) {

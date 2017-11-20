@@ -1,4 +1,8 @@
-<div class="modal-content">
+<div ng-if="CategoryTemplateCtrl.menus.length == 0">
+        <span>{{'NoMenusAvailable' | translate}}</span>
+    </div>
+   
+<div class="modal-content" ng-if="CategoryTemplateCtrl.menus.length > 0">
    
     <div class="modal-header bordered" >        
             <div class="row">

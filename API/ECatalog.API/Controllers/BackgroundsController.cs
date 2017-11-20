@@ -23,6 +23,7 @@ namespace ECatalog.API.Controllers
 {
     public class BackgroundsController : BaseApiController
     {
+
         private readonly IBackgroundFacade _backgroundFacade;
         public BackgroundsController(IBackgroundFacade backgroundFacade)
         {
