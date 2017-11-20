@@ -115,7 +115,7 @@ namespace ECatalog.BLL.Services
             
 
             SaveChanges();
-            _manageStorage.UploadImage(path + "\\" + category.Menu.RestaurantId + "\\" + category.MenuId + "\\"+ item.CategoryId, itemDto.Image, item.ItemId);
+            _manageStorage.UploadImage(path + "\\" + "Restaurant-" + + category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\"+ "Category-"+ item.CategoryId + "\\Items", itemDto.Image, item.ItemId);
         }
 
         public ItemDTO GetItem(long itemId, string language)
@@ -317,7 +317,7 @@ namespace ECatalog.BLL.Services
             _itemService.Update(item);
             SaveChanges();
             if (itemDto.IsImageChange)
-                _manageStorage.UploadImage( path + "\\" + item.Category.Menu.RestaurantId + "\\" + item.Category.MenuId + "\\" + item.CategoryId, itemDto.Image, item.ItemId);
+                _manageStorage.UploadImage( path + "\\" + "Restaurant-"  + item.Category.Menu.RestaurantId + "\\" + "Menu-" + item.Category.MenuId + "\\"+ "Category-" + item.CategoryId + "\\Items" , itemDto.Image, item.ItemId);
         }
         
         public void TranslateItem(ItemDTO itemDto, string language)

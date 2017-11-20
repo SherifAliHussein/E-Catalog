@@ -107,9 +107,9 @@ namespace ECatalog.API.Controllers
             try
             {
                 string filePath = type == "orignal"
-                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId)
+                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(restaurantId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
-                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId)
+                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(restaurantId.ToString()) && Path.GetFileName(x).Contains("thumb"));
                 
 
@@ -221,9 +221,9 @@ namespace ECatalog.API.Controllers
             try
             {
                 string filePath = type == "orignal"
-                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId + "\\" + menuId)
+                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId +"\\" + "Menu-" + menuId +"\\"+ "Category-" +categoryId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(categoryId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
-                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId + "\\" + menuId)
+                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(categoryId.ToString()) && Path.GetFileName(x).Contains("thumb"));
 
 
@@ -248,9 +248,9 @@ namespace ECatalog.API.Controllers
             try
             {
                 string filePath = type == "orignal"
-                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId + "\\" + menuId + "\\" + categoryId)
+                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-"+ categoryId + "\\Items")
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(itemId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
-                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId + "\\" + menuId + "\\" + categoryId)
+                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(itemId.ToString()) && Path.GetFileName(x).Contains("thumb"));
 
 
@@ -293,9 +293,9 @@ namespace ECatalog.API.Controllers
             try
             {
                 string filePath = type == "orignal"
-                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId )
+                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(menuId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
-                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + restaurantId )
+                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(menuId.ToString()) && Path.GetFileName(x).Contains("thumb"));
 
 

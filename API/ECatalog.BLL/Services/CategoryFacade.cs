@@ -62,7 +62,7 @@ namespace ECatalog.BLL.Services
             _categoryTranslationService.InsertRange(category.CategoryTranslations);
             _categoryService.Insert(category);
             SaveChanges();
-            _manageStorage.UploadImage(path + "\\" + menu.RestaurantId+"\\"+menu.MenuId+"\\", categoryDto.Image, category.CategoryId);
+            _manageStorage.UploadImage(path + "\\" + "Restaurant-" + menu.RestaurantId+"\\"+ "Menu-" + menu.MenuId+"\\" + "Category-" + category.CategoryId, categoryDto.Image, category.CategoryId);
         }
 
         public CategoryDTO GetCategory(long categoryId, string language)
@@ -198,7 +198,8 @@ namespace ECatalog.BLL.Services
             _categoryService.Update(category);
             SaveChanges();
             if (categoryDto.IsImageChange)
-                _manageStorage.UploadImage(path + "\\" + category.Menu.RestaurantId + "\\" + category.MenuId + "\\", categoryDto.Image, categoryDto.CategoryId);
+                _manageStorage.UploadImage(path + "\\" + "Restaurant-" + category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\" +"Category-" + category.CategoryId
+                    , categoryDto.Image, categoryDto.CategoryId);
         }
     }
 }

@@ -62,7 +62,7 @@ namespace ECatalog.BLL.Services
             _menuService.Insert(menu);
             _menuTranslationService.InsertRange(menu.MenuTranslations);
             SaveChanges();
-            _manageStorage.UploadImage(path + "\\" + menu.RestaurantId +  "\\", menuDto.Image, menu.MenuId);
+            _manageStorage.UploadImage(path + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId, menuDto.Image, menu.MenuId);
         }
 
         public MenuDTO GetMenu(long menuId, string language)
@@ -179,7 +179,7 @@ namespace ECatalog.BLL.Services
             _menuService.Update(menu);
             SaveChanges();
             if (menuDto.IsImageChange)
-                _manageStorage.UploadImage(path + "\\" + menu.RestaurantId + "\\", menuDto.Image, menu.MenuId);
+                _manageStorage.UploadImage(path + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId, menuDto.Image, menu.MenuId);
         }
     }
 }
