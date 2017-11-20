@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ECatalog.BLL.Services.ManageStorage
 {
-    public class ManageStorage:IManageStorage
+    public class ManageStorage : IManageStorage
     {
-        public void UploadImage(string path, MemoryStream image,long id)
+        public void UploadImage(string path, MemoryStream image, long id)
         {
             if (!Directory.Exists(path))
             {
@@ -31,7 +31,7 @@ namespace ECatalog.BLL.Services.ManageStorage
                 File.Delete(thumbPath);
             }
 
-            var thumb = img.GetThumbnailImage(120, 120, () =>false, IntPtr.Zero);
+            var thumb = img.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
             img.Save(filePath, ImageFormat.Png);
             thumb.Save(thumbPath, ImageFormat.Png);
         }

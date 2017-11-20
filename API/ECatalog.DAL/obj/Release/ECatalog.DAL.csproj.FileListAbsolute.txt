@@ -26,3 +26,31 @@ C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.DAL\bin\
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.DAL\obj\Release\ECatalog.DAL.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.DAL\obj\Release\ECatalog.DAL.dll
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.DAL\obj\Release\ECatalog.DAL.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\ECatalog.DAL.dll.config
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\ECatalog.DAL.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\ECatalog.DAL.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\ECatalog.Common.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\EntityFramework.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\EntityFramework.SqlServer.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.ServiceLocation.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.Unity.Configuration.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.Unity.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Repository.Pattern.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Repository.Pattern.Ef6.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\LinqKit.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\ECatalog.Common.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Repository.Pattern.Ef6.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Repository.Pattern.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\EntityFramework.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\EntityFramework.SqlServer.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.ServiceLocation.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.ServiceLocation.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.Unity.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.Unity.Configuration.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\Microsoft.Practices.Unity.RegistrationByConvention.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\LinqKit.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\bin\Release\LinqKit.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\obj\Release\ECatalog.DAL.csprojResolveAssemblyReference.cache
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\obj\Release\ECatalog.DAL.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.DAL\obj\Release\ECatalog.DAL.pdb

@@ -271,6 +271,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BackgroundsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Infrastructure\BaseApiController.cs" />
     <Compile Include="Infrastructure\Filters\CustomExceptionFilter.cs" />
     <Compile Include="Infrastructure\LanguageMessageHandler.cs" />
+    <Compile Include="Models\BackgroundModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CategoryNameModel.cs" />
     <Compile Include="Models\CategoryTemplatesModel.cs" />

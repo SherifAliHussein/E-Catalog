@@ -939,6 +939,36 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/RestaurantAdmin/templates/newBackground.html',
+    '<div class="modal-content">\n' +
+    '        <div class="modal-header bordered">\n' +
+    '            <button class="close" type="button" ng-click="backgroundCtrl.close()">×</button>\n' +
+    '            <h2 class="pmd-card-title-text">{{\'newbackgroundLbl\' | translate}}</h2>\n' +
+    '        </div>\n' +
+    '        <div class="modal-body">\n' +
+    '            <form class="form-horizontal" name="newbackgroundForm">\n' +
+    '           \n' +
+    '                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       \n' +
+    '                        <input id="backgroundImage" name="backgroundImage" style="display: none;" onchange="angular.element(this).scope().AddbackgroundImage(this.files)" type="file" required>\n' +
+    '                        <button ng-click="backgroundCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '                        <img ng-src="{{backgroundCtrl.backgroundImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '                        <div ng-messages="newbackgroundForm.backgroundImage.$error" >\n' +
+    '                            <div ng-if="newbackgroundForm.backgroundImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                </div>\n' +
+    '            </form>\n' +
+    '        </div>\n' +
+    '        <div class="pmd-modal-action text-right">\n' +
+    '            <button ng-disabled="newbackgroundForm.$invalid  || backgroundCtrl.backgroundImage== null" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="backgroundCtrl.AddNewbackground()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="backgroundCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    \n' +
+    '        \n' +
+    '    ');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/RestaurantAdmin/templates/newCategory.html',
     '<div class="modal-content">\n' +
     '        <div class="modal-header bordered">\n' +

@@ -18,14 +18,65 @@ namespace ECatalog.DAL.Migrations
 
         protected override void Seed(ECatalog.DAL.Entities.ECatalogContext context)
         {
-            //context.Users.Add(new User
+            context.Users.Add(new User
+            {
+                IsDeleted = false,
+                Password = "wArilz/QIT55GuLgpRQlCHX0lir/WTXM8yc33MPiN3Bl26dnvS752gHPadYZoL20",
+                UserName = "Sherif",
+                Role = Enums.RoleType.GlobalAdmin
+            });
+            //context.Backgrounds.Add(new Background
             //{
             //    IsDeleted = false,
-            //    Password = "wArilz/QIT55GuLgpRQlCHX0lir/WTXM8yc33MPiN3Bl26dnvS752gHPadYZoL20",
-            //    UserName = "Sherif",
-            //    Role = Enums.RoleType.GlobalAdmin
+            //    IsActive = true,
+            //    BackgroundId = 1
             //});
-
+            //context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 2
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 3
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 4
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 5
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 6
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 7
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 8
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 9
+            //}); context.Backgrounds.Add(new Background
+            //{
+            //    IsDeleted = false,
+            //    IsActive = true,
+            //    BackgroundId = 10
+            //});
             //context.Users.Add(new RestaurantWaiter()
             //{
             //    IsDeleted = false,
