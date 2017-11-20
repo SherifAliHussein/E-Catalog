@@ -105,7 +105,19 @@
             "UpdateWaiterLbl":"Update waiter",
             "WaiterDeleteSuccess":"Waiter deleted successfully.",
             "WaiterUpdateSuccess":"Waiter updated successfully.",
-            "WaiterAddSuccess":"Waiter added successfully."
+            "WaiterAddSuccess":"Waiter added successfully.",
+
+            "background":"background",
+            "AddbackgroundBtn":"Add new background",
+            "NobackgroundAvailable":"There is no backgrounds",
+            "UserName":"User Name",
+            "NewbackgroundLbl":"New background",
+            "UpdatebackgroundLbl":"Update background",
+            "backgroundDeleteSuccess":"background deleted successfully.",
+            "backgroundUpdateSuccess":"background updated successfully.",
+            "backgroundAddSuccess":"background added successfully.",
+            "CurrentBtn":"Current Background",
+            "NotCurrentBtn":" Not", 
         }
         
         var ar_translations = {
@@ -216,7 +228,18 @@
             "UpdateWaiterLbl":"تحديث نادل",
             "WaiterDeleteSuccess":".تم حذف نوع نادل بنجاح.",
             "WaiterUpdateSuccess":".تم تحديث النادل بنجاح.",
-            "WaiterAddSuccess":".تم ادخال نادل بنجاح"
+            "WaiterAddSuccess":".تم ادخال نادل بنجاح",
+
+            "background":"خلفيه المنيو",
+            "AddbackgroundBtn":"اضافه خلفيه المنيو",
+            "NobackgroundAvailable":"لا يوجد خلفيه المنيو", 
+            "NewbackgroundLbl":"خلفيه المنيو جديده",
+            "UpdatebackgroundLbl":"تعديل خلفيه المنيو",
+            "backgroundDeleteSuccess":"خلفيه المنيو.تم حذف",
+            "backgroundUpdateSuccess":"خلفيه المنيو تم تحديث ",
+            "backgroundAddSuccess":"خلفيه المنيو تم ادخال",
+            "CurrentBtn":"الخلفيه الحاليه",
+            "NotCurrentBtn":" ليست الخفيه الحاليه", 
         }
         
         $translateProvider.translations('en',en_translations);

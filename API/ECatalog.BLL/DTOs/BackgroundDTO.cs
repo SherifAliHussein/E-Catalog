@@ -20,7 +20,7 @@ namespace ECatalog.BLL.DTOs
 
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }
-        public DateTime CreationTime { get; set; }
+        public DateTime? CreationTime { get; set; }
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }

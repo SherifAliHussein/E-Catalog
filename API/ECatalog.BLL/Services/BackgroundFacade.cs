@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,16 +19,19 @@ namespace ECatalog.BLL.Services
     public class BackgroundFacade : BaseFacade, IBackgroundFacade
     {
         private readonly IBackgroundService _backgroundService;
+        private readonly IRestaurantService _restaurantService;
         private readonly IManageStorage _manageStorage;
 
-        public BackgroundFacade(IBackgroundService backgroundService, IManageStorage manageStorage, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
+        public BackgroundFacade(IBackgroundService backgroundService, IManageStorage manageStorage, IRestaurantService restaurantService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
+            _restaurantService = restaurantService;
             _backgroundService = backgroundService;
             _manageStorage = manageStorage;
         }
 
-        public BackgroundFacade(IBackgroundService backgroundService, IManageStorage manageStorage)
+        public BackgroundFacade(IBackgroundService backgroundService, IManageStorage manageStorage, IRestaurantService restaurantService)
         {
+            _restaurantService = restaurantService;
             _backgroundService = backgroundService;
             _manageStorage = manageStorage;
         }
@@ -35,9 +39,14 @@ namespace ECatalog.BLL.Services
         public void AddBackground(BackgroundDto backgroundDto, string path)
         {
             var background = Mapper.Map<Background>(backgroundDto);
+
+            background.CreationTime = DateTime.Now;
+            background.LastModificationTime = DateTime.Now;
+            background.DeletionTime = DateTime.Now;
+            background.IsActive = true;
             _backgroundService.Insert(background);
             SaveChanges();
-              _manageStorage.UploadImage(path + "\\"  + "Background" , backgroundDto.Image, background.BackgroundId);
+            _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId);
         }
 
         public BackgroundDto GetBackground(long backgroundId)
@@ -48,10 +57,20 @@ namespace ECatalog.BLL.Services
             return Mapper.Map<Background, BackgroundDto>(background);
         }
 
-        public PagedResultsDto GetAllBackgrounds(int page, int pageSize)
+        public PagedResultsDto GetAllBackgrounds(int page, int pageSize, long userId)
         {
-            var backgroundObj = _backgroundService.GetAllBackgrounds(page, pageSize);
+            var backgroundObj = _backgroundService.GetAllBackgrounds(page, pageSize, userId);
             if (backgroundObj == null) throw new NotFoundException(ErrorCodes.BackgroundNotFound);
+            
+            foreach (var background in (IEnumerable<BackgroundDto>)backgroundObj.Data)
+            {
+                var checkResturentBackground = _restaurantService.GetRestaurantByAdminId(userId).BackgroundId == background.BackgroundId;
+                if (checkResturentBackground)
+                    background.IsActive = true;
+                else
+                    background.IsActive = false;
+
+            }
             var results = backgroundObj;
             return results;
         }
@@ -61,17 +80,19 @@ namespace ECatalog.BLL.Services
             var backgroundObj = _backgroundService.Find(userId);
             if (backgroundObj == null) throw new NotFoundException(ErrorCodes.BackgroundNotFound);
             if (backgroundObj.IsDeleted) throw new ValidationException(ErrorCodes.BackgroundDeleted);
-            var results = _backgroundService.GetActivatedBackgroundByUserId(userId,page, pageSize);
+            var results = _backgroundService.GetActivatedBackgroundByUserId(userId, page, pageSize);
             return results;
         }
 
-        public void ActivateBackground(long backgroundId)
+        public void ActivateBackground(long backgroundId, long userId)
         {
-            var background = _backgroundService.Find(backgroundId);
-            if (background == null) throw new NotFoundException(ErrorCodes.MenuNotFound); 
-
-            background.IsActive = true;
-            _backgroundService.Update(background);
+            var changeResturentBackground = _restaurantService.GetRestaurantByAdminId(userId);
+            changeResturentBackground.BackgroundId = backgroundId;
+            _restaurantService.Update(changeResturentBackground);
+            //var background = _backgroundService.Find(backgroundId);
+            //if (background == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
+            //background.IsActive = true;
+            //_backgroundService.Update(background);
             SaveChanges();
         }
 
@@ -98,11 +119,11 @@ namespace ECatalog.BLL.Services
         {
             var background = _backgroundService.Find(backgroundDto.BackgroundId);
             if (background == null) throw new NotFoundException(ErrorCodes.BackgroundNotFound);
-             
+
             _backgroundService.Update(background);
             SaveChanges();
             if (backgroundDto.IsImageChange)
-                _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId); 
+                _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId);
         }
     }
 }

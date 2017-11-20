@@ -11,7 +11,7 @@ namespace ECatalog.BLL.DataServices.Interfaces
 {
     public interface IBackgroundService : IService<Background>
     {
-        PagedResultsDto GetAllBackgrounds(int page, int pageSize); 
+        PagedResultsDto GetAllBackgrounds(int page, int pageSize, long userId); 
         PagedResultsDto GetActivatedBackgroundByUserId(long userId, int page, int pageSize);
     }
 }

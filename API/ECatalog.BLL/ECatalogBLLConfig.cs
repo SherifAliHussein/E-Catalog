@@ -100,6 +100,7 @@ namespace ECatalog.BLL
             mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>();
 
             mapperConfiguration.CreateMap<Background, BackgroundDto>();
+            mapperConfiguration.CreateMap< BackgroundDto, Background>();
             Mapper.Initialize(mapperConfiguration);
             //Mapper.Initialize(m =>
             //{

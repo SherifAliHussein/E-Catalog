@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web;
-using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Script.Serialization;
@@ -17,6 +17,7 @@ using ECatalog.BLL.DTOs;
 using ECatalog.BLL.Services.Interfaces;
 using ECatalog.Common;
 using ECatalog.Common.CustomException;
+using static System.Web.Hosting.HostingEnvironment;
 
 namespace ECatalog.API.Controllers
 {
@@ -56,8 +57,8 @@ namespace ECatalog.API.Controllers
             var backgroundDto = Mapper.Map<BackgroundDto>(backgroundModel);
             backgroundDto.Image = new MemoryStream();
             httpPostedFile.InputStream.CopyTo(backgroundDto.Image);
-
-            _backgroundFacade.AddBackground(backgroundDto, HostingEnvironment.MapPath("~/Images/"));
+            backgroundDto.UserId = UserId;
+            _backgroundFacade.AddBackground(backgroundDto, MapPath("~/Images"));
             return Ok();
         }
 
@@ -87,7 +88,7 @@ namespace ECatalog.API.Controllers
         [HttpGet]
         public IHttpActionResult ActivateBackground(long backgroundId)
         {
-            _backgroundFacade.ActivateBackground(backgroundId);
+            _backgroundFacade.ActivateBackground(backgroundId, UserId);
             return Ok();
         }
 
@@ -129,22 +130,25 @@ namespace ECatalog.API.Controllers
                 backgroundDto.Image = new MemoryStream();
                 httpPostedFile.InputStream.CopyTo(backgroundDto.Image);
             }
-            _backgroundFacade.UpdateBackground(backgroundDto, HostingEnvironment.MapPath("~/Images/"));
+            _backgroundFacade.UpdateBackground(backgroundDto, MapPath("~/Images/"));
             return Ok();
         }
-
-
 
         [Route("api/Backgrounds/GetAllBackground", Name = "GetAllBackground")]
         [HttpGet]
         [ResponseType(typeof(List<BackgroundModel>))]
         public IHttpActionResult GetAllBackground(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto backgorundObj = _backgroundFacade.GetAllBackgrounds(page, pagesize);
+            PagedResultsDto backgorundObj = _backgroundFacade.GetAllBackgrounds(page, pagesize, UserId);
 
             var data = Mapper.Map<List<BackgroundModel>>(backgorundObj.Data);
 
+            foreach (var backgroundModel in data)
+            {
 
+                backgroundModel.ImageUrl = Url.Link("BackgroundImage", new { backgroundModel.BackgroundId });
+
+            }
             return PagedResponse("GetAllBackground", page, pagesize, backgorundObj.TotalCount, data, backgorundObj.IsParentTranslated);
 
         }
@@ -157,5 +161,35 @@ namespace ECatalog.API.Controllers
             var data = Mapper.Map<List<BackgroundModel>>(_backgroundFacade.GetActivatedBackgroundByUserId(UserId, page, pagesize));
             return Ok(data);
         }
+
+
+        [Route("api/Backgrounds/{backgroundId:long}/Image", Name = "BackgroundImage")]
+        public HttpResponseMessage GetBackgroundImage(long backgroundId, string type = "orignal")
+        {
+            try
+            {
+                string filePath = type == "orignal"
+                    ? Directory.GetFiles(MapPath("~/Images/Background"))
+                        .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == backgroundId.ToString() && !Path.GetFileName(x).Contains("thumb"))
+                    : Directory.GetFiles(MapPath("~/Images/Background"))
+                        .FirstOrDefault(x => Path.GetFileName(x).Contains(backgroundId.ToString()) && Path.GetFileName(x).Contains("thumb"));
+
+
+                HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
+
+                byte[] fileData = File.ReadAllBytes(filePath);
+
+                Response.Content = new ByteArrayContent(fileData);
+                Response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+
+                return Response;
+            }
+            catch (Exception e)
+            {
+                return new HttpResponseMessage();
+            }
+        }
+
+
     }
 }

@@ -161,6 +161,7 @@ namespace ECatalog.BLL.Services
                 Role = Enums.RoleType.RestaurantAdmin,
                 IsDeleted = false
             };
+            restaurant.BackgroundId = Strings.BackgroundId;
             //_userService.Insert(restaurant.RestaurantAdmin);
             _restaurantAdminService.Insert(restaurant.RestaurantAdmin);
             _restaurantTranslationService.InsertRange(restaurant.RestaurantTranslations);

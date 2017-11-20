@@ -143,6 +143,23 @@
                             waitersPrepService: waitersPrepService
                         }
                     })
+                    .state('Backgrounds', {
+                        url: '/Background',
+                        templateUrl: './app/RestaurantAdmin/templates/background.html',
+                        controller: 'BackgroundController',
+                        'controllerAs': 'backgroundCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                                redirectTo: 'root'
+                            },
+                            displayName: 'Backgrounds'
+                        },
+                        resolve: {
+                            backgroundsPrepService: backgroundsPrepService
+                        }
+                    })
+                    
         });
         
         menuPrepService.$inject = ['MenuResource']
@@ -202,5 +219,10 @@
         waitersPrepService.$inject = ['WaiterResource']
         function waitersPrepService(WaiterResource) {
             return WaiterResource.getAllWaiters().$promise;
+        }
+
+        backgroundsPrepService.$inject = ['BackgroundResource']
+        function backgroundsPrepService(BackgroundResource) {
+            return BackgroundResource.getAllBackgrounds().$promise; 
         }
 }());

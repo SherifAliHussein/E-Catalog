@@ -11,8 +11,8 @@ namespace ECatalog.BLL.Services.Interfaces
     {
         void AddBackground(BackgroundDto backgroundDto, string path);
         BackgroundDto GetBackground(long backgroundId);
-        PagedResultsDto GetAllBackgrounds(  int page, int pageSize);
-        void ActivateBackground(long backgroundId);
+        PagedResultsDto GetAllBackgrounds(  int page, int pageSize, long userId);
+        void ActivateBackground(long backgroundId, long userId);
         void DeActivateBackground(long backgroundId);
         void DeleteBackground(long backgroundId);
         void UpdateBackground(BackgroundDto backgroundDto, string path);
