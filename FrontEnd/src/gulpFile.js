@@ -51,6 +51,7 @@ var runSequence = require('run-sequence').use(gulp);
     './app/core/Authentication/*.js',
     './app/core/Authorization/*.js',
     './app/core/Toast/*.js',
+    
      // './app/**/*.*.js',
     
   ],
@@ -73,7 +74,8 @@ var runSequence = require('run-sequence').use(gulp);
      './node_modules/ngprogress-lite/ngprogress-lite.min.js',
      './node_modules/angular-translate/dist/angular-translate.min.js',
      './node_modules/angular-ui-event/dist/event.min.js',
-     './node_modules/select2/dist/js/select2.full.min.js'    
+     './node_modules/select2/dist/js/select2.full.min.js',
+     './assets/js/*.js',
   
   ],
 //  sass: {
