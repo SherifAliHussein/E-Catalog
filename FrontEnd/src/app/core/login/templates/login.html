@@ -1,0 +1,27 @@
+<div ng-if="!isLoggedIn()">
+  	<div class="header">
+        <img class="logo" src="assets/img/logo.png" alt="logo" />
+    </div>
+   
+    <div class="container">
+         <form ng-submit="submit(username,password)">
+        
+            <div class="col-md-6 col-sm-6 col-xs-6 main_form">
+            <h3>Login</h3>
+            
+            <input type="text" required ng-change="reset()" name="username" ng-model="username" placeholder="Name" class=" main_input" />
+            <input type="password" required ng-change="reset()" name="password" ng-model="password"  placeholder="......" class=" main_input" />
+            
+            
+            <div ng-if="invalidLoginInfo" style="width: 70%;margin-left: auto;color:red">
+                    <span>Incorrect username or password.</span>
+                </div>
+                <div ng-if="inActiveUser" class="loginFailed"  style="width: 70%;margin-left: auto;color:red">
+                    <span>Your account is deleted.</span>
+                </div>
+            <input type="submit" class="login" value="Login">
+            </div>
+        </form>
+    
+    </div>
+</div>

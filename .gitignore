@@ -2,4 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-*.txt
+/FrontEnd/src/dist
+/FrontEnd/src/node_modules
+/API/ECatalog.API/bin
