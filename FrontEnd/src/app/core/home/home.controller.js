@@ -78,8 +78,8 @@
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
             if ($scope.user.role != userRolesEnum.Waiter) {    
-                authorizationService.logout();
-                $state.go('login');
+                // authorizationService.logout();
+                // $state.go('login');
 
             } else if ($scope.user.role  == "RestaurantAdmin") {
 				$state.go('Menu');
