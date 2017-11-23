@@ -3,7 +3,7 @@
 
     angular
         .module('core')
-        .config(function($stateProvider, $urlRouterProvider) {
+        .config(function($stateProvider, $urlRouterProvider,) {
 
             $urlRouterProvider.otherwise('/');
 
@@ -26,6 +26,19 @@
                     templateUrl: './app/core/login/templates/login.html',
                     'controller': 'loginController'
                 })
+                .state('menu', {
+                    url: '/menu',
+                    templateUrl: './app/menu/menu.html',
+                    controller: 'menuController',
+                    'controllerAs': 'menuCtrl',
+                    resolve: {
+                        menuPrepService: menuPrepService,
+                        ResturantPrepService: ResturantPrepService
+                    }
+                })
+
+
+                //$locationProvider.html5Mode(true);
                 .state('Items', {
                     url: '/Category/:categoryId/Item',
                     templateUrl: './app/items/Templates/Item.html',
@@ -43,6 +56,17 @@
                     }
                 })
         });
+
+        
+        menuPrepService.$inject = ['MenuResource']
+            function menuPrepService(MenuResource) {
+                return MenuResource.getAllMenus().$promise;
+            }
+            
+        ResturantPrepService.$inject = ['ResturantResource']
+        function ResturantPrepService(ResturantResource) {
+            return ResturantResource.getResturantGlobalInfo().$promise;
+        }
 
 
         categoryItemsTemplatePrepService.$inject = ['ItemsResource','$stateParams']

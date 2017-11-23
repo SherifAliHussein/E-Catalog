@@ -46,6 +46,11 @@ namespace ECatalog.BLL.Services
             background.IsActive = true;
             _backgroundService.Insert(background);
             SaveChanges();
+
+            var changeResturentBackground = _restaurantService.GetRestaurantByAdminId(backgroundDto.UserId);
+            changeResturentBackground.BackgroundId = background.BackgroundId;
+            _restaurantService.Update(changeResturentBackground);
+            SaveChanges();
             _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId);
         }
 

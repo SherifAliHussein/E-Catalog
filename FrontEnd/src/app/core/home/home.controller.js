@@ -3,11 +3,23 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', homeCtrl])
+        .controller('homeCtrl', ['$rootScope','$translate', '$scope','HomeResource', 'ResturantResource', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', homeCtrl])
        
-    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage, userRolesEnum) {
-        
+    function homeCtrl($rootScope, $translate, $scope, HomeResource,ResturantResource,appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage, userRolesEnum) {
+        // Event listener for state change.
+
+        var k = ResturantResource.getResturantGlobalInfo().$promise.then(function (results) {
+          
+           $scope.globalInfo = results 
+            
+        },
+        function (data, status) {
+            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+        });
+
+
         var vm=this;
+    
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;
 		$scope.languages = [{

@@ -8,3 +8,8 @@ C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Common\bin\Debug\ECatalo
 C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.dll
 C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\bin\Debug\ECatalog.Common.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\bin\Debug\ECatalog.Common.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.csprojResolveAssemblyReference.cache
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.Common\obj\Debug\ECatalog.Common.pdb

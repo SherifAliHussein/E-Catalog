@@ -317,6 +317,7 @@
     <Compile Include="Models\PageTemplateModel.cs" />
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Models\RestaurantTypeModel.cs" />
+    <Compile Include="Models\ResturantInfoModel.cs" />
     <Compile Include="Models\SideItemModel.cs" />
     <Compile Include="Models\SizeModel.cs" />
     <Compile Include="Models\RestaurantWaiterModel.cs" />

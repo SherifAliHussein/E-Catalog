@@ -129,6 +129,7 @@
     <Compile Include="DTOs\RestaurantDTO.cs" />
     <Compile Include="DTOs\RestaurantTypeDto.cs" />
     <Compile Include="DTOs\RestaurantWaiterDTO.cs" />
+    <Compile Include="DTOs\ResturantInfoDTO.cs" />
     <Compile Include="DTOs\SideItemDTO.cs" />
     <Compile Include="DTOs\SizeDto.cs" />
     <Compile Include="DTOs\TemplateDTO.cs" />

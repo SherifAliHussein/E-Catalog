@@ -46,6 +46,9 @@ namespace ECatalog.API.App_Start
             mapperConfiguration.CreateMap<BackgroundModel, BackgroundDto>();
             mapperConfiguration.CreateMap<BackgroundDto, BackgroundModel>();
 
+            mapperConfiguration.CreateMap<ResturantInfoModel, ResturantInfoDto>();
+            mapperConfiguration.CreateMap<ResturantInfoDto, ResturantInfoModel>();
+
 
             mapperConfiguration.CreateMap<TemplateDTO, TemplateModel>();
 

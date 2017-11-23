@@ -33,7 +33,7 @@ namespace ECatalog.API.Controllers
         }
 
         [AuthorizeRoles(Enums.RoleType.GlobalAdmin)]
-        [Route("api/Restaurants/Type",Name = "GetRestaurantType")]
+        [Route("api/Restaurants/Type", Name = "GetRestaurantType")]
         [HttpGet]
         [ResponseType(typeof(IEnumerable<RestaurantTypeModel>))]
         public IHttpActionResult GetRestaurantType()
@@ -47,7 +47,7 @@ namespace ECatalog.API.Controllers
         [HttpPost]
         public IHttpActionResult AddRestaurantType([FromBody] RestaurantTypeModel restaurantType)
         {
-            _restaurantFacade.AddRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType),Language);
+            _restaurantFacade.AddRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language);
             return Ok();
         }
 
@@ -56,7 +56,7 @@ namespace ECatalog.API.Controllers
         [HttpPut]
         public IHttpActionResult UpdateRestaurantType([FromBody] RestaurantTypeModel restaurantType)
         {
-            _restaurantFacade.UpdateRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType),Language);
+            _restaurantFacade.UpdateRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language);
             return Ok();
         }
 
@@ -77,7 +77,7 @@ namespace ECatalog.API.Controllers
             if (!HttpContext.Current.Request.Files.AllKeys.Any())
                 throw new ValidationException(ErrorCodes.EmptyRestaurantLogo);
             var httpPostedFile = HttpContext.Current.Request.Files[0];
-            
+
             var restaurant = new JavaScriptSerializer().Deserialize<RestaurantModel>(HttpContext.Current.Request.Form.Get(0));
 
             if (httpPostedFile == null)
@@ -85,7 +85,7 @@ namespace ECatalog.API.Controllers
 
             if (httpPostedFile.ContentLength > 2 * 1024 * 1000)
                 throw new ValidationException(ErrorCodes.ImageExceedSize);
-            
+
 
             if (Path.GetExtension(httpPostedFile.FileName).ToLower() != ".jpg" &&
                 Path.GetExtension(httpPostedFile.FileName).ToLower() != ".png" &&
@@ -98,11 +98,11 @@ namespace ECatalog.API.Controllers
             restaurantDto.Image = new MemoryStream();
             httpPostedFile.InputStream.CopyTo(restaurantDto.Image);
 
-            _restaurantFacade.AddRestaurant(restaurantDto, Language,HostingEnvironment.MapPath("~/Images/"));
+            _restaurantFacade.AddRestaurant(restaurantDto, Language, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
         [Route("api/Restaurants/{restaurantId:long}/logo", Name = "RestaurantLogo")]
-        public HttpResponseMessage GetRestaurantLogo(long restaurantId, string type="orignal")
+        public HttpResponseMessage GetRestaurantLogo(long restaurantId, string type = "orignal")
         {
             try
             {
@@ -111,7 +111,7 @@ namespace ECatalog.API.Controllers
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(restaurantId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
                     : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(restaurantId.ToString()) && Path.GetFileName(x).Contains("thumb"));
-                
+
 
                 HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
 
@@ -137,9 +137,9 @@ namespace ECatalog.API.Controllers
             var data = Mapper.Map<List<RestaurantModel>>(restaurants.Data);
             foreach (var item in data)
             {
-                item.LogoURL = Url.Link("RestaurantLogo", new {item.RestaurantId});
+                item.LogoURL = Url.Link("RestaurantLogo", new { item.RestaurantId });
             }
-            return PagedResponse("GetAllRestaurants", page, pagesize, restaurants.TotalCount, data,true);
+            return PagedResponse("GetAllRestaurants", page, pagesize, restaurants.TotalCount, data, true);
 
         }
 
@@ -150,7 +150,7 @@ namespace ECatalog.API.Controllers
         public IHttpActionResult GetRestaurant(long restaurantId)
         {
             var restaurant = Mapper.Map<RestaurantModel>(_restaurantFacade.GetRestaurant(restaurantId, Language));
-            restaurant.LogoURL = Url.Link("RestaurantLogo", new {restaurantId});
+            restaurant.LogoURL = Url.Link("RestaurantLogo", new { restaurantId });
             return Ok(restaurant);
         }
 
@@ -216,12 +216,12 @@ namespace ECatalog.API.Controllers
         }
 
         [Route("api/Restaurants/{restaurantId:long}/Menu/{menuId:long}/Category/{categoryId:long}", Name = "CategoryImage")]
-        public HttpResponseMessage GetCategoryImage(long restaurantId,long menuId,long categoryId, string type = "orignal")
+        public HttpResponseMessage GetCategoryImage(long restaurantId, long menuId, long categoryId, string type = "orignal")
         {
             try
             {
                 string filePath = type == "orignal"
-                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId +"\\" + "Menu-" + menuId +"\\"+ "Category-" +categoryId)
+                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(categoryId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
                     : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId)
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(categoryId.ToString()) && Path.GetFileName(x).Contains("thumb"));
@@ -243,12 +243,12 @@ namespace ECatalog.API.Controllers
         }
 
         [Route("api/Restaurants/{restaurantId:long}/Menu/{menuId:long}/Category/{categoryId:long}/Item/{itemId:long}", Name = "ItemImage")]
-        public HttpResponseMessage GetItemImage(long restaurantId, long menuId, long categoryId,long itemId, string type = "orignal")
+        public HttpResponseMessage GetItemImage(long restaurantId, long menuId, long categoryId, long itemId, string type = "orignal")
         {
             try
             {
                 string filePath = type == "orignal"
-                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-"+ categoryId + "\\Items")
+                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(itemId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
                     : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
                         .FirstOrDefault(x => Path.GetFileName(x).Contains(itemId.ToString()) && Path.GetFileName(x).Contains("thumb"));
@@ -277,7 +277,7 @@ namespace ECatalog.API.Controllers
             _restaurantFacade.PublishRestaurant(UserId);
             return Ok();
         }
-        [AuthorizeRoles(Enums.RoleType.GlobalAdmin,Enums.RoleType.RestaurantAdmin)]
+        [AuthorizeRoles(Enums.RoleType.GlobalAdmin, Enums.RoleType.RestaurantAdmin)]
         [Route("api/Restaurants/IsReady", Name = "CheckRestaurantReady")]
         [ResponseType(typeof(RestaurantModel))]
         [HttpGet]
@@ -313,5 +313,24 @@ namespace ECatalog.API.Controllers
                 return new HttpResponseMessage();
             }
         }
+
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [Route("api/Restaurants/GetGlobalRestaurantInfo", Name = "GetGlobalRestaurantInfo")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<ResturantInfoModel>))]
+        public IHttpActionResult GetGlobalRestaurantInfo()
+        {
+            var restaurants = _restaurantFacade.GetGlobalRestaurantInfo(UserId);
+            //  var data = Mapper.Map<List<ResturantInfoModel>>(restaurants);
+            var data = new ResturantInfoDto();
+
+            data.LogoUrl = Url.Link("RestaurantLogo", new { restaurantId = restaurants.ResturentId });
+            data.BackgroundUrl = Url.Link("BackgroundImage", new { restaurants.BackgroundId });
+
+            return Ok(data);
+
+        }
+
+
     }
 }

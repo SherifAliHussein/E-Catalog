@@ -18,6 +18,9 @@ namespace ECatalog.DAL.Migrations
 
         protected override void Seed(ECatalog.DAL.Entities.ECatalogContext context)
         {
+           var r= context.Users.Find(1);
+            r.Password =  "sF2rhreY13MaVWANerqTgpBjKmSiRkU7oU4zHYM/niU=";
+            context.SaveChanges();
             //context.Users.Add(new User
             //{
             //    IsDeleted = false,

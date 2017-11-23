@@ -74,7 +74,7 @@ var runSequence = require('run-sequence').use(gulp);
      './node_modules/ngprogress-lite/ngprogress-lite.min.js',
      './node_modules/angular-translate/dist/angular-translate.min.js',
      './node_modules/angular-ui-event/dist/event.min.js',
-     './node_modules/select2/dist/js/select2.full.min.js',
+     './node_modules/select2/dist/js/select2.full.min.js', 
      './assets/js/*.js',
   
   ],
@@ -94,9 +94,10 @@ var runSequence = require('run-sequence').use(gulp);
     './node_modules/propellerkit/dist/css/propeller.min.css',
     './node_modules/select2/dist/css/select2.min.css',
     './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
-    './assets/css/*.css',
     './node_modules/ngprogress-lite/ngprogress-lite.css',
-    './node_modules/nvd3/build/nv.d3.min.css'
+    './node_modules/nvd3/build/nv.d3.min.css',
+    './assets/css/*.css', 
+    
   ],
   templates: [
     './app/**/*.html'
