@@ -308,11 +308,13 @@
     <Compile Include="Models\BackgroundModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CategoryNameModel.cs" />
+    <Compile Include="Models\CategoryPageTemplateModel.cs" />
     <Compile Include="Models\CategoryTemplatesModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ItemNameModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PageModel.cs" />
+    <Compile Include="Models\PageTemplateModel.cs" />
     <Compile Include="Models\RestaurantModel.cs" />
     <Compile Include="Models\RestaurantTypeModel.cs" />
     <Compile Include="Models\SideItemModel.cs" />

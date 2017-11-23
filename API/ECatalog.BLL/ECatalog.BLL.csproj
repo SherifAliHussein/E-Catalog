@@ -117,6 +117,8 @@
     <Compile Include="DTOs\BackgroundDTO.cs" />
     <Compile Include="DTOs\CategoryDTO.cs" />
     <Compile Include="DTOs\CategoryNamesDTO.cs" />
+    <Compile Include="DTOs\CategoryPageTemplateDTO.cs" />
+    <Compile Include="DTOs\PageTemplateDTO.cs" />
     <Compile Include="DTOs\ItemDTO.cs" />
     <Compile Include="DTOs\ItemNamesDto.cs" />
     <Compile Include="DTOs\MenuDTO.cs" />

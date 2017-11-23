@@ -56,7 +56,7 @@ var runSequence = require('run-sequence').use(gulp);
     
   ],
   libs: [
-
+    './assets/js/jquery.min.js',
     './node_modules/lodash/lodash.min.js',
     './node_modules/angular/angular.js',
     './node_modules/angular-ui-router/release/angular-ui-router.js',

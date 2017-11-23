@@ -76,7 +76,8 @@
   width: 50%;
 }
 
-.main_lity{overflow:auto;background:#FDFDF6;padding:20px;max-width:100%;border-radius:6px}
+.main_lity{overflow:auto;background:#FDFDF6;padding:20px;max-width:100%;border-radius:6px;
+    padding-top: 60px;}
 
 .header_pop img{width: 100%;}
 
@@ -128,7 +129,7 @@ margin-right: 15px;}
   height: 35px;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 45px;
   -webkit-appearance: none;
   cursor: pointer;
   text-decoration: none;
@@ -166,13 +167,13 @@ margin-top: 5px;
   font-family: Arial, Baskerville, monospace;
   line-height: 35px;
   border: 0;
- 
+  top: 45px;
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 .lity-close:active {
-  top: 1px;
+   top: 45px;
 }
 /* Image */
 .lity-image img {

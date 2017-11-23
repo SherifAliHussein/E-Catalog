@@ -143,7 +143,7 @@ namespace ECatalog.API.Controllers
         }
 
 
-        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin, Enums.RoleType.Waiter)]
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
         [Route("api/Categories/{categoryId:long}/Items", Name = "GetAllItemsForCategory")]
         [HttpGet]
         [ResponseType(typeof(List<ItemModel>))]
@@ -179,6 +179,27 @@ namespace ECatalog.API.Controllers
         {
             _templateFacade.AddTemplateForCategory(categoryId, Mapper.Map<List<PageDTO>>(categoryTemplatesModel.PageModels));
             return Ok();
+        }
+
+
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin,Enums.RoleType.Waiter)]
+        [Route("api/Categories/{categoryId:long}/Items/Templates", Name = "GetAllItemsWithTemplatesForCategory")]
+        [HttpGet]
+        [ResponseType(typeof(CategoryPageTemplateModel))]
+        public IHttpActionResult GetAllItemsWithTemplatesForCategory(long categoryId)
+        {
+            var categoryPageTemplateModel = Mapper.Map<CategoryPageTemplateModel>(_itemFacade.GetActivatedItemsWithTemplatesByCategoryId(Language, categoryId));
+
+            categoryPageTemplateModel.MenuImageURL = Url.Link("MenuImage", new { categoryPageTemplateModel.RestaurantId, categoryPageTemplateModel.MenuId });
+            categoryPageTemplateModel.CategoryImageURL =  Url.Link("CategoryImage", new { categoryPageTemplateModel.RestaurantId, categoryPageTemplateModel.MenuId, categoryPageTemplateModel.CategoryId });
+            foreach (var page in categoryPageTemplateModel.Templates)
+            {
+                foreach (var item in page.ItemModels)
+                {
+                    item.ImageURL = Url.Link("ItemImage", new { item.RestaurantId, item.MenuId, item.CategoryId, item.ItemID });
+                }
+            }
+            return Ok(categoryPageTemplateModel);
         }
     }
 }
