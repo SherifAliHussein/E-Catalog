@@ -304,6 +304,7 @@
     <Compile Include="Infrastructure\AddAuthorizationHeader.cs" />
     <Compile Include="Infrastructure\BaseApiController.cs" />
     <Compile Include="Infrastructure\Filters\CustomExceptionFilter.cs" />
+    <Compile Include="Infrastructure\ImageConvert.cs" />
     <Compile Include="Infrastructure\LanguageMessageHandler.cs" />
     <Compile Include="Models\BackgroundModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />

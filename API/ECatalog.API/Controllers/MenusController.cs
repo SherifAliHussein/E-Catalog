@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
@@ -24,11 +25,13 @@ namespace ECatalog.API.Controllers
     {
         private IMenuFacade _menuFacade;
         private ICategoryFacade _categoryFacade;
+        private IitemFacade _itemFacade;
 
-        public MenusController(IMenuFacade menuFacade, ICategoryFacade categoryFacade)
+        public MenusController(IMenuFacade menuFacade, ICategoryFacade categoryFacade,IitemFacade itemFacade)
         {
             _categoryFacade = categoryFacade;
             _menuFacade = menuFacade;
+            _itemFacade = itemFacade;
         }
 
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
@@ -186,6 +189,44 @@ namespace ECatalog.API.Controllers
         {
             var data = Mapper.Map<List<CategoryNameModel>>(_categoryFacade.GetAllCategoriesNameByMenuId(Language, menuId));
             return Ok(data);
+        }
+
+        [AuthorizeRoles(Enums.RoleType.Waiter)]
+        [Route("api/Menus/OfflineData", Name = "GetAllMenuOfflineForRestaurant")]
+        [HttpGet]
+        [ResponseType(typeof(List<MenuModel>))]
+        public IHttpActionResult GetAllMenuOfflineForRestaurant()
+        {
+            var menus = Mapper.Map<List<MenuModel>>(_menuFacade.GetActivatedMenusByRestaurantId(Language, UserId, 1, 0).Data);
+            ImageConvert imageConvert = new ImageConvert();
+
+            Parallel.ForEach(menus, (menu) =>
+            {
+                menu.ImageURL = imageConvert.GetBase64FromImage(Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId)
+                    .FirstOrDefault(x => Path.GetFileName(x).Contains(menu.MenuId.ToString()) && !Path.GetFileName(x).Contains("thumb")));
+
+                menu.CategoryModels = Mapper.Map<List<CategoryModel>>(_categoryFacade.GetActivatedCategoriesByMenuId(Language, menu.MenuId, 1, 0).Data);
+                foreach (var category in menu.CategoryModels)
+                {
+                    category.ImageURL = imageConvert.GetBase64FromImage(Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId + "\\" + "Category-" + category.CategoryId)
+                        .FirstOrDefault(x => Path.GetFileName(x).Contains(category.CategoryId.ToString()) && !Path.GetFileName(x).Contains("thumb")));
+                    
+                    category.CategoryPageTemplateModel = Mapper.Map<CategoryPageTemplateModel>(_itemFacade.GetActivatedItemsWithTemplatesByCategoryId(Language, category.CategoryId));
+                    category.CategoryPageTemplateModel.MenuImageURL = menu.ImageURL;// Url.Link("MenuImage", new { category.CategoryPageTemplateModel.RestaurantId, category.CategoryPageTemplateModel.MenuId });
+                    category.CategoryPageTemplateModel.CategoryImageURL = category.ImageURL;// Url.Link("CategoryImage", new { category.CategoryPageTemplateModel.RestaurantId, category.CategoryPageTemplateModel.MenuId, category.CategoryPageTemplateModel.CategoryId });
+
+                    foreach (var page in category.CategoryPageTemplateModel.Templates)
+                    {
+
+                        foreach (var item in page.ItemModels)
+                        {
+                            item.ImageURL = imageConvert.GetBase64FromImage(Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items")
+                                .FirstOrDefault(x => Path.GetFileName(x).Contains(item.ItemID.ToString()) && !Path.GetFileName(x).Contains("thumb")));
+                        }
+                    }
+                }
+            });
+            return Ok(menus);
         }
     }
 }

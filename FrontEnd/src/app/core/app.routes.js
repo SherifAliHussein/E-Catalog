@@ -58,9 +58,14 @@
         });
 
         
-        menuPrepService.$inject = ['MenuResource']
-            function menuPrepService(MenuResource) {
-                return MenuResource.getAllMenus().$promise;
+        menuPrepService.$inject = ['MenuResource','OfflineDataResource']
+            function menuPrepService(MenuResource,OfflineDataResource) {
+                if(navigator.onLine){
+                    return MenuResource.getAllMenus().$promise;
+                }
+                else{
+                    return OfflineDataResource.getMenus();
+                }
             }
             
         ResturantPrepService.$inject = ['ResturantResource']
@@ -69,9 +74,14 @@
         }
 
 
-        categoryItemsTemplatePrepService.$inject = ['ItemsResource','$stateParams']
-        function categoryItemsTemplatePrepService(ItemsResource,$stateParams) {
+        categoryItemsTemplatePrepService.$inject = ['ItemsResource','$stateParams','OfflineDataResource']
+        function categoryItemsTemplatePrepService(ItemsResource,$stateParams,OfflineDataResource) {
+            if(navigator.onLine){
             return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
+        }
+        else{
+            return OfflineDataResource.getAllItems($stateParams.categoryId);
+        }
         }
     
 }());

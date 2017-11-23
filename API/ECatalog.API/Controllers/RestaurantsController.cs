@@ -314,13 +314,13 @@ namespace ECatalog.API.Controllers
             }
         }
 
-        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin,Enums.RoleType.Waiter)]
         [Route("api/Restaurants/GetGlobalRestaurantInfo", Name = "GetGlobalRestaurantInfo")]
         [HttpGet]
         [ResponseType(typeof(IEnumerable<ResturantInfoModel>))]
         public IHttpActionResult GetGlobalRestaurantInfo()
         {
-            var restaurants = _restaurantFacade.GetGlobalRestaurantInfo(UserId);
+            var restaurants = _restaurantFacade.GetGlobalRestaurantInfo(UserId,UserRole);
             //  var data = Mapper.Map<List<ResturantInfoModel>>(restaurants);
             var data = new ResturantInfoDto();
 

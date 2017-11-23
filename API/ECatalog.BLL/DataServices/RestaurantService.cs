@@ -49,5 +49,10 @@ namespace ECatalog.BLL.DataServices
         {
             return _repository.Query(x => x.RestaurantAdminId == adminId).Select().FirstOrDefault();
         }
+
+        public Restaurant GetRestaurantByWaiterId(long waiterId)
+        {
+            return _repository.Query(x => x.RestaurantWaiters.Select(w=>w.UserId).Contains(waiterId)).Select().FirstOrDefault();
+        }
     }
 }

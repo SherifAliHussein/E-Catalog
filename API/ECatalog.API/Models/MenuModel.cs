@@ -15,5 +15,6 @@ namespace ECatalog.API.Models
         public bool IsImageChange { get; set; }
         public long RestaurantId { get; set; }
 
+        public List<CategoryModel> CategoryModels { get; set; }
     }
 }

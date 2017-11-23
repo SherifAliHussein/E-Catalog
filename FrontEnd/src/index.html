@@ -16,10 +16,10 @@
  
     
 </head> 
-<body style="background-image:url({{globalInfo.backgroundUrl}})">
+<body style="background-image:url({{globalInfo.backgroundUrl != null ? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
-        <img class="logo" src="{{globalInfo.logoUrl}}" alt="logo" />
+        <img class="logo" ng-show="globalInfo.logoUrl !=null" src="{{globalInfo.logoUrl}}" alt="logo" />
         </div>
        
 	<div ui-view layout="column" ></div>
@@ -33,6 +33,15 @@
     <script src="app.js?v=#{VERSION_REPlACE}#"></script>
     <script src="templates.js?v=#{VERSION_REPlACE}#"></script>
  
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+                console.log('Service Worker registered');
+            }).catch(function(err) {
+                console.log('Service Worker registration failed: ', err);
+            });
+        }
+    </script>
  
 </body>
 
