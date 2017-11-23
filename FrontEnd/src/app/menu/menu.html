@@ -1,0 +1,33 @@
+
+<div class="col-md-12 col-sm-12 col-xs-12 subs">
+    <div class="col-md-4 col-sm-4 col-xs-12 tybes" ng-repeat="h in menuCtrl.menus.results"> 
+        <div class="sub_content"> 
+            <img src="{{ h.imageURL}}" alt="">
+            <div class="main_over">
+                <!-- <a href="#inline{{h.menuId}}" data-lity> -->
+                <a   data-ng-click="ShowId(h.menuId)"  >
+
+                <!-- <a href="javascript:void(0);" data-ng-click="ShowId(6)"  data-lity> -->
+                    <div class="active">
+
+                        <p>{{ h.menuName }}</p>
+                        <!-- <button  ng-click="menuCtrl.openShowCategoryDialog(h.menuId)" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddbackgroundBtn' | translate}}</button> -->
+
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div ng-repeat="item in menuCtrl.categories.results">
+    <!--<div id="{{item.MenuId}}" ng-init="init(item.value)">
+        ...
+    </div>-->
+
+    <p>{{item.categoryName}}  </p>
+
+    <img src="{{item.imageURL}}" alt="">
+</div>
+

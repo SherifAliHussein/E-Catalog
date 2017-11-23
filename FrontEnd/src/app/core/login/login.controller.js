@@ -8,13 +8,9 @@
     function loginController($rootScope, $scope,$state, $localStorage,authorizationService,appCONSTANTS) {
     
 		if ($localStorage.authInfo) {  
-			if ($localStorage.authInfo.Role  == "GlobalAdmin") {
-				$state.go('restaurantType');
-
-			} else if ($localStorage.authInfo.Role  == "RestaurantAdmin") {
-				$state.go('Menu');
-
-			} 
+			
+			$state.go('menu');
+			
 		}
 		else
 		{

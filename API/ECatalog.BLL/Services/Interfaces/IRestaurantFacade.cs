@@ -22,5 +22,6 @@ namespace ECatalog.BLL.Services.Interfaces
         void DeleteRestaurantType(long restaurantTypeId);
         RestaurantDTO CheckRestaurantReady(long restaurantAdminId);
         void PublishRestaurant(long restaurantAdminId);
+        ResturantInfoDto GetGlobalRestaurantInfo(long userId);
     }
 }

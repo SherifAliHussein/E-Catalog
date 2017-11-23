@@ -2,19 +2,26 @@
 <html lang="en" ng-app="home" ng-cloak ng-controller="homeCtrl">
 
 <head>
+    <!-- <base href="/"> -->
     <title>E-catalog</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    
+     
     <link rel="stylesheet" href="bundle.css?v=#{VERSION_REPlACE}#" />
-
+  
+  <!-- Attach necessary scripts -->
+  <!-- <script type="text/javascript" src="jquery-1.4.4.min.js"></script> -->   
+ 
     
-</head>
-
-<body >
-   
+</head> 
+<body style="background-image:url({{globalInfo.backgroundUrl}})">
+    <div class="header">
+        <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
+        <img class="logo" src="{{globalInfo.logoUrl}}" alt="logo" />
+        </div>
+       
 	<div ui-view layout="column" ></div>
 	
     <!-- scripts area -->
