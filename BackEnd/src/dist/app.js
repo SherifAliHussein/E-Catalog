@@ -958,8 +958,8 @@
   })();
   (function () {
     'use strict';
-
-	    angular
+	
+    angular
         .module('home')
         .controller('BackgroundController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','BackgroundResource', 'ActivatebackgroundResource','DeactivateBackgroundResource','backgroundsPrepService','ToastService',  BackgroundController])
 
@@ -985,8 +985,8 @@
             refreshBackgrounds();
 		}
 		vm.openbackgroundDialog = function(){		
-
-			 				var modalContent = $uibModal.open({
+			 
+				var modalContent = $uibModal.open({
 					templateUrl: './app/RestaurantAdmin/templates/newBackground.html',
 					controller: 'backgroundDialogController',
 					controllerAs: 'backgroundCtrl',
@@ -994,10 +994,10 @@
 						callBackFunction:function(){return refreshBackgrounds;
 						}
 					}
-
-									});
-
-		 		}
+					
+				});
+		 
+		}
 		function confirmationDelete(itemId){
 			backgroundResource.deletebackground({backgroundId:itemId}).$promise.then(function(results) {
 				ToastService.show("right","bottom","fadeInUp",$translate.instant('backgroundDeleteSuccess'),"success");
@@ -1018,11 +1018,11 @@
 					message:function() { return null},
 					callBackFunction:function() { return confirmationDelete }
 				}
-
-							});
+				
+			});
 		}
-
-				vm.openEditbackgroundDialog = function(index){
+		
+		vm.openEditbackgroundDialog = function(index){
 			var modalContent = $uibModal.open({
 				templateUrl: './app/RestaurantAdmin/templates/editbackground.html',
 				controller: 'editbackgroundDialogController',
@@ -1033,10 +1033,10 @@
 					background:function(){ return vm.Backgrounds.results[index]},
 					callBackFunction:function(){return refreshBackgrounds;}
 				}
-
-							});
-
-					}
+				
+			});
+			
+		}
 		vm.Activate = function(background){
 			ActivatebackgroundResource.Activate({BackgroundId:background.backgroundId})
 			.$promise.then(function(result){
@@ -1057,12 +1057,12 @@
 				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 			})
 		}		
-
-
-
-							}
-
+		
+		
+		
 	}
+	
+}
     ());
 (function() {
     angular
@@ -1076,9 +1076,9 @@
                 getAllBackgrounds: { method: 'GET', useToken: true, params:{lang:'@lang'} }
         })
     }
+  
 
-
-      function ActivatebackgroundResource($resource, appCONSTANTS) {
+    function ActivatebackgroundResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Backgrounds/:BackgroundId/Activate', {}, {
           Activate: { method: 'GET', useToken: true}
         })
@@ -1091,8 +1091,8 @@
 }());
   (function () {
     'use strict';
-
-	    angular
+	
+    angular
         .module('home')
         .controller('backgroundDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS' , 'BackgroundResource','ToastService','callBackFunction','$rootScope',  backgroundDialogController])
 
@@ -1102,8 +1102,8 @@
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
-
-				vm.AddNewbackground = function(){
+		
+		vm.AddNewbackground = function(){
             var newbackground = new Object();
             newbackground.backgroundName = vm.backgroundName; 
 
@@ -1127,8 +1127,8 @@
 				}
             );
         }
-
-                vm.LoadUploadImage = function() {
+        
+        vm.LoadUploadImage = function() {
 			$("#backgroundImage").click();
 		}
 		var backgroundImage; 
@@ -1142,14 +1142,14 @@
 				if (allowedImageTypes.indexOf(imageFile.type) !== -1) {
 					$scope.newbackgroundForm.$dirty=true;
 					$scope.$apply(function() {
-
-												backgroundImage= imageFile;
+						
+						backgroundImage= imageFile;
 						var reader = new FileReader();
 
 						reader.onloadend = function() {
 							vm.backgroundImage= reader.result;
-
-														$scope.$apply();
+							
+							$scope.$apply();
 						};
 						if (imageFile) {
 							reader.readAsDataURL(imageFile);

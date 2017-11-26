@@ -3,9 +3,9 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','$translate', '$scope','HomeResource', 'ResturantResource', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', homeCtrl])
+        .controller('homeCtrl', ['$rootScope','$translate', '$scope','HomeResource', 'ResturantResource', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', homeCtrl])
        
-    function homeCtrl($rootScope, $translate, $scope, HomeResource,ResturantResource,appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage, userRolesEnum) {
+    function homeCtrl($rootScope, $translate, $scope, HomeResource,ResturantResource,appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage, userRolesEnum,ToastService) {
         // Event listener for state change.
 
         var k = ResturantResource.getResturantGlobalInfo().$promise.then(function (results) {
@@ -90,11 +90,13 @@
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
             if ($scope.user.role != userRolesEnum.Waiter) {    
-                // authorizationService.logout();
-                // $state.go('login');
+                authorizationService.logout();
+                $state.go('login');
 
-            } else if ($scope.user.role  == "RestaurantAdmin") {
-				$state.go('Menu');
+				// $state.go('menu');
+
+            } else {
+				$state.go('menu');
 
 			} 
 

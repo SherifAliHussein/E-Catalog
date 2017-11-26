@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Bad+Script');
 body{
 	overflow:auto;
-	background-image: url(../img/bg.jpg);
+	background-image: url(../assets/img/bg.jpg);
 background-size: 100%;
 background-repeat: no-repeat;
 font-family:Roboto-Black;}
@@ -34,7 +34,7 @@ font-family:Roboto-Black;}
 
 
 
- .name:before {    background-image: url(../img/user_icon.png);
+ .name:before {    background-image: url(../assets/img/user_icon.png);
     content: '';
     width: 50px;
     height: 50px;
@@ -43,7 +43,7 @@ font-family:Roboto-Black;}
     float: left;
     margin-top: 14px;}
 	
-	 .pass:before {    background-image: url(../img/user_icon.png);
+	 .pass:before {    background-image: url(../assets/img/user_icon.png);
     content: '';
     width: 50px;
     height: 50px;
@@ -108,7 +108,7 @@ font-family:Roboto-Black;}
 	
 	overflow: hidden;
 	white-space: normal;
-	background-image: url(../img/book.png);
+	background-image: url(../assets/img/book.png);
 background-size: 100% 100%;
  width: 940px;
             height: 568px;
@@ -246,7 +246,7 @@ float: none!important;
 .main_form{margin-left: auto;
     margin-right: auto;
     float: none!important;
-    background-image: url(../img/form_bg.png);
+    background-image: url(../assets/img/form_bg.png);
     padding: 30px;
     margin-top: 36px;
     background-size: 100% 100%;
@@ -485,7 +485,7 @@ width: 100%;}
 	.offers_list h3{font-family: Roboto-Light;
 	background-repeat:no-repeat;
 overflow: hidden;
-background-image:url(../img/title_bg.png);
+background-image:url(../assets/img/title_bg.png);
 color: #fff;
 font-size: 21px;
 padding-bottom: 7px;
@@ -584,7 +584,7 @@ margin-top: 4px;}
 
 .page2{width: 95%;
 height: 97%;
-background-image: url(../img/page2.png);
+background-image: url(../assets/img/page2.png);
 padding-left: 14px;
 background-size: 100% 100%;
 padding-top: 26px;

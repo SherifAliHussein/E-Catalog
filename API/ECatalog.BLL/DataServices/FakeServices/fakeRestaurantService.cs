@@ -55,6 +55,11 @@ namespace ECatalog.BLL.DataServices.FakeServices
             return dbFakeData._Restaurants.FirstOrDefault(x => x.RestaurantAdminId == adminId);
         }
 
+        public Restaurant GetRestaurantByWaiterId(long waiterId)
+        {
+            return dbFakeData._Restaurants.FirstOrDefault(x => x.RestaurantWaiters.Select(w=>w.UserId).Contains(waiterId));
+        }
+
         public override Restaurant Find(params object[] keyValues)
         {
             return dbFakeData._Restaurants.FirstOrDefault(x => x.RestaurantId == (long)keyValues[0]);

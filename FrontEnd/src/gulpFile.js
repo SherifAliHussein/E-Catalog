@@ -51,12 +51,13 @@ var runSequence = require('run-sequence').use(gulp);
     './app/core/Authentication/*.js',
     './app/core/Authorization/*.js',
     './app/core/Toast/*.js',
+    './app/core/OfflineData.Factory.js',
     
      // './app/**/*.*.js',
     
   ],
   libs: [
-
+    './assets/js/jquery.min.js',
     './node_modules/lodash/lodash.min.js',
     './node_modules/angular/angular.js',
     './node_modules/angular-ui-router/release/angular-ui-router.js',
@@ -106,7 +107,10 @@ var runSequence = require('run-sequence').use(gulp);
   favicon: 'src/favicon1.ico',
   build: 'dist',
   temp: '.tmp',
-  docs: '.documentation'
+  docs: '.documentation',
+  serviceWorker:[
+    './app/core/service-worker.js',    
+  ]
 }
  
 // sass task
@@ -125,6 +129,15 @@ var runSequence = require('run-sequence').use(gulp);
 //		    console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 //		    });
 //});
+
+//service worker js
+gulp.task('copy-serviceWorker', function() {
+  gulp.src(paths.serviceWorker)
+ .pipe(concat('serviceWorker.js', {newLine: ''}))
+ //.pipe(uglify())
+ .pipe(strip())
+ .pipe(gulp.dest(paths.build + '/'));
+});
 
 //concatination js
 gulp.task('copy-libs', function() {
@@ -231,7 +244,7 @@ gulp.task('serve', function() {
 });
 
 // copy task
-gulp.task('copy', ['css','copy-libs','copy-core','copy-app','copy-templates','copy-index','images','svgs','fonts']);
+gulp.task('copy', ['css','copy-libs','copy-core','copy-app','copy-templates','copy-index','images','svgs','fonts','copy-serviceWorker']);
 
 //clean build
 gulp.task('clean-build', function(cb) {

@@ -56,6 +56,13 @@ namespace ECatalog.API.App_Start
 
             mapperConfiguration.CreateMap<PageModel, PageDTO>();
 
+            mapperConfiguration.CreateMap<PageTemplateDTO, PageTemplateModel>()
+                .ForMember(dest=>dest.ItemModels,m=>m.MapFrom(src=>src.ItemDto));
+
+            mapperConfiguration.CreateMap<CategoryPageTemplateDTO, CategoryPageTemplateModel>();
+
+
+
             ECatalogBLLConfig.RegisterMappings(mapperConfiguration);
             //Mapper.Initialize(m =>
             //{

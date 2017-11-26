@@ -1,11 +1,11 @@
 
 <div class="col-md-12 col-sm-12 col-xs-12 subs">
-    <div class="col-md-4 col-sm-4 col-xs-12 tybes" ng-repeat="h in menuCtrl.menus.results"> 
+    <div class="col-md-4 col-sm-4 col-xs-12 tybes" ng-repeat="h in menuCtrl.menus"> 
         <div class="sub_content"> 
             <img src="{{ h.imageURL}}" alt="">
             <div class="main_over">
-                <!-- <a href="#inline{{h.menuId}}" data-lity> -->
-                <a   data-ng-click="ShowId(h.menuId)"  >
+                <a  href="javascript:void(0);"  data-lity-target="#inline2" data-lity ng-click="menuCtrl.ShowId(h.menuId)">
+                <!-- <a   data-ng-click="ShowId(h.menuId)"  > -->
 
                 <!-- <a href="javascript:void(0);" data-ng-click="ShowId(6)"  data-lity> -->
                     <div class="active">
@@ -21,13 +21,18 @@
 
 
 </div>
-<div ng-repeat="item in menuCtrl.categories.results">
-    <!--<div id="{{item.MenuId}}" ng-init="init(item.value)">
-        ...
-    </div>-->
 
-    <p>{{item.categoryName}}  </p>
 
-    <img src="{{item.imageURL}}" alt="">
+<div id="inline2" class="main_lity lity-hide subs">
+    <div class="col-md-4 col-sm-4 col-xs-12 tybes" ng-repeat="item in menuCtrl.categories">
+        <div class="sub_content3">
+            <img src="{{item.imageURL}}" alt="">
+            <div class="main_over2">
+                <div type="submit" ng-click="$state.go('Items', {categoryId: item.categoryId});" class="active_pop meat" data-lity-close >
+                    <!-- <img src="{{item.imageURL}}" alt="" /> -->
+                    <p data-lity-close>{{item.categoryName}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-

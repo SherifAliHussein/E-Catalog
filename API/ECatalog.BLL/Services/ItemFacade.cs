@@ -363,5 +363,57 @@ namespace ECatalog.BLL.Services
             if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
             return  _itemTranslationService.GetAllItemNamesByCategoryId(language, categoryId);
         }
+
+        public CategoryPageTemplateDTO GetActivatedItemsWithTemplatesByCategoryId(string language, long categoryId)
+        {
+            var category = _categoryService.Find(categoryId);
+            if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
+            if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
+
+            var pages = _pageService.Query(x => x.CategoryId == categoryId).Select().ToList();
+            var items = _itemTranslationService
+                .Query(x => x.Language.ToLower() == language.ToLower() && x.Item.CategoryId == categoryId &&
+                            x.Item.IsActive && !x.Item.IsDeleted).Select(x => x.Item).ToList();
+            var itemsDtos = Mapper.Map<List<Item>, List<ItemDTO>>(items, opt =>
+            {
+                opt.BeforeMap((src, dest) =>
+                    {
+                        foreach (Item item in src)
+                        {
+                            item.ItemTranslations = item.ItemTranslations
+                                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                        }
+
+                    }
+                );
+            });
+            int itemCount = 0;
+            List<PageTemplateDTO> pageTemplateDtos = new List<PageTemplateDTO>();
+            foreach (var pageTemplate in pages)
+            {
+                var pageItems = itemsDtos.Skip(itemCount).Take(pageTemplate.Template.ItemCount).ToList();
+                if (pageItems.Count <= 0) continue;
+                pageTemplateDtos.Add(new PageTemplateDTO
+                {
+                    PageNumber = pageTemplate.PageNumber,
+                    TemplateId = pageTemplate.TemplateId,
+                    ItemDto = pageItems
+
+                });
+                itemCount += pageTemplate.Template.ItemCount;
+            }
+            var categoryTemplates = new CategoryPageTemplateDTO
+            {
+                Templates = pageTemplateDtos,
+                MenuName = category.Menu.MenuTranslations
+                    .FirstOrDefault(x => x.Language.ToLower() == language.ToLower()).MenuName,
+                CategoryName = category.CategoryTranslations
+                    .FirstOrDefault(x => x.Language.ToLower() == language.ToLower()).CategoryName,
+                CategoryId = categoryId,
+                MenuId = category.MenuId,
+                RestaurantId = category.Menu.RestaurantId
+            };
+            return categoryTemplates;
+        }
     }
 }

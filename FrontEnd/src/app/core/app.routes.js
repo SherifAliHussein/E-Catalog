@@ -39,16 +39,49 @@
 
 
                 //$locationProvider.html5Mode(true);
+                .state('Items', {
+                    url: '/Category/:categoryId/Item',
+                    templateUrl: './app/items/Templates/Item.html',
+                    controller: 'ItemController',
+                    'controllerAs': 'itemCtrl',
+                    data: {
+                        permissions: {
+                            // only: ['Waiter'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'items'
+                    },
+                    resolve: {
+                        categoryItemsTemplatePrepService: categoryItemsTemplatePrepService
+                    }
+                })
         });
 
         
-        menuPrepService.$inject = ['MenuResource']
-            function menuPrepService(MenuResource) {
-                return MenuResource.getAllMenus().$promise;
+        menuPrepService.$inject = ['MenuResource','OfflineDataResource']
+            function menuPrepService(MenuResource,OfflineDataResource) {
+                if(navigator.onLine){
+                    return MenuResource.getAllMenus().$promise;
+                }
+                else{
+                    return OfflineDataResource.getMenus();
+                }
             }
             
         ResturantPrepService.$inject = ['ResturantResource']
         function ResturantPrepService(ResturantResource) {
             return ResturantResource.getResturantGlobalInfo().$promise;
         }
+
+
+        categoryItemsTemplatePrepService.$inject = ['ItemsResource','$stateParams','OfflineDataResource']
+        function categoryItemsTemplatePrepService(ItemsResource,$stateParams,OfflineDataResource) {
+            if(navigator.onLine){
+            return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
+        }
+        else{
+            return OfflineDataResource.getAllItems($stateParams.categoryId);
+        }
+        }
+    
 }());
