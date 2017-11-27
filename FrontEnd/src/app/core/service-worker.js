@@ -4,7 +4,7 @@ const RUNTIME = 'runtime';
 // A list of local resources we always want to be cached.
 const files = [
   'index.html',
-  './', // Alias for index.html
+  // './', // Alias for index.html
   'bundle.css',
   '../../styles/main.css',
   'app.js',
@@ -42,9 +42,9 @@ self.addEventListener('install', (event) => {
   event.respondWith(
     //If request is already in cache, return it
     caches.match(request).then((response) => {
-      if (response) {
-        return response;
-      }
+      // if (response) {
+      //   return response;
+      // }
 
       //if request is not cached, add it to cache
       return fetch(request).then((response) => {

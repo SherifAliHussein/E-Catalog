@@ -11,10 +11,10 @@
         vm.vv = "sadasda"
 		vm.catgoryTemplates = categoryItemsTemplatePrepService;
         console.log(vm.catgoryTemplates);
-        
+        // vm.itemDetails;
         // vm.viewItemDetails=function(item){
         //     console.log(item)
-        //     vm.itemDetails = categoryItemsTemplatePrepService.templates[0].itemModels[0];
+            // vm.itemDetails = categoryItemsTemplatePrepService.templates[0].itemModels[0];
         // }
 	}
 	
