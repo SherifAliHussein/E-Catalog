@@ -7,7 +7,10 @@ angular.module('home').directive('pageTemplate1', function(){
         controller:function($scope){
             console.log($scope.itemdetails)
             $scope.viewItemDetail=function(item){
-                $scope.$parent.$parent.itemdetails = item
+                $scope.$parent.$parent.itemdetails = item;
+
+
+                
             }    
         }
         
