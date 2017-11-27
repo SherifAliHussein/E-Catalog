@@ -4,9 +4,10 @@ angular.module('home').directive('pageTemplate1', function(){
         replace: true,
         scope: { pageitems: '=' ,itemdetails: '=' },
         templateUrl: "./app/items/Templates/itemTemplate1.html",
-        link:function(scope, element, attrs){
-            scope.viewItemDetail=function(item){
-                scope.itemdetails = item;
+        controller:function($scope){
+            console.log($scope.itemdetails)
+            $scope.viewItemDetail=function(item){
+                $scope.$parent.$parent.itemdetails = item
             }    
         }
         

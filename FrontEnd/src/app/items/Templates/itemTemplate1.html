@@ -1,8 +1,8 @@
 
     <div ng-class="{page1:(pageitems.pageNumber % 2) === 0, page2:(pageitems.pageNumber % 2) !== 0}">
         <div class="img_header">
-            <!-- <img src="{{pageitems.itemModels[0].imageURL}}" />   -->
-            <img src="assets/img/img1.jpg" />
+            <img src="{{pageitems.itemModels[0].imageURL}}" style="max-height: fit-content" />  
+            <!-- <img src="assets/img/img1.jpg" /> -->
             
         </div>
         <div class="main_data">
@@ -55,7 +55,7 @@
         
         
         <div class="col-sm-4 col-xs-4 col-md-4">
-        <img src="assets/img/item1.png" alt="" />
+        <img src="{{pageitems.itemModels[1].imageURL}}" style="max-height: fit-content" alt="" />
         </div>
         </div>
         
@@ -84,7 +84,7 @@
         
         
         <div class="col-sm-4 col-xs-4 col-md-4">
-        <img src="assets/img/item1.png" alt="" />
+        <img src="{{pageitems.itemModels[2].imageURL}}" style="max-height: fit-content"alt="" />
         </div>
         </div>
         

@@ -1,4 +1,4 @@
-angular.module('home').directive('flipbook', function(){
+angular.module('home').directive('flipbook', function($timeout){
     return{
       restrict: 'E',
       replace: true,
@@ -35,11 +35,16 @@ angular.module('home').directive('flipbook', function(){
             element.parents(".jqte").find(".jqte_toolbar").hide();
           },
           post: function(scope, iElement, iAttrs, controller) {
-            iElement.turn({
+            // iElement.turn({
              
-              pages: 8
-            })
-           
+            //   pages: 8
+            // })
+            $timeout(function(){
+              iElement.turn({
+              
+               pages: 8
+             })
+           }, 0);
           }
               
         }

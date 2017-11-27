@@ -1,13 +1,11 @@
 <div id="flipbook">
-    <div     >
-    <page-Template1 pageitems="itempagectrl[0]"  itemdetails="itemdetails"></page-Template1>
-
+    <div   ng-repeat="page in itempagectrl" >
+    
+    <div  >
+            <page-Template1 pageitems="page"  itemdetails="itemdetails"></page-Template1>
     </div>
 
-    <div >
-        <page-Template1 pageitems="itempagectrl[1]"  itemdetails="itemdetails"></page-Template1>
-    
-        </div> 
+    </div>
  
     
 </div>
