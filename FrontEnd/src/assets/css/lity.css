@@ -77,7 +77,8 @@
 }
 
 .main_lity{overflow:auto;background:#FDFDF6;padding:20px;max-width:100%;border-radius:6px;
-    padding-top: 60px;}
+    padding-top: 60px;
+    margin-top: 0;}
 
 .header_pop img{width: 100%;}
 
@@ -129,7 +130,7 @@ margin-right: 15px;}
   height: 35px;
   position: absolute;
   right: 0;
-  top: 45px;
+  top: 0px;
   -webkit-appearance: none;
   cursor: pointer;
   text-decoration: none;
@@ -167,13 +168,13 @@ margin-top: 5px;
   font-family: Arial, Baskerville, monospace;
   line-height: 35px;
   border: 0;
-  top: 45px;
+  top: 0px;
   outline: none;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 .lity-close:active {
-   top: 45px;
+   top: 0px;
 }
 /* Image */
 .lity-image img {

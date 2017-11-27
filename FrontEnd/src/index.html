@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
      
-    <link rel="stylesheet" href="bundle.css?v=#{VERSION_REPlACE}#" />
+    <link rel="stylesheet" href="bundle.css?v=#{VERSION_REPlACE}#" /> 
   
   <!-- Attach necessary scripts -->
   <!-- <script type="text/javascript" src="jquery-1.4.4.min.js"></script> -->   
@@ -20,7 +20,20 @@
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
         <img class="logo" ng-show="globalInfo.logoUrl !=null" src="{{globalInfo.logoUrl}}" alt="logo" />
-        </div>
+        <a onclick="window.location.href='cart.html'">
+            
+                        <div class="main_cart_bg">
+            
+                            <img class="cart_icon" src="../assets/img/cart_icon.png" alt="" />
+                            <span class="cart_icon">Total : {{total}}</span>
+                        </div>
+            
+                    </a>
+                    
+                    <a href="../En/login.html">
+                        <p class="lang">EN</p>
+                        </a>  
+    </div>
        
 	<div ui-view layout="column" ></div>
 	
@@ -34,13 +47,13 @@
     <script src="templates.js?v=#{VERSION_REPlACE}#"></script>
  
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
-                console.log('Service Worker registered');
-            }).catch(function(err) {
-                console.log('Service Worker registration failed: ', err);
-            });
-        }
+        // if ('serviceWorker' in navigator) {
+        //     navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+        //         console.log('Service Worker registered');
+        //     }).catch(function(err) {
+        //         console.log('Service Worker registration failed: ', err);
+        //     });
+        // }
     </script>
  
 </body>
