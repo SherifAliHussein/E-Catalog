@@ -156,6 +156,7 @@ angular.module('core')
             "TypeLbl":"Type",
             "AdminUserLbl":"Admin user",
             "AdminUserPasswordLbl":"Admin password",
+            "WaiterUserPasswordLbl":"Waiter password",
             "ActivateBtn":"Activate",
             "DeActivateBtn":"DeActivate",
             "NewRestaurantLbl":"New restaurant",
@@ -274,6 +275,7 @@ angular.module('core')
             "TypeLbl":"نوع",            
             "AdminUserLbl":"المشرف",
             "AdminUserPasswordLbl":"كلمة مرور المشرف",
+            "WaiterUserPasswordLbl":"كلمة مرور النادل",
             "ActivateBtn":"تفعيل",
             "DeActivateBtn":"عطل",
             "NewRestaurantLbl":"مطعم جديد",
@@ -347,7 +349,7 @@ angular.module('core')
             "hasSideItemLbl":"يوجد اطباق جانبيه؟",
             "selectSideItemLbl":"اختار طبق جتنبي",
             "ItemUpdateSuccess":".تم تحديث المنتج بنجاح",
-            "MaxValueLbl":"أقصى قيمه لالاطباق الجانبيه",
+            "MaxValueLbl":"أقصى قيمه للأطباق الجانبيه",
             "ReadyLbl":"جاهز",
             "RestaurantTypeDeleteMessage":"سيتم حذف كل المطعام لهذا النوع",
             "ConfirmPasswordLbl":"تأكيد كلمه المرور",
@@ -603,7 +605,11 @@ angular.module('core')
             } else if ($scope.user.role  == "RestaurantAdmin") {
 				$state.go('Menu');
 
-			} 
+            } 
+            else  {
+                authorizationService.logout();
+                $state.go('login');
+            } 
 
         }
 

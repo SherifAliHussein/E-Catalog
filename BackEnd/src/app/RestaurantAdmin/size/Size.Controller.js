@@ -63,7 +63,7 @@
 				refreshSizes();
 			},
             function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
             });
 		}
 		vm.openDeleteSizeDialog = function(name,id){			

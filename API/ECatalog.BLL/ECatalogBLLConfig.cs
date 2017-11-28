@@ -97,7 +97,8 @@ namespace ECatalog.BLL
                 .ForMember(dest => dest.ItemName, m => m.MapFrom(src => src.ItemTranslations.FirstOrDefault().ItemName));
 
             mapperConfiguration.CreateMap<RestaurantWaiterDTO, RestaurantWaiter>();
-            mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>();
+            mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>()
+                .ForMember(dto => dto.Password,m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)));
 
             mapperConfiguration.CreateMap<Background, BackgroundDto>();
             mapperConfiguration.CreateMap< BackgroundDto, Background>();

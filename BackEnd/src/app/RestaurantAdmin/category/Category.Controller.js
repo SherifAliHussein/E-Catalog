@@ -15,7 +15,8 @@
 		
 		function refreshCategories(){
 			var k = GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId,page:vm.currentPage }).$promise.then(function(results) {
-				vm.categories = results
+				vm.Now = $scope.getCurrentTime();	
+				vm.categories = results;
 			},
             function(data, status) {
 				ToastService.show("right","bottom","fadeInUp",data.message,"error");

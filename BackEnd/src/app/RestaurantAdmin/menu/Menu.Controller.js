@@ -16,7 +16,8 @@
 		
 		function refreshMenu(){
 			var k = MenuResource.getAllMenus({page:vm.currentPage}).$promise.then(function(results) {
-				vm.menus = results
+				vm.Now = $scope.getCurrentTime();	
+				vm.menus = results;
 			},
             function(data, status) {
 				ToastService.show("right","bottom","fadeInUp",data.message,"error");

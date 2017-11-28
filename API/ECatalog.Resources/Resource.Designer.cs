@@ -520,6 +520,15 @@ namespace ECatalog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have to delete item first..
+        /// </summary>
+        public static string SideHasItems {
+            get {
+                return ResourceManager.GetString("SideHasItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Side item is deleted.
         /// </summary>
         public static string SideItemDeleted {
@@ -579,6 +588,15 @@ namespace ECatalog.Resources {
         public static string SizeDeleted {
             get {
                 return ResourceManager.GetString("SizeDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have to delete item first..
+        /// </summary>
+        public static string SizeHasItems {
+            get {
+                return ResourceManager.GetString("SizeHasItems", resourceCulture);
             }
         }
         

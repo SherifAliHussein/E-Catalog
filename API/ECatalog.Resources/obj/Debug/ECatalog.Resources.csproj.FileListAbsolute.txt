@@ -27,3 +27,4 @@ E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Debug\ar-EG\ECatalog.Resources.resources.dll
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.dll
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.csprojResolveAssemblyReference.cache

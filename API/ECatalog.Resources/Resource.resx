@@ -270,6 +270,9 @@
   <data name="RestaurantWaiterNameExceedLength" xml:space="preserve">
     <value>Restaurant name cannot exceed 100 characters.</value>
   </data>
+  <data name="SideHasItems" xml:space="preserve">
+    <value>You have to delete item first.</value>
+  </data>
   <data name="SideItemDeleted" xml:space="preserve">
     <value>Side item is deleted</value>
   </data>
@@ -290,6 +293,9 @@
   </data>
   <data name="SizeDeleted" xml:space="preserve">
     <value>Size is deleted</value>
+  </data>
+  <data name="SizeHasItems" xml:space="preserve">
+    <value>You have to delete item first.</value>
   </data>
   <data name="SizeIsNotTranslated" xml:space="preserve">
     <value>Size is not translated.</value>

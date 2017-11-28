@@ -83,7 +83,11 @@
             } else if ($scope.user.role  == "RestaurantAdmin") {
 				$state.go('Menu');
 
-			} 
+            } 
+            else  {
+                authorizationService.logout();
+                $state.go('login');
+            } 
 
         }
 

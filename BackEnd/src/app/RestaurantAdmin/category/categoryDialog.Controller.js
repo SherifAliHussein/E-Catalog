@@ -11,8 +11,9 @@
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
-		
+		vm.isChanged = false;
 		vm.AddNewCategory = function(){
+			vm.isChanged = true;
             var newCategroy = new Object();
             newCategroy.categoryName = vm.categoryName;
             newCategroy.menuId = menuId;
@@ -30,6 +31,7 @@
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryAddSuccess'),"success");
 					 // $state.go('Category',{MenuId:menuId});
+					 vm.isChanged = false;
 					 $uibModalInstance.dismiss('cancel');
 					 callBackFunction();
 				},

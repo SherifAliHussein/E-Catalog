@@ -63,7 +63,7 @@
 				refreshSideItems();
 			},
             function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
             });
 		}
 		vm.openDeleteSideItemDialog = function(name,id){			

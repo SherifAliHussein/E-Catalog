@@ -97,7 +97,25 @@ var runSequence = require('run-sequence').use(gulp);
     './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
     './node_modules/ngprogress-lite/ngprogress-lite.css',
     './node_modules/nvd3/build/nv.d3.min.css',
-    './assets/css/*.css', 
+    './assets/css/jquery_te.css', 
+    './assets/css/bootstrap.min.css', 
+    './assets/css/lity.css', 
+    './assets/css/style.css', 
+    
+  ],
+  
+  cssAR: [
+    //'./node_modules/angular-material/angular-material.css',
+	  './node_modules/propellerkit/dist/css/bootstrap.min.css',
+    './node_modules/propellerkit/dist/css/propeller.min.css',
+    './node_modules/select2/dist/css/select2.min.css',
+    './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
+    './node_modules/ngprogress-lite/ngprogress-lite.css',
+    './node_modules/nvd3/build/nv.d3.min.css',
+    './assets/css/jquery_te.css', 
+    './assets/css/bootstrap.min.css', 
+    './assets/css/lity-ar.css', 
+    './assets/css/style-ar.css', 
     
   ],
   templates: [
@@ -167,7 +185,15 @@ gulp.task('copy-app', function() {
  //concat css
 gulp.task('css', function () {
   return gulp.src(paths.css)
-    .pipe(concat('bundle.css'))
+    .pipe(concat('bundle-en.css'))
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest(paths.build + '/'));
+});
+
+ //concat css ar
+ gulp.task('cssAr', function () {
+  return gulp.src(paths.cssAR)
+    .pipe(concat('bundle-ar.css'))
     .pipe(cleanCSS({compatibility: 'ie8'}))
     .pipe(gulp.dest(paths.build + '/'));
 });
@@ -244,7 +270,7 @@ gulp.task('serve', function() {
 });
 
 // copy task
-gulp.task('copy', ['css','copy-libs','copy-core','copy-app','copy-templates','copy-index','images','svgs','fonts','copy-serviceWorker']);
+gulp.task('copy', ['css','cssAr','copy-libs','copy-core','copy-app','copy-templates','copy-index','images','svgs','fonts','copy-serviceWorker']);
 
 //clean build
 gulp.task('clean-build', function(cb) {

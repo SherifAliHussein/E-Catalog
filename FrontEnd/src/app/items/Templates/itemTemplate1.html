@@ -1,7 +1,7 @@
 
     <div ng-class="{page1:(pageitems.pageNumber % 2) === 0, page2:(pageitems.pageNumber % 2) !== 0}">
         <div class="img_header">
-            <img src="{{pageitems.itemModels[0].imageURL}}" style="max-height: fit-content" />  
+            <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: fit-content" />  
             <!-- <img src="assets/img/img1.jpg" /> -->
             
         </div>
@@ -46,7 +46,7 @@
         
         <a href="javascript:void(0);" ng-click="viewItemDetail(pageitems.itemModels[1])"  data-lity-target="#inline2" data-lity><img src="assets/img/view.png" alt="" /></a>
         <!-- <a href="#"><img src="assets/img/plus.png" alt="" /></a> -->
-        <a style="cursor: pointer;" ng-click="addItemToCart(pageitems.itemModels[0])"><img src="img/plus.png" alt="" /></a>
+        <a style="cursor: pointer;" ng-click="addItemToCart(pageitems.itemModels[0])"><img src="assets/img/plus.png" alt="" /></a>
        </div>
       
         </div>
@@ -55,14 +55,14 @@
         
         
         <div class="col-sm-4 col-xs-4 col-md-4">
-        <img src="{{pageitems.itemModels[1].imageURL}}" style="max-height: fit-content" alt="" />
+        <img ng-src="{{pageitems.itemModels[1].imageURL}}" style="max-height: fit-content" alt="" />
         </div>
         </div>
         
         <div class="main_data" ng-show="pageitems.itemModels[2] != null">
 
         <div class="col-sm-4 col-xs-4 col-md-4">
-                <img src="{{pageitems.itemModels[2].imageURL}}" style="max-height: fit-content"alt="" />
+                <img ng-src="{{pageitems.itemModels[2].imageURL}}" style="max-height: fit-content"alt="" />
                 </div>
         <div class="col-sm-8 col-xs-8 col-md-8">
         <h3>{{pageitems.itemModels[2].itemName}}</h3>
