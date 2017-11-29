@@ -1,0 +1,75 @@
+<div class="container">
+     
+            <form>
+    
+                <div class="col-md-8 col-sm-8 col-xs-12 main_cart">
+                    <h3 class="cart_title">CHECK OUT</h3>
+    
+                    <table width="100%" border="0">
+                        <tbody>
+                            <tr>
+                                <th>Item</th>
+                                <th>NUM</th>
+                                <th>Price</th>
+                                <th>EDIT</th>
+                            </tr>
+                            <tr ng-repeat="c in cartCtrl.repeatCart">
+                                <td>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 no_padding">
+                                        <img src="{{c.itemObj.imageURL}}" alt="" />
+                                    </div>
+                                    <div class="col-md-8 col-sm-8 col-xs-8">
+                                        <h3>{{c.itemobj.itemName}}</h3>
+                                        <p>
+                                            {{c.itemObj.itemDescription}}
+                                        </p>
+                                    </div>
+    
+                                </td>
+                                <td>
+    
+                                    <div class="">
+                                        <div class="input-group spinner">
+                                            <input type="text" class="form-control counter" value="1">
+                                            <div class="input-group-btn-vertical">
+                                                <div class="btn btn-default left_arrow"><i class="fa fa-caret-up"></i></div>
+                                                <div class="btn btn-default right_arrow"><i class="fa fa-caret-down"></i></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="bold_td">{{c.size.price}} SAR</span></td>
+                                <td><input class="btn btn-danger" type="button" ng-click="removeItemCart(c)" value="Remove" />
+                                    <input class="btn btn-default" type="button" ng-click="viewItemDetail(c)" value="Add" />
+                                </td> 
+                            </tr>
+                             
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+    
+                    <hr />
+    
+                    <div class="footer">
+    
+                        <div class="checkout_btn">
+                            <input type="button" class="" value="check out" ng-click="checkOut()">
+    
+                        </div>
+    
+                        <div class="cart">
+                            <h4>Total</h4>
+                            <h5>{{totalItem}} SAR</h5> 
+<!--                             
+                            {{cart[0].itemobj.imageURL}} -->
+                        </div>
+    
+                    </div>
+                </div>
+            </form>
+        </div>
