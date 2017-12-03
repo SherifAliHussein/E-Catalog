@@ -9,9 +9,8 @@ angular.module('home').directive('pageTemplate1', function(){
             $scope.viewItemDetail=function(item){
                 $scope.$parent.$parent.$parent.itemdetails = item;
 
-
                 
-            }    
+            }      
         }
         
     };

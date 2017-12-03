@@ -21,11 +21,10 @@
 <body style="background-image:url({{globalInfo.backgroundUrl != null ? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
-        <img class="logo" ng-show="globalInfo.logoUrl !=null" ng-src="{{globalInfo.logoUrl}}" alt="logo" />
+        <img class="logo" ng-show="globalInfo.logoUrl !=null" src="{{globalInfo.logoUrl}}" alt="logo" />
         <a onclick="window.location.href='cart.html'">
             
-                        <div class="main_cart_bg">
-            
+                        <div class="main_cart_bg" > 
                             <img class="cart_icon" src="../assets/img/cart_icon.png" alt="" />
                             <span class="cart_icon">Total : {{total}}</span>
                         </div>

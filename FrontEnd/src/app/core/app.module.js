@@ -13,6 +13,7 @@
       'ui.event',
       'ngProgressLite',
     'ui.bootstrap',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'checklist-model'
     ]);
 }());
