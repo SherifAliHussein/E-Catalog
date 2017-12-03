@@ -12,8 +12,9 @@
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
-		
+		vm.isChanged = false;
 		vm.AddNewSideItem = function(){
+            vm.isChanged = true;
 			var newSideItem = new SideItemResource();
             newSideItem.sideItemName = vm.sideItemName;
             newSideItem.value = vm.value;
@@ -21,9 +22,11 @@
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemAddSuccess'),"success");
 					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
+                    callBackFunction();
+                    vm.isChanged = false;
                 },
                 function(data, status) {
+                    vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
                 }
             );

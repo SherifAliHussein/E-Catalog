@@ -36,6 +36,7 @@
 					 callBackFunction();
 				},
 				function(data, status) {
+					vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 				}
             );
