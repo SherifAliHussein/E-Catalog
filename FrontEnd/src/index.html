@@ -8,9 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-     
-    <link rel="stylesheet" href="bundle.css?v=#{VERSION_REPlACE}#" /> 
-  
+    <!-- <link rel="stylesheet" href="{{selectedLanguage == 'ar'? 'bundle-ar.css?v=#{VERSION_REPlACE}#': 'bundle-en.css?v=#{VERSION_REPlACE}#'}}" />  -->
+    
+    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=#{VERSION_REPlACE}#" /> 
+    <!-- <link rel="stylesheet" href="bundle-en.css?v=#{VERSION_REPlACE}#" />  -->
+    
   <!-- Attach necessary scripts -->
   <!-- <script type="text/javascript" src="jquery-1.4.4.min.js"></script> -->   
  
@@ -29,9 +31,12 @@
             
                     </a>
                     
-                    <a href="../En/login.html">
+                    <a ng-if="selectedLanguage == 'ar'" href="javascript:void(0)" ng-click="changeLanguage('en')">
                         <p class="lang">EN</p>
-                        </a>  
+                    </a>  
+                    <a ng-if="selectedLanguage == 'en'" href="javascript:void(0)" ng-click="changeLanguage('ar')">
+                            <p class="lang">AR</p>
+                        </a>
     </div>
        
 	<div ui-view layout="column" ></div>
@@ -46,13 +51,13 @@
     <script src="templates.js?v=#{VERSION_REPlACE}#"></script>
  
     <script>
-        // if ('serviceWorker' in navigator) {
-        //     navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
-        //         console.log('Service Worker registered');
-        //     }).catch(function(err) {
-        //         console.log('Service Worker registration failed: ', err);
-        //     });
-        // }
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+                console.log('Service Worker registered');
+            }).catch(function(err) {
+                console.log('Service Worker registration failed: ', err);
+            });
+        }
     </script>
  
 </body>

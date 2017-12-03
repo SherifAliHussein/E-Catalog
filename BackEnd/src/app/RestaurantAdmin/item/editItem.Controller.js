@@ -159,6 +159,7 @@
 					vm.maxSideItemValueError = false;
 			}
 		}
+		vm.CheckMaxSideItemValue();
 
 
 	}	

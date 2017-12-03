@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using ECatalog.BLL.DataServices;
 using ECatalog.BLL.DataServices.Interfaces;
 using ECatalog.BLL.DTOs;
 using ECatalog.Common.CustomException;
@@ -17,13 +18,14 @@ namespace ECatalog.BLL.Services.Interfaces
         private ISideItemService _sideItemService;
         private ISideItemTranslationService _sideItemTranslationService;
         private IRestaurantService _restaurantService;
+        private ItemSideItemService _itemSideItemService;
 
-        public SideItemFacade(ISideItemService sideItem, ISideItemTranslationService sideItemTranslationService, IRestaurantService restaurantService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
+        public SideItemFacade(ISideItemService sideItem, ISideItemTranslationService sideItemTranslationService, IRestaurantService restaurantService, ItemSideItemService itemSideItemService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
             _sideItemTranslationService = sideItemTranslationService;
             _sideItemService = sideItem;
             _restaurantService = restaurantService;
-
+            _itemSideItemService = itemSideItemService;
         }
         public SideItemFacade(ISideItemService sizeService, ISideItemTranslationService sideItemTranslationService, IRestaurantService restaurantService)
         {
@@ -59,6 +61,7 @@ namespace ECatalog.BLL.Services.Interfaces
         {
             var sideItem = _sideItemService.Find(sideItemId);
             if (sideItem == null) throw new NotFoundException(ErrorCodes.SideItemNotFound);
+            if(_itemSideItemService.Query(x=>x.SideItemId == sideItemId && !x.Item.IsDeleted).Select().Any()) throw new ValidationException(ErrorCodes.SideHasItems);
             sideItem.IsDeleted = true;
             _sideItemService.Update(sideItem);
             SaveChanges();

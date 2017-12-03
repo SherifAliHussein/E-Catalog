@@ -24,7 +24,7 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="newMenuForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="menuDlCtrl.AddNewMenu()">{{'saveChangesBtn' | translate}}</button>
+		<button ng-disabled="newMenuForm.$invalid  || menuDlCtrl.menuImage== null || menuDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="menuDlCtrl.AddNewMenu()">{{'saveChangesBtn' | translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="menuDlCtrl.close()">{{'DiscardBtn' | translate}}</button>
 	</div>
 </div>

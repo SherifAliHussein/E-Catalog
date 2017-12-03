@@ -18,12 +18,13 @@ namespace ECatalog.BLL.Services
         private ISizeService _sizeService;
         private IRestaurantService _restaurantService;
         private ISizeTranslationService _sizeTranslationService;
-        public SizeFacade(ISizeService sizeService, ISizeTranslationService sizeTranslationService, IRestaurantService restaurantService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
+        private IItemSizeService _itemSizeService;
+        public SizeFacade(ISizeService sizeService, ISizeTranslationService sizeTranslationService, IRestaurantService restaurantService, IItemSizeService itemSizeService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
             _sizeTranslationService = sizeTranslationService;
             _sizeService = sizeService;
             _restaurantService = restaurantService;
-
+            _itemSizeService = itemSizeService;
         }
         public SizeFacade(ISizeService sizeService, ISizeTranslationService sizeTranslationService, IRestaurantService restaurantService)
         {
@@ -58,6 +59,7 @@ namespace ECatalog.BLL.Services
         {
             var size = _sizeService.Find(sizeId);
             if (size == null) throw new NotFoundException(ErrorCodes.SizeNotFound);
+            if(_itemSizeService.Query(x=>x.SizeId == sizeId && !x.Item.IsDeleted).Select().Any()) throw new ValidationException(ErrorCodes.SizeHasItems);
             size.IsDeleted = true;
             _sizeService.Update(size);
             SaveChanges();

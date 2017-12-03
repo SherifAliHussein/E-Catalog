@@ -531,7 +531,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <div class="row-md-2">\n' +
     '                                <div class="row">\n' +
     '                                    <input ng-disabled="CategoryTemplateCtrl.isCategoryTemplateReady" type="radio" ng-model="CategoryTemplateCtrl.selectedTemplateId" value="{{CategoryTemplateCtrl.templates[$index].id}}">\n' +
-    '                                    <img ng-src="{{CategoryTemplateCtrl.templates[$index].imageURL}}" style="height: 200px;"/>\n' +
+    '                                    <img ng-src="{{CategoryTemplateCtrl.templates[$index].imageURL}}" style="height: 200px;width: 150px;"/>\n' +
     '                                </div>\n' +
     '                            </div>\n' +
     '                            <div class="row-md-2" style="text-align:center">\n' +
@@ -747,7 +747,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
     '		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode==\'new\' && editItemCtrl.itemImage== null) \n' +
-    '		|| (editItemCtrl.hasSideItem && editItemCtrl.SelectedSideItems.length<=0) || editItemCtrl.maxSideItemValueError" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		|| (editItemCtrl.hasSideItem && editItemCtrl.SelectedSideItems.length<=0)|| (editItemCtrl.hasSideItem && editItemCtrl.maxSideItemValueError)" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -906,7 +906,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    </div>\n' +
     '                </div>\n' +
     '                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >\n' +
-    '                        <label for="first-name">{{\'AdminUserPasswordLbl\' | translate}}</label>\n' +
+    '                        <label for="first-name">{{\'WaiterUserPasswordLbl\' | translate}}</label>\n' +
     '                        <input required type="password" class="mat-input form-control" name="password" ng-model="editWaiterDlCtrl.waiter.password" ng-minlength="8" ng-maxlength="25">\n' +
     '                        <div ng-messages="newWaiterForm.password.$error" >\n' +
     '                            <div ng-if="newWaiterForm.password.$error.required && !newWaiterForm.password.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
@@ -1044,7 +1044,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </form>\n' +
     '        </div>\n' +
     '        <div class="pmd-modal-action text-right">\n' +
-    '            <button ng-disabled="newCategoryForm.$invalid  || categoryDlCtrl.categoryImage== null" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="categoryDlCtrl.AddNewCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            <button ng-disabled="newCategoryForm.$invalid  || categoryDlCtrl.categoryImage== null || categoryDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="categoryDlCtrl.AddNewCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="categoryDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -1123,7 +1123,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">\n' +
     '					<div class="checkbox pmd-default-theme">\n' +
     '						<label class=" checkbox-pmd-ripple-effect">\n' +
-    '							<input type="checkbox" ng-model="newItemCtrl.hasSideItem">\n' +
+    '							<input type="checkbox" ng-model="newItemCtrl.hasSideItem" >\n' +
     '							<span>{{\'hasSideItemLbl\' | translate}}</span>\n' +
     '						</label>\n' +
     '					</div>\n' +
@@ -1161,7 +1161,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	<div class="pmd-modal-action text-right">\n' +
     '		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode==\'new\' && newItemCtrl.itemImage== null) \n' +
     '		|| (newItemCtrl.SelectedSize.length<=0 && newItemCtrl.mode==\'new\')  \n' +
-    '		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || newItemCtrl.maxSideItemValueError " class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.save()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || (newItemCtrl.hasSideItem && newItemCtrl.maxSideItemValueError) " class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.save()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -1198,7 +1198,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newMenuForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="menuDlCtrl.AddNewMenu()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button ng-disabled="newMenuForm.$invalid  || menuDlCtrl.menuImage== null || menuDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="menuDlCtrl.AddNewMenu()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="menuDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -1298,7 +1298,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    </div>\n' +
     '                </div>\n' +
     '                <div class="form-group pmd-textfield pmd-textfield-floating-label" >\n' +
-    '                        <label for="first-name">{{\'AdminUserPasswordLbl\' | translate}}</label>\n' +
+    '                        <label for="first-name">{{\'WaiterUserPasswordLbl\' | translate}}</label>\n' +
     '                        <input required type="password" class="mat-input form-control" name="password" ng-model="waiterDlCtrl.password" ng-minlength="8" ng-maxlength="25">\n' +
     '                        <div ng-messages="newWaiterForm.password.$error" >\n' +
     '                            <div ng-if="newWaiterForm.password.$error.required && !newWaiterForm.password.$pristine">{{\'requiredErr\' | translate}}</div>\n' +

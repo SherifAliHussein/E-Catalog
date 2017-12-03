@@ -8,7 +8,8 @@
 	function editWaiterDialogController($uibModalInstance, $translate, WaiterResource,ToastService,  waiter,callBackFunction){
 		var vm = this;
 		vm.menuName = "";
-		vm.waiter = waiter;
+        vm.waiter = waiter;
+        vm.waiter.confirmPassword = waiter.password;
         vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}

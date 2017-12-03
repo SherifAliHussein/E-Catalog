@@ -11,8 +11,10 @@
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
+		vm.isChanged = false;
 		
 		vm.AddNewMenu = function(){
+			vm.isChanged = true;
             var newMenu = new Object();
             newMenu.menuName = vm.menuName;
 
@@ -31,8 +33,10 @@
 					 // $state.go('Category',{MenuId:menuId});
 					 $uibModalInstance.dismiss('cancel');
 					 callBackFunction();
+					 vm.isChanged = false;
 				},
 				function(data, status) {
+					vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 				}
             );

@@ -16,7 +16,7 @@
             </form>
         </div>
         <div class="pmd-modal-action text-right">
-            <button ng-disabled="newSizeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sizeDlCtrl.AddNewSize()">{{'saveChangesBtn' | translate}}</button>
+            <button ng-disabled="newSizeForm.$invalid || sizeDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sizeDlCtrl.AddNewSize()">{{'saveChangesBtn' | translate}}</button>
             <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="sizeDlCtrl.close()">{{'DiscardBtn' | translate}}</button>
         </div>
     </div>

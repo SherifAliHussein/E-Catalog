@@ -19,7 +19,8 @@
             vm.menus = menuPrepService.results;
         else
             vm.menus = menuPrepService;
-        vm.categories = ""; // vm.globalInfo = ResturantPrepService;  
+        vm.categories = ""; 
+        
         function refreshMenu() {
             var k = MenuResource.getAllMenus({ page: vm.currentPage }).$promise.then(function (results) {
                 vm.menus = results

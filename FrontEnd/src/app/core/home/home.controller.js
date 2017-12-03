@@ -17,32 +17,37 @@
                   $scope.disabled = true;
             }
         });
+        if (navigator.onLine) {
+            var k = ResturantResource.getResturantGlobalInfo().$promise.then(function(results) {
 
-        var k = ResturantResource.getResturantGlobalInfo().$promise.then(function (results) {
-          
-           $scope.globalInfo = results 
-            
-        },
-        function (data, status) {
-            ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        }); 
+                    $scope.globalInfo = results
+
+
+                },
+                function(data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
         var vm=this; 
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;
 		$scope.languages = [{
             id:"en",
-            label:"english"
+            display:"AR"
         },
         {
             id:"ar",
-            label:"arabic"
+            display:"EN"
         }];
 		if($localStorage.language == null){
             $scope.selectedLanguage = $scope.languages[0].id;
+            // $scope.displayLanguage = $scope.languages[0].display;
             $localStorage.language = $scope.selectedLanguage;
         }
-        else
+        else{
             $scope.selectedLanguage = $localStorage.language;
+            // $scope.displayLanguage = $localStorage.language.display;
+        }
             
         $translate.use($scope.selectedLanguage); 
 		$scope.init =

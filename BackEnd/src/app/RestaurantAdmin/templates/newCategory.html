@@ -24,7 +24,7 @@
             </form>
         </div>
         <div class="pmd-modal-action text-right">
-            <button ng-disabled="newCategoryForm.$invalid  || categoryDlCtrl.categoryImage== null" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="categoryDlCtrl.AddNewCategory()">{{'saveChangesBtn' | translate}}</button>
+            <button ng-disabled="newCategoryForm.$invalid  || categoryDlCtrl.categoryImage== null || categoryDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="categoryDlCtrl.AddNewCategory()">{{'saveChangesBtn' | translate}}</button>
             <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="categoryDlCtrl.close()">{{'DiscardBtn' | translate}}</button>
         </div>
     </div>

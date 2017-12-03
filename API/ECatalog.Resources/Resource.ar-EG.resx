@@ -183,6 +183,9 @@
   <data name="MenuIsNotTranslated" xml:space="preserve">
     <value>.القائمة ليست مترجمة</value>
   </data>
+  <data name="MenuNameAlreadyExist" xml:space="preserve">
+    <value>.اسم القائمه موجود بالفعل</value>
+  </data>
   <data name="RestaurantIsNotReady" xml:space="preserve">
     <value>المطعم ليس جاهز</value>
   </data>
@@ -201,8 +204,14 @@
   <data name="RestaurantTypeIsNotTranslated" xml:space="preserve">
     <value>.نوع المطعم ليس مترجم بالعربية</value>
   </data>
+  <data name="SideHasItems" xml:space="preserve">
+    <value>يجب حذف المنتج</value>
+  </data>
   <data name="SideItemIsNotTranslated" xml:space="preserve">
     <value>.اطباق الجانبية ليست مترجمة بالعربية</value>
+  </data>
+  <data name="SizeHasItems" xml:space="preserve">
+    <value>يجب حذف المنتج</value>
   </data>
   <data name="SizeIsNotTranslated" xml:space="preserve">
     <value>.احجام ليست مترجمة بالعربية</value>

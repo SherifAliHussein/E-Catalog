@@ -65,6 +65,7 @@ namespace ECatalog.BLL
                 }));
             mapperConfiguration.CreateMap<ItemSideItem, SideItemDTO>()
                 .ForMember(dest => dest.SideItemName, m => m.MapFrom(src => src.SideItem.SideItemTranslations.FirstOrDefault(x => x.Language.ToLower() == Thread.CurrentThread.CurrentCulture.Name.ToLower()).SideItemName))
+                .ForMember(dest => dest.Value, m => m.MapFrom(src => src.SideItem.Value))
                 .ForAllMembers(opts => opts.Condition(src =>
                 {
                     var sideItemTranslation = src.SideItem.SideItemTranslations
@@ -97,7 +98,8 @@ namespace ECatalog.BLL
                 .ForMember(dest => dest.ItemName, m => m.MapFrom(src => src.ItemTranslations.FirstOrDefault().ItemName));
 
             mapperConfiguration.CreateMap<RestaurantWaiterDTO, RestaurantWaiter>();
-            mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>();
+            mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>()
+                .ForMember(dto => dto.Password,m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)));
 
             mapperConfiguration.CreateMap<Background, BackgroundDto>();
             mapperConfiguration.CreateMap< BackgroundDto, Background>();
