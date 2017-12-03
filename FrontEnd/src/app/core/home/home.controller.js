@@ -3,10 +3,20 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','$translate', '$scope','HomeResource', 'ResturantResource', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', homeCtrl])
-       
-    function homeCtrl($rootScope, $translate, $scope, HomeResource,ResturantResource,appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage, userRolesEnum,ToastService) {
+        .controller('homeCtrl', ['$rootScope','$translate', '$scope','HomeResource', 'ResturantResource', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService','Data', homeCtrl])
+      
+        
+    function homeCtrl($rootScope, $translate, $scope, HomeResource,ResturantResource,appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage, userRolesEnum,ToastService,Data) {
         // Event listener for state change.
+        $scope.disabled = false;
+        
+        $scope.$watch(function () { return Data.getFirstName(); }, function (newValue, oldValue) {
+            if (newValue !== oldValue)
+            {
+                 $scope.homeTotalNo = newValue;
+                  $scope.disabled = true;
+            }
+        });
 
         var k = ResturantResource.getResturantGlobalInfo().$promise.then(function (results) {
           
@@ -15,11 +25,8 @@
         },
         function (data, status) {
             ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        });
-
-
-        var vm=this;
-    
+        }); 
+        var vm=this; 
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;
 		$scope.languages = [{

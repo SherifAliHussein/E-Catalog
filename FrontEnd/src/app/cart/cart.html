@@ -1,5 +1,5 @@
 <div class="container">
-     
+  
             <form>
     
                 <div class="col-md-8 col-sm-8 col-xs-12 main_cart">
@@ -16,7 +16,8 @@
                             <tr ng-repeat="c in cartCtrl.repeatCart">
                                 <td>
                                     <div class="col-md-4 col-sm-4 col-xs-4 no_padding">
-                                        <img src="{{c.itemObj.imageURL}}" alt="" />
+                                      
+                                         <img ng-src="{{c.itemobj.imageURL}}"  /> 
                                     </div>
                                     <div class="col-md-8 col-sm-8 col-xs-8">
                                         <h3>{{c.itemobj.itemName}}</h3>
@@ -30,7 +31,7 @@
     
                                     <div class="">
                                         <div class="input-group spinner">
-                                            <input type="text" class="form-control counter" value="1">
+                                            <input type="text" class="form-control counter" value="1" readonly="readonly">
                                             <div class="input-group-btn-vertical">
                                                 <div class="btn btn-default left_arrow"><i class="fa fa-caret-up"></i></div>
                                                 <div class="btn btn-default right_arrow"><i class="fa fa-caret-down"></i></div>
@@ -40,7 +41,7 @@
                                 </td>
                                 <td><span class="bold_td">{{c.size.price}} SAR</span></td>
                                 <td><input class="btn btn-danger" type="button" ng-click="removeItemCart(c)" value="Remove" />
-                                    <input class="btn btn-default" type="button" ng-click="viewItemDetail(c)" value="Add" />
+                                    <a href="javascript:void(0);" ng-click="viewItemDetail(c)" data-lity-target="#inline2" data-lity><img src="assets/img/view.png" style="width: 9%;" alt="" /></a>
                                 </td> 
                             </tr>
                              
@@ -73,3 +74,51 @@
                 </div>
             </form>
         </div>
+
+        <div id="inline2" class="main_lity lity-hide">
+            
+                  <div class="col-sm-6 col-xs-6 col-md-6 header_pop"> 
+                   
+                </div>  
+                <input type="button" ng-click="addItemToCart(cartCtrl.itemDetails)" ng-show="displayAdd" value=" Add">
+                <div class="col-sm-6 col-xs-6 col-md-6 ">
+                <h3>
+                    <img ng-src="{{itemDetails[0].itemobj.imageURL}}"  /> 
+ 
+                    {{cartCtrl.itemdetails.itemobj.itemName}}</h3>
+                    <p>{{cartCtrl.itemdetails.itemobj.itemDescription}}</p>
+                    <div class="col-sm-6 col-xs-6 col-md-6">  <div class="menu_plus">
+                        <h3>Sizes</h3>
+                        <p ng-repeat="size in cartCtrl.itemDetails.size">
+                            {{size.price}}
+                            <span>{{size.sizeName}}</span>
+                            <input type="radio" ng-model="selectedSize" ng-click="radioSizeClick(size)" name="name" required />
+            
+            
+                        </p>
+                       
+                    </div>
+                    <br>
+                    <div class="menu_plus" style="    margin-top: 41px;">
+                        <h3>Side Items</h3>
+                        {{cartCtrl.itemdetails.sides[0].sideItemName}} 
+                        
+                        <p ng-repeat="side in cartCtrl.itemDetails.sides">
+                            <span>{{side}}</span>
+                            <span>{{side.value}}</span>
+                            <input type="checkbox" ng-model="selectedSide" ng-click="checkSideClick(side)" name="name" required  >
+                        </p> 
+                        
+                    </div>
+                </div>
+                </div>
+               
+                <!-- <div class="col-sm-6 col-xs-6 col-md-6">
+                    <p>simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has
+                        been the industry's standard dummy t
+                        ext ever since the 1500s, when an unknown ....
+                    </p>
+                </div> -->
+            </div>
+            

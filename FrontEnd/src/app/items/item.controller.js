@@ -3,12 +3,11 @@
 
     angular
         .module('home')
-        .controller('ItemController', ['$scope', '$translate', '$stateParams', 'appCONSTANTS', 'categoryItemsTemplatePrepService', ItemController])
+        .controller('ItemController', ['$scope', '$translate', '$stateParams', 'appCONSTANTS', 'categoryItemsTemplatePrepService', 'Data', ItemController])
 
-    function ItemController($scope, $translate, $stateParams, appCONSTANTS, categoryItemsTemplatePrepService) {
+    function ItemController($scope, $translate, $stateParams, appCONSTANTS, categoryItemsTemplatePrepService, Data) {
 
         var vm = this;
-        vm.vv = "sadasda"
         vm.catgoryTemplates = categoryItemsTemplatePrepService;
         console.log(vm.catgoryTemplates);
         // vm.itemDetails;
@@ -18,58 +17,68 @@
         // }
 
 
+        $scope.homeTotalNo = '';
+        $scope.cart = [];
+        $scope.total = 0;
         $scope.item = {
             itemobj: "",
             size: "",
-            sides: [], 
+            sides: [],
         };
-        vm.selectedSize = "";
-        vm.selectedSide = "";
+        vm.selectedSize = 0;
+        vm.selectedSide = 0;
+        $scope.displayAdd = false;
 
-        $scope.cart = [];
-        $scope.total = 0;
+     
         $scope.addItemToCart = function (product) {
 
             if ($scope.cart.length === 0) {
                 $scope.item.itemobj = product;
-                product.count = 1;
-              //  localStorage.setItem('todos', JSON.stringify($scope.cart));   
                 $scope.cart.push($scope.item);
             } else {
                 var repeat = false;
                 for (var i = 0; i < $scope.cart.length; i++) {
                     if ($scope.cart[i].itemID === product.itemID) {
                         repeat = true;
-                        $scope.cart[i].count += 1;
                     }
                 }
                 if (!repeat) {
-                    $scope.item.itemobj = product; 
-                    product.count = 1;
+                    $scope.item.itemobj = product;
                     $scope.cart.push($scope.item);
                 }
             }
-            
-            $scope.total += parseFloat($scope.item.size.price); 
-            localStorage.setItem('todos', JSON.stringify($scope.cart));
+
+            $scope.total += parseFloat($scope.item.size.price);
+            $scope.homeTotalNo = $scope.total;
+            $scope.$watch('homeTotalNo', function (newValue, oldValue) {
+                if (newValue !== oldValue) Data.setFirstName(newValue);
+            });
+
+            localStorage.setItem('checkOut', JSON.stringify($scope.cart));
             $scope.item = {
                 itemobj: "",
                 size: "",
-                sides: [], 
-            };
-            alert($scope.total)
+                sides: [],
+            }; 
         };
         $scope.radioSizeClick = function (size) {
             $scope.item.size = size;
+            
         };
 
         $scope.checkSideClick = function (side) {
-            if ($scope.item.sides.indexOf(side) !== -1) { 
+            if ($scope.item.sides.indexOf(side) !== -1) {
                 var index = $scope.item.sides.indexOf(side);
-                $scope.item.sides.splice(index, 1); 
-            }
+                $scope.item.sides.splice(index, 1);
+                if ($scope.item.sides.length == 0) {
+                    $scope.displayAdd = false; 
+                }
+             }
             else {
                 $scope.item.sides.push(side);
+                if ($scope.item.sides.length > 0 && $scope.item.size != "") {
+                    $scope.displayAdd = true; 
+                }
             }
         };
 

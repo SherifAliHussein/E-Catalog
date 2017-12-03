@@ -20,11 +20,11 @@
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
         <img class="logo" ng-show="globalInfo.logoUrl !=null" src="{{globalInfo.logoUrl}}" alt="logo" />
-        <a ng-click="$state.go('cart');">
+        <a ng-click="$state.go('cart');" ng-show="disabled">
             
                         <div class="main_cart_bg" > 
-                            <img class="cart_icon" src="../assets/img/cart_icon.png" alt="" />
-                            <span class="cart_icon">Total : {{total}}</span>
+                            <img class="cart_icon" style='    cursor: pointer;' src="../assets/img/cart_icon.png" alt="" />
+                            <span class="cart_icon">Total : {{homeTotalNo}}  </span>
                         </div>
             
                     </a>

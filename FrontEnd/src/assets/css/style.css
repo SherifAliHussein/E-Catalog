@@ -155,7 +155,8 @@ max-width: 100%;}
     float: right;
     margin-bottom: 0;
     border-radius: 27px;
-    margin-right: 5%;}
+    margin-right: 5%;
+	cursor: pointer;}
 
 
 .main_over2:hover{
@@ -624,7 +625,7 @@ font-family: Roboto-Black !important;}
 
 .page1{width: 100%;
 height: 97%;
-background-image: url(../assets/img/page1.png);
+background-image: url(../img/page1.png);
 padding-left: 30px;
 background-size: 100% 100%;
 padding-top: 26px;

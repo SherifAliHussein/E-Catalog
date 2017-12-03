@@ -3,16 +3,21 @@
 
     angular
         .module('home')
-        .controller('cartController', ['$rootScope', '$translate', '$scope', 'appCONSTANTS', '$uibModal',  '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', 'MenuOfflineResource', 'OfflineDataResource', cartController])
+        .controller('cartController', ['$rootScope', '$translate', '$scope', 'appCONSTANTS', '$uibModal',  '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', 'MenuOfflineResource', 'OfflineDataResource','Data', cartController])
 
-    function cartController($rootScope, $translate, $scope, appCONSTANTS, $uibModal, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService, MenuOfflineResource, OfflineDataResource) {
+    function cartController($rootScope, $translate, $scope, appCONSTANTS, $uibModal, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService, MenuOfflineResource, OfflineDataResource,Data) {
         var vm = this;
         $scope.cart = [];
         $scope.total = 0;
-
-        var storedNames = JSON.parse(localStorage.getItem("todos"));
+        var storedNames = JSON.parse(localStorage.getItem("checkOut"));
         $scope.cart = storedNames;
-    
+        vm.itemdetails={};
+        vm.item = {
+            itemobj:"",
+            size: "",
+            sides: [],
+        };
+        vm.image111="http://localhost:28867/api/Restaurants/3/Menu/5/Category/4/Item/10018";
         var total = 0;
         for (var i = 0; i < $scope.cart.length; i++) {
             var product = $scope.cart[i];
@@ -20,35 +25,36 @@
             total += (product.size.price);
         }
         $scope.checkOut = function () {
-            localStorage.removeItem('todos');
+            $scope.homeTotalNo= 0;
+
+            $scope.$watch('homeTotalNo', function (newValue, oldValue) {
+                if (newValue !== oldValue) Data.setFirstName(newValue);
+            });
+            localStorage.removeItem('checkOut');
             $state.go('menu');
         };
-    vm.repeatCart=$scope.cart;
+      vm.repeatCart=$scope.cart;
         $scope.totalItem = total;
         
-        
-    $scope.removeItemCart = function (product) {
-        
-                if (product.count > 1) {
-                    product.count -= 1;
-                    var expireDate = new Date();
-                    expireDate.setDate(expireDate.getDate() + 1);
-                    // $cookies.putObject('cart', $scope.cart, { 'expires': expireDate });
-                    // $scope.cart = $cookies.getObject('cart');
-                }
-                else if (product.count === 1) {
+        $scope.viewItemDetail=function(item){
+            vm.itemdetails = item;  
+console.log(vm.itemdetails);
+            
+        } 
+    $scope.removeItemCart = function (product) { 
                     var index = $scope.cart.indexOf(product);
                     $scope.cart.splice(index, 1);
-                    expireDate = new Date();
-                    expireDate.setDate(expireDate.getDate() + 1);
-                    // $cookies.putObject('cart', $scope.cart, { 'expires': expireDate });
-                    // $scope.cart = $cookies.getObject('cart');
+                    localStorage.setItem('checkOut', JSON.stringify($scope.cart));
+                     
         
-                }
+                //}
         
-                $scope.total -= parseFloat(product.size.price);
-                //  $cookies.put('total', $scope.total, { 'expires': expireDate });
-        
+                $scope.homeTotalNo -= parseFloat(product.size.price);
+                $scope.$watch('homeTotalNo', function (newValue, oldValue) {
+                    if (newValue !== oldValue) Data.setFirstName(newValue);
+                });
+    
+        $scope.totalItem =  $scope.homeTotalNo; 
             };
 
     }
