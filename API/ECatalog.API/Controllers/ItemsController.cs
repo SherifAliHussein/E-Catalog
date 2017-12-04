@@ -61,7 +61,7 @@ namespace ECatalog.API.Controllers
             return Ok();
         }
 
-        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin,Enums.RoleType.Waiter)]
         [Route("api/Items/{itemId:long}", Name = "GetItem")]
         [HttpGet]
         [ResponseType(typeof(ItemModel))]
