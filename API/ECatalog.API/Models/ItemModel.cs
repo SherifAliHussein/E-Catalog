@@ -18,6 +18,7 @@ namespace ECatalog.API.Models
         public List<SideItemModel> SideItems { get; set; }
         public string ImageURL { get; set; }
         public bool IsImageChange { get; set; }
+        public bool IsImage2Change { get; set; }
         public int MaxSideItemValue { get; set; }
         public bool IsActive { get; set; }
     }

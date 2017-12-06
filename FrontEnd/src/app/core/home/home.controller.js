@@ -17,7 +17,7 @@
                   $scope.disabled = true;
             }
         });
-        if (navigator.onLine) {
+       // if (navigator.onLine) {
             var k = ResturantResource.getResturantGlobalInfo().$promise.then(function(results) {
 
                     $scope.globalInfo = results
@@ -27,7 +27,8 @@
                 function(data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
-        }
+       // }
+        // alert("AA");
         var vm=this; 
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;

@@ -18,7 +18,7 @@
         if (navigator.onLine)
             vm.menus = menuPrepService.results;
         else
-            vm.menus = menuPrepService;
+            vm.menus = menuPrepService.results;
         vm.categories = ""; 
         
         function refreshMenu() {

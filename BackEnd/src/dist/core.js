@@ -54,7 +54,7 @@
 		.module('core')
 		.constant('appCONSTANTS', {
 			 'API_URL': 'http://localhost:28867/api/',
-		//	'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
+			// 'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
 			'defaultLanguage':'en'
 		})
 		.constant('messageTypeEnum', {
@@ -251,7 +251,11 @@ angular.module('core')
             "CurrentBtn":"Current Background",
             "NotCurrentBtn":" Not", 
 
-            "Template":"Template"
+            "Template":"Template",
+            "RecommendedMenuImage":"Recommended dimension 477 x 286",
+            "RecommendedCategoryImage":"Recommended dimension 210 x 137",
+            "RecommendedItemImage1":"Recommended dimension 423 x 139",
+            "RecommendedItemImage2":"Recommended dimension 112 x 69",
         }
         
         var ar_translations = {
@@ -376,7 +380,11 @@ angular.module('core')
             "CurrentBtn":"الخلفيه الحاليه",
             "NotCurrentBtn":" ليست الخفيه الحاليه", 
 
-            "Template":"نموذج"
+            "Template":"نموذج",
+            "RecommendedMenuImage":"477 x 286 البعد الموصى به",
+            "RecommendedCategoryImage":"210 x 137 البعد الموصى به",            
+            "RecommendedItemImage1":"423 x 139 البعد الموصى به",
+            "RecommendedItemImage2":"112 x 69 البعد الموصى به",
         }
         
         $translateProvider.translations('en',en_translations);

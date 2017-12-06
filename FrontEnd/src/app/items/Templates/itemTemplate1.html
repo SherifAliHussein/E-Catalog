@@ -1,7 +1,7 @@
 
     <div ng-class="{page1:(pageitems.pageNumber % 2) === 0, page2:(pageitems.pageNumber % 2) !== 0}">
         <div class="img_header">
-            <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: fit-content" />  
+            <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: 139px" />  
             <!-- <img src="assets/img/img1.jpg" /> -->
             
         </div>
@@ -13,9 +13,9 @@
             </div>
             
             <div class="col-sm-4 col-xs-4 col-md-4">
-                <div class="row">
+                <div class="row" style="padding-top: 26px!important; ">
                 <div class="col-sm-5 col-xs-5 col-md-5 no_padding">
-                    <p class="item_price" ng-repeat="size in pageitems.itemModels[0].sizes">{{size.price}} <span>{{size.sizeName}}</span></p>
+                    <p class="item_price" ng-repeat="size in pageitems.itemModels[0].sizes">{{size.price}} <span class="ssss">{{size.sizeName}}</span></p>
                     <!-- <p class="item_price">130 <span>S</span></p>
                     <p class="item_price">130 <span>S</span></p> -->
                 </div>
@@ -36,7 +36,7 @@
       <div class="col-sm-12 col-xs-12 col-md-12 no_padding">
       
       <div class="col-sm-5 col-xs-5 col-md-5 no_padding">
-            <p class="item_price" ng-repeat="size in pageitems.itemModels[1].sizes">{{size.price}} <span>{{size.sizeName}}</span></p>
+            <p class="item_price" ng-repeat="size in pageitems.itemModels[1].sizes">{{size.price}} <span class="ssss">{{size.sizeName}}</span></p>
         <!-- <p class="item_price">130 <span>S</span></p>
         <p class="item_price">130 <span>S</span></p>
         <p class="item_price">130 <span>S</span></p> -->
@@ -54,13 +54,13 @@
 
 
         <div class="col-sm-4 col-xs-4 col-md-4">
-        <img ng-src="{{pageitems.itemModels[1].imageURL}}" style="max-height: fit-content" alt="" />
+        <img ng-src="{{pageitems.itemModels[1].imageURL}}?type=orignal2" style="max-height: 69px;" alt="" />
         </div>
     </div>
 
     <div class="main_data" ng-show="pageitems.itemModels[2] != null">
         <div class="col-sm-4 col-xs-4 col-md-4">
-                <img ng-src="{{pageitems.itemModels[2].imageURL}}" style="max-height: fit-content"alt="" />
+                <img ng-src="{{pageitems.itemModels[2].imageURL}}?type=orignal2" style="max-height: 69px;"alt="" />
                 </div>
         <div class="col-sm-8 col-xs-8 col-md-8">
             <h3>{{pageitems.itemModels[2].itemName}}</h3>
@@ -69,7 +69,7 @@
             <div class="col-sm-12 col-xs-12 col-md-12 no_padding">
 
                 <div class="col-sm-5 col-xs-5 col-md-5 no_padding">
-                    <p class="item_price" ng-repeat="size in pageitems.itemModels[2].sizes">{{size.price}} <span>{{size.sizeName}}</span></p>
+                    <p class="item_price" ng-repeat="size in pageitems.itemModels[2].sizes">{{size.price}} <span class="ssss">{{size.sizeName}}</span></p>
                     <!-- <p class="item_price">130 <span>S</span></p>
                     <p class="item_price">130 <span>S</span></p>
                     <p class="item_price">130 <span>S</span></p> -->

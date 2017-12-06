@@ -94,15 +94,29 @@
 			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"  ng-if="newItemCtrl.mode=='new'">       
 					<input id="itemImage" name="itemImage" style="display: none;" onchange="angular.element(this).scope().AddItemImage(this.files)" type="file" required>
 					<button ng-click="newItemCtrl.LoadUploadLogo()" >{{'UploadImageBtn' | translate}}</button>
-					<img ng-src="{{newItemCtrl.itemImage}}" style="max-height: 200px;max-width: 200px;">
+					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage1' | translate}}</span>
+					<img ng-src="{{newItemCtrl.itemImage}}" style="max-height: 139px;max-width: 423px;">
 					<div ng-messages="newItemForm.itemImage.$error" >
 						<div ng-if="newItemForm.itemImage.$error.required">{{'requiredErr' | translate}}</div>
 					</div>
 			</div>
+
+
+			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"  ng-if="newItemCtrl.mode=='new'">       
+					<input id="itemImage2" name="itemImage2" style="display: none;" onchange="angular.element(this).scope().AddItemImage2(this.files)" type="file" required>
+					<button ng-click="newItemCtrl.LoadUploadLogo2()" >{{'UploadImageBtn' | translate}}</button>
+					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage2' | translate}}</span>
+					<img ng-src="{{newItemCtrl.itemImage2}}" style="max-height: 69px;max-width: 112px;">
+					<div ng-messages="newItemForm.itemImage2.$error" >
+						<div ng-if="newItemForm.itemImage2.$error.required">{{'requiredErr' | translate}}</div>
+					</div>
+			</div>
+
+
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode=='new' && newItemCtrl.itemImage== null) 
+		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode=='new' && newItemCtrl.itemImage== null && newItemCtrl.itemImage2 == null) 
 		|| (newItemCtrl.SelectedSize.length<=0 && newItemCtrl.mode=='new')  
 		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || (newItemCtrl.hasSideItem && newItemCtrl.maxSideItemValueError) " class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.save()">{{'saveChangesBtn' | translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{'DiscardBtn' | translate}}</button>

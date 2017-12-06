@@ -8,7 +8,8 @@
 	function editItemController($scope,$http,$translate ,$stateParams ,appCONSTANTS, $state, ItemResource,ToastService, itemPrepService, ItemSizePrepService, ItemSideItemPrepService){
 		var vm = this;
 		
-		vm.item = itemPrepService;
+		vm.item = itemPrepService;		
+		vm.item.imageURL2 = vm.item.imageURL +"?type=orignal2&date="+ $scope.getCurrentTime();
 		vm.item.imageURL = vm.item.imageURL +"?date="+ $scope.getCurrentTime();
 		vm.Sizes = ItemSizePrepService.results;
         vm.SideItems = ItemSideItemPrepService.results;
@@ -68,10 +69,12 @@
 			}
 			updatedItem.itemID = vm.item.itemID;
 			updatedItem.isImageChange = isItemImageChange;
+			updatedItem.isImage2Change = isItemImage2Change;
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(updatedItem));
 			model.append('file', itemImage);
+			model.append('file2', itemImage2);
 			$http({
 				method: 'put',
 				url: appCONSTANTS.API_URL + 'Items/',
@@ -133,6 +136,50 @@
 
 		}
 
+		vm.LoadUploadLogo2 = function() {
+			$("#itemImage2").click();
+		}
+		var itemImage2; 
+		var isItemImage2Change = false;
+		$scope.AddItemImage2 = function(element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.newItemForm.$dirty=true;
+					$scope.$apply(function() {
+						
+						itemImage2 = logoFile;
+						isItemImage2Change = true;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.item.imageURL2= reader.result;
+							// $scope.Photo = reader.result;
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
 		
 		vm.CheckMaxSideItemValue = function(){
 			if(vm.hasSideItem){

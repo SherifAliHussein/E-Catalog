@@ -15,8 +15,9 @@
 			</div>
 			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       
 					<input id="menuImage" name="menuImage" style="display: none;" onchange="angular.element(this).scope().AddMenuImage(this.files)" type="file" required>
-					<button ng-click="menuDlCtrl.LoadUploadImage()" >{{'UploadImageBtn' | translate}}</button>
-					<img ng-src="{{menuDlCtrl.menuImage}}" style="max-height: 200px;max-width: 200px;">
+					<button ng-click="menuDlCtrl.LoadUploadImage()" >{{'UploadImageBtn' | translate}}</button> 
+					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedMenuImage' | translate}}</span>
+					<img ng-src="{{menuDlCtrl.menuImage}}" style="max-height: 286px;max-width: 477px;">
 					<div ng-messages="newMenuForm.menuImage.$error" >
 						<div ng-if="newMenuForm.menuImage.$error.required">{{'requiredErr' | translate}}</div>
 					</div>

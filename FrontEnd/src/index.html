@@ -21,7 +21,7 @@
 <body style="background-image:url({{globalInfo.backgroundUrl != null ? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
-        <img class="logo" ng-show="globalInfo.logoUrl !=null" src="{{globalInfo.logoUrl}}" alt="logo" />
+        <img class="logo" ng-show="globalInfo.logoUrl !=null" ng-src="{{globalInfo.logoUrl}}" alt="logo" />
         <a ng-click="$state.go('cart');" ng-show="disabled">
             
                         <div class="main_cart_bg" > 

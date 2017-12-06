@@ -36,13 +36,14 @@ namespace ECatalog.API.Controllers
             if (!HttpContext.Current.Request.Files.AllKeys.Any())
                 throw new ValidationException(ErrorCodes.EmptyItemImage);
             var httpPostedFile = HttpContext.Current.Request.Files[0];
+            var httpPostedFile2 = HttpContext.Current.Request.Files[1];
 
             var itemModel = new JavaScriptSerializer().Deserialize<ItemModel>(HttpContext.Current.Request.Form.Get(0));
 
-            if (httpPostedFile == null)
+            if (httpPostedFile == null || httpPostedFile2 == null)
                 throw new ValidationException(ErrorCodes.EmptyItemImage);
 
-            if (httpPostedFile.ContentLength > 2 * 1024 * 1000)
+            if ((httpPostedFile.ContentLength > 2 * 1024 * 1000) || (httpPostedFile2.ContentLength > 2 * 1024 * 1000))
                 throw new ValidationException(ErrorCodes.ImageExceedSize);
 
 
@@ -52,10 +53,20 @@ namespace ECatalog.API.Controllers
 
                 throw new ValidationException(ErrorCodes.InvalidImageType);
 
+            if (Path.GetExtension(httpPostedFile2.FileName).ToLower() != ".jpg" &&
+                Path.GetExtension(httpPostedFile2.FileName).ToLower() != ".png" &&
+                Path.GetExtension(httpPostedFile2.FileName).ToLower() != ".jpeg")
+
+                throw new ValidationException(ErrorCodes.InvalidImageType);
+
             var itemDto = Mapper.Map<ItemDTO>(itemModel);
 
             itemDto.Image = new MemoryStream();
             httpPostedFile.InputStream.CopyTo(itemDto.Image);
+
+
+            itemDto.Image2 = new MemoryStream();
+            httpPostedFile2.InputStream.CopyTo(itemDto.Image2);
 
             _itemFacade.AddItem(itemDto, Language, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
@@ -103,6 +114,30 @@ namespace ECatalog.API.Controllers
                 //restaurantDto.Image = (MemoryStream) restaurant.Image.InputStream;
                 itemDto.Image = new MemoryStream();
                 httpPostedFile.InputStream.CopyTo(itemDto.Image);
+            }
+            if (itemModel.IsImage2Change)
+            {
+                if (!HttpContext.Current.Request.Files.AllKeys.Any())
+                    throw new ValidationException(ErrorCodes.EmptyItemImage);
+                var httpPostedFile2 = HttpContext.Current.Request.Files[1];
+
+
+                if (httpPostedFile2 == null)
+                    throw new ValidationException(ErrorCodes.EmptyCategoryImage);
+
+                if (httpPostedFile2.ContentLength > 2 * 1024 * 1000)
+                    throw new ValidationException(ErrorCodes.ImageExceedSize);
+
+
+                if (Path.GetExtension(httpPostedFile2.FileName).ToLower() != ".jpg" &&
+                    Path.GetExtension(httpPostedFile2.FileName).ToLower() != ".png" &&
+                    Path.GetExtension(httpPostedFile2.FileName).ToLower() != ".jpeg")
+
+                    throw new ValidationException(ErrorCodes.InvalidImageType);
+
+                //restaurantDto.Image = (MemoryStream) restaurant.Image.InputStream;
+                itemDto.Image2 = new MemoryStream();
+                httpPostedFile2.InputStream.CopyTo(itemDto.Image2);
             }
             _itemFacade.UpdateItem(itemDto, Language, HostingEnvironment.MapPath("~/Images/"));
             return Ok();

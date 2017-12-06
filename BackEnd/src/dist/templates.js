@@ -605,7 +605,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"ng-if="editCategoryDlCtrl.mode==\'edit\'" >       \n' +
     '                        <input id="categoryImage" name="categoryImage" style="display: none;" onchange="angular.element(this).scope().AddCategoryImage(this.files)" type="file" required>\n' +
     '                        <button ng-click="editCategoryDlCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
-    '                        <img ng-src="{{editCategoryDlCtrl.categoryImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '                        <span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedCategoryImage\' | translate}}</span>\n' +
+    '                        <img ng-src="{{editCategoryDlCtrl.categoryImage}}" style="max-height: 137px;max-width: 210px;">\n' +
     '                        <div ng-messages="editCategoryForm.categoryImage.$error" >\n' +
     '                            <div ng-if="editCategoryForm.categoryImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '                        </div>\n' +
@@ -738,15 +739,26 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">       \n' +
     '					<input id="itemImage" name="itemImage" style="display: none;" onchange="angular.element(this).scope().AddItemImage(this.files)" type="file" required>\n' +
     '					<button ng-click="editItemCtrl.LoadUploadLogo()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedItemImage1\' | translate}}</span>\n' +
     '					<img ng-src="{{editItemCtrl.item.imageURL}}" style="max-height: 200px;max-width: 200px;">\n' +
     '					<div ng-messages="newItemForm.itemImage.$error" >\n' +
     '						<div ng-if="newItemForm.itemImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '					</div>\n' +
     '			</div>\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">       \n' +
+    '					<input id="itemImage2" name="itemImage2" style="display: none;" onchange="angular.element(this).scope().AddItemImage2(this.files)" type="file" required>\n' +
+    '					<button ng-click="editItemCtrl.LoadUploadLogo2()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedItemImage2\' | translate}}</span>\n' +
+    '					<img ng-src="{{editItemCtrl.item.imageURL2}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '					<div ng-messages="newItemForm.itemImage2.$error" >\n' +
+    '						<div ng-if="newItemForm.itemImage2.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '			</div>\n' +
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode==\'new\' && editItemCtrl.itemImage== null) \n' +
+    '		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode==\'new\' && editItemCtrl.itemImage== null && editItemCtrl.itemImage2== null) \n' +
     '		|| (editItemCtrl.hasSideItem && editItemCtrl.SelectedSideItems.length<=0)|| (editItemCtrl.hasSideItem && editItemCtrl.maxSideItemValueError)" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
@@ -783,7 +795,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"ng-if="editMenuDlCtrl.mode==\'edit\'" >       \n' +
     '					<input id="menuImage" name="menuImage" style="display: none;" onchange="angular.element(this).scope().AddMenuImage(this.files)" type="file" required>\n' +
     '					<button ng-click="editMenuDlCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
-    '					<img ng-src="{{editMenuDlCtrl.menuImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedMenuImage\' | translate}}</span>\n' +
+    '					<img ng-src="{{editMenuDlCtrl.menuImage}}" style="max-height: 286px;max-width: 477px;">\n' +
     '					<div ng-messages="editMenuForm.menuImage.$error" >\n' +
     '						<div ng-if="editMenuForm.menuImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '					</div>\n' +
@@ -1036,7 +1049,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       \n' +
     '                        <input id="categoryImage" name="categoryImage" style="display: none;" onchange="angular.element(this).scope().AddCategoryImage(this.files)" type="file" required>\n' +
     '                        <button ng-click="categoryDlCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
-    '                        <img ng-src="{{categoryDlCtrl.categoryImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '                        <span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedCategoryImage\' | translate}}</span>\n' +
+    '                        <img ng-src="{{categoryDlCtrl.categoryImage}}" style="max-height: 137px;max-width: 210px;">\n' +
     '                        <div ng-messages="newCategoryForm.categoryImage.$error" >\n' +
     '                            <div ng-if="newCategoryForm.categoryImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '                        </div>\n' +
@@ -1151,15 +1165,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"  ng-if="newItemCtrl.mode==\'new\'">       \n' +
     '					<input id="itemImage" name="itemImage" style="display: none;" onchange="angular.element(this).scope().AddItemImage(this.files)" type="file" required>\n' +
     '					<button ng-click="newItemCtrl.LoadUploadLogo()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
-    '					<img ng-src="{{newItemCtrl.itemImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedItemImage1\' | translate}}</span>\n' +
+    '					<img ng-src="{{newItemCtrl.itemImage}}" style="max-height: 139px;max-width: 423px;">\n' +
     '					<div ng-messages="newItemForm.itemImage.$error" >\n' +
     '						<div ng-if="newItemForm.itemImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '					</div>\n' +
     '			</div>\n' +
+    '\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"  ng-if="newItemCtrl.mode==\'new\'">       \n' +
+    '					<input id="itemImage2" name="itemImage2" style="display: none;" onchange="angular.element(this).scope().AddItemImage2(this.files)" type="file" required>\n' +
+    '					<button ng-click="newItemCtrl.LoadUploadLogo2()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedItemImage2\' | translate}}</span>\n' +
+    '					<img ng-src="{{newItemCtrl.itemImage2}}" style="max-height: 69px;max-width: 112px;">\n' +
+    '					<div ng-messages="newItemForm.itemImage2.$error" >\n' +
+    '						<div ng-if="newItemForm.itemImage2.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '			</div>\n' +
+    '\n' +
+    '\n' +
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode==\'new\' && newItemCtrl.itemImage== null) \n' +
+    '		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode==\'new\' && newItemCtrl.itemImage== null && newItemCtrl.itemImage2 == null) \n' +
     '		|| (newItemCtrl.SelectedSize.length<=0 && newItemCtrl.mode==\'new\')  \n' +
     '		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || (newItemCtrl.hasSideItem && newItemCtrl.maxSideItemValueError) " class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.save()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
@@ -1189,8 +1217,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       \n' +
     '					<input id="menuImage" name="menuImage" style="display: none;" onchange="angular.element(this).scope().AddMenuImage(this.files)" type="file" required>\n' +
-    '					<button ng-click="menuDlCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
-    '					<img ng-src="{{menuDlCtrl.menuImage}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '					<button ng-click="menuDlCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button> \n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedMenuImage\' | translate}}</span>\n' +
+    '					<img ng-src="{{menuDlCtrl.menuImage}}" style="max-height: 286px;max-width: 477px;">\n' +
     '					<div ng-messages="newMenuForm.menuImage.$error" >\n' +
     '						<div ng-if="newMenuForm.menuImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '					</div>\n' +

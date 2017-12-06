@@ -1,6 +1,6 @@
 <div ng-class="{page1:(pageitems.pageNumber % 2) === 0, page2:(pageitems.pageNumber % 2) !== 0}">
             <div class="img_header">
-                <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: fit-content" />
+                <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: 139px;" />
             </div>
 
             <div class="main_data">
@@ -31,7 +31,7 @@
             </div>
 
             <div class="img_header" ng-show="pageitems.itemModels[1] != null">
-                <img ng-src="{{pageitems.itemModels[1].imageURL}}" style="max-height: fit-content" />
+                <img ng-src="{{pageitems.itemModels[1].imageURL}}" style="max-height: 139px;" />
             </div>
 
             <div class="main_data" ng-show="pageitems.itemModels[1] != null">
