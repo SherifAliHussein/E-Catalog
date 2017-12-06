@@ -27,20 +27,18 @@
 			vm.save = addNewItem;
 		}
 		
-		// vm.RestaurantType = allRestaurantTypePrepService;
-		// vm.selectedType = allRestaurantTypePrepService[0];
 		function addNewItem(){
 			var newItem = new Object();
             newItem.itemName = vm.itemName;
 			newItem.itemDescription = vm.itemDescription;
 			newItem.categoryId = $stateParams.categoryId;
-			// newItem.price = vm.price;
+			
 			newItem.sizes = [];
-			// if(vm.hasSize){
+			
          	   vm.SelectedSize.forEach(function(element) {
             	    newItem.sizes.push(element);
 				}, this);
-			// }
+			
 			newItem.sideItems = [];
 			if(vm.hasSideItem){
          	   vm.SelectedSideItems.forEach(function(element) {
@@ -48,9 +46,7 @@
 				}, this);
 			newItem.maxSideItemValue = vm.maxSideItemValue;			
 			}
-			// newItem.sizes = vm.SelectedSize;
-			// newItem.sideItems = vm.SelectedSideItems;
-
+			
 			var model = new FormData();
 			model.append('data', JSON.stringify(newItem));
 			model.append('file', itemImage);
@@ -109,7 +105,7 @@
 
 						reader.onloadend = function() {
 							vm.itemImage= reader.result;
-							// $scope.Photo = reader.result;
+							
 							$scope.$apply();
 						};
 						if (logoFile) {
@@ -152,7 +148,7 @@
 
 						reader.onloadend = function() {
 							vm.itemImage2= reader.result;
-							// $scope.Photo = reader.result;
+							
 							$scope.$apply();
 						};
 						if (logoFile) {
@@ -177,14 +173,14 @@
 		vm.CheckMaxSideItemValue = function(){
 			if(vm.hasSideItem){
 				var totalValues = 0;
-				// $scope.min = Math.min.apply(Math, vm.SelectedSideItems.map(function(item){return item.value;}));				
+				
 				var minValues =99999;
          	   vm.SelectedSideItems.forEach(function(element) {
 				var side ;	
 				vm.SideItems.forEach(function(item) {
 						if(item.sideItemId == element){
 							side = item;
-							// break;
+							
 						}							
 					},this);
 					

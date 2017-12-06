@@ -10,8 +10,7 @@ const files = [
   'app.js',
   'core.js',
   'libs.js',
-  'templates.js',
-  'http://ecatalogbackend.azurewebsites.net/api/Restaurants/36/Menu/24/Category/56/Item/53'
+  'templates.js'
 ];
 
 self.addEventListener('install', (event) => {

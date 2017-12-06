@@ -369,11 +369,11 @@ namespace ECatalog.BLL.Services
 
         public CategoryPageTemplateDTO GetActivatedItemsWithTemplatesByCategoryId(string language, long categoryId)
         {
-            var category = _categoryService.Find(categoryId);
+            var category = _categoryService.Query(x=>x.CategoryId == categoryId).Include(x=>x.CategoryTranslations).Select().FirstOrDefault();
             if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
             if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
 
-            var pages = _pageService.Query(x => x.CategoryId == categoryId).Select().ToList();
+            var pages = _pageService.Query(x => x.CategoryId == categoryId).Include(x=>x.Template).Select().ToList();
             var items = _itemTranslationService
                 .Query(x => x.Language.ToLower() == language.ToLower() && x.Item.CategoryId == categoryId &&
                             x.Item.IsActive && !x.Item.IsDeleted).Select(x => x.Item).ToList();

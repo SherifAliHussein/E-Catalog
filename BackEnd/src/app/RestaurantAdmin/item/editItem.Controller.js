@@ -25,9 +25,7 @@
 			  })[0];
 			  if(kk != null)
 				kk.price = element.price;
-			//   else
-			// 	kk.selected = false
-			// element.price=0;
+		
 			vm.SelectedSizeId.push(element.sizeId)
 			vm.SelectedSize.push(element)
         }, this);
@@ -53,13 +51,13 @@
             updatedItem.itemName = vm.item.itemName;
 			updatedItem.itemDescription = vm.item.itemDescription;
 			updatedItem.categoryId = $stateParams.categoryId;
-			// updatedItem.price = vm.item.price;
+			
 			updatedItem.sizes = [];
-			// if(vm.hasSize){
+			
          	   vm.SelectedSize.forEach(function(element) {
                 updatedItem.sizes.push(element);
 				}, this);
-			// }
+			
 			updatedItem.sideItems = [];
 			if(vm.hasSideItem){
          	   vm.SelectedSideItems.forEach(function(element) {
@@ -113,7 +111,7 @@
 
 						reader.onloadend = function() {
 							vm.item.imageURL= reader.result;
-							// $scope.Photo = reader.result;
+							
 							$scope.$apply();
 						};
 						if (logoFile) {
@@ -158,7 +156,7 @@
 
 						reader.onloadend = function() {
 							vm.item.imageURL2= reader.result;
-							// $scope.Photo = reader.result;
+							
 							$scope.$apply();
 						};
 						if (logoFile) {
@@ -184,14 +182,14 @@
 		vm.CheckMaxSideItemValue = function(){
 			if(vm.hasSideItem){
 				var totalValues = 0;
-				// $scope.min = Math.min.apply(Math, vm.SelectedSideItems.map(function(item){return item.value;}));				
+				
 				var minValues =99999;
          	   vm.SelectedSideItems.forEach(function(element) {
 				var side ;	
 				vm.SideItems.forEach(function(item) {
 						if(item.sideItemId == element){
 							side = item;
-							// break;
+				
 						}							
 					},this);
 					
