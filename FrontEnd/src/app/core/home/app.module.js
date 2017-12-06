@@ -1,19 +1,13 @@
 (function() {
   'use strict';
   angular.module('home', ['core']) 
-  .factory('Data', function(){
-    var data =
-        {
-            FirstName: ''
-        };
-    
-    return {
-        getFirstName: function () {
-            return data.FirstName;
-        },
-        setFirstName: function (firstName) {
-            data.FirstName = firstName;
-        }
-    };
-});
+ 
+  .service('CartIconService', function() {
+    this.cartIcon = true;
+  })  
+.service('totalCartService', function() {
+    this.homeTotalNo = 0;
+  });
+  ;
+  
 }());

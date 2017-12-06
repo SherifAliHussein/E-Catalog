@@ -120,6 +120,17 @@
             "NotCurrentBtn":" Not", 
 
             "Template":"Template"
+            ,
+            "CheckOut":" CHECK OUT",
+            "Item":" Item",
+            "NUM":" NUM",
+            "Price":" Price",
+            "EDIT":" EDIT",
+            "Add":" ADD",
+            "Remove":" REMOVE",
+            "SAR":" SAR",
+            "Total":"TOTAL",
+            "Size":"الحجم"
         }
         
         var ar_translations = {
@@ -243,7 +254,18 @@
             "CurrentBtn":"الخلفيه الحاليه",
             "NotCurrentBtn":" ليست الخفيه الحاليه", 
 
-            "Template":"نموذج"
+            "Template":"نموذج",
+
+            "CheckOut":"الدفع",
+            "Item":" الصنف",
+            "NUM":" العدد",
+            "Price":" السعر",
+            "EDIT":" تعديل",
+            "Add":" اضافه",
+            "Remove":" حذف",
+            "SAR":" ريال",
+            "Total":"المجموع",
+            "Size":"الحجم"
         }
         
         $translateProvider.translations('en',en_translations);
