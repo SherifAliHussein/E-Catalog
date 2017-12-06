@@ -58,23 +58,23 @@
                         }
                      
                     })
-                    .state('sideItem', {
-                          url: '/SideItem',
-                          templateUrl: './app/RestaurantAdmin/templates/sideItem.html',
-                          controller: 'sideItemController',
-                          'controllerAs': 'sideItemCtrl',
-                          data: {
-                              permissions: {
-                                  only: ['RestaurantAdmin'],
-                                 redirectTo: 'root'
-                              },
-                              displayName: 'SideItem'
-                          },
-                          resolve: {
-                            sideItemPrepService: sideItemPrepService
-                          }
+                    // .state('sideItem', {
+                    //       url: '/SideItem',
+                    //       templateUrl: './app/RestaurantAdmin/templates/sideItem.html',
+                    //       controller: 'sideItemController',
+                    //       'controllerAs': 'sideItemCtrl',
+                    //       data: {
+                    //           permissions: {
+                    //               only: ['RestaurantAdmin'],
+                    //              redirectTo: 'root'
+                    //           },
+                    //           displayName: 'SideItem'
+                    //       },
+                    //       resolve: {
+                    //         sideItemPrepService: sideItemPrepService
+                    //       }
                        
-                      })
+                    //   })
                     .state('Items', {
                         url: '/Category/:categoryId/Item',
                         templateUrl: './app/RestaurantAdmin/templates/Item.html',

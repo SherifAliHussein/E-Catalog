@@ -383,8 +383,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <th >{{\'DescriptionLbl\' | translate}}</th>\n' +
     '                        <!-- <th >{{\'Pricelbl\' | translate}}</th> -->\n' +
     '                        <th >{{\'size\' | translate}}</th>\n' +
-    '                        <th >{{\'sideItem\' | translate}}</th>\n' +
-    '                        <th >{{\'MaxValueLbl\' | translate}}</th>\n' +
+    '                        <!-- <th >{{\'sideItem\' | translate}}</th> -->\n' +
+    '                        <!-- <th >{{\'MaxValueLbl\' | translate}}</th> -->\n' +
     '                        <th >{{\'status\' | translate}}</th>\n' +
     '                        <th ></th>\n' +
     '                    </tr>\n' +
@@ -406,7 +406,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                </div>\n' +
     '                            </div>\n' +
     '                        </td>                        \n' +
-    '                        <td data-title="SideItems"  width="10%">\n' +
+    '                        <!-- <td data-title="SideItems"  width="10%">\n' +
     '                            <div ng-init="sideItemLimit=2">\n' +
     '                                <span ng-repeat="sideItem in item.sideItems|limitTo:sideItemLimit">\n' +
     '                                    {{sideItem.sideItemName}}<span ng-if="!$last">,</span>\n' +
@@ -416,8 +416,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                    <span  ng-show="sideItemLimit != 2" ng-click="sideItemLimit=2">Collapse</span>\n' +
     '                                </div>\n' +
     '                            </div>\n' +
-    '                        </td>         \n' +
-    '                        <td data-title="Description"  width="5%">{{item.maxSideItemValue}}</td>                                       \n' +
+    '                        </td>          -->\n' +
+    '                        <!-- <td data-title="Description"  width="5%">{{item.maxSideItemValue}}</td>                                        -->\n' +
     '                        <td>\n' +
     '                            <a ng-show="!item.isActive" ng-click="itemCtrl.Activate(item)" class="cursorPointer">{{\'ActivateBtn\' | translate}}</a>\n' +
     '                            <a ng-show="item.isActive" ng-click="itemCtrl.Deactivate(item)" class="cursorPointer">{{\'DeActivateBtn\' | translate}}</a>\n' +
@@ -706,7 +706,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '						</div>\n' +
     '					</div>\n' +
-    '			<div class="group-fields clearfix row">\n' +
+    '			<!-- <div class="group-fields clearfix row">\n' +
     '				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">\n' +
     '					<div class="checkbox pmd-default-theme">\n' +
     '						<label class=" checkbox-pmd-ripple-effect">\n' +
@@ -715,7 +715,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</label>\n' +
     '					</div>\n' +
     '				</div>\n' +
-    '			</div>\n' +
+    '			</div> -->\n' +
     '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-show="editItemCtrl.hasSideItem"  >\n' +
     '				<label>{{\'selectSideItemLbl\' | translate}}</label>\n' +
     '                <select class="form-control select-tags pmd-select2-tags" ng-change="editItemCtrl.CheckMaxSideItemValue()" multiple ng-model="editItemCtrl.SelectedSideItems">\n' +
@@ -1119,7 +1119,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					</div>\n' +
     '				</div>\n' +
     '			\n' +
-    '			<div class="group-fields clearfix row" ng-if="newItemCtrl.mode==\'new\'">\n' +
+    '			<!-- <div class="group-fields clearfix row" ng-if="newItemCtrl.mode==\'new\'">\n' +
     '				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">\n' +
     '					<div class="checkbox pmd-default-theme">\n' +
     '						<label class=" checkbox-pmd-ripple-effect">\n' +
@@ -1128,7 +1128,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</label>\n' +
     '					</div>\n' +
     '				</div>\n' +
-    '			</div>\n' +
+    '			</div> -->\n' +
     '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-show="newItemCtrl.hasSideItem"  >\n' +
     '				<label>{{\'selectSideItemLbl\' | translate}}</label>\n' +
     '                <select class="form-control select-tags pmd-select2-tags" ng-change="newItemCtrl.CheckMaxSideItemValue()" multiple ng-model="newItemCtrl.SelectedSideItems">\n' +
@@ -1234,7 +1234,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </form>\n' +
     '        </div>\n' +
     '        <div class="pmd-modal-action text-right">\n' +
-    '            <button ng-disabled="newSideItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sideItemDlCtrl.AddNewSideItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            <button ng-disabled="newSideItemForm.$invalid || sideItemDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sideItemDlCtrl.AddNewSideItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="sideItemDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -1263,7 +1263,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </form>\n' +
     '        </div>\n' +
     '        <div class="pmd-modal-action text-right">\n' +
-    '            <button ng-disabled="newSizeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sizeDlCtrl.AddNewSize()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            <button ng-disabled="newSizeForm.$invalid || sizeDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sizeDlCtrl.AddNewSize()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="sizeDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '        </div>\n' +
     '    </div>\n' +

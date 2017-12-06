@@ -17,8 +17,8 @@
                         <th >{{'DescriptionLbl' | translate}}</th>
                         <!-- <th >{{'Pricelbl' | translate}}</th> -->
                         <th >{{'size' | translate}}</th>
-                        <th >{{'sideItem' | translate}}</th>
-                        <th >{{'MaxValueLbl' | translate}}</th>
+                        <!-- <th >{{'sideItem' | translate}}</th> -->
+                        <!-- <th >{{'MaxValueLbl' | translate}}</th> -->
                         <th >{{'status' | translate}}</th>
                         <th ></th>
                     </tr>
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </td>                        
-                        <td data-title="SideItems"  width="10%">
+                        <!-- <td data-title="SideItems"  width="10%">
                             <div ng-init="sideItemLimit=2">
                                 <span ng-repeat="sideItem in item.sideItems|limitTo:sideItemLimit">
                                     {{sideItem.sideItemName}}<span ng-if="!$last">,</span>
@@ -50,8 +50,8 @@
                                     <span  ng-show="sideItemLimit != 2" ng-click="sideItemLimit=2">Collapse</span>
                                 </div>
                             </div>
-                        </td>         
-                        <td data-title="Description"  width="5%">{{item.maxSideItemValue}}</td>                                       
+                        </td>          -->
+                        <!-- <td data-title="Description"  width="5%">{{item.maxSideItemValue}}</td>                                        -->
                         <td>
                             <a ng-show="!item.isActive" ng-click="itemCtrl.Activate(item)" class="cursorPointer">{{'ActivateBtn' | translate}}</a>
                             <a ng-show="item.isActive" ng-click="itemCtrl.Deactivate(item)" class="cursorPointer">{{'DeActivateBtn' | translate}}</a>
