@@ -22,15 +22,17 @@
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
         <img class="logo" ng-show="globalInfo.logoUrl !=null" ng-src="{{globalInfo.logoUrl}}" alt="logo" />
-        <a ng-click="$state.go('cart');" ng-show="disabled">
+       <div ng-show="cartIcon" >
+            <a ng-click="$state.go('cart');" ng-show="homeTotalNo > 0" >
+            <!-- <a ng-click="$state.go('cart');" ng-show="disabled"> -->
             
                         <div class="main_cart_bg" > 
                             <img class="cart_icon" style='    cursor: pointer;' src="../assets/img/cart_icon.png" alt="" />
-                            <span class="cart_icon">Total : {{homeTotalNo}}  </span>
+                            <span   class="cart_icon">Total : {{homeTotalNo}}  </span>
                         </div>
             
                     </a>
-                    
+                </div>
                     <a ng-if="selectedLanguage == 'ar'" href="javascript:void(0)" ng-click="changeLanguage('en')">
                         <p class="lang">EN</p>
                     </a>  

@@ -3,15 +3,15 @@
     <form>
 
         <div class="col-md-8 col-sm-8 col-xs-12 main_cart">
-            <h3 class="cart_title">CHECK OUT</h3>
+            <h3 class="cart_title">{{'CheckOut' | translate}}</h3>
 
             <table width="100%" border="0">
                 <tbody>
                     <tr>
-                        <th>Item</th>
-                        <th>NUM</th>
-                        <th>Price</th>
-                        <th>EDIT</th>
+                        <th>{{'Item' | translate}}</th>
+                        <th>{{'NUM' | translate}}</th>
+                        <th>{{'Price' | translate}}</th>
+                        <th>{{'EDIT' | translate}}</th> 
                     </tr>
                     <tr ng-repeat="c in cartCtrl.repeatCart">
                         <td>
@@ -20,9 +20,9 @@
                                 <img ng-src="{{c.itemobj.imageURL}}" />
                             </div>
                             <div class="col-md-8 col-sm-8 col-xs-8">
-                                <h3>{{c.itemobj.itemName}}</h3>
+                                <h3> {{c.itemobj.itemName}}</h3>
                                 <p>
-                                    {{c.itemObj.itemDescription}}
+                                   {{c.itemobj.itemDescription}}
                                 </p>
                             </div>
 
@@ -31,7 +31,7 @@
 
                             <div class="">
                                 <div class="input-group spinner">
-                                    <input type="text" class="form-control counter" value="1" readonly="readonly">
+                                    <input type="text" class="form-control counter" value="{{c.itemobj.count}}" readonly="readonly">
                                     <div class="input-group-btn-vertical">
                                         <div class="btn btn-default left_arrow"><i class="fa fa-caret-up"></i></div>
                                         <div class="btn btn-default right_arrow"><i class="fa fa-caret-down"></i></div>
@@ -39,10 +39,12 @@
                                 </div>
                             </div>
                         </td>
-                        <td><span class="bold_td">{{c.size.price}} SAR</span></td>
+                        <td><span class="bold_td">{{c.size.price*c.itemobj.count}} {{'SAR' | translate}}</span></td>
                         <td>
-                            <input class="btn btn-danger" type="button" ng-click="removeItemCart(c)" value="Remove" />
-                            <a href="javascript:void(0);" ng-click="viewItemDetail(c)" data-lity-target="#inline2" data-lity><img src="assets/img/view.png" style="width: 9%;" alt="" /></a>
+                            <input class="btn btn-default" type="button" ng-click="viewItemDetail(c)" value="{{'Add' | translate}}" data-lity-target="#inline2" data-lity/>
+                            <input class="btn btn-default" type="button" ng-click="updateItemCart(c,cartCtrl.index = $index)" value="{{'EDIT' | translate}}" data-lity-target="#inline2" data-lity/>
+                            <input class="btn btn-danger" type="button" ng-click="removeItemCart(c)" value="{{'Remove' | translate}}" />
+                            <!--<a href="javascript:void(0);" ng-click="viewItemDetail(c)" data-lity-target="#inline2" data-lity><img src="assets/img/view.png" style="width: 9%;" alt="" /></a>-->
                         </td>
                     </tr>
 
@@ -60,15 +62,20 @@
             <div class="footer">
 
                 <div class="checkout_btn">
-                    <input type="button" class="" value="check out" ng-click="checkOut()">
+                    <input type="button" class="" value="{{'CheckOut' | translate}}" ng-click="checkOut()">
 
                 </div>
 
                 <div class="cart">
-                    <h4>Total</h4>
-                    <h5>{{totalItem}} SAR</h5>
-                </div>
+                    <h4>{{'Total' | translate}}</h4>
+                    <h5>{{totalItem}} {{'SAR' | translate}}</h5>
 
+                </div>
+                <!--<div class="cart">
+                    <h4>Quantity</h4>
+                    <h5>{{cartCtrl.itemCount}} </h5>
+
+                </div>-->
             </div>
         </div>
     </form>
@@ -79,9 +86,12 @@
     <div class="col-sm-6 col-xs-6 col-md-6 header_pop">
         <img ng-src="{{cartCtrl.itemdetails.imageURL}}" />
     </div>
-    {{homeTotalNo}}
-    <select ng-model="selectedCount" ng-options="x for x in cartCtrl.counts"></select>
-    <input type="button" ng-click="addItemToCart(cartCtrl.itemdetails)" value=" Add" data-lity-close>
+    <!--{{homeTotalNo}}-->
+    <!-- <select ng-model="selectedCount"  ng-init="selectedCount = cartCtrl.counts[0]" ng-options="x for x in cartCtrl.counts"></select> -->
+    <input type="number" ng-model="selectedCount" class="form-control counter" value="1" >
+    
+    <input type="button" ng-click="addItemToCart(cartCtrl.itemdetails)" value="{{'Add' | translate}}" ng-show="displayAdd" ng-disabled="disableAdd"  data-lity-close>
+    <input type="button" ng-click="editItemToCart(cartCtrl.itemdetails)" value="{{'Edit' | translate}}" ng-show="displayEditBtn" data-lity-close>
 
     <div class="col-sm-6 col-xs-6 col-md-6 ">
         <h3>
@@ -92,16 +102,24 @@
         <p>{{cartCtrl.itemdetails.itemDescription}}</p>
         <div class="col-sm-6 col-xs-6 col-md-6">
             <div class="menu_plus">
-                <h3>Sizes </h3>
-                <p ng-repeat="size in cartCtrl.itemdetails.sizes">
+                <h3>{{'Size' | translate}} </h3>
+                <!-- <p ng-repeat="size in cartCtrl.itemdetails.sizes" >
                     {{size.price}}
                     <span>{{size.sizeName}}</span>
-                    <input type="radio" ng-model="selectedSize" ng-click="radioSizeClick(size)" name="name" required />
+                    <input type="radio"    ng-model="selectedSize" ng-click="radioSizeClick(size)" name="name" required />
                 </p>
+                 -->
+                <div ng-repeat="(key,val) in cartCtrl.itemdetails.sizes">
+                    <input type="radio"  ng-click="radioSizeClick(val)" ng-model="$parent.checkradioasd" ng-value='val.sizeId'  >
+                    {{val.price}}
+                    <span>{{val.sizeName}}</span>
+               </div>
+               <!--   <br>
+              <div>Selected : {{checkradioasd}}</div> -->
 
             </div>
             <br>
-            <div class="menu_plus" style="margin-top: 41px;">
+            <!--<div class="menu_plus" style="margin-top: 41px;">
                 <h3>Side Items</h3>
                 {{cartCtrl.itemdetails.sides[0].sideItemName}}
 
@@ -113,7 +131,7 @@
                 </p>
                 * Please note the Max Side Item Value : {{itemCtrl.itemDetails.maxSideItemValue}}
 
-            </div>
+            </div>-->
         </div>
     </div>
 

@@ -7,24 +7,21 @@ angular.module('home').directive('flipbook', function($timeout){
         return{
           pre: function(scope, iElement, iAttrs, controller){
             var element = $('.text_editor').children();
-            // debugger\\
-            element.jqte({
-              // On focus show the toolbar
+            
+            element.jqte({ 
               focus: function () {
                  element.parents(".jqte").find(".jqte_toolbar").show();
                  element.parents(".jqte").click(function () { element.parents(".jqte").find(".jqte_toolbar").show(); });
                   scope.$apply(function () {
                      
                   });
-              },
-              // On blur hide the toolar
+              }, 
               blur: function () {
                 element.parents(".jqte").find(".jqte_toolbar").hide();
                   scope.$apply(function () {
                       
                   });
-              },
-              // On change refresh the model with the textarea value
+              }, 
               change: function () {
                 ngModel.$setViewValue(element.parents(".jqte").find(".jqte_editor")[0].innerHTML);
                   scope.$apply(function () {
@@ -35,10 +32,7 @@ angular.module('home').directive('flipbook', function($timeout){
             element.parents(".jqte").find(".jqte_toolbar").hide();
           },
           post: function(scope, iElement, iAttrs, controller) {
-            // iElement.turn({
-             
-            //   pages: 8
-            // })
+         
             $timeout(function(){
               iElement.turn({
               

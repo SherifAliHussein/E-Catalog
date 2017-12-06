@@ -70,7 +70,7 @@ font-family:Roboto-Black;}
 
 .counter{border-radius: 0!important;
     font-size: 22px!important;
-    color: #000!important;}
+    color: #000!important;width: 52px!important;}
 
 .input-group-btn-vertical > .btn {
   display: block;
