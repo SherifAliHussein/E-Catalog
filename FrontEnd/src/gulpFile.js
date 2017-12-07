@@ -128,6 +128,12 @@ var runSequence = require('run-sequence').use(gulp);
   docs: '.documentation',
   serviceWorker:[
     './app/core/service-worker.js',    
+  ],
+  turnJsEN:[
+    './assets/turnJS/turn.min.js',    
+  ],
+  tunrJsAr:[
+    './assets/turnJS/turn.min-ar.js',    
   ]
 }
  
@@ -152,6 +158,22 @@ var runSequence = require('run-sequence').use(gulp);
 gulp.task('copy-serviceWorker', function() {
   gulp.src(paths.serviceWorker)
  .pipe(concat('serviceWorker.js', {newLine: ''}))
+ //.pipe(uglify())
+ .pipe(strip())
+ .pipe(gulp.dest(paths.build + '/'));
+});
+
+gulp.task('copy-turnJsEN', function() {
+  gulp.src(paths.turnJsEN)
+ .pipe(concat('turn.min-en.js', {newLine: ''}))
+ //.pipe(uglify())
+ .pipe(strip())
+ .pipe(gulp.dest(paths.build + '/'));
+});
+
+gulp.task('copy-tunrJsAr', function() {
+  gulp.src(paths.tunrJsAr)
+ .pipe(concat('turn.min-ar.js', {newLine: ''}))
  //.pipe(uglify())
  .pipe(strip())
  .pipe(gulp.dest(paths.build + '/'));
@@ -270,7 +292,7 @@ gulp.task('serve', function() {
 });
 
 // copy task
-gulp.task('copy', ['css','cssAr','copy-libs','copy-core','copy-app','copy-templates','copy-index','images','svgs','fonts','copy-serviceWorker']);
+gulp.task('copy', ['css','cssAr','copy-libs','copy-core','copy-app','copy-templates','copy-index','images','svgs','fonts','copy-serviceWorker','copy-turnJsEN','copy-tunrJsAr']);
 
 //clean build
 gulp.task('clean-build', function(cb) {
