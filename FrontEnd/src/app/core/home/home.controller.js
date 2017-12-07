@@ -3,11 +3,15 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope', '$translate', '$scope', 'HomeResource', 'ResturantResource', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', 'CartIconService', 'totalCartService', homeCtrl])
+        .controller('homeCtrl', ['$rootScope', '$translate', '$scope', 'HomeResource', 'ResturantResource', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', 'CartIconService', 'totalCartService','$location', '$window', homeCtrl])
 
 
-    function homeCtrl($rootScope, $translate, $scope, HomeResource, ResturantResource, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService,CartIconService,  totalCartService) {
+    function homeCtrl($rootScope, $translate, $scope, HomeResource, ResturantResource, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService,CartIconService,  totalCartService,$location,$window) {
         // Event listener for state change.
+        if ($location.protocol() !== 'https') {
+            $window.location.href = $location.absUrl().replace('http', 'https');
+        }
+
         var vm = this;
         vm.total = 0;
         $scope.$watch(function () { return CartIconService.cartIcon }, function (newValue) {
@@ -42,7 +46,7 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
-        }
+       // }
         var vm = this;
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;

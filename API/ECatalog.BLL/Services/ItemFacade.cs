@@ -115,7 +115,8 @@ namespace ECatalog.BLL.Services
             
 
             SaveChanges();
-            _manageStorage.UploadImage(path + "\\" + "Restaurant-" + + category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\"+ "Category-"+ item.CategoryId + "\\Items", itemDto.Image, item.ItemId);
+            _manageStorage.UploadImage(path + "\\" + "Restaurant-" + + category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\"+ "Category-"+ item.CategoryId + "\\Items", itemDto.Image, item.ItemId+"-1");
+            _manageStorage.UploadImage(path + "\\" + "Restaurant-" + +category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image2, item.ItemId+"-2");
         }
 
         public ItemDTO GetItem(long itemId, string language)
@@ -317,7 +318,9 @@ namespace ECatalog.BLL.Services
             _itemService.Update(item);
             SaveChanges();
             if (itemDto.IsImageChange)
-                _manageStorage.UploadImage( path + "\\" + "Restaurant-"  + item.Category.Menu.RestaurantId + "\\" + "Menu-" + item.Category.MenuId + "\\"+ "Category-" + item.CategoryId + "\\Items" , itemDto.Image, item.ItemId);
+                _manageStorage.UploadImage( path + "\\" + "Restaurant-"  + item.Category.Menu.RestaurantId + "\\" + "Menu-" + item.Category.MenuId + "\\"+ "Category-" + item.CategoryId + "\\Items" , itemDto.Image, item.ItemId+"-1");
+            if (itemDto.IsImage2Change)
+                _manageStorage.UploadImage(path + "\\" + "Restaurant-" + item.Category.Menu.RestaurantId + "\\" + "Menu-" + item.Category.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image2, item.ItemId+"-2");
         }
         
         public void TranslateItem(ItemDTO itemDto, string language)
@@ -366,11 +369,11 @@ namespace ECatalog.BLL.Services
 
         public CategoryPageTemplateDTO GetActivatedItemsWithTemplatesByCategoryId(string language, long categoryId)
         {
-            var category = _categoryService.Find(categoryId);
+            var category = _categoryService.Query(x=>x.CategoryId == categoryId).Include(x=>x.CategoryTranslations).Select().FirstOrDefault();
             if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
             if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
 
-            var pages = _pageService.Query(x => x.CategoryId == categoryId).Select().ToList();
+            var pages = _pageService.Query(x => x.CategoryId == categoryId).Include(x=>x.Template).Select().ToList();
             var items = _itemTranslationService
                 .Query(x => x.Language.ToLower() == language.ToLower() && x.Item.CategoryId == categoryId &&
                             x.Item.IsActive && !x.Item.IsDeleted).Select(x => x.Item).ToList();

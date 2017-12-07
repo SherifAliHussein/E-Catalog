@@ -26,7 +26,7 @@
 <body style="background-image:url({{globalInfo.backgroundUrl != null ? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
-        <img class="logo" ng-show="globalInfo.logoUrl !=null" src="{{globalInfo.logoUrl}}" alt="logo" />
+        <img class="logo" ng-show="globalInfo.logoUrl !=null" ng-src="{{globalInfo.logoUrl}}" alt="logo" />
        <div ng-show="cartIcon" >
             <a ng-click="$state.go('cart');" ng-show="homeTotalNo > 0" >
             <!-- <a ng-click="$state.go('cart');" ng-show="disabled"> -->
@@ -61,7 +61,7 @@
     <script src="app.js?v=#{VERSION_REPlACE}#"></script>
     <script src="templates.js?v=#{VERSION_REPlACE}#"></script>
  
-    <!-- <script>
+    <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
                 console.log('Service Worker registered');
@@ -69,7 +69,7 @@
                 console.log('Service Worker registration failed: ', err);
             });
         }
-    </script> -->
+    </script>
  
 </body>
 

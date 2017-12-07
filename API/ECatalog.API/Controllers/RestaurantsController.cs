@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -242,16 +243,38 @@ namespace ECatalog.API.Controllers
             }
         }
 
-        [Route("api/Restaurants/{restaurantId:long}/Menu/{menuId:long}/Category/{categoryId:long}/Item/{itemId:long}", Name = "ItemImage")]
+        [Route("api/Restaurants/{restaurantId:long}/Menu/{menuId:long}/Category/{categoryId:long}/Item/{itemId:long}/Image", Name = "ItemImage")]
         public HttpResponseMessage GetItemImage(long restaurantId, long menuId, long categoryId, long itemId, string type = "orignal")
         {
             try
             {
-                string filePath = type == "orignal"
-                    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
-                        .FirstOrDefault(x => Path.GetFileName(x).Contains(itemId.ToString()) && !Path.GetFileName(x).Contains("thumb"))
-                    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
-                        .FirstOrDefault(x => Path.GetFileName(x).Contains(itemId.ToString()) && Path.GetFileName(x).Contains("thumb"));
+                string filePath;
+                if (type == "orignal")
+                {
+                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" +
+                                                         "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" +
+                                                         "Category-" + categoryId + "\\Items")
+                        .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == itemId + "-1" &&
+                                             !Path.GetFileName(x).Contains("thumb"));
+                }
+                else if (type == "orignal2")
+                {
+                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" +
+                                                         "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" +
+                                                         "Category-" + categoryId + "\\Items")
+                        .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == itemId + "-2" &&
+                                             !Path.GetFileName(x).Contains("thumb"));
+                }
+                else
+                {
+                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
+                            .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == itemId + "-1-thumbnail");
+                }
+                //string filePath = type == "orignal"
+                //    ? Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
+                //        .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == itemId+"-1" && !Path.GetFileName(x).Contains("thumb"))
+                //    : Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
+                //        .FirstOrDefault(x => Path.GetFileName(x).Contains(itemId.ToString()) && Path.GetFileName(x).Contains("thumb"));
 
 
                 HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);

@@ -9,7 +9,7 @@ namespace ECatalog.BLL.Services.ManageStorage
 {
     public class fakeManageStorage:IManageStorage
     {
-        public void UploadImage(string path, MemoryStream image, long id)
+        public void UploadImage(string path, MemoryStream image, string id)
         {
             
         }

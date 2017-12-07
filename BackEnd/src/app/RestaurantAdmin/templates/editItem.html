@@ -112,15 +112,26 @@
 			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">       
 					<input id="itemImage" name="itemImage" style="display: none;" onchange="angular.element(this).scope().AddItemImage(this.files)" type="file" required>
 					<button ng-click="editItemCtrl.LoadUploadLogo()" >{{'UploadImageBtn' | translate}}</button>
+					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage1' | translate}}</span>
 					<img ng-src="{{editItemCtrl.item.imageURL}}" style="max-height: 200px;max-width: 200px;">
 					<div ng-messages="newItemForm.itemImage.$error" >
 						<div ng-if="newItemForm.itemImage.$error.required">{{'requiredErr' | translate}}</div>
 					</div>
 			</div>
+
+			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">       
+					<input id="itemImage2" name="itemImage2" style="display: none;" onchange="angular.element(this).scope().AddItemImage2(this.files)" type="file" required>
+					<button ng-click="editItemCtrl.LoadUploadLogo2()" >{{'UploadImageBtn' | translate}}</button>
+					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage2' | translate}}</span>
+					<img ng-src="{{editItemCtrl.item.imageURL2}}" style="max-height: 200px;max-width: 200px;">
+					<div ng-messages="newItemForm.itemImage2.$error" >
+						<div ng-if="newItemForm.itemImage2.$error.required">{{'requiredErr' | translate}}</div>
+					</div>
+			</div>
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode=='new' && editItemCtrl.itemImage== null) 
+		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode=='new' && editItemCtrl.itemImage== null && editItemCtrl.itemImage2== null) 
 		|| (editItemCtrl.hasSideItem && editItemCtrl.SelectedSideItems.length<=0)|| (editItemCtrl.hasSideItem && editItemCtrl.maxSideItemValueError)" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{'saveChangesBtn' | translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{'DiscardBtn' | translate}}</button>
 	</div>

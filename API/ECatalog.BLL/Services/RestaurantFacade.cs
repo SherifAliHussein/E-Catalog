@@ -184,7 +184,7 @@ namespace ECatalog.BLL.Services
             _restaurantAdminService.Update(restaurant.RestaurantAdmin);
             SaveChanges();
             _manageStorage.UploadImage(path + "\\" + "Restaurant-" + restaurant.RestaurantId, restaurantDto.Image,
-                restaurant.RestaurantId);
+                restaurant.RestaurantId.ToString());
         }
 
         public RestaurantDTO GetRestaurant(long restaurantId, string language)
@@ -310,7 +310,7 @@ namespace ECatalog.BLL.Services
             SaveChanges();
             if (restaurantDto.IsLogoChange)
                 _manageStorage.UploadImage(path + "\\" + "Restaurant-" + restaurant.RestaurantId, restaurantDto.Image,
-                    restaurant.RestaurantId);
+                    restaurant.RestaurantId.ToString());
         }
 
         public RestaurantDTO CheckRestaurantReady(long restaurantAdminId)

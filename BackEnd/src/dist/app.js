@@ -685,8 +685,8 @@
                         menuPrepService: menuPrepService,
                         RestaurantIsReadyPrepService:RestaurantIsReadyPrepService
                     }
-                 
-                })
+
+                                 })
                 .state('Category', {
                       url: '/menu/:menuId/Category',
                       templateUrl: './app/RestaurantAdmin/templates/Category.html',
@@ -702,8 +702,8 @@
                       resolve: {
                         categoryPrepService: categoryPrepService
                       }
-                   
-                  })
+
+                                     })
                   .state('size', {
                         url: '/size',
                         templateUrl: './app/RestaurantAdmin/templates/size.html',
@@ -719,9 +719,189 @@
                         resolve: {
                           sizePrepService: sizePrepService
                         }
-                     
+
+                                         })
+
+                    .state('Items', {
+                        url: '/Category/:categoryId/Item',
+                        templateUrl: './app/RestaurantAdmin/templates/Item.html',
+                        controller: 'ItemController',
+                        'controllerAs': 'itemCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                                redirectTo: 'root'
+                            },
+                            displayName: 'Category'
+                        },
+                        resolve: {
+                            itemsPrepService: itemsPrepService
+                        }
                     })
-                    
+                    .state('newItem', {
+                        url: '/Category/:categoryId/newItem',
+                        templateUrl: './app/RestaurantAdmin/templates/newItem.html',
+                        controller: 'newItemController',
+                        'controllerAs': 'newItemCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                               redirectTo: 'root'
+                            },
+                            displayName: 'Items'
+                        },
+                        resolve: {
+                            ItemSizePrepService: ItemSizePrepService,
+                            ItemSideItemPrepService: ItemSideItemPrepService,
+                            defaultItemsPrepService: defaultItemsPrepService,
+                        }                 
+                    })
+                    .state('editItem', {
+                        url: '/Category/:categoryId/Items/:itemId',
+                        templateUrl: './app/RestaurantAdmin/templates/editItem.html',
+                        controller: 'editItemController',
+                        'controllerAs': 'editItemCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                               redirectTo: 'root'
+                            },
+                            displayName: 'Items'
+                        },
+                        resolve: {
+                            itemPrepService:itemPrepService,
+                            ItemSizePrepService: ItemSizePrepService,
+                            ItemSideItemPrepService: ItemSideItemPrepService
+                        }                 
+                    })
+                    .state('Waiters', {
+                        url: '/Waiter',
+                        templateUrl: './app/RestaurantAdmin/templates/waiter.html',
+                        controller: 'WaiterController',
+                        'controllerAs': 'waiterCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                                redirectTo: 'root'
+                            },
+                            displayName: 'Waiters'
+                        },
+                        resolve: {
+                            waitersPrepService: waitersPrepService
+                        }
+                    })
+                    .state('Backgrounds', {
+                        url: '/Background',
+                        templateUrl: './app/RestaurantAdmin/templates/background.html',
+                        controller: 'BackgroundController',
+                        'controllerAs': 'backgroundCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                                redirectTo: 'root'
+                            },
+                            displayName: 'Backgrounds'
+                        },
+                        resolve: {
+                            backgroundsPrepService: backgroundsPrepService
+                        }
+                    })
+
+                                        .state('Template', {
+                        url: '/Template',
+                        templateUrl: './app/RestaurantAdmin/templates/categoryTemplate.html',
+                        controller: 'CategoryTemplateController',
+                        'controllerAs': 'CategoryTemplateCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                                redirectTo: 'root'
+                            },
+                            displayName: 'Templates'
+                        },
+                        resolve: {
+                            allMenuPrepService: allMenuPrepService,
+                            templatesPrepService: templatesPrepService
+                        }
+                    })
+        });
+
+                menuPrepService.$inject = ['MenuResource']
+        function menuPrepService(MenuResource) {
+            return MenuResource.getAllMenus().$promise;
+        }
+
+        categoryPrepService.$inject = ['GetCategoriesResource','$stateParams']
+        function categoryPrepService(GetCategoriesResource,$stateParams) {
+            return GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId }).$promise;
+        }
+
+                sizePrepService.$inject = ['SizeResource']
+        function sizePrepService(SizeResource) {
+            return SizeResource.getAllSizes().$promise;
+        }
+
+                sideItemPrepService.$inject = ['SideItemResource']
+        function sideItemPrepService(SideItemResource) {
+            return SideItemResource.getAllSideItems().$promise;
+        }
+
+                itemsPrepService.$inject = ['GetItemsResource','$stateParams']
+        function itemsPrepService(GetItemsResource,$stateParams) {
+            return GetItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
+        }
+
+        ItemSizePrepService.$inject = ['SizeResource']
+        function ItemSizePrepService(SizeResource) {
+            return SizeResource.getAllSizes({ pagesize:0 }).$promise;
+        }
+
+        ItemSideItemPrepService.$inject = ['SideItemResource']
+        function ItemSideItemPrepService(SideItemResource) {
+            return SideItemResource.getAllSideItems({ pagesize:0 }).$promise;
+        }
+
+        itemPrepService.$inject = ['ItemResource','$stateParams']
+        function itemPrepService(ItemResource,$stateParams) {
+            return ItemResource.getItem({ itemId:$stateParams.itemId }).$promise;
+        }
+
+        defaultItemsPrepService.$inject = ['GetItemNamesResource','$stateParams','$localStorage','appCONSTANTS']
+        function defaultItemsPrepService(GetItemNamesResource,$stateParams,$localStorage,appCONSTANTS) {
+            if($localStorage.language != appCONSTANTS.defaultLanguage){
+                return GetItemNamesResource.getAllItemNames({ CategoryId:$stateParams.categoryId, lang:appCONSTANTS.defaultLanguage }).$promise;
+            }
+            else
+                return null;
+        }
+
+        RestaurantIsReadyPrepService.$inject = ['CheckRestaurantReadyResource']
+        function RestaurantIsReadyPrepService(CheckRestaurantReadyResource) {
+            return CheckRestaurantReadyResource.IsReady().$promise;
+        }
+
+        waitersPrepService.$inject = ['WaiterResource']
+        function waitersPrepService(WaiterResource) {
+            return WaiterResource.getAllWaiters().$promise;
+        }
+
+        backgroundsPrepService.$inject = ['BackgroundResource']
+        function backgroundsPrepService(BackgroundResource) {
+            return BackgroundResource.getAllBackgrounds().$promise; 
+        }
+
+
+                templatesPrepService.$inject = ['TemplateResource']
+        function templatesPrepService(TemplateResource) {
+            return TemplateResource.getTemplates().$promise;
+        }
+
+                allMenuPrepService.$inject = ['ActivatedMenuResource']
+        function allMenuPrepService(ActivatedMenuResource) {
+            return ActivatedMenuResource.getAllMenusName().$promise;
+        }
+}());
+(function() {
     'use strict';
 
       angular
@@ -762,8 +942,8 @@
   })();
   (function () {
     'use strict';
-
-	    angular
+	
+    angular
         .module('home')
         .controller('BackgroundController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','BackgroundResource', 'ActivatebackgroundResource','DeactivateBackgroundResource','backgroundsPrepService','ToastService',  BackgroundController])
 
@@ -789,8 +969,8 @@
             refreshBackgrounds();
 		}
 		vm.openbackgroundDialog = function(){		
-
-			 				var modalContent = $uibModal.open({
+			 
+				var modalContent = $uibModal.open({
 					templateUrl: './app/RestaurantAdmin/templates/newBackground.html',
 					controller: 'backgroundDialogController',
 					controllerAs: 'backgroundCtrl',
@@ -798,10 +978,10 @@
 						callBackFunction:function(){return refreshBackgrounds;
 						}
 					}
-
-									});
-
-		 		}
+					
+				});
+		 
+		}
 		function confirmationDelete(itemId){
 			backgroundResource.deletebackground({backgroundId:itemId}).$promise.then(function(results) {
 				ToastService.show("right","bottom","fadeInUp",$translate.instant('backgroundDeleteSuccess'),"success");
@@ -822,11 +1002,11 @@
 					message:function() { return null},
 					callBackFunction:function() { return confirmationDelete }
 				}
-
-							});
+				
+			});
 		}
-
-				vm.openEditbackgroundDialog = function(index){
+		
+		vm.openEditbackgroundDialog = function(index){
 			var modalContent = $uibModal.open({
 				templateUrl: './app/RestaurantAdmin/templates/editbackground.html',
 				controller: 'editbackgroundDialogController',
@@ -837,10 +1017,10 @@
 					background:function(){ return vm.Backgrounds.results[index]},
 					callBackFunction:function(){return refreshBackgrounds;}
 				}
-
-							});
-
-					}
+				
+			});
+			
+		}
 		vm.Activate = function(background){
 			ActivatebackgroundResource.Activate({BackgroundId:background.backgroundId})
 			.$promise.then(function(result){
@@ -861,12 +1041,12 @@
 				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 			})
 		}		
-
-
-
-							}
-
+		
+		
+		
 	}
+	
+}
     ());
 (function() {
     angular
@@ -880,9 +1060,9 @@
                 getAllBackgrounds: { method: 'GET', useToken: true, params:{lang:'@lang'} }
         })
     }
+  
 
-
-      function ActivatebackgroundResource($resource, appCONSTANTS) {
+    function ActivatebackgroundResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Backgrounds/:BackgroundId/Activate', {}, {
           Activate: { method: 'GET', useToken: true}
         })
@@ -895,8 +1075,8 @@
 }());
   (function () {
     'use strict';
-
-	    angular
+	
+    angular
         .module('home')
         .controller('backgroundDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS' , 'BackgroundResource','ToastService','callBackFunction','$rootScope',  backgroundDialogController])
 
@@ -906,8 +1086,8 @@
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
-
-				vm.AddNewbackground = function(){
+		
+		vm.AddNewbackground = function(){
             var newbackground = new Object();
             newbackground.backgroundName = vm.backgroundName; 
 
@@ -931,8 +1111,8 @@
 				}
             );
         }
-
-                vm.LoadUploadImage = function() {
+        
+        vm.LoadUploadImage = function() {
 			$("#backgroundImage").click();
 		}
 		var backgroundImage; 
@@ -946,14 +1126,14 @@
 				if (allowedImageTypes.indexOf(imageFile.type) !== -1) {
 					$scope.newbackgroundForm.$dirty=true;
 					$scope.$apply(function() {
-
-												backgroundImage= imageFile;
+						
+						backgroundImage= imageFile;
 						var reader = new FileReader();
 
 						reader.onloadend = function() {
 							vm.backgroundImage= reader.result;
-
-														$scope.$apply();
+							
+							$scope.$apply();
 						};
 						if (imageFile) {
 							reader.readAsDataURL(imageFile);
@@ -978,8 +1158,8 @@
 }());
 (function () {
     'use strict';
-	
-    angular
+
+	    angular
         .module('home')
         .controller('categoryController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','GetCategoriesResource', 'CategoryResource','ActivateCategoryResource','DeactivateCategoryResource','categoryPrepService','ToastService',  categoryController])
 
@@ -989,7 +1169,120 @@
 		vm.categories = categoryPrepService;
 		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		
+
+				function refreshCategories(){
+			var k = GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId,page:vm.currentPage }).$promise.then(function(results) {
+				vm.Now = $scope.getCurrentTime();	
+				vm.categories = results;
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshCategories();
+		}
+		vm.openCategoryDialog = function(){		
+			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
+			{
+				var englishCategories;
+				var k = GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId,pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+					englishCategories = results;
+					var modalContent = $uibModal.open({
+						templateUrl: './app/RestaurantAdmin/templates/editCategory.html',
+						controller: 'editCategoryDialogController',
+						controllerAs: 'editCategoryDlCtrl',
+						resolve:{
+							mode:function(){return "map"},
+							englishCategories: function(){return englishCategories.results;},
+							category:function(){ return null},
+							callBackFunction:function(){return refreshCategories;}
+						}
+
+											});
+				});
+			}
+			else{
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newCategory.html',
+					controller: 'categoryDialogController',
+					controllerAs: 'categoryDlCtrl',
+					resolve:{
+                        menuId: function(){ return $stateParams.menuId;},
+						callBackFunction:function(){return refreshCategories;}
+					}
+
+									});
+			}
+		}
+		function confirmationDelete(itemId){
+			CategoryResource.deleteCategory({categoryId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryDeleteSuccess'),"success");
+				refreshCategories();
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.openDeleteCategoryDialog = function(name,id){			
+			var modalContent = $uibModal.open({
+				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+				controller: 'confirmDeleteDialogController',
+				controllerAs: 'deleteDlCtrl',
+				resolve: {
+					itemName: function () { return name },
+					itemId: function() { return id },
+					message:function() { return null},
+					callBackFunction:function() { return confirmationDelete }
+				}
+
+							});
+		}
+
+				vm.openEditCategoryDialog = function(index){
+			var modalContent = $uibModal.open({
+				templateUrl: './app/RestaurantAdmin/templates/editCategory.html',
+				controller: 'editCategoryDialogController',
+				controllerAs: 'editCategoryDlCtrl',
+				resolve:{
+					mode:function(){return "edit"},
+					englishCategories: function(){return null;},
+					category:function(){ return vm.categories.results[index]},
+					callBackFunction:function(){return refreshCategories;}
+				}
+
+							});
+
+					}
+		vm.Activate = function(category){
+			ActivateCategoryResource.Activate({categoryId:category.categoryId})
+			.$promise.then(function(result){
+				category.isActive = true;
+			},
+			function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+			})
+		}
+
+		vm.Deactivate = function(category){
+			DeactivateCategoryResource.Deactivate({categoryId:category.categoryId})
+			.$promise.then(function(result){
+				category.isActive = false;
+			},
+			function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+			})
+		}		
+
+
+
+							}
+
+	}
+    ());
+(function() {
     angular
       .module('home')
       .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource])
@@ -1030,8 +1323,8 @@
 }());
   (function () {
     'use strict';
-	
-    angular
+
+	    angular
         .module('home')
         .controller('categoryDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS' , 'CategoryResource','ToastService','menuId','callBackFunction','$rootScope',  categoryDialogController])
 
@@ -1060,7 +1353,61 @@
 			}).then(
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryAddSuccess'),"success");
-					 
+					 vm.isChanged = false;
+					 $uibModalInstance.dismiss('cancel');
+					 callBackFunction();
+				},
+				function(data, status) {
+					vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+				}
+            );
+        }
+
+                vm.LoadUploadImage = function() {
+			$("#categoryImage").click();
+		}
+		var categoryImage; 
+		$scope.AddCategoryImage = function(element) {
+			var imageFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (imageFile && imageFile.size >= 0 && ((imageFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(imageFile.type) !== -1) {
+					$scope.newCategoryForm.$dirty=true;
+					$scope.$apply(function() {
+
+												categoryImage= imageFile;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.categoryImage= reader.result;
+							$scope.$apply();
+						};
+						if (imageFile) {
+							reader.readAsDataURL(imageFile);
+						}
+					})
+				} else {
+					$("#logoImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (imageFile) {
+					$("#logoImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
+	}	
+}());
+(function () {
     'use strict';
 
 	    angular
@@ -1291,7 +1638,8 @@
 	function editItemController($scope,$http,$translate ,$stateParams ,appCONSTANTS, $state, ItemResource,ToastService, itemPrepService, ItemSizePrepService, ItemSideItemPrepService){
 		var vm = this;
 		
-		vm.item = itemPrepService;
+		vm.item = itemPrepService;		
+		vm.item.imageURL2 = vm.item.imageURL +"?type=orignal2&date="+ $scope.getCurrentTime();
 		vm.item.imageURL = vm.item.imageURL +"?date="+ $scope.getCurrentTime();
 		vm.Sizes = ItemSizePrepService.results;
         vm.SideItems = ItemSideItemPrepService.results;
@@ -1307,7 +1655,191 @@
 			  })[0];
 			  if(kk != null)
 				kk.price = element.price;
+		
+			vm.SelectedSizeId.push(element.sizeId)
+			vm.SelectedSize.push(element)
+        }, this);
+        itemPrepService.sideItems.forEach(function(element) {
+            vm.SelectedSideItems.push(element.sideItemId.toString())
+        }, this);
+		vm.close = function(){
+			$state.go('Items', {categoryId: $stateParams.categoryId});
+		}
+		vm.sizeChange = function(){
+			vm.SelectedSize = []
+			for(var i=0;i<vm.SelectedSizeId.length;i++){
+				var size = vm.Sizes.filter(function(item){
+					return (item.sizeId ===  vm.SelectedSizeId[i]);
+				})[0]
+				if(size.price == undefined)
+					size.price = 0;
+				vm.SelectedSize.push(size)  
+			}
+		}
+		vm.updateItem = function(){
+			var updatedItem = new Object();
+            updatedItem.itemName = vm.item.itemName;
+			updatedItem.itemDescription = vm.item.itemDescription;
+			updatedItem.categoryId = $stateParams.categoryId;
 			
+			updatedItem.sizes = [];
+			
+         	   vm.SelectedSize.forEach(function(element) {
+                updatedItem.sizes.push(element);
+				}, this);
+			
+			updatedItem.sideItems = [];
+			if(vm.hasSideItem){
+         	   vm.SelectedSideItems.forEach(function(element) {
+                updatedItem.sideItems.push({sideItemId:element});
+				}, this);
+				updatedItem.maxSideItemValue = vm.item.maxSideItemValue;
+			}
+			updatedItem.itemID = vm.item.itemID;
+			updatedItem.isImageChange = isItemImageChange;
+			updatedItem.isImage2Change = isItemImage2Change;
+
+			var model = new FormData();
+			model.append('data', JSON.stringify(updatedItem));
+			model.append('file', itemImage);
+			model.append('file2', itemImage2);
+			$http({
+				method: 'put',
+				url: appCONSTANTS.API_URL + 'Items/',
+				useToken: true,
+				headers: { 'Content-Type': undefined },
+				data: model
+			}).then(
+				function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('ItemUpdateSuccess'),"success");
+					$state.go('Items', {categoryId: $stateParams.categoryId});
+				},
+				function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+				}
+			);
+		}
+		vm.LoadUploadLogo = function() {
+			$("#itemImage").click();
+		}
+		var itemImage; 
+		var isItemImageChange = false;
+		$scope.AddItemImage = function(element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.newItemForm.$dirty=true;
+					$scope.$apply(function() {
+						
+						itemImage = logoFile;
+						isItemImageChange = true;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.item.imageURL= reader.result;
+							
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
+
+		vm.LoadUploadLogo2 = function() {
+			$("#itemImage2").click();
+		}
+		var itemImage2; 
+		var isItemImage2Change = false;
+		$scope.AddItemImage2 = function(element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.newItemForm.$dirty=true;
+					$scope.$apply(function() {
+						
+						itemImage2 = logoFile;
+						isItemImage2Change = true;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.item.imageURL2= reader.result;
+							
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
+		
+		vm.CheckMaxSideItemValue = function(){
+			if(vm.hasSideItem){
+				var totalValues = 0;
+				
+				var minValues =99999;
+         	   vm.SelectedSideItems.forEach(function(element) {
+				var side ;	
+				vm.SideItems.forEach(function(item) {
+						if(item.sideItemId == element){
+							side = item;
+				
+						}							
+					},this);
+					
+					if(side.value < minValues)
+						minValues = side.value;
+					totalValues += side.value;
+				}, this);		
+				if(vm.item.maxSideItemValue>totalValues || vm.item.maxSideItemValue<minValues){
+					vm.maxSideItemValueError = true;
+				}
+				else
+					vm.maxSideItemValueError = false;
+			}
+		}
+		vm.CheckMaxSideItemValue();
+
+
+	}	
+}());
+(function () {
     'use strict';
 
 	    angular
@@ -1432,8 +1964,8 @@
 }());
   (function () {
     'use strict';
-
-	    angular
+	
+    angular
         .module('home')
         .controller('newItemController', ['$scope','$translate','$http','$stateParams', 'appCONSTANTS' ,'$state','ToastService' ,'TranslateItemResource' , 'ItemSizePrepService' ,'ItemSideItemPrepService', 'defaultItemsPrepService',  newItemController])
 
@@ -1458,16 +1990,19 @@
 		else{
 			vm.save = addNewItem;
 		}
-
+		
 		function addNewItem(){
 			var newItem = new Object();
             newItem.itemName = vm.itemName;
 			newItem.itemDescription = vm.itemDescription;
 			newItem.categoryId = $stateParams.categoryId;
+			
 			newItem.sizes = [];
+			
          	   vm.SelectedSize.forEach(function(element) {
             	    newItem.sizes.push(element);
 				}, this);
+			
 			newItem.sideItems = [];
 			if(vm.hasSideItem){
          	   vm.SelectedSideItems.forEach(function(element) {
@@ -1475,10 +2010,11 @@
 				}, this);
 			newItem.maxSideItemValue = vm.maxSideItemValue;			
 			}
-
+			
 			var model = new FormData();
 			model.append('data', JSON.stringify(newItem));
 			model.append('file', itemImage);
+			model.append('file', itemImage2);
 			$http({
 				method: 'POST',
 				url: appCONSTANTS.API_URL + 'Items/',
@@ -1527,12 +2063,13 @@
 				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
 					$scope.newItemForm.$dirty=true;
 					$scope.$apply(function() {
-
-												itemImage= logoFile;
+						
+						itemImage= logoFile;
 						var reader = new FileReader();
 
 						reader.onloadend = function() {
 							vm.itemImage= reader.result;
+							
 							$scope.$apply();
 						};
 						if (logoFile) {
@@ -1555,19 +2092,63 @@
 
 		}
 
+		vm.LoadUploadLogo2 = function() {
+			$("#itemImage2").click();
+		}
+		var itemImage2; 
+		$scope.AddItemImage2 = function(element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.newItemForm.$dirty=true;
+					$scope.$apply(function() {
+						
+						itemImage2= logoFile;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.itemImage2= reader.result;
+							
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
 		vm.CheckMaxSideItemValue = function(){
 			if(vm.hasSideItem){
 				var totalValues = 0;
+				
 				var minValues =99999;
          	   vm.SelectedSideItems.forEach(function(element) {
 				var side ;	
 				vm.SideItems.forEach(function(item) {
 						if(item.sideItemId == element){
 							side = item;
+							
 						}							
 					},this);
-
-										if(side.value < minValues)
+					
+					if(side.value < minValues)
 						minValues = side.value;
 					totalValues += side.value;
 				}, this);		
@@ -1582,8 +2163,8 @@
 }());
 (function () {
     'use strict';
-	
-    angular
+
+	    angular
         .module('home')
         .controller('menuController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'MenuResource','menuPrepService','RestaurantIsReadyPrepService','ToastService','ActivateMenuResource','DeactivateMenuResource','PublishRestaurantResource',  menuController])
 
@@ -1595,8 +2176,8 @@
 		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
-		
-		function refreshMenu(){
+
+				function refreshMenu(){
 			var k = MenuResource.getAllMenus({page:vm.currentPage}).$promise.then(function(results) {
 				vm.Now = $scope.getCurrentTime();	
 				vm.menus = results;
@@ -1626,8 +2207,8 @@
 							menu:function(){ return null},
 							callBackFunction:function(){return refreshMenu;}
 						}
-						
-					});
+
+											});
 				});
 			}
 			else{
@@ -1638,8 +2219,8 @@
 					resolve:{
 						callBackFunction:function(){return refreshMenu;}
 					}
-					
-				});
+
+									});
 			}
 		}
 		function confirmationDelete(itemId){
@@ -1662,11 +2243,11 @@
 					message:function() { return null},
 					callBackFunction:function() { return confirmationDelete }
 				}
-				
-			});
+
+							});
 		}
-		
-		vm.openEditMenuDialog = function(index){
+
+				vm.openEditMenuDialog = function(index){
 			var modalContent = $uibModal.open({
 				templateUrl: './app/RestaurantAdmin/templates/editMenu.html',
 				controller: 'editMenuDialogController',
@@ -1677,12 +2258,12 @@
 					menu:function(){ return vm.menus.results[index]},
 					callBackFunction:function(){return refreshMenu;}
 				}
-				
-			});
-			
-		}
-		
-		vm.Activate = function(menu){
+
+							});
+
+					}
+
+				vm.Activate = function(menu){
 			ActivateMenuResource.Activate({MenuId:menu.menuId})
 			.$promise.then(function(result){
 				menu.isActive = true;
@@ -1710,11 +2291,11 @@
 				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 			})
 		}
-		
-		
+
+
+					}
+
 	}
-	
-}
     ());
 (function() {
     angular
@@ -1867,8 +2448,8 @@
 }());
 (function () {
     'use strict';
-	
-    angular
+
+	    angular
         .module('home')
         .controller('menuDialogController', ['$scope','$http','appCONSTANTS','$uibModalInstance','$translate' , 'MenuResource','ToastService','callBackFunction','$rootScope',  menuDialogController])
 
@@ -1879,8 +2460,8 @@
 			$uibModalInstance.dismiss('cancel');
 		}
 		vm.isChanged = false;
-		
-		vm.AddNewMenu = function(){
+
+				vm.AddNewMenu = function(){
 			vm.isChanged = true;
             var newMenu = new Object();
             newMenu.menuName = vm.menuName;
@@ -1897,7 +2478,360 @@
 			}).then(
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('menuAddSuccess'),"success");
-					 
+					 $uibModalInstance.dismiss('cancel');
+					 callBackFunction();
+					 vm.isChanged = false;
+				},
+				function(data, status) {
+					vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+				}
+            );
+		}
+
+		vm.LoadUploadImage = function() {
+			$("#menuImage").click();
+		}
+		var menuImage; 
+		$scope.AddMenuImage = function(element) {
+			var imageFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (imageFile && imageFile.size >= 0 && ((imageFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(imageFile.type) !== -1) {
+					$scope.newMenuForm.$dirty=true;
+					$scope.$apply(function() {
+
+												menuImage= imageFile;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.menuImage= reader.result;
+							$scope.$apply();
+						};
+						if (imageFile) {
+							reader.readAsDataURL(imageFile);
+						}
+					})
+				} else {
+					$("#menuImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (imageFile) {
+					$("#menuImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
+	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('sizeController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SizeResource','sizePrepService','ToastService',  sizeController])
+
+    function sizeController($scope ,$translate , appCONSTANTS,$uibModal, SizeResource,sizePrepService,ToastService){
+
+        var vm = this;
+		vm.sizes = sizePrepService;
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+
+				function refreshSizes(){
+			var k = SizeResource.getAllSizes({page:vm.currentPage}).$promise.then(function(results) {
+				vm.sizes = results
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshSizes();
+		}
+		vm.openSizeDialog = function(){		
+			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
+			{
+				var englishSizes;
+				var k = SizeResource.getAllSizes({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+					englishSizes = results;
+					var modalContent = $uibModal.open({
+						templateUrl: './app/RestaurantAdmin/templates/editSize.html',
+						controller: 'editSizeDialogController',
+						controllerAs: 'editSizeDlCtrl',
+						resolve:{
+							mode:function(){return "map"},
+							englishSizes: function(){return englishSizes.results;},
+							size:function(){ return null},
+							callBackFunction:function(){return refreshSizes;}
+						}
+
+											});
+				});
+			}
+			else{
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newSize.html',
+					controller: 'sizeDialogController',
+					controllerAs: 'sizeDlCtrl',
+					resolve:{
+						callBackFunction:function(){return refreshSizes;}
+					}
+
+									});
+			}
+		}
+		function confirmationDelete(itemId){
+			SizeResource.deleteSize({SizeId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('SizeDeleteSuccess'),"success");
+				refreshSizes();
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+            });
+		}
+		vm.openDeleteSizeDialog = function(name,id){			
+			var modalContent = $uibModal.open({
+				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+				controller: 'confirmDeleteDialogController',
+				controllerAs: 'deleteDlCtrl',
+				resolve: {
+					itemName: function () { return name },
+					itemId: function() { return id },
+					message:function() { return null},
+					callBackFunction:function() { return confirmationDelete }
+				}
+
+							});
+		}
+
+				vm.openEditSizeDialog = function(index){
+			var modalContent = $uibModal.open({
+				templateUrl: './app/RestaurantAdmin/templates/editSize.html',
+				controller: 'editSizeDialogController',
+				controllerAs: 'editSizeDlCtrl',
+				resolve:{
+					mode:function(){return "edit"},
+					englishSizes: function(){return null;},
+					size:function(){ return vm.sizes.results[index]},
+					callBackFunction:function(){return refreshSizes;}
+				}
+
+							});
+
+					}
+
+
+
+							}
+
+	}
+());
+(function() {
+    angular
+      .module('home')
+      .factory('SizeResource', ['$resource', 'appCONSTANTS', SizeResource]);
+
+      function SizeResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Sizes/:SizeId', {}, {
+        getAllSizes: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        create: { method: 'POST', useToken: true },
+        deleteSize: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+
+      }());
+  (function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editSizeDialogController', ['$uibModalInstance','$translate', 'SizeResource','ToastService','mode','englishSizes','size','callBackFunction',  editSizeDialogController])
+
+	function editSizeDialogController($uibModalInstance, $translate, SizeResource,ToastService, mode, englishSizes, size,callBackFunction){
+		var vm = this;
+		vm.sizeName = "";
+
+				vm.mode = mode;
+		vm.englishSizes = englishSizes;
+		if(mode == "edit")
+			vm.sizeName = size.sizeName;
+		else
+			vm.selectedSize = englishSizes[0];
+		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
+
+				vm.updateSize = function(){
+			var updateSize = new SizeResource();
+            updateSize.sizeName = vm.sizeName;
+			if(mode == "edit")
+				updateSize.sizeId = size.sizeId;
+			else
+				updateSize.sizeId = vm.selectedSize.sizeId;
+            updateSize.$update().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSizeSuccess'),"success");
+					$uibModalInstance.dismiss('cancel');
+					callBackFunction();
+                },
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+		}
+	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('sizeDialogController', ['$uibModalInstance','$translate' , 'SizeResource','ToastService','callBackFunction','$rootScope',  sizeDialogController])
+
+	function sizeDialogController($uibModalInstance, $translate , SizeResource,ToastService,callBackFunction,$rootScope){
+		var vm = this;
+		vm.sizeName = "";
+		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
+		vm.isChanged = false;
+		vm.AddNewSize = function(){
+			vm.isChanged = true;
+			var newSize = new SizeResource();
+            newSize.sizeName = vm.sizeName;
+            newSize.$create().then(
+                function(data, status) {
+					vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('sizeAddSuccess'),"success");
+					$uibModalInstance.dismiss('cancel');
+					callBackFunction();
+                },
+                function(data, status) {
+					vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+		}
+	}	
+});
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('sideItemController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SideItemResource','sideItemPrepService','ToastService',  sideItemController])
+
+    function sideItemController($scope ,$translate , appCONSTANTS,$uibModal, SideItemResource,sideItemPrepService,ToastService){
+
+        var vm = this;
+		vm.sideItems = sideItemPrepService;
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+				function refreshSideItems(){
+			var k = SideItemResource.getAllSideItems({page:vm.currentPage}).$promise.then(function(results) {
+				vm.sideItems = results
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshSideItems();
+		}
+		vm.openSideItemDialog = function(){		
+			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
+			{
+				var englishSideItems;
+				var k = SideItemResource.getAllSideItems({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+                    englishSideItems = results;
+					var modalContent = $uibModal.open({
+						templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+						controller: 'editSideItemDialogController',
+						controllerAs: 'editSideItemDlCtrl',
+						resolve:{
+							mode:function(){return "map"},
+							englishSideItems: function(){return englishSideItems.results;},
+							sideItem:function(){ return null},
+							callBackFunction:function(){return refreshSideItems;}
+						}
+
+											});
+				});
+			}
+			else{
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newSideItem.html',
+					controller: 'sideItemDialogController',
+					controllerAs: 'sideItemDlCtrl',
+					resolve:{
+						callBackFunction:function(){return refreshSideItems;}
+					}
+
+									});
+			}
+		}
+		function confirmationDelete(itemId){
+			SideItemResource.deleteSideItem({SideItemId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemDeleteSuccess'),"success");
+				refreshSideItems();
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+            });
+		}
+		vm.openDeleteSideItemDialog = function(name,id){			
+			var modalContent = $uibModal.open({
+				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+				controller: 'confirmDeleteDialogController',
+				controllerAs: 'deleteDlCtrl',
+				resolve: {
+					itemName: function () { return name },
+					itemId: function() { return id },
+					message:function() { return null},
+					callBackFunction:function() { return confirmationDelete }
+				}
+
+							});
+		}
+
+				vm.openEditSideItemDialog = function(index){
+			var modalContent = $uibModal.open({
+				templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+				controller: 'editSideItemDialogController',
+				controllerAs: 'editSideItemDlCtrl',
+				resolve:{
+					mode:function(){return "edit"},
+					englishSideItems: function(){return null;},
+					sideItem:function(){ return vm.sideItems.results[index]},
+					callBackFunction:function(){return refreshSideItems;}
+				}
+
+							});
+
+					}
+
+
+
+							}
+
+	}
+());
+(function() {
     angular
       .module('home')
       .factory('SideItemResource', ['$resource', 'appCONSTANTS', SideItemResource]);
@@ -1914,8 +2848,8 @@
       }());
   (function () {
     'use strict';
-	
-    angular
+
+	    angular
         .module('home')
         .controller('sideItemDialogController', ['$uibModalInstance','$translate' , 'SideItemResource','ToastService','callBackFunction','$rootScope',  sideItemDialogController])
 
@@ -1989,200 +2923,6 @@
 					callBackFunction();
                 },
                 function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-}());
-(function () {
-    'use strict';
-	
-    angular
-        .module('home')
-        .controller('sizeController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SizeResource','sizePrepService','ToastService',  sizeController])
-
-    function sizeController($scope ,$translate , appCONSTANTS,$uibModal, SizeResource,sizePrepService,ToastService){
-
-        var vm = this;
-		vm.sizes = sizePrepService;
-		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
-		
-		function refreshSizes(){
-			var k = SizeResource.getAllSizes({page:vm.currentPage}).$promise.then(function(results) {
-				vm.sizes = results
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
-            });
-		}
-		vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshSizes();
-		}
-		vm.openSizeDialog = function(){		
-			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
-			{
-				var englishSizes;
-				var k = SizeResource.getAllSizes({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
-					englishSizes = results;
-					var modalContent = $uibModal.open({
-						templateUrl: './app/RestaurantAdmin/templates/editSize.html',
-						controller: 'editSizeDialogController',
-						controllerAs: 'editSizeDlCtrl',
-						resolve:{
-							mode:function(){return "map"},
-							englishSizes: function(){return englishSizes.results;},
-							size:function(){ return null},
-							callBackFunction:function(){return refreshSizes;}
-						}
-						
-					});
-				});
-			}
-			else{
-				var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newSize.html',
-					controller: 'sizeDialogController',
-					controllerAs: 'sizeDlCtrl',
-					resolve:{
-						callBackFunction:function(){return refreshSizes;}
-					}
-					
-				});
-			}
-		}
-		function confirmationDelete(itemId){
-			SizeResource.deleteSize({SizeId:itemId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('SizeDeleteSuccess'),"success");
-				refreshSizes();
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            });
-		}
-		vm.openDeleteSizeDialog = function(name,id){			
-			var modalContent = $uibModal.open({
-				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-				controller: 'confirmDeleteDialogController',
-				controllerAs: 'deleteDlCtrl',
-				resolve: {
-					itemName: function () { return name },
-					itemId: function() { return id },
-					message:function() { return null},
-					callBackFunction:function() { return confirmationDelete }
-				}
-				
-			});
-		}
-		
-		vm.openEditSizeDialog = function(index){
-			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editSize.html',
-				controller: 'editSizeDialogController',
-				controllerAs: 'editSizeDlCtrl',
-				resolve:{
-					mode:function(){return "edit"},
-					englishSizes: function(){return null;},
-					size:function(){ return vm.sizes.results[index]},
-					callBackFunction:function(){return refreshSizes;}
-				}
-				
-			});
-			
-		}
-		
-		
-		
-	}
-	
-}
-());
-(function() {
-    angular
-      .module('home')
-      .factory('SizeResource', ['$resource', 'appCONSTANTS', SizeResource]);
-
-      function SizeResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Sizes/:SizeId', {}, {
-        getAllSizes: { method: 'GET', useToken: true, params:{lang:'@lang'} },
-        create: { method: 'POST', useToken: true },
-        deleteSize: { method: 'DELETE', useToken: true },
-        update: { method: 'PUT', useToken: true }
-      })
-    }
-
-      }());
-  (function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editSizeDialogController', ['$uibModalInstance','$translate', 'SizeResource','ToastService','mode','englishSizes','size','callBackFunction',  editSizeDialogController])
-
-	function editSizeDialogController($uibModalInstance, $translate, SizeResource,ToastService, mode, englishSizes, size,callBackFunction){
-		var vm = this;
-		vm.sizeName = "";
-
-				vm.mode = mode;
-		vm.englishSizes = englishSizes;
-		if(mode == "edit")
-			vm.sizeName = size.sizeName;
-		else
-			vm.selectedSize = englishSizes[0];
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
-
-				vm.updateSize = function(){
-			var updateSize = new SizeResource();
-            updateSize.sizeName = vm.sizeName;
-			if(mode == "edit")
-				updateSize.sizeId = size.sizeId;
-			else
-				updateSize.sizeId = vm.selectedSize.sizeId;
-            updateSize.$update().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSizeSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
-                },
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-}());
-(function () {
-    'use strict';
-	
-    angular
-        .module('home')
-        .controller('sizeDialogController', ['$uibModalInstance','$translate' , 'SizeResource','ToastService','callBackFunction','$rootScope',  sizeDialogController])
-
-	function sizeDialogController($uibModalInstance, $translate , SizeResource,ToastService,callBackFunction,$rootScope){
-		var vm = this;
-		vm.sizeName = "";
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
-		vm.isChanged = false;
-		vm.AddNewSize = function(){
-			vm.isChanged = true;
-			var newSize = new SizeResource();
-            newSize.sizeName = vm.sizeName;
-            newSize.$create().then(
-                function(data, status) {
-					vm.isChanged = false;
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('sizeAddSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
-                },
-                function(data, status) {
-					vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
                 }
             );
@@ -2321,8 +3061,8 @@
 }());
 (function () {
     'use strict';
-	
-    angular
+
+	    angular
         .module('home')
         .controller('editWaiterDialogController', ['$uibModalInstance','$translate', 'WaiterResource','ToastService','waiter','callBackFunction',  editWaiterDialogController])
 

@@ -51,7 +51,7 @@ namespace ECatalog.BLL.Services
             changeResturentBackground.BackgroundId = background.BackgroundId;
             _restaurantService.Update(changeResturentBackground);
             SaveChanges();
-            _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId);
+            _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId.ToString());
         }
 
         public BackgroundDto GetBackground(long backgroundId)
@@ -128,7 +128,7 @@ namespace ECatalog.BLL.Services
             _backgroundService.Update(background);
             SaveChanges();
             if (backgroundDto.IsImageChange)
-                _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId);
+                _manageStorage.UploadImage(path + "\\" + "Background", backgroundDto.Image, background.BackgroundId.ToString());
         }
     }
 }

@@ -27,20 +27,18 @@
 			vm.save = addNewItem;
 		}
 		
-		// vm.RestaurantType = allRestaurantTypePrepService;
-		// vm.selectedType = allRestaurantTypePrepService[0];
 		function addNewItem(){
 			var newItem = new Object();
             newItem.itemName = vm.itemName;
 			newItem.itemDescription = vm.itemDescription;
 			newItem.categoryId = $stateParams.categoryId;
-			// newItem.price = vm.price;
+			
 			newItem.sizes = [];
-			// if(vm.hasSize){
+			
          	   vm.SelectedSize.forEach(function(element) {
             	    newItem.sizes.push(element);
 				}, this);
-			// }
+			
 			newItem.sideItems = [];
 			if(vm.hasSideItem){
          	   vm.SelectedSideItems.forEach(function(element) {
@@ -48,12 +46,11 @@
 				}, this);
 			newItem.maxSideItemValue = vm.maxSideItemValue;			
 			}
-			// newItem.sizes = vm.SelectedSize;
-			// newItem.sideItems = vm.SelectedSideItems;
-
+			
 			var model = new FormData();
 			model.append('data', JSON.stringify(newItem));
 			model.append('file', itemImage);
+			model.append('file', itemImage2);
 			$http({
 				method: 'POST',
 				url: appCONSTANTS.API_URL + 'Items/',
@@ -108,7 +105,7 @@
 
 						reader.onloadend = function() {
 							vm.itemImage= reader.result;
-							// $scope.Photo = reader.result;
+							
 							$scope.$apply();
 						};
 						if (logoFile) {
@@ -131,17 +128,59 @@
 
 		}
 
+		vm.LoadUploadLogo2 = function() {
+			$("#itemImage2").click();
+		}
+		var itemImage2; 
+		$scope.AddItemImage2 = function(element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.newItemForm.$dirty=true;
+					$scope.$apply(function() {
+						
+						itemImage2= logoFile;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.itemImage2= reader.result;
+							
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage2").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
 		vm.CheckMaxSideItemValue = function(){
 			if(vm.hasSideItem){
 				var totalValues = 0;
-				// $scope.min = Math.min.apply(Math, vm.SelectedSideItems.map(function(item){return item.value;}));				
+				
 				var minValues =99999;
          	   vm.SelectedSideItems.forEach(function(element) {
 				var side ;	
 				vm.SideItems.forEach(function(item) {
 						if(item.sideItemId == element){
 							side = item;
-							// break;
+							
 						}							
 					},this);
 					
