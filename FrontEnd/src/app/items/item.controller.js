@@ -7,6 +7,7 @@
 
     function ItemController($scope, $translate, $stateParams, appCONSTANTS, categoryItemsTemplatePrepService,  totalCartService,CartIconService) {
 
+        $scope.letterLimit = 2;
         var vm = this;
         $scope.cartIcon = true;
         $scope.$watch("cartIcon", function (newValue) {
@@ -18,8 +19,7 @@
         // vm.viewItemDetails=function(item){
         //     console.log(item)
         // vm.itemDetails = categoryItemsTemplatePrepService.templates[0].itemModels[0];
-        // }
-        vm.counts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        // } 
         vm.selectedSize = 10;
         vm.selectedSide = 10;
         $scope.selectedCount = 0;   
@@ -117,6 +117,8 @@
             $scope.checkradioasd = -1;
             $scope.selectedCount=1;
         };
+
+        
         $scope.radioSizeClick = function (size) {
             $scope.checkradioasd = size.sizeId;
             $scope.item.size = size;

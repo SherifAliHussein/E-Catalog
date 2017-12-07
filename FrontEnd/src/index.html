@@ -16,7 +16,12 @@
   <!-- Attach necessary scripts -->
   <!-- <script type="text/javascript" src="jquery-1.4.4.min.js"></script> -->   
  
-    
+    <style>
+    .logout{
+        font-size: 15px;
+        float: right;
+    }
+    </style>
 </head> 
 <body style="background-image:url({{globalInfo.backgroundUrl != null ? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
     <div class="header">
@@ -33,11 +38,15 @@
             
                     </a>
                 </div>
-                    <a ng-if="selectedLanguage == 'ar'" href="javascript:void(0)" ng-click="changeLanguage('en')">
+                    <a ng-if="selectedLanguage == 'ar'" href="javascript:void(0)" ng-click="changeLanguage('en')" ng-show="globalInfo.logoUrl !=null">
                         <p class="lang">EN</p>
                     </a>  
-                    <a ng-if="selectedLanguage == 'en'" href="javascript:void(0)" ng-click="changeLanguage('ar')">
+                    <a ng-if="selectedLanguage == 'en'" href="javascript:void(0)" ng-click="changeLanguage('ar')" ng-show="globalInfo.logoUrl !=null">
                             <p class="lang">AR</p>
+                        </a>
+
+                        <a   href="javascript:void(0)" ng-click="logout()" ng-show="globalInfo.logoUrl !=null">
+                            <p class="logout">Logout</p>
                         </a>
     </div>
        
