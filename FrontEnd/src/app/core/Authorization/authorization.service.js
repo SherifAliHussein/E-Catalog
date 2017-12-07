@@ -52,7 +52,7 @@
     }
 	
     function logout() {
-      $localStorage.authInfo = undefined;
+      $localStorage.authInfo = undefined; 
       $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
     }
 

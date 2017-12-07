@@ -8,9 +8,10 @@
         <div class="main_data">
             <div class="col-sm-8 col-xs-8 col-md-8">
                 <h3>{{pageitems.itemModels[0].itemName}}</h3>
-                <p>{{pageitems.itemModels[0].itemDescription}}</p>
-            
-            </div>
+                <!-- <p style="white-space: pre;min-height: 40px;">{{pageitems.itemModels[0].itemDescription | limitTo:50}} </p> -->
+                   
+                   <span>{{pageitems.itemModels[0].itemDescription < 2 ? 'pageitems.itemModels[0].itemDescription' : pageitems.itemModels[0].itemDescription | limitTo:2}}..</span>
+                 </div>
             
             <div class="col-sm-4 col-xs-4 col-md-4">
                 <div class="row" style="padding-top: 26px!important; ">

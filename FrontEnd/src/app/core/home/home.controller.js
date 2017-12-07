@@ -21,11 +21,7 @@
         $scope.$watch(function () { return totalCartService.homeTotalNo }, function (newValue) {
             $scope.homeTotalNo = newValue;
         });
-        if ($scope.homeTotalNo == 0 || $scope.homeTotalNo === undefined) {
-            // alert("dsd");
-           // $scope.disabled = false;
-
-        }
+   
 
         var storedNames = JSON.parse(localStorage.getItem("checkOut"));
         vm.cart = storedNames;
@@ -166,7 +162,8 @@
         }
 
         $scope.logout = function () {
-            authorizationService.logout();
+            $scope.globalInfo='';
+               authorizationService.logout();
             $state.go('login');
         }
         $scope.reset = function () {

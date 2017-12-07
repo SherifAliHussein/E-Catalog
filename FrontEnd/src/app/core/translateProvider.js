@@ -130,7 +130,7 @@
             "Remove":" REMOVE",
             "SAR":" SAR",
             "Total":"TOTAL",
-            "Size":"الحجم"
+            "Size":"Size"
         }
         
         var ar_translations = {
