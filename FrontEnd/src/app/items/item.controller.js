@@ -48,7 +48,7 @@
                 } else {
                     var repeat = false;
                     for (var k = 0; k < $scope.cart.length; k++) {
-                        if ($scope.cart[k].itemobj.itemID === product.itemID) {
+                        if ($scope.cart[k].itemobj.itemID === product.itemID && $scope.cart[k].size.sizeId ===   $scope.item.size.sizeId) {
                             repeat = true;
                             $scope.cart[k].itemobj.count += 1;
                         }

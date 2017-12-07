@@ -53,8 +53,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//  'API_URL': 'http://localhost:28867/api/',
-			'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
+			 'API_URL': 'http://localhost:28867/api/',
+			// 'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
 			'defaultLanguage':'en'
 		})
 		.constant('messageTypeEnum', {
@@ -565,8 +565,7 @@ angular.module('core')
         $scope.submit = function(username, password) {
            
             authorizationService.isPasswordchanged=false;
-            $('#passwordChanged').hide();
-          //  $('#userInActivated').hide();
+            $('#passwordChanged').hide(); 
             if (!username)
                 $scope.emailEmpty = true;
             if (!password)
@@ -574,8 +573,7 @@ angular.module('core')
             if (username && password) {
                 $scope.afterSubmit = false;
                 $scope.emailEmpty = $scope.passwordEmpty = false;
-                authenticationService.authenticate(username, password).then(loginSuccess,loginFailed)
-                    //.error(loginFailed);;
+                authenticationService.authenticate(username, password).then(loginSuccess,loginFailed) 
             } else {
                 $scope.afterSubmit = false;
             }
@@ -598,8 +596,7 @@ angular.module('core')
 		  if(oldVal===undefined && newVal !== undefined&&$localStorage.authInfo != undefined){
 			 console.log('login'); 
 					$scope.user = authorizationService.getUser();
-					loginSuccess()
-			// authorizationService.isLoggedIn() && !location.href.contains('connect')
+					loginSuccess() 
 		  }
 		})
         function loginSuccess(response) {
@@ -623,8 +620,7 @@ angular.module('core')
 
         function loginFailed(response) {
             $scope.afterSubmit = true;
-            
-            // $scope.invalidLoginInfo = true;
+             
             if (response) {
                 if (response.data.error == "invalid grant") {
                     $scope.invalidLoginInfo = true;

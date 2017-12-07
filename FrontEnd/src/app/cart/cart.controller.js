@@ -280,9 +280,11 @@
         $scope.checkOut = function () {
             $scope.homeTotalNo = 0;
 
-            $scope.$watch('homeTotalNo', function (newValue, oldValue) {
-                if (newValue !== oldValue) Data.setFirstName(newValue);
-            });
+          
+                
+            $scope.$watch("homeTotalNo", function (newValue) {
+                totalCartService.homeTotalNo = newValue;
+              });
             localStorage.removeItem('checkOut');
             $state.go('menu');
         };

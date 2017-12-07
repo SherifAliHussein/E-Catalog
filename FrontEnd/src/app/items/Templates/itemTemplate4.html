@@ -2,10 +2,17 @@
     <div class="offers_list">
                 <div class="lists" ng-repeat="item in pageitems.itemModels">
                     <h3>{{item.itemName}}</h3>
+                    <h3>
+                            {{item.itemName < 20 ? 'item.itemName' : item.itemName | limitTo:20}}.. 
+        
+         </h3>
                     <div class="col-sm-7 col-xs-7 col-md-7">
 
-
-                        <p>{{item.itemDescription}}</p>
+                            <p style="min-height: 40px;"> 
+                                    
+                                     {{item.itemDescription < 90 ? 'item.itemDescription' : item.itemDescription | limitTo:90}}.. 
+                                
+                                 </p>  
 
                     </div>
 
