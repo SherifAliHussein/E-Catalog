@@ -10,7 +10,17 @@ const files = [
   'app.js',
   'core.js',
   'libs.js',
-  'templates.js'
+  'templates.js',
+  'turn.min.js',
+  'turn.min-ar.js',
+  'assets/img/back.png',
+  'assets/img/back-ar.png',
+  'assets/img/book.png',
+  'assets/img/book-ar.png',
+  'assets/img/page1.png',
+  'assets/img/page2.png',
+  'assets/img/plus.png',
+  'assets/img/view.png'
 ];
 
 self.addEventListener('install', (event) => {

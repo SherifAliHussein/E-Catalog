@@ -1,4 +1,5 @@
-<div ng-class="{page1:(pageitems.pageNumber % 2) === 0, page2:(pageitems.pageNumber % 2) !== 0}">
+<div ng-class="{page1:(lang == 'en' && (pageitems.pageNumber % 2) === 0) || (lang == 'ar' && (pageitems.pageNumber % 2) !== 0)
+, page2:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
     <div class="offers_list">
                 <div class="lists" ng-repeat="item in pageitems.itemModels">
                     <h3>{{item.itemName}}</h3>

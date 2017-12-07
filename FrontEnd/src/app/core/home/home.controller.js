@@ -35,8 +35,16 @@
                 $scope.disabled = true;
             } else
                 $scope.disabled = false;
-        } 
-        if (navigator.onLine) {
+        }
+        // $scope.$watch(function () { return Data.getFirstName(); }, function (newValue, oldValue) {
+        //     if (newValue !== oldValue)
+        //     {
+        //          $scope.homeTotalNo = newValue;
+        //           $scope.disabled = true;
+        //     }
+        // });
+
+       // if (navigator.onLine) {
             var k = ResturantResource.getResturantGlobalInfo().$promise.then(function (results) {
 
                 $scope.globalInfo = results
@@ -171,8 +179,7 @@
             $state.reload();
             $translate.use(language);
         }
-
-      
+        
     }
 }
 

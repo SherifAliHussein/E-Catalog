@@ -61,6 +61,8 @@
     <script src="core.js?v=#{VERSION_REPlACE}#"></script>
     <script src="app.js?v=#{VERSION_REPlACE}#"></script>
     <script src="templates.js?v=#{VERSION_REPlACE}#"></script>
+    <script ng-src="turn.min-en.js" ng-if="selectedLanguage == 'en'"></script>
+    <script ng-src="turn.min-ar.js" ng-if="selectedLanguage == 'ar'"></script>
  
     <!-- <script>
         if ('serviceWorker' in navigator) {
