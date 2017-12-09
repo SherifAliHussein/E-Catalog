@@ -66,13 +66,13 @@
         
         menuPrepService.$inject = ['MenuResource','OfflineDataResource']
             function menuPrepService(MenuResource,OfflineDataResource) {
-                if(navigator.onLine){
-                    return MenuResource.getAllMenus().$promise;
-                }
-                else{
-                    return OfflineDataResource.getMenus();
-                }
-                // return MenuResource.getAllMenus().$promise;
+                // if(navigator.onLine){
+                //     return MenuResource.getAllMenus().$promise;
+                // }
+                // else{
+                //     return OfflineDataResource.getMenus();
+                // }
+                  return MenuResource.getAllMenus().$promise;
                 
             }
             
@@ -84,13 +84,13 @@
 
         categoryItemsTemplatePrepService.$inject = ['ItemsResource','$stateParams','OfflineDataResource']
         function categoryItemsTemplatePrepService(ItemsResource,$stateParams,OfflineDataResource) {
-            if(navigator.onLine){
-            return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
-        }
-        else{
-            return OfflineDataResource.getAllItems($stateParams.categoryId);
-        }
-        //return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
+        //     if(navigator.onLine){
+        //     return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
+        // }
+        // else{
+        //     return OfflineDataResource.getAllItems($stateParams.categoryId);
+        // }
+        return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
         }
     
 }());

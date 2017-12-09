@@ -30,8 +30,8 @@
         $scope.total = 0;
         $scope.displayEditBtn = false; 
         $scope.displayAdd = false;
-        $scope.disableAdd = true;
-        var init = function () {
+        $scope.disableAdd = true; 
+        
             var storedNames = JSON.parse(localStorage.getItem("checkOut"));
             for (var h = 0; h < storedNames.length; h++) {
                 vm.item.size=storedNames[h].size;
@@ -51,8 +51,7 @@
                 
             }
             $scope.cart = storedNames;
-        };
-        init();
+       
      
         $scope.checkradioasd = -1;
         $scope.selectedCount=1;
