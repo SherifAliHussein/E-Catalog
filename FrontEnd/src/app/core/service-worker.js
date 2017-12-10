@@ -1,4 +1,4 @@
-const cacheName = 'E-Catalog-v1';
+const cacheName = 'E-Catalog-v1.ll';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
@@ -91,6 +91,26 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
+    })
+  );
+});
+
+self.addEventListener('message', (event) => {
+  console.info('Event: message');
+
+  event.waitUntil(
+    caches.open(cacheName)
+    .then((cache) => {
+      //[] of files to cache & if any of the file not present `addAll` will fail
+      return cache.add(event.data )
+      .then(() => {
+        console.info('All files are cached');
+        return self.skipWaiting(); //To forces the waiting service worker to become the active service worker
+      })
+      .catch((error) =>  {
+        console.error('Failed to cache', error);
+        console.log(error);
+      })
     })
   );
 });

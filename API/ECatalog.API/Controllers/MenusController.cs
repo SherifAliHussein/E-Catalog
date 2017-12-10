@@ -200,22 +200,30 @@ namespace ECatalog.API.Controllers
             var menus = Mapper.Map<List<MenuModel>>(_menuFacade.GetActivatedMenusByRestaurantId(Language, UserId, 1, 0).Data);
             //ImageConvert imageConvert = new ImageConvert();
 
-            Parallel.ForEach(menus, (menu) =>
+            //Parallel.ForEach(menus, (menu) =>
+            foreach (var menu in menus)
             {
                 //menu.ImageURL = imageConvert.GetBase64FromImage(Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId)
                 //    .FirstOrDefault(x => Path.GetFileName(x).Contains(menu.MenuId.ToString()) && !Path.GetFileName(x).Contains("thumb")));
                 menu.ImageURL = Url.Link("MenuImage", new {menu.RestaurantId, menu.MenuId});
 
-                menu.CategoryModels = Mapper.Map<List<CategoryModel>>(_categoryFacade.GetActivatedCategoriesByMenuId(Language, menu.MenuId, 1, 0).Data);
+                menu.CategoryModels = Mapper.Map<List<CategoryModel>>(_categoryFacade
+                    .GetActivatedCategoriesByMenuId(Language, menu.MenuId, 1, 0).Data);
                 foreach (var category in menu.CategoryModels)
                 {
                     //category.ImageURL = imageConvert.GetBase64FromImage(Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId + "\\" + "Category-" + category.CategoryId)
-                        //.FirstOrDefault(x => Path.GetFileName(x).Contains(category.CategoryId.ToString()) && !Path.GetFileName(x).Contains("thumb")));
-                    category.ImageURL = Url.Link("CategoryImage", new { category.RestaurantId, category.MenuId, category.CategoryId });
-                    
-                    category.CategoryPageTemplateModel = Mapper.Map<CategoryPageTemplateModel>(_itemFacade.GetActivatedItemsWithTemplatesByCategoryId(Language, category.CategoryId));
-                    category.CategoryPageTemplateModel.MenuImageURL = menu.ImageURL;// Url.Link("MenuImage", new { category.CategoryPageTemplateModel.RestaurantId, category.CategoryPageTemplateModel.MenuId });
-                    category.CategoryPageTemplateModel.CategoryImageURL = category.ImageURL;// Url.Link("CategoryImage", new { category.CategoryPageTemplateModel.RestaurantId, category.CategoryPageTemplateModel.MenuId, category.CategoryPageTemplateModel.CategoryId });
+                    //.FirstOrDefault(x => Path.GetFileName(x).Contains(category.CategoryId.ToString()) && !Path.GetFileName(x).Contains("thumb")));
+                    category.ImageURL = Url.Link("CategoryImage",
+                        new {category.RestaurantId, category.MenuId, category.CategoryId});
+
+                    category.CategoryPageTemplateModel =
+                        Mapper.Map<CategoryPageTemplateModel>(
+                            _itemFacade.GetActivatedItemsWithTemplatesByCategoryId(Language, category.CategoryId));
+                    category.CategoryPageTemplateModel.MenuImageURL =
+                        menu.ImageURL; // Url.Link("MenuImage", new { category.CategoryPageTemplateModel.RestaurantId, category.CategoryPageTemplateModel.MenuId });
+                    category.CategoryPageTemplateModel.CategoryImageURL =
+                        category
+                            .ImageURL; // Url.Link("CategoryImage", new { category.CategoryPageTemplateModel.RestaurantId, category.CategoryPageTemplateModel.MenuId, category.CategoryPageTemplateModel.CategoryId });
 
                     foreach (var page in category.CategoryPageTemplateModel.Templates)
                     {
@@ -224,11 +232,13 @@ namespace ECatalog.API.Controllers
                         {
                             //item.ImageURL = imageConvert.GetBase64FromImage(Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items")
                             //    .FirstOrDefault(x => Path.GetFileName(x).Contains(item.ItemID.ToString()) && !Path.GetFileName(x).Contains("thumb")));
-                            item.ImageURL = Url.Link("ItemImage", new {item.RestaurantId, item.MenuId, item.CategoryId, item.ItemID});
+                            item.ImageURL = Url.Link("ItemImage",
+                                new {item.RestaurantId, item.MenuId, item.CategoryId, item.ItemID});
                         }
                     }
                 }
-            });
+            }
+            //});
             return Ok(menus);
         }
     }

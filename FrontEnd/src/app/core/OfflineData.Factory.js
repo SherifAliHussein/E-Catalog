@@ -6,17 +6,20 @@
     function OfflineDataResource($localStorage) {
         var categories;
         return {
-            setAllData: function(allMenus) {
-
-                $localStorage.offlineData = allMenus
+            setAllData: function(lang,allMenus) {
+                if($localStorage.offlineData == null)
+                {
+                    $localStorage.offlineData = {};
+                }
+                $localStorage.offlineData[lang] = allMenus; 
             },
 
             getMenus: function() {
-                return $localStorage.offlineData
+                return $localStorage.offlineData[$localStorage.language]
             },
             getAllCategories:function(menuId){
                 
-                $localStorage.offlineData.forEach(function(menu) {
+                $localStorage.offlineData[$localStorage.language].forEach(function(menu) {
                     if(menu.menuId == menuId){
                         categories =  menu.categoryModels;    
                     }
@@ -24,13 +27,24 @@
                 return categories;
                 // return $localStorage.offlineData[menuId];
             },
-            getAllItems:function(categoryId){
+            getAllItems:function(menuId,categoryId){
                 var items;
-                categories.forEach(function(category) {
-                    if(category.categoryId == categoryId){
-                        items =  category.categoryPageTemplateModel;    
+                $localStorage.offlineData[$localStorage.language].forEach(function(menu) {
+                    if(menu.menuId == menuId){
+                        //categories =  menu.categoryModels;    
+                        menu.categoryModels.forEach(function(category) {
+                            if(category.categoryId == categoryId){
+                                items =  category.categoryPageTemplateModel;    
+                            }
+                        }, this);
                     }
                 }, this);
+                
+                // categories.forEach(function(category) {
+                //     if(category.categoryId == categoryId){
+                //         items =  category.categoryPageTemplateModel;    
+                //     }
+                // }, this);
                 return items;
                 // return $localStorage.offlineData[menuId];
             }

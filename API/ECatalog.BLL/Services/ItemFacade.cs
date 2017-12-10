@@ -31,10 +31,11 @@ namespace ECatalog.BLL.Services
 
         private IPageService _pageService;
         private ITemplateService _templateService;
+        private IMenuTranslationService _menuTranslationService;
 
         public ItemFacade(ICategoryService categoryService,IitemService itemService,IitemTranslationService itemTranslationService, IItemSizeService itemSizeService, IItemSideItemService itemSideItemService
             , IManageStorage manageStorage, ISizeTranslationService sizeTranslationService, ISideItemTranslationService sideItemTranslationService, ICategoryTranslationService categoryTranslationService,
-            IMenuService menuService , IRestaurantService restaurantService,IPageService pageService, ITemplateService templateService, IUnitOfWorkAsync unitOfWork):base(unitOfWork)
+            IMenuService menuService , IRestaurantService restaurantService,IPageService pageService, ITemplateService templateService,IMenuTranslationService menuTranslationService, IUnitOfWorkAsync unitOfWork):base(unitOfWork)
         {
             _categoryService = categoryService;
             _itemService = itemService;
@@ -50,6 +51,7 @@ namespace ECatalog.BLL.Services
 
             _pageService = pageService;
             _templateService = templateService;
+            _menuTranslationService = menuTranslationService;
         }
 
         public ItemFacade(ICategoryService categoryService, IitemService itemService, IitemTranslationService itemTranslationService, IItemSizeService itemSizeService, 
@@ -408,10 +410,12 @@ namespace ECatalog.BLL.Services
             var categoryTemplates = new CategoryPageTemplateDTO
             {
                 Templates = pageTemplateDtos,
-                MenuName = category.Menu.MenuTranslations
-                    .FirstOrDefault(x => x.Language.ToLower() == language.ToLower()).MenuName,
-                CategoryName = category.CategoryTranslations
-                    .FirstOrDefault(x => x.Language.ToLower() == language.ToLower()).CategoryName,
+                //MenuName = category.Menu.MenuTranslations
+                //    .FirstOrDefault(x => x.Language.ToLower() == language.ToLower()).MenuName,
+                MenuName = _menuTranslationService.Query(x=>x.MenuId == category.MenuId && x.Language.ToLower() == language.ToLower()).Select().FirstOrDefault().MenuName,
+                //CategoryName = category.CategoryTranslations
+                //    .FirstOrDefault(x => x.Language.ToLower() == language.ToLower()).CategoryName,
+                CategoryName = _categoryTranslationService.Query(x=>x.CategoryId == categoryId && x.Language.ToLower() == language.ToLower()).Select().FirstOrDefault().CategoryName,
                 CategoryId = categoryId,
                 MenuId = category.MenuId,
                 RestaurantId = category.Menu.RestaurantId

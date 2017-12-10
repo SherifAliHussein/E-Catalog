@@ -40,7 +40,7 @@
 
                 //$locationProvider.html5Mode(true);
                 .state('Items', {
-                    url: '/Category/:categoryId/Item',
+                    url: '/menu/:menuId/Category/:categoryId/Item',
                     templateUrl: './app/items/Templates/Item.html',
                     controller: 'ItemController',
                     'controllerAs': 'itemCtrl',
@@ -88,7 +88,7 @@
             return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
         }
         else{
-            return OfflineDataResource.getAllItems($stateParams.categoryId);
+            return OfflineDataResource.getAllItems($stateParams.menuId,$stateParams.categoryId);
         }
         //return ItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
         }

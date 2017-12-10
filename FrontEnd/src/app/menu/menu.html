@@ -28,7 +28,7 @@
         <div class="sub_content3">
             <img ng-src="{{item.imageURL}}" alt="" style="max-height: 129px;">
             <div class="main_over2">
-                <div type="submit" ng-click="$state.go('Items', {categoryId: item.categoryId});" class="active_pop meat" data-lity-close >
+                <div type="submit" ng-click="$state.go('Items', {menuId: item.menuId,categoryId: item.categoryId});" class="active_pop meat" data-lity-close >
                     <!-- <img src="{{item.imageURL}}" alt="" /> -->
                     <p data-lity-close>{{item.categoryName}}</p>
                 </div>
