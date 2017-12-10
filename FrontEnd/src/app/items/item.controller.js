@@ -71,22 +71,22 @@ if(vm.currentItem != product.itemID){
                 $scope.total += parseFloat($scope.item.size.price);
 
             }
-            var storedNames = JSON.parse(localStorage.getItem("checkOut"));
-            if (storedNames != null) {
-                for (var s = 0; s < storedNames.length; s++) {
+            var CheckOutLocalstorage = JSON.parse(localStorage.getItem("checkOut"));
+            if (CheckOutLocalstorage != null) {
+                for (var s = 0; s < CheckOutLocalstorage.length; s++) {
                     var repeat = false;
                     for (var z = 0; z < $scope.cart.length; z++) {
                       
                         var id=$scope.cart[z].itemobj.itemID;
                         var objsize=$scope.cart[z].size.sizeId;
 
-                        var stordId=storedNames[s].itemobj.itemID ;
-                        var stordSize=storedNames[s].size.sizeId;
+                        var stordId=CheckOutLocalstorage[s].itemobj.itemID ;
+                        var stordSize=CheckOutLocalstorage[s].size.sizeId;
 
                           if (id === stordId && objsize ===stordSize) {
                             repeat = true;
                             $scope.cart[z].itemobj.count += 1;
-                      //  $scope.cart.push(storedNames[s]); 
+                      //  $scope.cart.push(CheckOutLocalstorage[s]); 
                         
                         }
                     }
@@ -94,7 +94,7 @@ if(vm.currentItem != product.itemID){
                        // product.count = 1;
                         $scope.item.itemobj = product;
                         //$scope.cart.push($scope.item);
-                        $scope.cart.push(storedNames[s]); 
+                        $scope.cart.push(CheckOutLocalstorage[s]); 
                     }
                     
                 }

@@ -978,6 +978,197 @@
 }());
 (function () {
     'use strict';
+	
+    angular
+        .module('home')
+        .controller('categoryController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','GetCategoriesResource', 'CategoryResource','ActivateCategoryResource','DeactivateCategoryResource','categoryPrepService','ToastService',  categoryController])
+
+    function categoryController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal,GetCategoriesResource, CategoryResource,ActivateCategoryResource,DeactivateCategoryResource,categoryPrepService,ToastService){
+
+        var vm = this;
+		vm.categories = categoryPrepService;
+		vm.Now = $scope.getCurrentTime();
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		
+    angular
+      .module('home')
+      .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource])
+      .factory('GetCategoriesResource', ['$resource', 'appCONSTANTS', GetCategoriesResource])
+      .factory('GetCategoriesNameResource', ['$resource', 'appCONSTANTS', GetCategoriesNameResource])
+      .factory('ActivateCategoryResource', ['$resource', 'appCONSTANTS', ActivateCategoryResource])
+      .factory('DeactivateCategoryResource', ['$resource', 'appCONSTANTS', DeactivateCategoryResource]);
+
+      function CategoryResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId', {}, {
+        create: { method: 'POST', useToken: true },
+        deleteCategory: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+    function GetCategoriesResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId/Categories', {}, {
+          getAllCategories: { method: 'GET', useToken: true, params:{lang:'@lang'} }
+        })
+    }
+
+        function GetCategoriesNameResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId/Categories/Name', {}, {
+        getAllCategoriesName: { method: 'GET', useToken: true, params:{lang:'@lang'},isArray: true }
+      })
+  }
+
+    function ActivateCategoryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/Activate', {}, {
+          Activate: { method: 'GET', useToken: true}
+        })
+    }
+    function DeactivateCategoryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/DeActivate', {}, {
+          Deactivate: { method: 'GET', useToken: true }
+        })
+    }
+}());
+  (function () {
+    'use strict';
+	
+    angular
+        .module('home')
+        .controller('categoryDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS' , 'CategoryResource','ToastService','menuId','callBackFunction','$rootScope',  categoryDialogController])
+
+	function categoryDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS , CategoryResource,ToastService,menuId,callBackFunction,$rootScope){
+		var vm = this;
+		vm.menuName = "";
+		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
+		vm.isChanged = false;
+		vm.AddNewCategory = function(){
+			vm.isChanged = true;
+            var newCategroy = new Object();
+            newCategroy.categoryName = vm.categoryName;
+            newCategroy.menuId = menuId;
+
+			var model = new FormData();
+			model.append('data', JSON.stringify(newCategroy));
+			model.append('file', categoryImage);
+			$http({
+				method: 'POST',
+				url: appCONSTANTS.API_URL + 'Categories/',
+				useToken: true,
+				headers: { 'Content-Type': undefined },
+				data: model
+			}).then(
+				function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryAddSuccess'),"success");
+					 
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editCategoryDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS','ToastService','mode','englishCategories','category','callBackFunction',  editCategoryDialogController])
+
+	function editCategoryDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS,ToastService, mode, englishCategories, category,callBackFunction){
+		var vm = this;
+		vm.categoryName = "";
+
+				vm.mode = mode;
+		vm.englishCategories = englishCategories;
+		if(mode == "edit")
+		{
+            vm.categoryName = category.categoryName;
+            vm.categoryImage = category.imageURL;
+        }
+		else
+            vm.selecteCategory = englishCategories[0];
+
+        		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
+
+				vm.updateCategory = function(){
+            var updateCategory = new Object();
+            updateCategory.categoryName = vm.categoryName;
+			updateCategory.isImageChange = isImageChange;
+
+		            if(mode == "edit"){
+				updateCategory.categoryId = category.categoryId;
+				updateCategory.menuId = category.menuId;
+			}
+			else{
+				updateCategory.categoryId = vm.selecteCategory.categoryId;
+				updateCategory.menuId = vm.selecteCategory.menuId;
+
+							}
+
+
+							var model = new FormData();
+			model.append('data', JSON.stringify(updateCategory));
+			model.append('file', categoryImage);
+			$http({
+				method: 'PUT',
+				url: appCONSTANTS.API_URL + 'Categories/',
+				useToken: true,
+				headers: { 'Content-Type': undefined },
+				data: model
+			}).then(
+				function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryupdateSuccess'),"success");
+                    $uibModalInstance.dismiss('cancel');
+                    callBackFunction();
+				},
+				function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+				}
+            );
+
+        }
+        vm.LoadUploadImage = function() {
+			$("#categoryImage").click();
+		}
+        var categoryImage; 
+        var isImageChange = false;
+		$scope.AddCategoryImage = function(element) {
+			var imageFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (imageFile && imageFile.size >= 0 && ((imageFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(imageFile.type) !== -1) {
+					$scope.editCategoryForm.$dirty=true;
+					$scope.$apply(function() {
+
+						                        categoryImage= imageFile;
+                        isImageChange = true;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.categoryImage= reader.result;
+							$scope.$apply();
+						};
+						if (imageFile) {
+							reader.readAsDataURL(imageFile);
+						}
+					})
+				} else {
+					$("#logoImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (imageFile) {
+					$("#logoImage").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
+	}	
+})();
+(function () {
+    'use strict';
 
 	    angular
         .module('home')
@@ -1628,19 +1819,18 @@
 	
     angular
         .module('home')
-        .controller('categoryController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','GetCategoriesResource', 'CategoryResource','ActivateCategoryResource','DeactivateCategoryResource','categoryPrepService','ToastService',  categoryController])
+        .controller('sideItemController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SideItemResource','sideItemPrepService','ToastService',  sideItemController])
 
-    function categoryController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal,GetCategoriesResource, CategoryResource,ActivateCategoryResource,DeactivateCategoryResource,categoryPrepService,ToastService){
+    function sideItemController($scope ,$translate , appCONSTANTS,$uibModal, SideItemResource,sideItemPrepService,ToastService){
 
         var vm = this;
-		vm.categories = categoryPrepService;
-		vm.Now = $scope.getCurrentTime();
-		$('.pmd-sidebar-nav>li>a').removeClass("active") 
+		vm.sideItems = sideItemPrepService;
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 		
-		function refreshCategories(){
-			var k = GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId,page:vm.currentPage }).$promise.then(function(results) {
-				vm.Now = $scope.getCurrentTime();	
-				vm.categories = results;
+		function refreshSideItems(){
+			var k = SideItemResource.getAllSideItems({page:vm.currentPage}).$promise.then(function(results) {
+				vm.sideItems = results
 			},
             function(data, status) {
 				ToastService.show("right","bottom","fadeInUp",data.message,"error");
@@ -1649,23 +1839,23 @@
 		vm.currentPage = 1;
         vm.changePage = function (page) {
             vm.currentPage = page;
-            refreshCategories();
+            refreshSideItems();
 		}
-		vm.openCategoryDialog = function(){		
+		vm.openSideItemDialog = function(){		
 			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
 			{
-				var englishCategories;
-				var k = GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId,pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
-					englishCategories = results;
+				var englishSideItems;
+				var k = SideItemResource.getAllSideItems({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+                    englishSideItems = results;
 					var modalContent = $uibModal.open({
-						templateUrl: './app/RestaurantAdmin/templates/editCategory.html',
-						controller: 'editCategoryDialogController',
-						controllerAs: 'editCategoryDlCtrl',
+						templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+						controller: 'editSideItemDialogController',
+						controllerAs: 'editSideItemDlCtrl',
 						resolve:{
 							mode:function(){return "map"},
-							englishCategories: function(){return englishCategories.results;},
-							category:function(){ return null},
-							callBackFunction:function(){return refreshCategories;}
+							englishSideItems: function(){return englishSideItems.results;},
+							sideItem:function(){ return null},
+							callBackFunction:function(){return refreshSideItems;}
 						}
 						
 					});
@@ -1673,27 +1863,26 @@
 			}
 			else{
 				var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newCategory.html',
-					controller: 'categoryDialogController',
-					controllerAs: 'categoryDlCtrl',
+					templateUrl: './app/RestaurantAdmin/templates/newSideItem.html',
+					controller: 'sideItemDialogController',
+					controllerAs: 'sideItemDlCtrl',
 					resolve:{
-                        menuId: function(){ return $stateParams.menuId;},
-						callBackFunction:function(){return refreshCategories;}
+						callBackFunction:function(){return refreshSideItems;}
 					}
 					
 				});
 			}
 		}
 		function confirmationDelete(itemId){
-			CategoryResource.deleteCategory({categoryId:itemId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryDeleteSuccess'),"success");
-				refreshCategories();
+			SideItemResource.deleteSideItem({SideItemId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemDeleteSuccess'),"success");
+				refreshSideItems();
 			},
             function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
             });
 		}
-		vm.openDeleteCategoryDialog = function(name,id){			
+		vm.openDeleteSideItemDialog = function(name,id){			
 			var modalContent = $uibModal.open({
 				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
 				controller: 'confirmDeleteDialogController',
@@ -1708,224 +1897,126 @@
 			});
 		}
 		
-		vm.openEditCategoryDialog = function(index){
+		vm.openEditSideItemDialog = function(index){
 			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editCategory.html',
-				controller: 'editCategoryDialogController',
-				controllerAs: 'editCategoryDlCtrl',
+				templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+				controller: 'editSideItemDialogController',
+				controllerAs: 'editSideItemDlCtrl',
 				resolve:{
 					mode:function(){return "edit"},
-					englishCategories: function(){return null;},
-					category:function(){ return vm.categories.results[index]},
-					callBackFunction:function(){return refreshCategories;}
+					englishSideItems: function(){return null;},
+					sideItem:function(){ return vm.sideItems.results[index]},
+					callBackFunction:function(){return refreshSideItems;}
 				}
 				
 			});
 			
 		}
-		vm.Activate = function(category){
-			ActivateCategoryResource.Activate({categoryId:category.categoryId})
-			.$promise.then(function(result){
-				category.isActive = true;
-			},
-			function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-			})
-		}
-
-		vm.Deactivate = function(category){
-			DeactivateCategoryResource.Deactivate({categoryId:category.categoryId})
-			.$promise.then(function(result){
-				category.isActive = false;
-			},
-			function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-			})
-		}		
 		
 		
 		
 	}
 	
 }
-    ());
+());
 (function() {
     angular
       .module('home')
-      .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource])
-      .factory('GetCategoriesResource', ['$resource', 'appCONSTANTS', GetCategoriesResource])
-      .factory('GetCategoriesNameResource', ['$resource', 'appCONSTANTS', GetCategoriesNameResource])
-      .factory('ActivateCategoryResource', ['$resource', 'appCONSTANTS', ActivateCategoryResource])
-      .factory('DeactivateCategoryResource', ['$resource', 'appCONSTANTS', DeactivateCategoryResource]);
+      .factory('SideItemResource', ['$resource', 'appCONSTANTS', SideItemResource]);
 
-      function CategoryResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId', {}, {
+      function SideItemResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'SideItems/:SideItemId', {}, {
+        getAllSideItems: { method: 'GET', useToken: true, params:{lang:'@lang'} },
         create: { method: 'POST', useToken: true },
-        deleteCategory: { method: 'DELETE', useToken: true },
+        deleteSideItem: { method: 'DELETE', useToken: true },
         update: { method: 'PUT', useToken: true }
       })
     }
-    function GetCategoriesResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId/Categories', {}, {
-          getAllCategories: { method: 'GET', useToken: true, params:{lang:'@lang'} }
-        })
-    }
 
-        function GetCategoriesNameResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId/Categories/Name', {}, {
-        getAllCategoriesName: { method: 'GET', useToken: true, params:{lang:'@lang'},isArray: true }
-      })
-  }
-
-    function ActivateCategoryResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/Activate', {}, {
-          Activate: { method: 'GET', useToken: true}
-        })
-    }
-    function DeactivateCategoryResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/DeActivate', {}, {
-          Deactivate: { method: 'GET', useToken: true }
-        })
-    }
-}());
+      }());
   (function () {
     'use strict';
 	
     angular
         .module('home')
-        .controller('categoryDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS' , 'CategoryResource','ToastService','menuId','callBackFunction','$rootScope',  categoryDialogController])
+        .controller('sideItemDialogController', ['$uibModalInstance','$translate' , 'SideItemResource','ToastService','callBackFunction','$rootScope',  sideItemDialogController])
 
-	function categoryDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS , CategoryResource,ToastService,menuId,callBackFunction,$rootScope){
+	function sideItemDialogController($uibModalInstance, $translate , SideItemResource,ToastService,callBackFunction,$rootScope){
 		var vm = this;
-		vm.menuName = "";
+        vm.sideItemName = "";
+        vm.value;
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
 		vm.isChanged = false;
-		vm.AddNewCategory = function(){
-			vm.isChanged = true;
-            var newCategroy = new Object();
-            newCategroy.categoryName = vm.categoryName;
-            newCategroy.menuId = menuId;
-
-			var model = new FormData();
-			model.append('data', JSON.stringify(newCategroy));
-			model.append('file', categoryImage);
-			$http({
-				method: 'POST',
-				url: appCONSTANTS.API_URL + 'Categories/',
-				useToken: true,
-				headers: { 'Content-Type': undefined },
-				data: model
-			}).then(
-				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryAddSuccess'),"success");
-					 
+		vm.AddNewSideItem = function(){
+            vm.isChanged = true;
+			var newSideItem = new SideItemResource();
+            newSideItem.sideItemName = vm.sideItemName;
+            newSideItem.value = vm.value;
+            newSideItem.$create().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemAddSuccess'),"success");
+					$uibModalInstance.dismiss('cancel');
+                    callBackFunction();
+                    vm.isChanged = false;
+                },
+                function(data, status) {
+                    vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+		}
+	}	
+}());
+(function () {
     'use strict';
 
 	    angular
         .module('home')
-        .controller('editCategoryDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS','ToastService','mode','englishCategories','category','callBackFunction',  editCategoryDialogController])
+        .controller('editSideItemDialogController', ['$uibModalInstance','$translate', 'SideItemResource','ToastService','mode','englishSideItems','sideItem','callBackFunction',  editSideItemDialogController])
 
-	function editCategoryDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS,ToastService, mode, englishCategories, category,callBackFunction){
+	function editSideItemDialogController($uibModalInstance, $translate, SideItemResource,ToastService, mode, englishSideItems, sideItem,callBackFunction){
 		var vm = this;
-		vm.categoryName = "";
+		vm.sideItemName = "";
 
 				vm.mode = mode;
-		vm.englishCategories = englishCategories;
-		if(mode == "edit")
-		{
-            vm.categoryName = category.categoryName;
-            vm.categoryImage = category.imageURL;
+		vm.englishSideItems = englishSideItems;
+        if(mode == "edit"){
+            vm.sideItemName = sideItem.sideItemName;
+            vm.value = sideItem.value;
         }
 		else
-            vm.selecteCategory = englishCategories[0];
-
-        		vm.close = function(){
+			vm.selectedSideItem = englishSideItems[0];
+		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
 
-				vm.updateCategory = function(){
-            var updateCategory = new Object();
-            updateCategory.categoryName = vm.categoryName;
-			updateCategory.isImageChange = isImageChange;
+				vm.updateSideItem = function(){
+			var updateSideItem = new SideItemResource();
+            updateSideItem.sideItemName = vm.sideItemName;
 
-		            if(mode == "edit"){
-				updateCategory.categoryId = category.categoryId;
-				updateCategory.menuId = category.menuId;
+            			if(mode == "edit"){
+				updateSideItem.sideItemId = sideItem.sideItemId;
+				updateSideItem.value = vm.value;
 			}
 			else{
-				updateCategory.categoryId = vm.selecteCategory.categoryId;
-				updateCategory.menuId = vm.selecteCategory.menuId;
-
-							}
-
-
-							var model = new FormData();
-			model.append('data', JSON.stringify(updateCategory));
-			model.append('file', categoryImage);
-			$http({
-				method: 'PUT',
-				url: appCONSTANTS.API_URL + 'Categories/',
-				useToken: true,
-				headers: { 'Content-Type': undefined },
-				data: model
-			}).then(
-				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryupdateSuccess'),"success"); 
-                    $uibModalInstance.dismiss('cancel');
-                    callBackFunction();
-				},
-				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-				}
-            ); 
-        }
-        vm.LoadUploadImage = function() {
-			$("#categoryImage").click();
-		}
-        var categoryImage; 
-        var isImageChange = false;
-		$scope.AddCategoryImage = function(element) {
-			var imageFile = element[0];
-
-			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
-
-			if (imageFile && imageFile.size >= 0 && ((imageFile.size / (1024 * 1000)) < 2)) {
-
-				if (allowedImageTypes.indexOf(imageFile.type) !== -1) {
-					$scope.editCategoryForm.$dirty=true;
-					$scope.$apply(function() {
-
-						                        categoryImage= imageFile;
-                        isImageChange = true;
-						var reader = new FileReader();
-
-						reader.onloadend = function() {
-							vm.categoryImage= reader.result; 
-							$scope.$apply();
-						};
-						if (imageFile) {
-							reader.readAsDataURL(imageFile);
-						}
-					})
-				} else {
-					$("#logoImage").val('');
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
-				}
-
-			} else {
-				if (imageFile) {
-					$("#logoImage").val('');
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
-				}
-
+				updateSideItem.sideItemId = vm.selectedSideItem.sideItemId;
+				updateSideItem.value = vm.selectedSideItem.value;
 			}
-
-
+            updateSideItem.$update().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSideItemSuccess'),"success");
+					$uibModalInstance.dismiss('cancel');
+					callBackFunction();
+                },
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
 		}
 	}	
-})();
+}());
 (function () {
     'use strict';
 	
@@ -2244,209 +2335,6 @@
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('menuAddSuccess'),"success");
 					 
-    angular
-      .module('home')
-      .factory('SideItemResource', ['$resource', 'appCONSTANTS', SideItemResource]);
-
-      function SideItemResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'SideItems/:SideItemId', {}, {
-        getAllSideItems: { method: 'GET', useToken: true, params:{lang:'@lang'} },
-        create: { method: 'POST', useToken: true },
-        deleteSideItem: { method: 'DELETE', useToken: true },
-        update: { method: 'PUT', useToken: true }
-      })
-    }
-
-      }());
-  (function () {
-    'use strict';
-	
-    angular
-        .module('home')
-        .controller('sideItemDialogController', ['$uibModalInstance','$translate' , 'SideItemResource','ToastService','callBackFunction','$rootScope',  sideItemDialogController])
-
-	function sideItemDialogController($uibModalInstance, $translate , SideItemResource,ToastService,callBackFunction,$rootScope){
-		var vm = this;
-        vm.sideItemName = "";
-        vm.value;
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
-		vm.isChanged = false;
-		vm.AddNewSideItem = function(){
-            vm.isChanged = true;
-			var newSideItem = new SideItemResource();
-            newSideItem.sideItemName = vm.sideItemName;
-            newSideItem.value = vm.value;
-            newSideItem.$create().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemAddSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-                    callBackFunction();
-                    vm.isChanged = false;
-                },
-                function(data, status) {
-                    vm.isChanged = false;
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editSideItemDialogController', ['$uibModalInstance','$translate', 'SideItemResource','ToastService','mode','englishSideItems','sideItem','callBackFunction',  editSideItemDialogController])
-
-	function editSideItemDialogController($uibModalInstance, $translate, SideItemResource,ToastService, mode, englishSideItems, sideItem,callBackFunction){
-		var vm = this;
-		vm.sideItemName = "";
-
-				vm.mode = mode;
-		vm.englishSideItems = englishSideItems;
-        if(mode == "edit"){
-            vm.sideItemName = sideItem.sideItemName;
-            vm.value = sideItem.value;
-        }
-		else
-			vm.selectedSideItem = englishSideItems[0];
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
-
-				vm.updateSideItem = function(){
-			var updateSideItem = new SideItemResource();
-            updateSideItem.sideItemName = vm.sideItemName;
-
-            			if(mode == "edit"){
-				updateSideItem.sideItemId = sideItem.sideItemId;
-				updateSideItem.value = vm.value;
-			}
-			else{
-				updateSideItem.sideItemId = vm.selectedSideItem.sideItemId;
-				updateSideItem.value = vm.selectedSideItem.value;
-			}
-            updateSideItem.$update().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSideItemSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
-                },
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-}());
-(function () {
-    'use strict';
-	
-    angular
-        .module('home')
-        .controller('sizeController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SizeResource','sizePrepService','ToastService',  sizeController])
-
-    function sizeController($scope ,$translate , appCONSTANTS,$uibModal, SizeResource,sizePrepService,ToastService){
-
-        var vm = this;
-		vm.sizes = sizePrepService;
-		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
-		
-		function refreshSizes(){
-			var k = SizeResource.getAllSizes({page:vm.currentPage}).$promise.then(function(results) {
-				vm.sizes = results
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
-            });
-		}
-		vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshSizes();
-		}
-		vm.openSizeDialog = function(){		
-			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
-			{
-				var englishSizes;
-				var k = SizeResource.getAllSizes({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
-					englishSizes = results;
-					var modalContent = $uibModal.open({
-						templateUrl: './app/RestaurantAdmin/templates/editSize.html',
-						controller: 'editSizeDialogController',
-						controllerAs: 'editSizeDlCtrl',
-						resolve:{
-							mode:function(){return "map"},
-							englishSizes: function(){return englishSizes.results;},
-							size:function(){ return null},
-							callBackFunction:function(){return refreshSizes;}
-						}
-						
-					});
-				});
-			}
-			else{
-				var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newSize.html',
-					controller: 'sizeDialogController',
-					controllerAs: 'sizeDlCtrl',
-					resolve:{
-						callBackFunction:function(){return refreshSizes;}
-					}
-					
-				});
-			}
-		}
-		function confirmationDelete(itemId){
-			SizeResource.deleteSize({SizeId:itemId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('SizeDeleteSuccess'),"success");
-				refreshSizes();
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            });
-		}
-		vm.openDeleteSizeDialog = function(name,id){			
-			var modalContent = $uibModal.open({
-				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-				controller: 'confirmDeleteDialogController',
-				controllerAs: 'deleteDlCtrl',
-				resolve: {
-					itemName: function () { return name },
-					itemId: function() { return id },
-					message:function() { return null},
-					callBackFunction:function() { return confirmationDelete }
-				}
-				
-			});
-		}
-		
-		vm.openEditSizeDialog = function(index){
-			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editSize.html',
-				controller: 'editSizeDialogController',
-				controllerAs: 'editSizeDlCtrl',
-				resolve:{
-					mode:function(){return "edit"},
-					englishSizes: function(){return null;},
-					size:function(){ return vm.sizes.results[index]},
-					callBackFunction:function(){return refreshSizes;}
-				}
-				
-			});
-			
-		}
-		
-		
-		
-	}
-	
-}
-());
-(function() {
     angular
       .module('home')
       .factory('SizeResource', ['$resource', 'appCONSTANTS', SizeResource]);

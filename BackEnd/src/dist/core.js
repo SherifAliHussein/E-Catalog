@@ -194,7 +194,8 @@ angular.module('core')
             "UpdateSizeLbl":"Update size",
             "UpdateSizeSuccess":"Size updated successfully.",
             "SizeDeleteSuccess":"Size deleted successfully.",
-            "NameLengthError":"Name length must be 3-100 characters.",
+            "NameLengthError":"Name length must be 3-40 characters.",
+            "SizeLengthError":"Name length must be 1-10 characters.",
             "DescLengthError":"Description length must be 3-300 characters.",
             "sideItem":"Side items",
             "value":"Value",
@@ -255,7 +256,9 @@ angular.module('core')
             "RecommendedMenuImage":"Recommended dimension 477 x 286",
             "RecommendedCategoryImage":"Recommended dimension 210 x 137",
             "RecommendedItemImage1":"Recommended dimension 423 x 139",
-            "RecommendedItemImage2":"Recommended dimension 112 x 69",
+            "RecommendedItemImage2":"Recommended dimension 112 x 69", 
+            "PriceLengthError":"Price length must be 1-5 Digts.",
+            "RecommendedBackgroundImage":"Recommended dimension 1920 x 1200", 
         }
         
         var ar_translations = {
@@ -315,7 +318,8 @@ angular.module('core')
             "UpdateSizeLbl":"تحديث الحجم",
             "UpdateSizeSuccess":".تم تحديث الحجم بنجاح",
             "SizeDeleteSuccess":".تم حذف الحجم بنجاح",
-            "NameLengthError":".طول الاسم يجب من 3-100 حرف",
+            "NameLengthError":".طول الاسم يجب من 3-40 حرف",
+            "SizeLengthError":".طول المقاس يجب من 1-10 حرف",
             "DescLengthError":".طول الوصف يجب من 3-100 حرف",
             "sideItem":"طبق جانبى",
             "value":"قيمه",
@@ -384,7 +388,10 @@ angular.module('core')
             "RecommendedMenuImage":"477 x 286 البعد الموصى به",
             "RecommendedCategoryImage":"210 x 137 البعد الموصى به",            
             "RecommendedItemImage1":"423 x 139 البعد الموصى به",
-            "RecommendedItemImage2":"112 x 69 البعد الموصى به",
+            "RecommendedItemImage2":"112 x 69 البعد الموصى به",  
+            "PriceLengthError":".طول السعر يجب من 1-5ارقام ",
+                     
+            "RecommendedBackgroundImage":"1920 x 1200 البعد الموصى به",
         }
         
         $translateProvider.translations('en',en_translations);
@@ -565,7 +572,8 @@ angular.module('core')
         $scope.submit = function(username, password) {
            
             authorizationService.isPasswordchanged=false;
-            $('#passwordChanged').hide(); 
+            $('#passwordChanged').hide();
+          //  $('#userInActivated').hide();
             if (!username)
                 $scope.emailEmpty = true;
             if (!password)
@@ -573,7 +581,8 @@ angular.module('core')
             if (username && password) {
                 $scope.afterSubmit = false;
                 $scope.emailEmpty = $scope.passwordEmpty = false;
-                authenticationService.authenticate(username, password).then(loginSuccess,loginFailed) 
+                authenticationService.authenticate(username, password).then(loginSuccess,loginFailed)
+                    //.error(loginFailed);;
             } else {
                 $scope.afterSubmit = false;
             }
@@ -596,7 +605,8 @@ angular.module('core')
 		  if(oldVal===undefined && newVal !== undefined&&$localStorage.authInfo != undefined){
 			 console.log('login'); 
 					$scope.user = authorizationService.getUser();
-					loginSuccess() 
+					loginSuccess()
+			// authorizationService.isLoggedIn() && !location.href.contains('connect')
 		  }
 		})
         function loginSuccess(response) {
@@ -620,7 +630,8 @@ angular.module('core')
 
         function loginFailed(response) {
             $scope.afterSubmit = true;
-             
+            
+            // $scope.invalidLoginInfo = true;
             if (response) {
                 if (response.data.error == "invalid grant") {
                     $scope.invalidLoginInfo = true;

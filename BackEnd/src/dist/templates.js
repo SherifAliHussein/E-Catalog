@@ -702,9 +702,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	\n' +
     '				<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-repeat="itemSize in editItemCtrl.SelectedSize">\n' +
     '						<label for="first-name">{{\'Pricelbl\' | translate}} {{(itemSize.sizeName)}} </label>\n' +
-    '						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1">\n' +
+    '						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="100">\n' +
     '						<div ng-messages="newItemForm.price.$error" >\n' +
     '							<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '							<div ng-if="newItemForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +
     '						</div>\n' +
     '					</div>\n' +
     '			<!-- <div class="group-fields clearfix row">\n' +
@@ -786,7 +787,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="menuName" ng-model="editMenuDlCtrl.menuName" ng-minlength="3" ng-maxlength="100">\n' +
+    '				<input required type="text" class="mat-input form-control" name="menuName" ng-model="editMenuDlCtrl.menuName" ng-minlength="3" ng-maxlength="40">\n' +
     '				<div ng-messages="editMenuForm.menuName.$error" >\n' +
     '					<div ng-if="editMenuForm.menuName.$error.required && !editMenuForm.menuName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(editMenuDlCtrl.menuName.$error.minlength || editMenuDlCtrl.menuName.$error.maxlength) && !editMenuDlCtrl.menuName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
@@ -875,10 +876,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                </div>\n' +
     '                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '                    <label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="sizeName" ng-model="editSizeDlCtrl.sizeName" ng-minlength="3" ng-maxlength="100">\n' +
+    '                    <input required type="text" class="mat-input form-control" name="sizeName" ng-model="editSizeDlCtrl.sizeName" ng-minlength="1" ng-maxlength="10">\n' +
     '                    <div ng-messages="editSizeForm.sizeName.$error" >\n' +
     '                        <div ng-if="editSizeForm.sizeName.$error.required && !editSizeForm.sizeName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                        <div ng-if="(editSizeForm.sizeName.$error.minlength || editSizeForm.sizeName.$error.maxlength) && !editSizeForm.sizeName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '                        <div ng-if="(editSizeForm.sizeName.$error.minlength || editSizeForm.sizeName.$error.maxlength) && !editSizeForm.sizeName.$error.required">{{\'SizeLengthError\' | translate}}</div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
     '            </form>\n' +
@@ -1013,7 +1014,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <input id="backgroundImage" name="backgroundImage" style="display: none;" onchange="angular.element(this).scope().AddbackgroundImage(this.files)" type="file" required>\n' +
     '                        <button ng-click="backgroundCtrl.LoadUploadImage()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
     '                        <img ng-src="{{backgroundCtrl.backgroundImage}}" style="max-height: 200px;max-width: 200px;">\n' +
-    '                        <div ng-messages="newbackgroundForm.backgroundImage.$error" >\n' +
+    '                        <span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedBackgroundImage\' | translate}}</span>\n' +
+    '                          <div ng-messages="newbackgroundForm.backgroundImage.$error" >\n' +
     '                            <div ng-if="newbackgroundForm.backgroundImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '                        </div>\n' +
     '                </div>\n' +
@@ -1127,9 +1129,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-repeat="itemSize in newItemCtrl.SelectedSize">\n' +
     '					<label for="first-name">{{\'Pricelbl\' | translate}} {{(itemSize.sizeName)}} </label>\n' +
-    '					<input  type="number" class="mat-input form-control" name="price" ng-model="newItemCtrl.SelectedSize[$index].price" min="1">\n' +
+    '					<input  type="number" class="mat-input form-control" name="price" ng-model="newItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="100">\n' +
     '					<div ng-messages="newItemForm.price.$error" >\n' +
     '						<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newItemForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '			\n' +
@@ -1209,7 +1212,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		<form class="form-horizontal" name="newMenuForm">\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="menuName" ng-model="menuDlCtrl.menuName" ng-minlength="3" ng-maxlength="100">\n' +
+    '				<input required type="text" class="mat-input form-control" name="menuName" ng-model="menuDlCtrl.menuName" ng-minlength="3" ng-maxlength="40">\n' +
     '				<div ng-messages="newMenuForm.menuName.$error" >\n' +
     '                    <div ng-if="newMenuForm.menuName.$error.required && !newMenuForm.menuName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(newMenuForm.menuName.$error.minlength || newMenuForm.menuName.$error.maxlength) && !newMenuForm.menuName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
@@ -1283,10 +1286,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            <form class="form-horizontal" name="newSizeForm">\n' +
     '                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                    <label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="sizeName" ng-model="sizeDlCtrl.sizeName"  ng-minlength="3" ng-maxlength="100">\n' +
+    '                    <input required type="text" class="mat-input form-control" name="sizeName" ng-model="sizeDlCtrl.sizeName"  ng-minlength="3" ng-maxlength="10">\n' +
     '                    <div ng-messages="newSizeForm.sizeName.$error" >\n' +
     '                        <div ng-if="newSizeForm.sizeName.$error.required && !newSizeForm.sizeName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                        <div ng-if="(newSizeForm.sizeName.$error.minlength || newSizeForm.sizeName.$error.maxlength) && !newSizeForm.sizeName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '                        <div ng-if="(newSizeForm.sizeName.$error.minlength || newSizeForm.sizeName.$error.maxlength) && !newSizeForm.sizeName.$error.required">{{\'SizeLengthError\' | translate}}</div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
     '            </form>\n' +
