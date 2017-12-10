@@ -75,7 +75,7 @@
 	
 				<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-repeat="itemSize in editItemCtrl.SelectedSize">
 						<label for="first-name">{{'Pricelbl' | translate}} {{(itemSize.sizeName)}} </label>
-						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="100">
+						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="5">
 						<div ng-messages="newItemForm.price.$error" >
 							<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{'requiredErr' | translate}}</div>
 							<div ng-if="newItemForm.price.$error.maxlength">{{'PriceLengthError' | translate}}</div>
