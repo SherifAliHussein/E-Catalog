@@ -132,7 +132,7 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode=='new' && editItemCtrl.itemImage== null && editItemCtrl.itemImage2== null) 
+		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode=='new' && (editItemCtrl.itemImage== null || editItemCtrl.itemImage2== null)) 
 		|| (editItemCtrl.hasSideItem && editItemCtrl.SelectedSideItems.length<=0)|| (editItemCtrl.hasSideItem && editItemCtrl.maxSideItemValueError)" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{'saveChangesBtn' | translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{'DiscardBtn' | translate}}</button>
 	</div>
