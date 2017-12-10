@@ -10,7 +10,8 @@
                         <input id="backgroundImage" name="backgroundImage" style="display: none;" onchange="angular.element(this).scope().AddbackgroundImage(this.files)" type="file" required>
                         <button ng-click="backgroundCtrl.LoadUploadImage()" >{{'UploadImageBtn' | translate}}</button>
                         <img ng-src="{{backgroundCtrl.backgroundImage}}" style="max-height: 200px;max-width: 200px;">
-                        <div ng-messages="newbackgroundForm.backgroundImage.$error" >
+                        <span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedBackgroundImage' | translate}}</span>
+                          <div ng-messages="newbackgroundForm.backgroundImage.$error" >
                             <div ng-if="newbackgroundForm.backgroundImage.$error.required">{{'requiredErr' | translate}}</div>
                         </div>
                 </div>

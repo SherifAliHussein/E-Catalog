@@ -32,7 +32,7 @@
     <input type="number" ng-model="selectedCount" class="form-control counter" value="1">
     <!-- <select ng-model="selectedCount" ng-init="selectedCount = itemCtrl.counts[0]" ng-options="x for x in itemCtrl.counts"></select> -->
      <input type="button" ng-click="addItemToCart(itemCtrl.itemDetails)" ng-disabled="!displayAdd" value="{{'Add' | translate}}" data-lity-close>
-    <div class="col-sm-6 col-xs-6 col-md-6 ">
+    <div class="col-sm-6 col-xs-6 col-md-6 "> 
         <h3>{{itemCtrl.itemDetails.itemName}}</h3>
         <p>{{itemCtrl.itemDetails.itemDescription}}</p>
         <div class="col-sm-6 col-xs-6 col-md-6">
@@ -46,7 +46,7 @@
 
                 </p> -->
                 <div ng-repeat="(key,val) in itemCtrl.itemDetails.sizes">
-                    <input type="radio"  ng-click="radioSizeClick(val)" ng-model="$parent.checkradioasd" ng-value='val.sizeId'  >
+                    <input type="radio"  ng-click="radioSizeClick(val,itemCtrl.itemDetails.itemID)" ng-model="$parent.checkradioasd" ng-value='val.sizeId'  >
                     {{val.price}}
                     <span>{{val.sizeName}}</span>
                </div>

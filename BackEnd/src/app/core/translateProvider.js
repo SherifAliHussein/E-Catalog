@@ -63,7 +63,8 @@
             "UpdateSizeLbl":"Update size",
             "UpdateSizeSuccess":"Size updated successfully.",
             "SizeDeleteSuccess":"Size deleted successfully.",
-            "NameLengthError":"Name length must be 3-100 characters.",
+            "NameLengthError":"Name length must be 3-40 characters.",
+            "SizeLengthError":"Name length must be 1-10 characters.",
             "DescLengthError":"Description length must be 3-300 characters.",
             "sideItem":"Side items",
             "value":"Value",
@@ -124,7 +125,9 @@
             "RecommendedMenuImage":"Recommended dimension 477 x 286",
             "RecommendedCategoryImage":"Recommended dimension 210 x 137",
             "RecommendedItemImage1":"Recommended dimension 423 x 139",
-            "RecommendedItemImage2":"Recommended dimension 112 x 69",
+            "RecommendedItemImage2":"Recommended dimension 112 x 69", 
+            "PriceLengthError":"Price length must be 1-5 Digts.",
+            "RecommendedBackgroundImage":"Recommended dimension 1920 x 1200", 
         }
         
         var ar_translations = {
@@ -184,7 +187,8 @@
             "UpdateSizeLbl":"تحديث الحجم",
             "UpdateSizeSuccess":".تم تحديث الحجم بنجاح",
             "SizeDeleteSuccess":".تم حذف الحجم بنجاح",
-            "NameLengthError":".طول الاسم يجب من 3-100 حرف",
+            "NameLengthError":".طول الاسم يجب من 3-40 حرف",
+            "SizeLengthError":".طول المقاس يجب من 1-10 حرف",
             "DescLengthError":".طول الوصف يجب من 3-100 حرف",
             "sideItem":"طبق جانبى",
             "value":"قيمه",
@@ -253,7 +257,10 @@
             "RecommendedMenuImage":"477 x 286 البعد الموصى به",
             "RecommendedCategoryImage":"210 x 137 البعد الموصى به",            
             "RecommendedItemImage1":"423 x 139 البعد الموصى به",
-            "RecommendedItemImage2":"112 x 69 البعد الموصى به",
+            "RecommendedItemImage2":"112 x 69 البعد الموصى به",  
+            "PriceLengthError":".طول السعر يجب من 1-5ارقام ",
+                     
+            "RecommendedBackgroundImage":"1920 x 1200 البعد الموصى به",
         }
         
         $translateProvider.translations('en',en_translations);

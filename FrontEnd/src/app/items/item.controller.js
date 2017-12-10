@@ -14,13 +14,14 @@
             CartIconService.cartIcon = newValue;
           });
         vm.catgoryTemplates = categoryItemsTemplatePrepService;
-        console.log(vm.catgoryTemplates);
-        // vm.itemDetails;
+     //   console.log(vm.catgoryTemplates);
+       //  vm.itemDetails;
         // vm.viewItemDetails=function(item){
         //     console.log(item)
         // vm.itemDetails = categoryItemsTemplatePrepService.templates[0].itemModels[0];
         // } 
-        vm.selectedSize = 10;
+       vm.currentItem=0; 
+       vm.selectedSize = 10;
         vm.selectedSide = 10;
         $scope.selectedCount = 0;   
         $scope.checkradioasd = -1;
@@ -32,12 +33,19 @@
             itemobj: "",
             size: "",
             sides: [],
-        };
-
+        }; 
         $scope.displayAdd = false;
 
         $scope.addItemToCart = function (product) {
-
+if(vm.currentItem != product.itemID){
+    $scope.item = {
+        itemobj: "",
+        size: "",
+        sides: [],
+    }; 
+     alert("Please Choose the correct item"); 
+    return;
+}
             for (var i = 0; i < $scope.selectedCount; i++) {
 
                 if ($scope.cart.length === 0) {
@@ -48,7 +56,7 @@
                 } else {
                     var repeat = false;
                     for (var k = 0; k < $scope.cart.length; k++) {
-                        if ($scope.cart[k].itemobj.itemID === product.itemID) {
+                        if ($scope.cart[k].itemobj.itemID === product.itemID && $scope.cart[k].size.sizeId ===   $scope.item.size.sizeId) {
                             repeat = true;
                             $scope.cart[k].itemobj.count += 1;
                         }
@@ -63,22 +71,22 @@
                 $scope.total += parseFloat($scope.item.size.price);
 
             }
-            var storedNames = JSON.parse(localStorage.getItem("checkOut"));
-            if (storedNames != null) {
-                for (var s = 0; s < storedNames.length; s++) {
+            var CheckOutLocalstorage = JSON.parse(localStorage.getItem("checkOut"));
+            if (CheckOutLocalstorage != null) {
+                for (var s = 0; s < CheckOutLocalstorage.length; s++) {
                     var repeat = false;
-                    for (var k = 0; k < $scope.cart.length; k++) {
+                    for (var z = 0; z < $scope.cart.length; z++) {
                       
-                        var id=$scope.cart[k].itemobj.itemID;
-                        var objsize=$scope.cart[k].size.sizeId;
+                        var id=$scope.cart[z].itemobj.itemID;
+                        var objsize=$scope.cart[z].size.sizeId;
 
-                        var stordId=storedNames[s].itemobj.itemID ;
-                        var stordSize=storedNames[s].size.sizeId;
+                        var stordId=CheckOutLocalstorage[s].itemobj.itemID ;
+                        var stordSize=CheckOutLocalstorage[s].size.sizeId;
 
                           if (id === stordId && objsize ===stordSize) {
                             repeat = true;
-                            $scope.cart[k].itemobj.count += 1;
-                      //  $scope.cart.push(storedNames[s]); 
+                            $scope.cart[z].itemobj.count += 1;
+                      //  $scope.cart.push(CheckOutLocalstorage[s]); 
                         
                         }
                     }
@@ -86,13 +94,13 @@
                        // product.count = 1;
                         $scope.item.itemobj = product;
                         //$scope.cart.push($scope.item);
-                        $scope.cart.push(storedNames[s]); 
+                        $scope.cart.push(CheckOutLocalstorage[s]); 
                     }
                     
                 }
             $scope.total=0;
-            for (var i = 0; i < $scope.cart.length; i++) {
-                var product = $scope.cart[i];
+            for (var t = 0; t < $scope.cart.length; t++) {
+                var product = $scope.cart[t];
                 $scope.total += (product.size.price * product.itemobj.count);
             }
         }
@@ -102,12 +110,9 @@
             $scope.$watch("homeTotalNo", function (newValue) {
                 totalCartService.homeTotalNo = newValue;
               });
-             
-            // $scope.$watch('homeTotalNo', function (newValue, oldValue) {
-            //     if (newValue !== oldValue) Data.setFirstName(newValue);
-            // });
-
+              
             localStorage.setItem('checkOut', JSON.stringify($scope.cart));
+            $scope.cart=[];
             $scope.item = {
                 itemobj: "",
                 size: "",
@@ -119,7 +124,8 @@
         };
 
         
-        $scope.radioSizeClick = function (size) {
+        $scope.radioSizeClick = function (size,item) {
+            vm.currentItem=item;
             $scope.checkradioasd = size.sizeId;
             $scope.item.size = size;
             if ($scope.item.size != "") {
