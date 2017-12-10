@@ -702,7 +702,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	\n' +
     '				<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-repeat="itemSize in editItemCtrl.SelectedSize">\n' +
     '						<label for="first-name">{{\'Pricelbl\' | translate}} {{(itemSize.sizeName)}} </label>\n' +
-    '						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="100">\n' +
+    '						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="5">\n' +
     '						<div ng-messages="newItemForm.price.$error" >\n' +
     '							<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '							<div ng-if="newItemForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +
@@ -1129,7 +1129,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-repeat="itemSize in newItemCtrl.SelectedSize">\n' +
     '					<label for="first-name">{{\'Pricelbl\' | translate}} {{(itemSize.sizeName)}} </label>\n' +
-    '					<input  type="number" class="mat-input form-control" name="price" ng-model="newItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="100">\n' +
+    '					<input  type="number" class="mat-input form-control" name="price" ng-model="newItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="5">\n' +
     '					<div ng-messages="newItemForm.price.$error" >\n' +
     '						<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '						<div ng-if="newItemForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +

@@ -9,6 +9,7 @@ using System.Web.Http;
 using ECatalog.BLL.DTOs;
 using ECatalog.BLL.Services.Interfaces;
 using ECatalog.Common;
+using ECatalog.Common.CustomException;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Practices.ObjectBuilder2;
@@ -50,6 +51,17 @@ namespace ECatalog.API.Providers
             {
                 user = userFacade.ValidateUser(context.UserName, context.Password);
 
+            }
+            catch (ValidationException exception)
+            {
+                if (exception.ErrorCode == ErrorCodes.RestaurantIsNotActivated)
+                {
+                    context.SetError("restaurant deactivated", "Restaurant is not activated, please contact your admin.");
+                    //Add your flag to the header of the response
+                    context.Response.Headers.Add("X-Challenge",
+                        new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
+                    return Task.FromResult<object>(null);
+                }
             }
             catch (Exception e)
             {
