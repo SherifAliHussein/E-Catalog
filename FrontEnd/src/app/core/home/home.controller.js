@@ -127,6 +127,7 @@
             $scope.afterSubmit = false;
             $scope.invalidLoginInfo = false;
             $scope.inActiveUser = false;
+            $scope.restaurantInActiveUser = false;
             $scope.user = authorizationService.getUser();
             if ($scope.user.role != userRolesEnum.Waiter) {
                 authorizationService.logout();
@@ -149,15 +150,23 @@
                 if (response.data.error == "invalid grant") {
                     $scope.invalidLoginInfo = true;
                     $scope.inActiveUser = false;
+                    $scope.restaurantInActiveUser = false;
                 }
                 if (response.data.error == "inactive user") {
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
+                    $scope.restaurantInActiveUser = false;
+                }
+                if (response.data.error == "restaurant deactivated") {
+                    $scope.invalidLoginInfo = false;
+                    $scope.inActiveUser = false;
+                    $scope.restaurantInActiveUser = true;
                 }
             }
             if (response == null) {
                 $scope.invalidLoginInfo = false;
                 $scope.inActiveUser = true;
+                $scope.restaurantInActiveUser = false;
             }
         }
 

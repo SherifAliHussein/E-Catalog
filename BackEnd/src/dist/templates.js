@@ -93,7 +93,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="typeName" ng-model="editRestTypeDlCtrl.typeName" ng-minlength="3" ng-maxlength="100">\n' +
+    '				<input required type="text" class="mat-input form-control" name="typeName" ng-model="editRestTypeDlCtrl.typeName" ng-minlength="3" ng-maxlength="40">\n' +
     '				<div ng-messages="editTypeForm.typeName.$error" >\n' +
     '					<div ng-if="editTypeForm.typeName.$error.required && !editTypeForm.typeName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(editTypeForm.typeName.$error.minlength || editTypeForm.typeName.$error.maxlength) && !editTypeForm.typeName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
@@ -203,7 +203,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		<form class="form-horizontal" name="newTypeForm">\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="typeName" ng-model="restTypeDlCtrl.typeName" ng-minlength="3" ng-maxlength="100">\n' +
+    '				<input required type="text" class="mat-input form-control" name="typeName" ng-model="restTypeDlCtrl.typeName" ng-minlength="3" ng-maxlength="40">\n' +
     '				<div ng-messages="newTypeForm.typeName.$error" >\n' +
     '                    <div ng-if="newTypeForm.typeName.$error.required && !newTypeForm.typeName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(newTypeForm.typeName.$error.minlength || newTypeForm.typeName.$error.maxlength) && !newTypeForm.typeName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
@@ -702,7 +702,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	\n' +
     '				<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-repeat="itemSize in editItemCtrl.SelectedSize">\n' +
     '						<label for="first-name">{{\'Pricelbl\' | translate}} {{(itemSize.sizeName)}} </label>\n' +
-    '						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="100">\n' +
+    '						<input  type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="5">\n' +
     '						<div ng-messages="newItemForm.price.$error" >\n' +
     '							<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '							<div ng-if="newItemForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +
@@ -759,7 +759,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode==\'new\' && editItemCtrl.itemImage== null && editItemCtrl.itemImage2== null) \n' +
+    '		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode==\'new\' && (editItemCtrl.itemImage== null || editItemCtrl.itemImage2== null)) \n' +
     '		|| (editItemCtrl.hasSideItem && editItemCtrl.SelectedSideItems.length<=0)|| (editItemCtrl.hasSideItem && editItemCtrl.maxSideItemValueError)" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
@@ -1129,7 +1129,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-repeat="itemSize in newItemCtrl.SelectedSize">\n' +
     '					<label for="first-name">{{\'Pricelbl\' | translate}} {{(itemSize.sizeName)}} </label>\n' +
-    '					<input  type="number" class="mat-input form-control" name="price" ng-model="newItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="100">\n' +
+    '					<input  type="number" class="mat-input form-control" name="price" ng-model="newItemCtrl.SelectedSize[$index].price" min="1" ng-maxlength="5">\n' +
     '					<div ng-messages="newItemForm.price.$error" >\n' +
     '						<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '						<div ng-if="newItemForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +
@@ -1190,7 +1190,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode==\'new\' && newItemCtrl.itemImage== null && newItemCtrl.itemImage2 == null) \n' +
+    '		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode==\'new\' && (newItemCtrl.itemImage== null || newItemCtrl.itemImage2 == null)) \n' +
     '		|| (newItemCtrl.SelectedSize.length<=0 && newItemCtrl.mode==\'new\')  \n' +
     '		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || (newItemCtrl.hasSideItem && newItemCtrl.maxSideItemValueError) " class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.save()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +

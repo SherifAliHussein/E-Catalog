@@ -40,7 +40,12 @@ namespace ECatalog.BLL.Services
             string encryptedPassword = PasswordHelper.Encrypt(password);
             var user = Mapper.Map<UserDto>(_UserService.ValidateUser(email, encryptedPassword)) ?? Mapper.Map<UserDto>(_UserService.CheckUserIsDeleted(email, encryptedPassword));
             if (user == null) throw new ValidationException(ErrorCodes.UserNotFound);
-            
+            if (user.Role == Enums.RoleType.Waiter)
+            {
+                var waiter = _restaurantWaiterService.Find(user.UserId);
+                var restaurant = _restaurantService.Find(waiter.RestaurantId);
+                if(!restaurant.IsActive) throw new ValidationException(ErrorCodes.RestaurantIsNotActivated);
+            }
             return user;
         }
         public UserDto GetUser(long UserId)

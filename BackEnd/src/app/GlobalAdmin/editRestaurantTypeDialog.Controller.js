@@ -3,9 +3,9 @@
 	
     angular
         .module('home')
-        .controller('editRestaurantTypeDialogController', ['$uibModalInstance', 'RestaurantTypeResource','ToastService','mode','englishRestaurantType','type','callBackFunction',  editRestaurantTypeDialogController])
+        .controller('editRestaurantTypeDialogController', ['$uibModalInstance', 'RestaurantTypeResource','ToastService','mode','englishRestaurantType','type','callBackFunction','$translate',  editRestaurantTypeDialogController])
 
-	function editRestaurantTypeDialogController($uibModalInstance, RestaurantTypeResource,ToastService, mode, englishRestaurantType, type,callBackFunction){
+	function editRestaurantTypeDialogController($uibModalInstance, RestaurantTypeResource,ToastService, mode, englishRestaurantType, type,callBackFunction,$translate){
 		var vm = this;
 		vm.typeName = "";
 		
@@ -28,7 +28,7 @@
 				newType.restaurantTypeId = vm.selectedType.restaurantTypeId;
             newType.$update().then(
                 function(data, status) {
-					ToastService.show("right","bottom","fadeInUp","restaurant type updated successfully.","success");
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('RestaurantTypeUpdateSuccess'),"success");
 					$uibModalInstance.dismiss('cancel');
 					callBackFunction();
                 },
