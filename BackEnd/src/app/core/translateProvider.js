@@ -130,6 +130,18 @@
             "RecommendedItemImage2":"Recommended dimension 112 x 69", 
             "PriceLengthError":"Price length must be 1-5 Digts.",
             "RecommendedBackgroundImage":"Recommended dimension 1920 x 1200", 
+
+            "Branch":"Branch",
+            "AddBranchBtn":"Add Branch",
+            "NoBranchAvailable":"There is no branches.",
+            "newBranchLbl":"New Branch",
+            "Title":"Title",
+            "Address":"Address",
+            "BranchAddSuccess":"Branch added successfuly.",
+            "UpdateBranchLbl":"Update Branch",
+            "BranchUpdateSuccess":"Branch Updated successfuly.",
+            
+            
         }
         
         var ar_translations = {
@@ -265,6 +277,18 @@
             "PriceLengthError":".طول السعر يجب من 1-5ارقام ",
                      
             "RecommendedBackgroundImage":"1920 x 1200 البعد الموصى به",
+
+            "Branch":"فرع",
+            "AddBranchBtn":"اضافه فرع",
+            "NoBranchAvailable":".لا يوجد فروع",
+            "newBranchLbl":"فرع جديد",
+            "Title":"لقب",
+            "Address":"عنوان",
+            "BranchAddSuccess":".تم ادخال الفرع بنجاح",
+            "UpdateBranchLbl":"تحديث الفرع",
+            "NoBranchDefault":".يجب ادخال فرع بالانجليزي",
+            "BranchUpdateSuccess":".تم تحديث الفرع بنجاح",
+            
         }
         
         $translateProvider.translations('en',en_translations);

@@ -31,7 +31,7 @@ namespace ECatalog.API.Controllers
         public IHttpActionResult GetAllRestaurantWaiters(int page = Page, int pagesize = PageSize)
         {
             PagedResultsDto waiters;
-            waiters = _userFacade.GetAllRestaurantWaiters(UserId, page, pagesize);
+            waiters = _userFacade.GetAllRestaurantWaiters(UserId, page, pagesize,Language);
             var data = Mapper.Map<List<RestaurantWaiterModel>>(waiters.Data);
             return PagedResponse("GetAllItemsForCategory", page, pagesize, waiters.TotalCount, data, waiters.IsParentTranslated);
         }
@@ -69,5 +69,12 @@ namespace ECatalog.API.Controllers
             return Ok();
         }
 
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [Route("api/Waiters/Limit", Name = "GetRestaurantWaitersLimit")]
+        [HttpGet]
+        public IHttpActionResult GetRestaurantWaitersLimit()
+        {
+            return Ok(_userFacade.GetWaiterLimitByRestaurantAdminId(UserId));
+        }
     }
 }

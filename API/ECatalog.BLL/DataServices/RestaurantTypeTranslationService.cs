@@ -17,18 +17,18 @@ namespace ECatalog.BLL.DataServices
             _repository = repository;
         }
 
-        public bool CheckRepeatedType(string typeName, string language,long restaurantTypeId)
+        public bool CheckRepeatedType(string typeName, string language,long restaurantTypeId, long userId)
         {
             var restaurantTypeTranslations =
                 Query(x => x.Language.ToLower() == language.ToLower() &&
                            x.TypeName.ToLower() == typeName.ToLower() &&
-                           !x.RestaurantType.IsDeleted && x.RestaurantTypeId != restaurantTypeId).Select().ToList();
+                           !x.RestaurantType.IsDeleted && x.RestaurantTypeId != restaurantTypeId && x.RestaurantType.GlobalAdminId == userId).Select().ToList();
             return restaurantTypeTranslations.Count > 0;
         }
 
-        public List<RestaurantTypeTranslation> GeRestaurantTypeTranslation(string language)
+        public List<RestaurantTypeTranslation> GeRestaurantTypeTranslation(string language, long userId)
         {
-            return Query(x => x.Language.ToLower() == language.ToLower() && !x.RestaurantType.IsDeleted).Select(x => x).ToList();
+            return Query(x => x.Language.ToLower() == language.ToLower() && !x.RestaurantType.IsDeleted && x.RestaurantType.GlobalAdminId == userId ).Select(x => x).ToList();
         }
     }
 }

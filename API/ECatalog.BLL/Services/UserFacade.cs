@@ -20,13 +20,15 @@ namespace ECatalog.BLL.Services
         private IUserService _UserService;
         private IRestaurantWaiterService _restaurantWaiterService;
         private IRestaurantService _restaurantService;
+        private IGlobalAdminService _globalAdminService;
 
-        public UserFacade(IUserService userService, IRestaurantWaiterService  restaurantWaiterService, IRestaurantService restaurantService
+        public UserFacade(IUserService userService, IRestaurantWaiterService  restaurantWaiterService, IRestaurantService restaurantService, IGlobalAdminService globalAdminService
             , IUnitOfWorkAsync unitOFWork) : base(unitOFWork)
         {
             _UserService = userService;
             _restaurantWaiterService = restaurantWaiterService;
             _restaurantService = restaurantService;
+            _globalAdminService = globalAdminService;
         }
 
         public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService)
@@ -74,11 +76,11 @@ namespace ECatalog.BLL.Services
             return Mapper.Map<RestaurantWaiterDTO>(waiter);
         }
 
-        public PagedResultsDto GetAllRestaurantWaiters(long restaurantAdminId, int page, int pageSize)
+        public PagedResultsDto GetAllRestaurantWaiters(long restaurantAdminId, int page, int pageSize, string language)
         {
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
-            return _restaurantWaiterService.GetAllRestaurantWaiters(restaurant.RestaurantId, page, pageSize);
+            return _restaurantWaiterService.GetAllRestaurantWaiters(restaurant.RestaurantId, page, pageSize,language);
         }
         public void UpdateRestaurantWaiter(RestaurantWaiterDTO restaurantWaiterDto)
         {
@@ -88,6 +90,7 @@ namespace ECatalog.BLL.Services
             restaurantWaiter.Name = restaurantWaiterDto.Name;
             restaurantWaiter.UserName = restaurantWaiterDto.UserName;
             restaurantWaiter.Password = PasswordHelper.Encrypt(restaurantWaiterDto.Password);
+            restaurantWaiter.BranchId = restaurantWaiterDto.BranchId;
             _restaurantWaiterService.Update(restaurantWaiter);
             SaveChanges();
         }
@@ -108,6 +111,31 @@ namespace ECatalog.BLL.Services
             if (restaurantWaiter == null) throw new NotFoundException(ErrorCodes.UserNotFound);
             restaurantWaiter.IsDeleted = true;
             _restaurantWaiterService.Update(restaurantWaiter);
+            SaveChanges();
+        }
+
+        public int GetWaiterLimitByRestaurantAdminId(long restaurantAdminId)
+        {
+            var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
+            return restaurant.WaitersLimit;
+        }
+
+        public void AddNewGlobalUser(GlobalAdminDto globalAdminDto)
+        {
+            GlobalAdmin admin = Mapper.Map<GlobalAdmin>(globalAdminDto);
+            admin.Role = Enums.RoleType.GlobalAdmin;
+            admin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
+            _globalAdminService.Insert(admin);
+            SaveChanges();
+        }
+
+        public void UpdateGlobalUser(GlobalAdminDto globalAdminDto)
+        {
+            var globalAdmin =  _globalAdminService.GetGlobalAdminByAccountId(globalAdminDto.UserAccountId);
+            globalAdmin.UserName = globalAdminDto.UserName;
+            globalAdmin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
+            globalAdmin.MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters;
+            _globalAdminService.Update(globalAdmin);
             SaveChanges();
         }
     }

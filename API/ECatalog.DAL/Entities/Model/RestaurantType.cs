@@ -15,5 +15,9 @@ namespace ECatalog.DAL.Entities.Model
         public virtual ICollection<RestaurantTypeTranslation> RestaurantTypeTranslations { get; set; }
         public virtual ICollection<Restaurant> Restaurants { get; set; }
         public bool IsDeleted { get; set; }
+
+        [ForeignKey("GlobalAdmin")]
+        public long GlobalAdminId { get; set; }
+        public virtual GlobalAdmin GlobalAdmin { get; set; }
     }
 }

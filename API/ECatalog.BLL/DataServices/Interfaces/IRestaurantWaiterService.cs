@@ -12,6 +12,6 @@ namespace ECatalog.BLL.DataServices.Interfaces
     public interface IRestaurantWaiterService:IService<RestaurantWaiter>
     {
         bool CheckUserNameDuplicated(string userName, long restaurantId);
-        PagedResultsDto GetAllRestaurantWaiters(long restaurantId, int page, int pageSize);
+        PagedResultsDto GetAllRestaurantWaiters(long restaurantId, int page, int pageSize, string language);
     }
 }

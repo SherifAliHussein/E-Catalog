@@ -33,7 +33,7 @@ namespace ECatalog.BLL.Test.Admin.View_All_Restaurants
         [When(@"I list all restaurants")]
         public void WhenIListAllRestaurants()
         {
-            _restaurantTranslationDto =(List<RestaurantDTO>) _RestaurantFacade.GetAllRestaurant(Strings.DefaultLanguage, 1, 10).Data;
+            _restaurantTranslationDto =(List<RestaurantDTO>) _RestaurantFacade.GetAllRestaurant(Strings.DefaultLanguage, 1, 10, _userDto.UserId).Data;
         }
         
         [Then(@"the list of restaurant will display with the restaurant name, description, restaurant admin info, restaurant type name and status and thumbnail image")]

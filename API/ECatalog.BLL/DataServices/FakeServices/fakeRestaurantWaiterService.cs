@@ -26,7 +26,7 @@ namespace ECatalog.BLL.DataServices.FakeServices
             return dbFakeData.RestaurantWaiters.Any(u => u.UserName.ToLower() == userName.ToLower() && u.RestaurantId != restaurantId && !u.IsDeleted);
         }
 
-        public PagedResultsDto GetAllRestaurantWaiters(long restaurantId,int page, int pageSize)
+        public PagedResultsDto GetAllRestaurantWaiters(long restaurantId,int page, int pageSize, string language)
         {
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = dbFakeData.RestaurantWaiters.Count(x => !x.IsDeleted && x.RestaurantId == restaurantId);

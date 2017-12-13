@@ -48,7 +48,7 @@ namespace ECatalog.BLL.Test.Admin.Update_Restaurant
             _restaurantDto.RestaurantTypeId = 1;
             try
             {
-                _RestaurantFacade.UpdateRestaurant(_restaurantDto, Strings.DefaultLanguage,"");
+                _RestaurantFacade.UpdateRestaurant(_restaurantDto, Strings.DefaultLanguage,"", _userDto.UserId);
             }
             catch (ValidationException ex)
             {
@@ -67,7 +67,7 @@ namespace ECatalog.BLL.Test.Admin.Update_Restaurant
             _restaurantDto.RestaurantTypeId = 1;
             try
             {
-                _RestaurantFacade.UpdateRestaurant(_restaurantDto, Strings.DefaultLanguage,"");
+                _RestaurantFacade.UpdateRestaurant(_restaurantDto, Strings.DefaultLanguage,"", _userDto.UserId);
             }
             catch (ValidationException ex)
             {
@@ -86,7 +86,7 @@ namespace ECatalog.BLL.Test.Admin.Update_Restaurant
             _restaurantDto.RestaurantTypeId = 1;
             try
             {
-                _RestaurantFacade.UpdateRestaurant(_restaurantDto, Strings.DefaultLanguage,"");
+                _RestaurantFacade.UpdateRestaurant(_restaurantDto, Strings.DefaultLanguage,"", _userDto.UserId);
             }
             catch (ValidationException ex)
             {

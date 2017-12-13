@@ -140,7 +140,8 @@
                             displayName: 'Waiters'
                         },
                         resolve: {
-                            waitersPrepService: waitersPrepService
+                            waitersPrepService: waitersPrepService,
+                            WaitersLimitPrepService:WaitersLimitPrepService
                         }
                     })
                     .state('Backgrounds', {
@@ -177,6 +178,23 @@
                             templatesPrepService: templatesPrepService
                         }
                     })
+                    .state('branch', {
+                          url: '/Branch',
+                          templateUrl: './app/RestaurantAdmin/templates/branch.html',
+                          controller: 'branchController',
+                          'controllerAs': 'branchCtrl',
+                          data: {
+                              permissions: {
+                                  only: ['RestaurantAdmin'],
+                                 redirectTo: 'root'
+                              },
+                              displayName: 'Size'
+                          },
+                          resolve: {
+                            branchPrepService: branchPrepService
+                          }
+                       
+                      })
         });
         
         menuPrepService.$inject = ['MenuResource']
@@ -252,5 +270,15 @@
         allMenuPrepService.$inject = ['ActivatedMenuResource']
         function allMenuPrepService(ActivatedMenuResource) {
             return ActivatedMenuResource.getAllMenusName().$promise;
+        }
+        
+        branchPrepService.$inject = ['BranchResource']
+        function branchPrepService(BranchResource) {
+            return BranchResource.getAllBranches().$promise;
+        }
+        
+        WaitersLimitPrepService.$inject = ['WaitersLimitResource']
+        function WaitersLimitPrepService(WaitersLimitResource) {
+            return WaitersLimitResource.getWaitersLimit();
         }
 }());

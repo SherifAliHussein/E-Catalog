@@ -19,12 +19,12 @@ namespace ECatalog.BLL.DataServices
             _repository = repository;
         }
 
-        public bool CheckRestaurantNameExist(string restaurantName, string language, long restaurantId)
+        public bool CheckRestaurantNameExist(string restaurantName, string language, long restaurantId, long userId)
         {
             return _repository.Queryable()
                 .Any(x => x.RestaurantName.ToLower() == restaurantName.ToLower() &&
                           x.Language.ToLower() == language.ToLower()&&
-                          !x.Restaurant.IsDeleted && x.RestaurantId != restaurantId);
+                          !x.Restaurant.IsDeleted && x.RestaurantId != restaurantId && x.Restaurant.GlobalAdminId == userId);
         }
 
         public RestaurantTranslation GetRestaurantTranslation(string language, long restaurantId)
@@ -32,17 +32,17 @@ namespace ECatalog.BLL.DataServices
             return Query(x => x.Language.ToLower() == language.ToLower() && x.RestaurantId == restaurantId).Select(x => x).FirstOrDefault();
         }
 
-        public PagedResultsDto GetAllRestaurant(string language, int page, int pageSize)
+        public PagedResultsDto GetAllRestaurant(string language, int page, int pageSize, long userId)
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Query(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Restaurant).Count(x => !x.IsDeleted);
+            results.TotalCount = _repository.Query(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Restaurant.GlobalAdminId == userId).Select(x => x.Restaurant).Count(x => !x.IsDeleted);
             List<Restaurant> restaurants;
             if (pageSize > 0)
-                 restaurants = _repository.Query(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Restaurant)
+                 restaurants = _repository.Query(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Restaurant.GlobalAdminId == userId).Select(x => x.Restaurant)
                     .OrderBy(x => x.RestaurantId).Skip((page - 1) * pageSize)
                     .Take(pageSize).ToList();
             else
-                restaurants = _repository.Query(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Restaurant)
+                restaurants = _repository.Query(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Restaurant.GlobalAdminId == userId).Select(x => x.Restaurant)
                     .OrderBy(x => x.RestaurantId).ToList();
             results.Data = Mapper.Map<List<Restaurant>, List<RestaurantDTO>>(restaurants, opt =>
             {

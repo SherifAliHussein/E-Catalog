@@ -45,7 +45,7 @@ namespace ECatalog.BLL.Test.Admin.Add_new_restaurant_type
         {
             try
             {
-                IsSuccess = _RestaurantFacade.AddRestaurantType(_restaurantTypeDto,Strings.DefaultLanguage);
+                IsSuccess = _RestaurantFacade.AddRestaurantType(_restaurantTypeDto,Strings.DefaultLanguage,_userDto.UserId);
             }
             catch (ValidationException ex)
             {

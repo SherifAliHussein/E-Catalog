@@ -3,14 +3,15 @@
 	
     angular
         .module('home')
-        .controller('WaiterController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'WaiterResource','waitersPrepService','ToastService',  WaiterController])
+        .controller('WaiterController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'WaiterResource' ,'BranchResource','waitersPrepService', 'WaitersLimitPrepService', 'ToastService',  WaiterController])
 
-    function WaiterController($scope ,$translate , appCONSTANTS,$uibModal, WaiterResource,waitersPrepService,ToastService){
+    function WaiterController($scope ,$translate , appCONSTANTS,$uibModal, WaiterResource , BranchResource ,waitersPrepService, WaitersLimitPrepService,ToastService){
 
         var vm = this;
 		vm.waiters = waitersPrepService;
+		vm.waitersLimit = WaitersLimitPrepService.waiterLimit;
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 		
 		function refreshWaiter(){
 			var k = WaiterResource.getAllWaiters({page:vm.currentPage}).$promise.then(function(results) {
@@ -26,14 +27,20 @@
             refreshWaiter();
 		}
 		vm.openWaiterDialog = function(){		
-            var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/newWaiter.html',
-				controller: 'waiterDialogController',
-				controllerAs: 'waiterDlCtrl',
-				resolve:{
-					callBackFunction:function(){return refreshWaiter;}
-				}
-					
+			var branches;
+			var k = BranchResource.getAllBranches({pagesize:0}).$promise.then(function(results) {
+				branches = results;
+				
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newWaiter.html',
+					controller: 'waiterDialogController',
+					controllerAs: 'waiterDlCtrl',
+					resolve:{
+						branches: function(){return branches.results;},
+						callBackFunction:function(){return refreshWaiter;}
+					}
+						
+				});
 			});
         }
 		function confirmationDelete(itemId){
@@ -63,16 +70,23 @@
 		vm.openEditWaiterDialog = function(index){
             var waiter;
             waiter=angular.copy(vm.waiters.results[index]);
-			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editWaiter.html',
-				controller: 'editWaiterDialogController',
-				controllerAs: 'editWaiterDlCtrl',
-				resolve:{
-					mode:function(){return "edit"},
-					waiter:function(){ return waiter},
-					callBackFunction:function(){return refreshWaiter;}
-				}
+
+			var branches;
+			var k = BranchResource.getAllBranches({pagesize:0}).$promise.then(function(results) {
+				branches = results;
 				
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/editWaiter.html',
+					controller: 'editWaiterDialogController',
+					controllerAs: 'editWaiterDlCtrl',
+					resolve:{
+						mode:function(){return "edit"},
+						waiter:function(){ return waiter},
+						branches: function(){return branches.results;},
+						callBackFunction:function(){return refreshWaiter;}
+					}
+					
+				});
 			});
 			
 		}
