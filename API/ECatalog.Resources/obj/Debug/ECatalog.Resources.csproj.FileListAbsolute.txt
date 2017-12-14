@@ -28,3 +28,13 @@ E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Debug\ar-EG\ECatalog.Res
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.dll
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.pdb
 C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.csprojResolveAssemblyReference.cache
+E:\Projects\ECatalog\API\ECatalog.Resources\bin\Debug\ECatalog.Resources.dll
+E:\Projects\ECatalog\API\ECatalog.Resources\bin\Debug\ECatalog.Resources.pdb
+E:\Projects\ECatalog\API\ECatalog.Resources\bin\Debug\ar-EG\ECatalog.Resources.resources.dll
+E:\Projects\ECatalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.csprojResolveAssemblyReference.cache
+E:\Projects\ECatalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.Resource.resources
+E:\Projects\ECatalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.Resource.ar-EG.resources
+E:\Projects\ECatalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.csproj.GenerateResource.Cache
+E:\Projects\ECatalog\API\ECatalog.Resources\obj\Debug\ar-EG\ECatalog.Resources.resources.dll
+E:\Projects\ECatalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.dll
+E:\Projects\ECatalog\API\ECatalog.Resources\obj\Debug\ECatalog.Resources.pdb
