@@ -24,7 +24,8 @@ namespace ECatalog.API.Infrastructure
         public const int Page = 1;
 
         public BaseApiController()
-        {
+        { 
+
             Language = Thread.CurrentThread.CurrentCulture.Name;
             ReadAuthenticationData();
         }
