@@ -20,12 +20,12 @@ namespace ECatalog.BLL.DataServices.FakeServices
         {
             dbFakeData = new fakeData();
         }
-        public bool CheckRestaurantNameExist(string restaurantName, string language, long restaurantId)
+        public bool CheckRestaurantNameExist(string restaurantName, string language, long restaurantId, long userId)
         {
             return dbFakeData._RestaurantTranslations.Any(
                 x => x.RestaurantName.ToLower() == restaurantName.ToLower() &&
                      x.Language.ToLower() == language.ToLower()&&
-                     !x.Restaurant.IsDeleted && x.RestaurantId != restaurantId);
+                     !x.Restaurant.IsDeleted && x.RestaurantId != restaurantId && x.Restaurant.GlobalAdminId == userId);
         }
 
         public RestaurantTranslation GetRestaurantTranslation(string language, long restaurantId)
@@ -38,17 +38,17 @@ namespace ECatalog.BLL.DataServices.FakeServices
         {
             dbFakeData._RestaurantTranslations.AddRange(entities);
         }
-        public PagedResultsDto GetAllRestaurant(string language, int page, int pageSize)
+        public PagedResultsDto GetAllRestaurant(string language, int page, int pageSize, long userId)
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = dbFakeData._RestaurantTranslations.Count(x => !x.Restaurant.IsDeleted);
+            results.TotalCount = dbFakeData._RestaurantTranslations.Count(x => !x.Restaurant.IsDeleted && x.Restaurant.GlobalAdminId == userId);
             List<Restaurant> restaurants;
             if (pageSize > 0)
-                restaurants = dbFakeData._RestaurantTranslations.Where(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Restaurant)
+                restaurants = dbFakeData._RestaurantTranslations.Where(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Restaurant.GlobalAdminId == userId).Select(x => x.Restaurant)
                     .OrderBy(x => x.RestaurantId).Skip((page - 1) * pageSize)
                     .Take(pageSize).ToList();
             else
-                restaurants = dbFakeData._RestaurantTranslations.Where(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower()).Select(x => x.Restaurant)
+                restaurants = dbFakeData._RestaurantTranslations.Where(x => !x.Restaurant.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Restaurant.GlobalAdminId == userId).Select(x => x.Restaurant)
                     .OrderBy(x => x.RestaurantId).ToList();
             results.Data = Mapper.Map<List<Restaurant>, List<RestaurantDTO>>(restaurants, opt =>
             {

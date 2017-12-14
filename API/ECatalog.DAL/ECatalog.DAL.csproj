@@ -69,8 +69,11 @@
     <Compile Include="Entities\ECatalogContext.cs" />
     <Compile Include="Entities\fakeData.cs" />
     <Compile Include="Entities\Model\Background.cs" />
+    <Compile Include="Entities\Model\Branch.cs" />
+    <Compile Include="Entities\Model\BranchTranslation.cs" />
     <Compile Include="Entities\Model\Category.cs" />
     <Compile Include="Entities\Model\CategoryTranslation.cs" />
+    <Compile Include="Entities\Model\GlobalAdmin.cs" />
     <Compile Include="Entities\Model\Item.cs" />
     <Compile Include="Entities\Model\ItemSideItem.cs" />
     <Compile Include="Entities\Model\ItemSize.cs" />

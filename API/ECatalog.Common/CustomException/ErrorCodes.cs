@@ -82,6 +82,13 @@ namespace ECatalog.Common.CustomException
         EmptyBackgroundImage,
         TemplateNotFound,
         CategoryTemplatesInvalid,
-        RestaurantIsNotActivated
+        RestaurantIsNotActivated,
+        EmptyBranchTitle,
+        EmptyBranchAddress,
+        BranchTiteExceedLength,
+        BranchAddressExceedLength,
+        BranchTitleAlreadyExist,
+        BranchNotFound,
+        BranchDeleted,
     }
 }

@@ -99,7 +99,8 @@ namespace ECatalog.BLL
 
             mapperConfiguration.CreateMap<RestaurantWaiterDTO, RestaurantWaiter>();
             mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>()
-                .ForMember(dto => dto.Password,m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)));
+                .ForMember(dto => dto.Password,m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)))
+                .ForMember(dto => dto.BranchTitle, m => m.MapFrom(src => src.Branch.BranchTranslations.FirstOrDefault().BranchTitle));
 
             mapperConfiguration.CreateMap<Background, BackgroundDto>();
             mapperConfiguration.CreateMap< BackgroundDto, Background>();
@@ -111,6 +112,12 @@ namespace ECatalog.BLL
 
             mapperConfiguration.CreateMap<PageDTO, Page>();
 
+            mapperConfiguration.CreateMap<BranchDto, Branch>();
+            mapperConfiguration.CreateMap<Branch, BranchDto>()
+                .ForMember(dest => dest.BranchTitle, m => m.MapFrom(src => src.BranchTranslations.FirstOrDefault().BranchTitle))
+                .ForMember(dest => dest.BranchAddress, m => m.MapFrom(src => src.BranchTranslations.FirstOrDefault().BranchAddress));
+
+            mapperConfiguration.CreateMap<GlobalAdminDto, GlobalAdmin>();
 
             Mapper.Initialize(mapperConfiguration);
             //Mapper.Initialize(m =>
@@ -146,7 +153,10 @@ namespace ECatalog.BLL
                 .RegisterType<IRestaurantWaiterService, RestaurantWaiterService>(new PerResolveLifetimeManager())
                 .RegisterType<IBackgroundService, BackgroundService>(new PerResolveLifetimeManager())
                 .RegisterType<ITemplateService, TemplateService>(new PerResolveLifetimeManager())
-                .RegisterType<IPageService, PageService>(new PerResolveLifetimeManager());
+                .RegisterType<IPageService, PageService>(new PerResolveLifetimeManager())
+                .RegisterType<IBranchService, BranchService>(new PerResolveLifetimeManager())
+                .RegisterType<IBranchTranslationService, BranchTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IGlobalAdminService, GlobalAdminService>(new PerResolveLifetimeManager());
         }
     }
 

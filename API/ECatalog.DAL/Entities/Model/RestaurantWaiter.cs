@@ -15,5 +15,8 @@ namespace ECatalog.DAL.Entities.Model
         //[ForeignKey("Restaurant")]
         //public long RestaurantId { get; set; }
         public virtual Restaurant Restaurant { get; set; }
+
+        public long BranchId { get; set; }
+        public virtual Branch Branch { get; set; }
     }
 }

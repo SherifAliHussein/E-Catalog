@@ -11,9 +11,9 @@ namespace ECatalog.BLL.DataServices.Interfaces
 {
     public interface IRestaurantTranslationService:IService<RestaurantTranslation>
     {
-        bool CheckRestaurantNameExist(string restaurantName, string language, long restaurantId);
+        bool CheckRestaurantNameExist(string restaurantName, string language, long restaurantId, long userId);
         RestaurantTranslation GetRestaurantTranslation(string language, long restaurantId);
-        PagedResultsDto GetAllRestaurant(string language, int page, int pageSize);
+        PagedResultsDto GetAllRestaurant(string language, int page, int pageSize, long userId);
         bool CheckRestaurantByLanguage(long restaurantAdminId, string language);
     }
 }

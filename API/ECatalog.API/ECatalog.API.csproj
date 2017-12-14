@@ -292,6 +292,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BackgroundsController.cs" />
+    <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MenusController.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Controllers\SideItemsController.cs" />
     <Compile Include="Controllers\SizesController.cs" />
     <Compile Include="Controllers\TemplatesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WaitersController.cs" />
     <Compile Include="Infrastructure\ActionResult\PagedResponseActionResult.cs" />
     <Compile Include="Infrastructure\AddAuthorizationHeader.cs" />
@@ -307,10 +309,12 @@
     <Compile Include="Infrastructure\ImageConvert.cs" />
     <Compile Include="Infrastructure\LanguageMessageHandler.cs" />
     <Compile Include="Models\BackgroundModel.cs" />
+    <Compile Include="Models\BranchModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CategoryNameModel.cs" />
     <Compile Include="Models\CategoryPageTemplateModel.cs" />
     <Compile Include="Models\CategoryTemplatesModel.cs" />
+    <Compile Include="Models\GlobalAdminModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ItemNameModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
