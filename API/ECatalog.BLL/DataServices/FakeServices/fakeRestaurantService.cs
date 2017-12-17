@@ -70,5 +70,10 @@ namespace ECatalog.BLL.DataServices.FakeServices
             var restaurant = dbFakeData._Restaurants.FirstOrDefault(x => x.RestaurantId == entity.RestaurantId);
             restaurant = entity;
         }
+
+        public int GetAllResturantsLimits(long userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

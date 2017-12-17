@@ -132,6 +132,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					ng-options="item.typeName for item in rewRestCtrl.RestaurantType"  \n' +
     '					ng-model="rewRestCtrl.selectedType">\n' +
     '				</select>\n' +
+    '\n' +
+    '				\n' +
     '			</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
@@ -148,7 +150,30 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div ng-if="newRestaurantForm.restaurantDescription.$error.required && !newRestaurantForm.restaurantDescription.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(newRestaurantForm.restaurantDescription.$error.minlength || newRestaurantForm.restaurantDescription.$error.maxlength) && !newRestaurantForm.restaurantDescription.$error.required">{{\'DescLengthError\' | translate}}</div>\n' +
     '                </div>\n' +
-    '			</div>			\n' +
+    '			</div>\n' +
+    '			\n' +
+    '			<!-- Max Users Cycle -->\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '				<label for="first-name">{{\'MaxNumOfUsersLbl\' | translate}}</label>\n' +
+    '				<input type="number" ng-disabled="true" class="mat-input form-control" name="MaxNumOfUsers" ng-model="rewRestCtrl.MaxNumOfUsers">\n' +
+    '			</div>\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '				<label for="first-name">{{\'RemainingNumOfUsersLbl\' | translate}}</label>\n' +
+    '				<br/><br/>\n' +
+    '				<input type="number" ng-value="{{10}}" ng-disabled="true" class="mat-input form-control" name="RemNumOfUsers" ng-model="rewRestCtrl.RemNumOfUsers">\n' +
+    '			</div>\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '				<label for="first-name">{{\'SelectNumOfUsersLbl\' | translate}}</label>\n' +
+    '				<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="rewRestCtrl.RestaurantNumOfUsers" max="{{rewRestCtrl.RemNumOfUsers}}" min= "1">\n' +
+    '				<div ng-messages="newRestaurantForm.RestaurantNumOfUsers.$error">\n' +
+    '					<div ng-if="newRestaurantForm.RestaurantNumOfUsers.$error.required && !newRestaurantForm.RestaurantNumOfUsers.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required">{{\'NumbersOfUsersNotApplicable\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '			</div>\n' +
+    '			<!-- End Max Users Cycle -->\n' +
+    '			\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label" ng-if="rewRestCtrl.mode==\'new\'">\n' +
     '				<label for="first-name">{{\'AdminUserLbl\' | translate}}</label>\n' +
     '				<input required type="text" class="mat-input form-control" name="restaurantAdmin" ng-model="rewRestCtrl.restaurantAdmin">\n' +

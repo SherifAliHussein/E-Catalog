@@ -126,6 +126,7 @@
     <Compile Include="DTOs\CategoryNamesDTO.cs" />
     <Compile Include="DTOs\CategoryPageTemplateDTO.cs" />
     <Compile Include="DTOs\GlobalAdminDto.cs" />
+    <Compile Include="DTOs\MaxAndConsUserDTO.cs" />
     <Compile Include="DTOs\PageTemplateDTO.cs" />
     <Compile Include="DTOs\ItemDTO.cs" />
     <Compile Include="DTOs\ItemNamesDto.cs" />

@@ -15,14 +15,15 @@ using ApplicationException = System.ApplicationException;
 
 namespace ECatalog.BLL.Services
 {
-    public class UserFacade:BaseFacade,IUserFacade
+    public class UserFacade : BaseFacade, IUserFacade
     {
         private IUserService _UserService;
         private IRestaurantWaiterService _restaurantWaiterService;
         private IRestaurantService _restaurantService;
         private IGlobalAdminService _globalAdminService;
+        
 
-        public UserFacade(IUserService userService, IRestaurantWaiterService  restaurantWaiterService, IRestaurantService restaurantService, IGlobalAdminService globalAdminService
+        public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService, IGlobalAdminService globalAdminService
             , IUnitOfWorkAsync unitOFWork) : base(unitOFWork)
         {
             _UserService = userService;
@@ -46,21 +47,21 @@ namespace ECatalog.BLL.Services
             {
                 var waiter = _restaurantWaiterService.Find(user.UserId);
                 var restaurant = _restaurantService.Find(waiter.RestaurantId);
-                if(!restaurant.IsActive) throw new ValidationException(ErrorCodes.RestaurantIsNotActivated);
+                if (!restaurant.IsActive) throw new ValidationException(ErrorCodes.RestaurantIsNotActivated);
             }
             return user;
         }
         public UserDto GetUser(long UserId)
-        {   
+        {
             return Mapper.Map<UserDto>(_UserService.Find(UserId));
         }
 
-        public void AddRestaurantWaiter(RestaurantWaiterDTO restaurantWaiterDto,long restaurantAdminId)
+        public void AddRestaurantWaiter(RestaurantWaiterDTO restaurantWaiterDto, long restaurantAdminId)
         {
-            ValidateRestaurantWaiter(restaurantWaiterDto,0);
-            
+            ValidateRestaurantWaiter(restaurantWaiterDto, 0);
+
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
-            if(restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
+            if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             RestaurantWaiter restaurantWaiter = Mapper.Map<RestaurantWaiter>(restaurantWaiterDto);
             restaurantWaiter.RestaurantId = restaurant.RestaurantId;
             restaurantWaiter.Password = PasswordHelper.Encrypt(restaurantWaiterDto.Password);
@@ -72,7 +73,7 @@ namespace ECatalog.BLL.Services
         public RestaurantWaiterDTO GetRestaurantWaiter(long waiterId)
         {
             var waiter = _restaurantWaiterService.Find(waiterId);
-            if(waiter == null) throw new NotFoundException(ErrorCodes.UserNotFound);
+            if (waiter == null) throw new NotFoundException(ErrorCodes.UserNotFound);
             return Mapper.Map<RestaurantWaiterDTO>(waiter);
         }
 
@@ -80,13 +81,13 @@ namespace ECatalog.BLL.Services
         {
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
-            return _restaurantWaiterService.GetAllRestaurantWaiters(restaurant.RestaurantId, page, pageSize,language);
+            return _restaurantWaiterService.GetAllRestaurantWaiters(restaurant.RestaurantId, page, pageSize, language);
         }
         public void UpdateRestaurantWaiter(RestaurantWaiterDTO restaurantWaiterDto)
         {
             var restaurantWaiter = _restaurantWaiterService.Find(restaurantWaiterDto.UserId);
             if (restaurantWaiter == null) throw new NotFoundException(ErrorCodes.UserNotFound);
-            ValidateRestaurantWaiter(restaurantWaiterDto,restaurantWaiter.RestaurantId);
+            ValidateRestaurantWaiter(restaurantWaiterDto, restaurantWaiter.RestaurantId);
             restaurantWaiter.Name = restaurantWaiterDto.Name;
             restaurantWaiter.UserName = restaurantWaiterDto.UserName;
             restaurantWaiter.Password = PasswordHelper.Encrypt(restaurantWaiterDto.Password);
@@ -94,7 +95,7 @@ namespace ECatalog.BLL.Services
             _restaurantWaiterService.Update(restaurantWaiter);
             SaveChanges();
         }
-        private void ValidateRestaurantWaiter(RestaurantWaiterDTO restaurantWaiterDto,long restaurantId)
+        private void ValidateRestaurantWaiter(RestaurantWaiterDTO restaurantWaiterDto, long restaurantId)
         {
             if (string.IsNullOrEmpty(restaurantWaiterDto.Name)) throw new ValidationException(ErrorCodes.EmptyRestaurantWaiterUserName);
             if (restaurantWaiterDto.Name.Length > 100) throw new ValidationException(ErrorCodes.RestaurantWaiterNameExceedLength);
@@ -131,12 +132,28 @@ namespace ECatalog.BLL.Services
 
         public void UpdateGlobalUser(GlobalAdminDto globalAdminDto)
         {
-            var globalAdmin =  _globalAdminService.GetGlobalAdminByAccountId(globalAdminDto.UserAccountId);
+            var globalAdmin = _globalAdminService.GetGlobalAdminByAccountId(globalAdminDto.UserAccountId);
             globalAdmin.UserName = globalAdminDto.UserName;
             globalAdmin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
             globalAdmin.MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters;
             _globalAdminService.Update(globalAdmin);
             SaveChanges();
         }
+
+
+        public MaxAndConsUserDTO GetMaxAndConsumedUsers(long userId)
+        {
+            var maxNum = _globalAdminService.Find(userId).MaxNumberOfWaiters;
+
+            var consumedUsers = _restaurantService.GetAllResturantsLimits(userId);
+
+            MaxAndConsUserDTO MaxCon = new MaxAndConsUserDTO();
+            MaxCon.MaxNumUsers = maxNum;
+            MaxCon.ConsumedUsers = consumedUsers;
+            
+
+            return MaxCon;
+        }
+
     }
 }
