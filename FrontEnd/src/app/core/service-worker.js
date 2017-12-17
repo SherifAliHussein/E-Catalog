@@ -11,7 +11,7 @@ const files = [
   'core.js',
   'libs.js',
   'templates.js',
-  'turn.min.js',
+  'turn.min-en.js',
   'turn.min-ar.js',
   'assets/img/back.png',
   'assets/img/back-ar.png',

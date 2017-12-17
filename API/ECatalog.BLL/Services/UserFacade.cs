@@ -86,6 +86,7 @@ namespace ECatalog.BLL.Services
         {
             var restaurantWaiter = _restaurantWaiterService.Find(restaurantWaiterDto.UserId);
             if (restaurantWaiter == null) throw new NotFoundException(ErrorCodes.UserNotFound);
+
             ValidateRestaurantWaiter(restaurantWaiterDto,restaurantWaiter.RestaurantId);
             restaurantWaiter.Name = restaurantWaiterDto.Name;
             restaurantWaiter.UserName = restaurantWaiterDto.UserName;

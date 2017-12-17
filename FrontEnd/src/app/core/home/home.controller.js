@@ -8,9 +8,9 @@
 
     function homeCtrl($rootScope, $translate, $scope, HomeResource, ResturantResource, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService,CartIconService,  totalCartService,$location,$window) {
         // Event listener for state change.
-        if ($location.protocol() !== 'https') {
-            $window.location.href = $location.absUrl().replace('http', 'https');
-        }
+        // if ($location.protocol() !== 'https') {
+        //     $window.location.href = $location.absUrl().replace('http', 'https');
+        // }
 
         var vm = this;
         vm.total = 0;
