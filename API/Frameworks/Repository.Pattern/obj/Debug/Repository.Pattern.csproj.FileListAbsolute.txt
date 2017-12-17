@@ -28,3 +28,9 @@ C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Repository.Pattern\obj
 C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.dll
 C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
 E:\Projects\E-Menu\E-Catalog\API\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\ECatalog\API\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
+E:\Projects\ECatalog\API\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.dll
+E:\Projects\ECatalog\API\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
+E:\Projects\ECatalog\API\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\ECatalog\API\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.dll
+E:\Projects\ECatalog\API\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.pdb

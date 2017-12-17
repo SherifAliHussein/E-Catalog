@@ -38,6 +38,5 @@ namespace ECatalog.BLL.DataService
         {
             return _repository.Queryable().Any(u => u.UserName.ToLower() == userName.ToLower() && !u.IsDeleted && (u.Role == Common.Enums.RoleType.GlobalAdmin || u.Role == Enums.RoleType.RestaurantAdmin));
         }
-
     }
 }

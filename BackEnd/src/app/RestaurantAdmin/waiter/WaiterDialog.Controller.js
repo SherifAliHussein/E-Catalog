@@ -7,7 +7,6 @@
 
 	function waiterDialogController($uibModalInstance, $translate , WaiterResource,ToastService,branches,callBackFunction,$rootScope){
 		var vm = this;
-		// vm.menuName = "";
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}

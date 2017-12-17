@@ -14,5 +14,6 @@ namespace ECatalog.BLL.DataServices.Interfaces
         PagedResultsDto GetAllRestaurant(string language, int page, int pageSize);
         Restaurant GetRestaurantByAdminId(long adminId);
         Restaurant GetRestaurantByWaiterId(long waiterId);
+        int GetAllResturantsLimits(long userId);
     }
 }

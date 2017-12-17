@@ -54,5 +54,10 @@ namespace ECatalog.BLL.DataServices
         {
             return _repository.Query(x => x.RestaurantWaiters.Select(w=>w.UserId).Contains(waiterId)).Select().FirstOrDefault();
         }
+
+        public int GetAllResturantsLimits(long userId)
+        {
+            return _repository.Query(x => x.GlobalAdminId == userId).Select(x => x.WaitersLimit).Sum();
+        }
     }
 }

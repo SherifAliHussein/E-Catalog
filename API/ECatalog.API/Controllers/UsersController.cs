@@ -9,6 +9,8 @@ using ECatalog.API.Infrastructure;
 using ECatalog.API.Models;
 using ECatalog.BLL.DTOs;
 using ECatalog.BLL.Services.Interfaces;
+using ECatalog.API.Providers;
+using ECatalog.Common;
 
 namespace ECatalog.API.Controllers
 {
@@ -29,6 +31,17 @@ namespace ECatalog.API.Controllers
                 //_userFacade.AddNewGlobalUser(Mapper.Map<GlobalAdminDto>(globalAdminModel));
                 return Ok();
             return Unauthorized();
+        }
+
+        [AuthorizeRoles(Enums.RoleType.GlobalAdmin)]
+        [Route("api/Users/GetMaxAndConUsers", Name = "GetMaxAndConUsers")]
+        [HttpGet]
+        public IHttpActionResult GetMaxAndConUsers()
+        {
+            MaxAndConsUserModel maxCon = Mapper.Map<MaxAndConsUserModel>(_userFacade.GetMaxAndConsumedUsers(UserId));
+
+            return Ok(maxCon);
+
         }
     }
 }

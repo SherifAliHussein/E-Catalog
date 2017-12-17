@@ -317,6 +317,7 @@
     <Compile Include="Models\GlobalAdminModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ItemNameModel.cs" />
+    <Compile Include="Models\MaxAndConsUserModel.cs" />
     <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\PageTemplateModel.cs" />

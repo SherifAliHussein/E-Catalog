@@ -19,5 +19,6 @@ namespace ECatalog.BLL.Services.Interfaces
         int GetWaiterLimitByRestaurantAdminId(long restaurantAdminId);
         void AddNewGlobalUser(GlobalAdminDto globalAdminDto);
         void UpdateGlobalUser(GlobalAdminDto globalAdminDto);
+        MaxAndConsUserDTO GetMaxAndConsumedUsers(long userId);
     }
 }
