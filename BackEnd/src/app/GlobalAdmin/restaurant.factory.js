@@ -3,7 +3,8 @@
     .module('home')
     .factory('RestaurantResource', ['$resource', 'appCONSTANTS', RestaurantResource])
     .factory('ActivateRestaurantResource', ['$resource', 'appCONSTANTS', ActivateRestaurantResource])
-    .factory('DeactivateRestaurantResource', ['$resource', 'appCONSTANTS', DeactivateRestaurantResource]);
+    .factory('DeactivateRestaurantResource', ['$resource', 'appCONSTANTS', DeactivateRestaurantResource])
+    .factory('AdminWaitersLimitResource', ['$resource', 'appCONSTANTS', AdminWaitersLimitResource]);
 
   function RestaurantResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Restaurants/:restaurantId', {}, {
@@ -26,4 +27,9 @@
     })
   }
   
+  function AdminWaitersLimitResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Users/GetMaxAndConUsers', {}, {
+	    getWaitersLimitAndConsumed: { method: 'GET', useToken: true }
+    })
+  }
 }());

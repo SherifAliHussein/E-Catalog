@@ -36,7 +36,8 @@
                         displayName: 'restaurants'
                     },
                     resolve: {
-                        restaurantsPrepService: restaurantsPrepService
+                        restaurantsPrepService: restaurantsPrepService,
+                        waitersLimitPrepService: waitersLimitPrepService
                     }
                  
                 })
@@ -54,7 +55,8 @@
                     },
                     resolve: {
 						englishRestaurantPrepService: englishRestaurantPrepService,
-                        allRestaurantTypePrepService: allRestaurantTypePrepService
+                        allRestaurantTypePrepService: allRestaurantTypePrepService,
+                        waitersLimitPrepService: waitersLimitPrepService
                     }                 
                 })
 				.state('editRestaurant', {
@@ -71,7 +73,8 @@
                     },
                     resolve: {
 						restaurantPrepService:restaurantPrepService,
-                        allRestaurantTypePrepService: allRestaurantTypePrepService
+                        allRestaurantTypePrepService: allRestaurantTypePrepService,
+                        waitersLimitPrepService: waitersLimitPrepService
                     }                 
                 })
         });
@@ -105,4 +108,11 @@
 			return null;
         
     }
+
+    waitersLimitPrepService.$inject = ['AdminWaitersLimitResource']
+    function waitersLimitPrepService(AdminWaitersLimitResource) {
+        return AdminWaitersLimitResource.getWaitersLimitAndConsumed().$promise;
+    }
+
+
 }());

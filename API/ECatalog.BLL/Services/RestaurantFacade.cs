@@ -158,7 +158,8 @@ namespace ECatalog.BLL.Services
                 RestaurantTypeId = restaurantDto.RestaurantTypeId,
                 IsActive = false,
                 RestaurantTranslations = new List<RestaurantTranslation>(),
-                GlobalAdminId = userId
+                GlobalAdminId = userId,
+                WaitersLimit = restaurantDto.WaitersLimit
 
             };
             restaurant.RestaurantTranslations.Add(new RestaurantTranslation
@@ -289,6 +290,7 @@ namespace ECatalog.BLL.Services
             restaurant.RestaurantTypeId = restaurantDto.RestaurantTypeId;
             restaurant.RestaurantAdmin.UserName = restaurantDto.RestaurantAdminUserName;
             restaurant.RestaurantAdmin.Password = PasswordHelper.Encrypt(restaurantDto.RestaurantAdminPassword);
+            restaurant.WaitersLimit = restaurantDto.WaitersLimit;
 
             var restaurantTranslation =
                 restaurant.RestaurantTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());

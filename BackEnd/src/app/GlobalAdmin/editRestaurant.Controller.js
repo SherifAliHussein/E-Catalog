@@ -3,13 +3,15 @@
 	
     angular
         .module('home')
-        .controller('editRestaurantController', ['$scope','$http','$translate','appCONSTANTS', '$state', 'RestaurantResource','ToastService', 'restaurantPrepService','allRestaurantTypePrepService',  editRestaurantController])
+        .controller('editRestaurantController', ['$scope','$http','$translate','appCONSTANTS', '$state', 'RestaurantResource','ToastService', 'restaurantPrepService','allRestaurantTypePrepService', 'waitersLimitPrepService',  editRestaurantController])
 
-	function editRestaurantController($scope,$http,$translate,appCONSTANTS, $state, RestaurantResource,ToastService, restaurantPrepService, allRestaurantTypePrepService){
+	function editRestaurantController($scope,$http,$translate,appCONSTANTS, $state, RestaurantResource,ToastService, restaurantPrepService, allRestaurantTypePrepService,waitersLimitPrepService){
 		var vm = this;
 		
 		vm.RestaurantType = allRestaurantTypePrepService;
 		vm.restaurant = restaurantPrepService;
+		vm.waitersLimit = waitersLimitPrepService;
+		vm.waitersLimit.maxNumUsers = (vm.waitersLimit.maxNumUsers - vm.waitersLimit.consumedUsers) + vm.restaurant.waitersLimit;
 		vm.confirmPassword = vm.restaurant.restaurantAdminPassword;
 		vm.close = function(){
 			$state.go('restaurants');
@@ -24,7 +26,8 @@
 			updateRestaurant.restaurantTypeId = vm.restaurant.restaurantTypeId;
 			updateRestaurant.restaurantId = vm.restaurant.restaurantId;
 			updateRestaurant.isLogoChange = isLogoChange;
-
+			updateRestaurant.waitersLimit = vm.restaurant.waitersLimit;
+			
 			var model = new FormData();
 			model.append('data', JSON.stringify(updateRestaurant));
 			model.append('file', restaurantLogo);

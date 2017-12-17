@@ -57,7 +57,7 @@ namespace ECatalog.BLL.DataServices
 
         public int GetAllResturantsLimits(long userId)
         {
-            return _repository.Query(x => x.GlobalAdminId == userId).Select(x => x.WaitersLimit).Sum();
+            return _repository.Query(x => x.GlobalAdminId == userId && !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
         }
     }
 }

@@ -271,7 +271,8 @@ angular.module('core')
             "BranchAddSuccess":"Branch added successfuly.",
             "UpdateBranchLbl":"Update Branch",
             "BranchUpdateSuccess":"Branch Updated successfuly.",
-            
+            "NumOfUsersLbl":"number of waiters",
+            "waitersLimitConsumedLbl":"consumed / limit waiters"
             
         }
         
@@ -419,7 +420,8 @@ angular.module('core')
             "UpdateBranchLbl":"تحديث الفرع",
             "NoBranchDefault":".يجب ادخال فرع بالانجليزي",
             "BranchUpdateSuccess":".تم تحديث الفرع بنجاح",
-            
+            "NumOfUsersLbl":"عدد النوادل",
+            "waitersLimitConsumedLbl":"المستخدم/ المجموع النوادل"
         }
         
         $translateProvider.translations('en',en_translations);

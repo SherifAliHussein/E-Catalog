@@ -31,6 +31,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div ng-if="(newRestaurantForm.restaurantDescription.$error.minlength || newRestaurantForm.restaurantDescription.$error.maxlength) && !newRestaurantForm.restaurantDescription.$error.required">{{\'DescLengthError\' | translate}}</div>\n' +
     '                </div>\n' +
     '			</div>			\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'NumOfUsersLbl\' | translate}}</label>\n' +
+    '					<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="editRestCtrl.restaurant.waitersLimit" max="{{editRestCtrl.waitersLimit.maxNumUsers}}" min= "1">\n' +
+    '					<div ng-messages="newRestaurantForm.RestaurantNumOfUsers.$error">\n' +
+    '						<div ng-if="newRestaurantForm.RestaurantNumOfUsers.$error.required && !newRestaurantForm.RestaurantNumOfUsers.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required"> maximum  {{editRestCtrl.waitersLimit.maxNumUsers}} </div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '				<label for="first-name">{{\'AdminUserLbl\' | translate}}</label>\n' +
     '				<input required type="text" class="mat-input form-control" name="restaurantAdmin" ng-model="editRestCtrl.restaurant.restaurantAdminUserName">\n' +
@@ -153,23 +162,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			</div>\n' +
     '			\n' +
     '			<!-- Max Users Cycle -->\n' +
-    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '				<label for="first-name">{{\'MaxNumOfUsersLbl\' | translate}}</label>\n' +
-    '				<input type="number" ng-disabled="true" class="mat-input form-control" name="MaxNumOfUsers" ng-model="rewRestCtrl.MaxNumOfUsers">\n' +
-    '			</div>\n' +
     '\n' +
-    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '				<label for="first-name">{{\'RemainingNumOfUsersLbl\' | translate}}</label>\n' +
-    '				<br/><br/>\n' +
-    '				<input type="number" ng-value="{{10}}" ng-disabled="true" class="mat-input form-control" name="RemNumOfUsers" ng-model="rewRestCtrl.RemNumOfUsers">\n' +
-    '			</div>\n' +
     '\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '				<label for="first-name">{{\'SelectNumOfUsersLbl\' | translate}}</label>\n' +
-    '				<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="rewRestCtrl.RestaurantNumOfUsers" max="{{rewRestCtrl.RemNumOfUsers}}" min= "1">\n' +
+    '				<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="rewRestCtrl.restaurantNumOfUsers" max="{{rewRestCtrl.waitersLimit.maxNumUsers}}" min= "1">\n' +
     '				<div ng-messages="newRestaurantForm.RestaurantNumOfUsers.$error">\n' +
     '					<div ng-if="newRestaurantForm.RestaurantNumOfUsers.$error.required && !newRestaurantForm.RestaurantNumOfUsers.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required">{{\'NumbersOfUsersNotApplicable\' | translate}}</div>\n' +
+    '					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required"> maximum  {{rewRestCtrl.waitersLimit.maxNumUsers}} </div>\n' +
     '                </div>\n' +
     '			</div>\n' +
     '			<!-- End Max Users Cycle -->\n' +
@@ -256,6 +256,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	<div ng-if="restaurantCtrl.restaurant.results.length == 0">\n' +
     '			<span>{{\'NoRestaurantAvailable\' | translate}}</span>\n' +
     '		</div>\n' +
+    '		<span>\n' +
+    '			{{restaurantCtrl.waitersLimit.consumedUsers}} / {{restaurantCtrl.waitersLimit.maxNumUsers}}\n' +
+    '		</span>\n' +
     '		\n' +
     '	<div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="restaurantCtrl.restaurant.results.length >0">\n' +
     '		\n' +
@@ -268,6 +271,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<th >{{\'DescriptionLbl\' | translate}}</th>\n' +
     '						<th >{{\'AdminUserLbl\' | translate}}</th>\n' +
     '						<th >{{\'TypeLbl\' | translate}}</th>\n' +
+    '						<th>{{\'waitersLimitConsumedLbl\' | translate}}</th>\n' +
     '						<th>{{\'ReadyLbl\' | translate}}</th>\n' +
     '						<th >{{\'status\' | translate}}</th>\n' +
     '					</tr>\n' +
@@ -278,8 +282,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<td data-title="logo" ><img ng-src="{{restaurant.logoURL}}?type=\'thumbnail\'&date={{restaurantCtrl.Now}}"  ng-alt="{{restaurant.restaurantName}}" style="max-height: 200px;max-width: 200px;"/></td>\n' +
     '						<td data-title="Description" >{{restaurant.restaurantDescription}}</td>\n' +
     '						<td data-title="Admin user" width="15%" >{{restaurant.restaurantAdminUserName}}</td>\n' +
-    '						<td data-title="Type" width="15%" >{{restaurant.restaurantTypeName}}</td>\n' +
-    '						<td>{{restaurant.isReady}}</td>\n' +
+    '						<td data-title="Type" width="10%" >{{restaurant.restaurantTypeName}}</td>\n' +
+    '						<td data-title="Type" width="5%" >{{restaurant.consumedWaiters}}/{{restaurant.waitersLimit}}</td>\n' +
+    '						<td width="5%">{{restaurant.isReady}}</td>\n' +
     '						<td width="15%" >\n' +
     '							<a ng-show="!restaurant.isActive" ng-class="{disabled: !restaurant.isReady}"  ng-click="restaurantCtrl.Activate(restaurant)" class="cursorPointer">{{\'ActivateBtn\' | translate}}</a>\n' +
     '							<a ng-show="restaurant.isActive" ng-click="restaurantCtrl.Deactivate(restaurant)" class="cursorPointer">{{\'DeActivateBtn\' | translate}}</a>\n' +

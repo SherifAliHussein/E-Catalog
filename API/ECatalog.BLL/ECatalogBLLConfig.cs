@@ -36,7 +36,8 @@ namespace ECatalog.BLL
                     m => m.MapFrom(src => src.RestaurantType.RestaurantTypeTranslations.FirstOrDefault().TypeName))
                 .ForMember(dto => dto.RestaurantAdminPassword,
                     m => m.MapFrom(src => PasswordHelper.Decrypt(src.RestaurantAdmin.Password)))
-                .ForMember(dto => dto.Image,m => m.Ignore());
+                .ForMember(dto => dto.Image,m => m.Ignore())
+                .ForMember(dto => dto.ConsumedWaiters,m => m.MapFrom(src => src.RestaurantWaiters.Count(x=>!x.IsDeleted)));
                 //.ForMember(dto => dto.RestaurantAdminUserName,
                 //    m => m.MapFrom(src => PasswordHelper.Decrypt(src.RestaurantAdmin.UserName)));
 

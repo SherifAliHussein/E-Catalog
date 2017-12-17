@@ -3,10 +3,12 @@
 	
     angular
         .module('home')
-        .controller('newRestaurantController', ['$scope','$translate','$http', 'appCONSTANTS' ,'$state', 'RestaurantResource','ToastService', 'englishRestaurantPrepService' ,'allRestaurantTypePrepService',  newRestaurantController])
+        .controller('newRestaurantController', ['$scope','$translate','$http', 'appCONSTANTS' ,'$state', 'RestaurantResource','ToastService', 'englishRestaurantPrepService' ,'allRestaurantTypePrepService', 'waitersLimitPrepService',  newRestaurantController])
 
-	function newRestaurantController($scope,$translate,$http, appCONSTANTS, $state, RestaurantResource,ToastService, englishRestaurantPrepService,allRestaurantTypePrepService){
+	function newRestaurantController($scope,$translate,$http, appCONSTANTS, $state, RestaurantResource,ToastService, englishRestaurantPrepService,allRestaurantTypePrepService, waitersLimitPrepService){
 		var vm = this;
+		vm.waitersLimit = waitersLimitPrepService;
+		vm.waitersLimit.maxNumUsers = vm.waitersLimit.maxNumUsers - vm.waitersLimit.consumedUsers;
 		vm.mode = $scope.selectedLanguage != appCONSTANTS.defaultLanguage?"map":"new";
 		vm.close = function(){
 			$state.go('restaurants');
@@ -29,7 +31,7 @@
 			newRestaurant.restaurantName = vm.restaurantName;
 			newRestaurant.restaurantDescription = vm.restaurantDescription;
 			newRestaurant.restaurantTypeId = vm.selectedType.restaurantTypeId;
-
+			newRestaurant.waitersLimit = vm.restaurantNumOfUsers;
 			var model = new FormData();
 			model.append('data', JSON.stringify(newRestaurant));
 			model.append('file', restaurantLogo);

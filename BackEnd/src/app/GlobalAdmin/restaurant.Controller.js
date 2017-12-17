@@ -3,13 +3,14 @@
 	
     angular
         .module('home')
-        .controller('restaurantController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'RestaurantResource','ActivateRestaurantResource','DeactivateRestaurantResource','RestaurantTypeResource','restaurantsPrepService','ToastService',  restaurantController])
+        .controller('restaurantController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'RestaurantResource','ActivateRestaurantResource','DeactivateRestaurantResource','RestaurantTypeResource','restaurantsPrepService','ToastService', 'waitersLimitPrepService',  restaurantController])
 
-    function restaurantController($scope,$translate, appCONSTANTS,$uibModal, RestaurantResource,ActivateRestaurantResource,DeactivateRestaurantResource,RestaurantTypeResource,restaurantsPrepService,ToastService){
+    function restaurantController($scope,$translate, appCONSTANTS,$uibModal, RestaurantResource,ActivateRestaurantResource,DeactivateRestaurantResource,RestaurantTypeResource,restaurantsPrepService,ToastService, waitersLimitPrepService){
 		
         var vm = this;
 		vm.restaurant = restaurantsPrepService;
 		vm.Now = $scope.getCurrentTime();
+		vm.waitersLimit = waitersLimitPrepService;
 		//vm.totalCount = restaurantsPrepService.totalCount;
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")

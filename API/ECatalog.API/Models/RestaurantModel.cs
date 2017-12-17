@@ -19,5 +19,7 @@ namespace ECatalog.API.Models
         public string LogoURL { get; set; }
         public bool IsReady { get; set; }
         public bool IsLogoChange { get; set; }
+        public int WaitersLimit { get; set; }
+        public int ConsumedWaiters { get; set; }
     }
 }

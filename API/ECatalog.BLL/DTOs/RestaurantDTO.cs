@@ -25,5 +25,7 @@ namespace ECatalog.BLL.DTOs
         public MemoryStream Image { get; set; }
         public bool IsLogoChange { get; set; }
         public bool IsReady { get; set; }
+        public int WaitersLimit { get; set; }
+        public int ConsumedWaiters { get; set; }
     }
 }
