@@ -86,6 +86,7 @@
     <Compile Include="DataServices\Interfaces\IitemTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IMenuService.cs" />
     <Compile Include="DataServices\Interfaces\IMenuTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IPackageService.cs" />
     <Compile Include="DataServices\Interfaces\IPageService.cs" />
     <Compile Include="DataServices\Interfaces\IRefreshTokenService.cs" />
     <Compile Include="DataServices\Interfaces\IRestaurantAdminService.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="DataServices\ItemTranslationService.cs" />
     <Compile Include="DataServices\MenuService.cs" />
     <Compile Include="DataServices\MenuTranslationService.cs" />
+    <Compile Include="DataServices\PackageService.cs" />
     <Compile Include="DataServices\PageService.cs" />
     <Compile Include="DataServices\RefreshTokenService.cs" />
     <Compile Include="DataServices\RestaurantAdminService.cs" />

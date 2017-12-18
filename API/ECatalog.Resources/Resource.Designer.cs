@@ -385,6 +385,15 @@ namespace ECatalog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your account is expired, please contact your admin..
+        /// </summary>
+        public static string PackageExpired {
+            get {
+                return ResourceManager.GetString("PackageExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restaurant admin is not found..
         /// </summary>
         public static string RestaurantAdminNotFound {

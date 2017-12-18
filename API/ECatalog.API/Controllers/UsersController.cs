@@ -28,8 +28,8 @@ namespace ECatalog.API.Controllers
             if (Request.Headers.Authorization.Scheme == "faaf" &&
                 Request.Headers.Authorization.Parameter == "asdasdas")
 
-                //_userFacade.AddNewGlobalUser(Mapper.Map<GlobalAdminDto>(globalAdminModel));
-                return Ok();
+                _userFacade.AddNewGlobalUser(Mapper.Map<GlobalAdminDto>(globalAdminModel));
+            return Ok();
             return Unauthorized();
         }
 

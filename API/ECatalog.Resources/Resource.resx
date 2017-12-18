@@ -225,6 +225,9 @@
   <data name="MenuNotFound" xml:space="preserve">
     <value>Menu not found</value>
   </data>
+  <data name="PackageExpired" xml:space="preserve">
+    <value>Your account is expired, please contact your admin.</value>
+  </data>
   <data name="RestaurantAdminNotFound" xml:space="preserve">
     <value>Restaurant admin is not found.</value>
   </data>

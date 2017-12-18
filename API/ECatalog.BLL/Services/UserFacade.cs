@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,15 +22,16 @@ namespace ECatalog.BLL.Services
         private IRestaurantWaiterService _restaurantWaiterService;
         private IRestaurantService _restaurantService;
         private IGlobalAdminService _globalAdminService;
-        
+        private IPackageService _packageService;
 
-        public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService, IGlobalAdminService globalAdminService
+        public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService, IGlobalAdminService globalAdminService,IPackageService packageService
             , IUnitOfWorkAsync unitOFWork) : base(unitOFWork)
         {
             _UserService = userService;
             _restaurantWaiterService = restaurantWaiterService;
             _restaurantService = restaurantService;
             _globalAdminService = globalAdminService;
+            _packageService = packageService;
         }
 
         public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService)
@@ -48,6 +50,7 @@ namespace ECatalog.BLL.Services
                 var waiter = _restaurantWaiterService.Find(user.UserId);
                 var restaurant = _restaurantService.Find(waiter.RestaurantId);
                 if (!restaurant.IsActive) throw new ValidationException(ErrorCodes.RestaurantIsNotActivated);
+                if(DateTime.Now.Date > waiter.Package.End) throw new ValidationException(ErrorCodes.PackageExpired);
             }
             return user;
         }
@@ -62,10 +65,27 @@ namespace ECatalog.BLL.Services
 
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
+            var consumedWaiters = restaurant.GlobalAdmin.Restaurants.Where(x => !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
+            Package package;
+            while (true)
+            {
+                package = restaurant.GlobalAdmin.Packages.OrderBy(x=>x.Start).Skip(1).FirstOrDefault();
+                if (package.MaxNumberOfWaiters > consumedWaiters)
+                {
+                    break;
+                }
+                else
+                {
+                    consumedWaiters = consumedWaiters - package.MaxNumberOfWaiters;
+                }
+
+            }
+            var packages = restaurant.GlobalAdmin.Packages;
             RestaurantWaiter restaurantWaiter = Mapper.Map<RestaurantWaiter>(restaurantWaiterDto);
             restaurantWaiter.RestaurantId = restaurant.RestaurantId;
             restaurantWaiter.Password = PasswordHelper.Encrypt(restaurantWaiterDto.Password);
             restaurantWaiter.Role = Enums.RoleType.Waiter;
+            restaurantWaiter.PackageId = package.PackageId;
             _restaurantWaiterService.Insert(restaurantWaiter);
             SaveChanges();
         }
@@ -124,9 +144,19 @@ namespace ECatalog.BLL.Services
 
         public void AddNewGlobalUser(GlobalAdminDto globalAdminDto)
         {
-            GlobalAdmin admin = Mapper.Map<GlobalAdmin>(globalAdminDto);
+            GlobalAdmin admin = new GlobalAdmin();
+            admin.UserName = globalAdminDto.UserName;
+            admin.UserAccountId = globalAdminDto.UserAccountId;
             admin.Role = Enums.RoleType.GlobalAdmin;
             admin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
+            admin.Packages.Add(new Package
+            {
+                End = globalAdminDto.End,
+                Start = globalAdminDto.Start,
+                MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters,
+                PackageGuid = globalAdminDto.PackageGuid
+            });
+            _packageService.InsertRange(admin.Packages);
             _globalAdminService.Insert(admin);
             SaveChanges();
         }
@@ -136,7 +166,24 @@ namespace ECatalog.BLL.Services
             var globalAdmin = _globalAdminService.GetGlobalAdminByAccountId(globalAdminDto.UserAccountId);
             globalAdmin.UserName = globalAdminDto.UserName;
             globalAdmin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
-            globalAdmin.MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters;
+            var package = globalAdmin.Packages.FirstOrDefault(x => x.PackageGuid == globalAdminDto.PackageGuid);
+            if (package == null)
+            {
+                globalAdmin.Packages.Add(new Package
+                {
+                    End = globalAdminDto.End,
+                    Start = globalAdminDto.Start,
+                    MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters,
+                    PackageGuid = globalAdminDto.PackageGuid
+                });
+            _packageService.InsertRange(globalAdmin.Packages);
+            }
+            else
+            {
+                package.End = globalAdminDto.End;
+                _packageService.Update(package); 
+            }
+
             _globalAdminService.Update(globalAdmin);
             SaveChanges();
         }
@@ -144,7 +191,7 @@ namespace ECatalog.BLL.Services
 
         public MaxAndConsUserDTO GetMaxAndConsumedUsers(long userId)
         {
-            var maxNum = _globalAdminService.Find(userId).MaxNumberOfWaiters;
+            var maxNum = _globalAdminService.Find(userId).Packages.Select(x=>x.MaxNumberOfWaiters).Sum();
 
             var consumedUsers = _restaurantService.GetAllResturantsLimits(userId);
 

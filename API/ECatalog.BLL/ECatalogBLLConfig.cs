@@ -157,7 +157,8 @@ namespace ECatalog.BLL
                 .RegisterType<IPageService, PageService>(new PerResolveLifetimeManager())
                 .RegisterType<IBranchService, BranchService>(new PerResolveLifetimeManager())
                 .RegisterType<IBranchTranslationService, BranchTranslationService>(new PerResolveLifetimeManager())
-                .RegisterType<IGlobalAdminService, GlobalAdminService>(new PerResolveLifetimeManager());
+                .RegisterType<IGlobalAdminService, GlobalAdminService>(new PerResolveLifetimeManager())
+                .RegisterType<IPackageService, PackageService>(new PerResolveLifetimeManager());
         }
     }
 

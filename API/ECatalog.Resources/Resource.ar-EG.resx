@@ -186,6 +186,9 @@
   <data name="MenuNameAlreadyExist" xml:space="preserve">
     <value>.اسم القائمه موجود بالفعل</value>
   </data>
+  <data name="PackageExpired" xml:space="preserve">
+    <value>.انتهت صلاحية حسابك، يرجى الاتصال بالمشرف</value>
+  </data>
   <data name="RestaurantIsNotReady" xml:space="preserve">
     <value>المطعم ليس جاهز</value>
   </data>

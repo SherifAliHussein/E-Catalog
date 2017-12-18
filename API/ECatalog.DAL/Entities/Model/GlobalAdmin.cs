@@ -13,10 +13,12 @@ namespace ECatalog.DAL.Entities.Model
         {
             Restaurants = new List<Restaurant>();
             RestaurantTypes = new List<RestaurantType>();
+            Packages = new List<Package>();
         }
-        public int MaxNumberOfWaiters{ get; set; }
+        //public int MaxNumberOfWaiters{ get; set; }
         public Guid UserAccountId { get; set; }
         public ICollection<Restaurant> Restaurants { get; set; }
         public ICollection<RestaurantType> RestaurantTypes { get; set; }
+        public ICollection<Package> Packages { get; set; }
     }
 }

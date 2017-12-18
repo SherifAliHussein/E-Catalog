@@ -40,6 +40,7 @@ namespace ECatalog.DAL.Entities
         public DbSet<Page> Pages { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<BranchTranslation> BranchTranslations { get; set; }
+        public DbSet<Package> Packages { get; set; }
 
 
         public ECatalogContext() : base("name=ECatalogDB")
@@ -77,6 +78,12 @@ namespace ECatalog.DAL.Entities
                 .HasRequired(c => c.GlobalAdmin)
                 .WithMany()
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Package>()
+                .HasRequired(c => c.GlobalAdmin)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
             //modelBuilder.Entity<RestaurantWaiter>()
             //    .HasRequired(c => c.Restaurant)
             //    .WithMany()

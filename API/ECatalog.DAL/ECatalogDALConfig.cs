@@ -51,7 +51,8 @@ namespace ECatalog.DAL
                 .RegisterType<IRepositoryAsync<Page>, Repository<Page>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<Branch>, Repository<Branch>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<BranchTranslation>, Repository<BranchTranslation>>(new PerResolveLifetimeManager())
-                .RegisterType<IRepositoryAsync<GlobalAdmin>, Repository<GlobalAdmin>>(new PerResolveLifetimeManager());
+                .RegisterType<IRepositoryAsync<GlobalAdmin>, Repository<GlobalAdmin>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Package>, Repository<Package>>(new PerResolveLifetimeManager());
 
 
         }

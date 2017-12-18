@@ -18,5 +18,8 @@ namespace ECatalog.DAL.Entities.Model
 
         public long BranchId { get; set; }
         public virtual Branch Branch { get; set; }
+        [ForeignKey("Package")]
+        public long PackageId { get; set; }
+        public virtual Package Package { get; set; }
     }
 }

@@ -80,6 +80,7 @@
     <Compile Include="Entities\Model\ItemTranslation.cs" />
     <Compile Include="Entities\Model\Menu.cs" />
     <Compile Include="Entities\Model\MenuTranslation.cs" />
+    <Compile Include="Entities\Model\Package.cs" />
     <Compile Include="Entities\Model\Page.cs" />
     <Compile Include="Entities\Model\RefreshToken.cs" />
     <Compile Include="Entities\Model\Restaurant.cs" />
