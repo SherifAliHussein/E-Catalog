@@ -10,8 +10,7 @@
         var vm = this;
 		vm.categories = categoryPrepService;
 		vm.Now = $scope.getCurrentTime();
-		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		// $($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
+		$('.pmd-sidebar-nav>li>a').removeClass("active") 
 		
 		function refreshCategories(){
 			var k = GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId,page:vm.currentPage }).$promise.then(function(results) {

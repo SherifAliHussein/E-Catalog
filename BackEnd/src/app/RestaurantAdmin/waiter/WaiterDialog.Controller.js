@@ -6,8 +6,7 @@
         .controller('waiterDialogController', ['$uibModalInstance','$translate' , 'WaiterResource','ToastService','callBackFunction','$rootScope',  waiterDialogController])
 
 	function waiterDialogController($uibModalInstance, $translate , WaiterResource,ToastService,callBackFunction,$rootScope){
-		var vm = this;
-		// vm.menuName = "";
+		var vm = this; 
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
@@ -20,8 +19,8 @@
             newWaiter.$create().then(
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('WaiterAddSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
+				//	$uibModalInstance.dismiss('cancel');
+				//	callBackFunction();
                 },
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");

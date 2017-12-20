@@ -322,7 +322,7 @@ angular.module('core')
             "SizeDeleteSuccess":".تم حذف الحجم بنجاح",
             "NameLengthError":".طول الاسم يجب من 3-40 حرف",
             "SizeLengthError":".طول المقاس يجب من 1-10 حرف",
-            "DescLengthError":".طول الوصف يجب من 3-100 حرف",
+            "DescLengthError":".طول الوصف يجب من 3-300 حرف",
             "sideItem":"طبق جانبى",
             "value":"قيمه",
             "AddSideItemBtn":"اضف طبق جانبي",

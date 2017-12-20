@@ -1,26 +1,25 @@
 <div ng-class="{page1:(lang == 'en' && (pageitems.pageNumber % 2) === 0) || (lang == 'ar' && (pageitems.pageNumber % 2) !== 0)
 , page2:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
     <div class="offers_list">
-                <div class="lists" ng-repeat="item in pageitems.itemModels">
-                    <h3>{{item.itemName}}</h3>
+                <div class="lists" ng-repeat="item in pageitems.itemModels"> 
                     <h3>
-                            {{item.itemName < 20 ? 'item.itemName' : item.itemName | limitTo:20...}}  
+                            {{item.itemName < 20 ? 'item.itemName' : item.itemName | limitTo:20}}   
         
          </h3>
-                    <div class="col-sm-7 col-xs-7 col-md-7">
+                    <div class="col-sm-12 col-xs-12 col-md-12">
 
-                            <p style="min-height: 40px;"> 
+                            <p style=""> 
                                     
-                                     {{item.itemDescription < 90 ? 'item.itemDescription' : item.itemDescription | limitTo:90...}}  
+                                     {{item.itemDescription < 63 ? 'item.itemDescription' : item.itemDescription | limitTo:63 }} 
                                 
                                  </p>  
 
                     </div>
 
-                    <div class="col-sm-5 col-xs-5 col-md-5 items_edit">
-                        <div  class="col-sm-5 col-xs-5 col-md-5 no_padding">
-                                <p class="list_price" ng-repeat="size in item.sizes">{{size.price}} <span class="ssss">{{size.sizeName}}</span> </p>
-                        </div>
+                    <div class="col-sm-12 col-xs-12 col-md-12 items_edit">
+                        
+                                <p class="list_price" ng-repeat="size in item.sizes |limitTo:3">{{size.price}} <span class="ssss">{{size.sizeName}}</span> </p>
+                       
                         
                         <div class="lists_action">
                             <a href="javascript:void(0);" ng-click="viewItemDetail(item)"  data-lity-target="#inline2" data-lity><img src="assets/img/view.png" alt="" /></a>

@@ -4,10 +4,11 @@
         <div class="col-sm-12 col-xs-12 col-md-12 subs">
             <div class="sub_content">
                 <img src="{{itemCtrl.catgoryTemplates.menuImageURL}}" alt="" style="max-height: 177px;"/>
-
+<div class="sub_sub">
                 <div class="active_book">
                     <p>{{itemCtrl.catgoryTemplates.menuName}}</p>
                 </div>
+            </div>
             </div>
             <div class="sub_content2">
                 <img src="{{itemCtrl.catgoryTemplates.categoryImageURL}}" alt="" style="max-height: 137px;"/>
@@ -28,30 +29,37 @@
 <div id="inline2" class="main_lity lity-hide">
     <div class="col-sm-6 col-xs-6 col-md-6 header_pop">
         <img src="{{itemCtrl.itemDetails.imageURL}}" alt="" style="max-height: 139px;"/>
-    </div> 
-    <input type="number" ng-model="selectedCount" class="form-control counter" value="1">
-    <!-- <select ng-model="selectedCount" ng-init="selectedCount = itemCtrl.counts[0]" ng-options="x for x in itemCtrl.counts"></select> -->
-     <input type="button" ng-click="addItemToCart(itemCtrl.itemDetails)" ng-disabled="!displayAdd" value="{{'Add' | translate}}" data-lity-close>
-    <div class="col-sm-6 col-xs-6 col-md-6 "> 
+        <div class="menu_plus">
+            
+              
+              <!-- <p ng-repeat="size in itemCtrl.itemDetails.sizes">
+                  {{size.price}}
+                  <span>{{size.sizeName}}</span>
+                  <input type="radio" ng-model="selectedSize" ng-click="radioSizeClick(size)" name="name" required />
+
+              </p> -->
+              <div class="radio" ng-repeat="(key,val) in itemCtrl.itemDetails.sizes">
+                  <input type="radio" class="radio_s"  ng-click="radioSizeClick(val,itemCtrl.itemDetails.itemID)" ng-model="$parent.checkradioasd" ng-value='val.sizeId'  >
+                  <span class="orange">{{val.price}}</span>
+                  <span>{{val.sizeName}}</span>
+                  </div>
+             </div>
+          </div>
+          <div class="main_counter">
+                <span class="main_arrow"><img  class="arrow_img" ng-click="removeCounter()" style="width: 21px!important;height: 21px!important;" ng-src="../assets/img/Subtract.ico" /></span>
+
+                <input  type="number" ng-model="selectedCount" class="form-control counter" value="1" readonly="readonly">
+                <span><img class="arrow_img" ng-click="addCounter()" style="    width: 24px!important;
+                    height: 23px!important;" ng-src="../assets/img/Plus.ico" /></span>
+
+                <!-- <select ng-model="selectedCount" ng-init="selectedCount = itemCtrl.counts[0]" ng-options="x for x in itemCtrl.counts"></select> -->
+             <input type="button" class="btn add" ng-click="addItemToCart(itemCtrl.itemDetails)" ng-disabled="!displayAdd" value="{{'Add' | translate}}" data-lity-close>
+            </div>
+    </div>
+     <div class="col-sm-6 col-xs-6 col-md-6 "> 
         <h3>{{itemCtrl.itemDetails.itemName}}</h3>
         <p>{{itemCtrl.itemDetails.itemDescription}}</p>
-        <div class="col-sm-6 col-xs-6 col-md-6">
-            <div class="menu_plus">
-                <h3>{{'Size' | translate}} </h3>
-                
-                <!-- <p ng-repeat="size in itemCtrl.itemDetails.sizes">
-                    {{size.price}}
-                    <span>{{size.sizeName}}</span>
-                    <input type="radio" ng-model="selectedSize" ng-click="radioSizeClick(size)" name="name" required />
-
-                </p> -->
-                <div ng-repeat="(key,val) in itemCtrl.itemDetails.sizes">
-                    <input type="radio"  ng-click="radioSizeClick(val,itemCtrl.itemDetails.itemID)" ng-model="$parent.checkradioasd" ng-value='val.sizeId'  >
-                    {{val.price}}
-                    <span>{{val.sizeName}}</span>
-               </div>
-            </div>
-            <br>
+   
             <!--<div class="menu_plus" style="    margin-top: 41px;">
                 <h3>Side Items</h3>
 
@@ -63,9 +71,10 @@
                 <br>
                 * Please note the Max Side Item Value : {{itemCtrl.itemDetails.maxSideItemValue}}
             </div>-->
-        </div>
+     
     </div>
-
+ 
+    
     <!-- <div class="col-sm-6 col-xs-6 col-md-6">
         <p>simply dummy text of the printing and
             typesetting industry. Lorem Ipsum has

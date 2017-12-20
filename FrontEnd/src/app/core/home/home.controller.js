@@ -9,8 +9,8 @@
     function homeCtrl($rootScope, $translate, $scope, HomeResource, ResturantResource, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService,CartIconService,  totalCartService,$location,$window) {
         // Event listener for state change.
         // if ($location.protocol() !== 'https') {
-        //     $window.location.href = $location.absUrl().replace('http', 'https');
-        // }
+        //       $window.location.href = $location.absUrl().replace('http', 'https');
+        //   }
 
         var vm = this;
         vm.total = 0;
@@ -171,6 +171,12 @@
         }
 
         $scope.logout = function () {
+           
+            $scope.homeTotalNo = 0; 
+                        $scope.$watch("homeTotalNo", function (newValue) {
+                            totalCartService.homeTotalNo = newValue;
+                        });
+                         localStorage.removeItem('checkOut');
             $scope.globalInfo='';
                authorizationService.logout();
             $state.go('login');

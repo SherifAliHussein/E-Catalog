@@ -9,6 +9,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <!-- <link rel="stylesheet" href="{{selectedLanguage == 'ar'? 'bundle-ar.css?v=#{VERSION_REPlACE}#': 'bundle-en.css?v=#{VERSION_REPlACE}#'}}" />  -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    
     
     <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=#{VERSION_REPlACE}#" /> 
     <!-- <link rel="stylesheet" href="bundle-en.css?v=#{VERSION_REPlACE}#" />  -->
@@ -23,7 +25,7 @@
     }
     </style>
 </head> 
-<body style="background-image:url({{isLoggedIn() ? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
+<body style="background-image:url({{isLoggedIn()? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
     <!-- <body style="background-image:url({{globalInfo.backgroundUrl}})"> -->
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
@@ -39,6 +41,7 @@
             
                     </a>
                 </div>
+                <div class="settings">
                     <a ng-if="selectedLanguage == 'ar'" href="javascript:void(0)" ng-click="changeLanguage('en')" ng-show="globalInfo.logoUrl !=null">
                         <p class="lang">EN</p>
                     </a>  
@@ -47,8 +50,9 @@
                         </a>
 
                         <a   href="javascript:void(0)" ng-click="logout()" ng-show="globalInfo.logoUrl !=null">
-                            <p class="logout">Logout</p>
+                            <p class="logout">{{'Logout' | translate}}</p>
                         </a>
+                    </div>
     </div>
        
 	<div ui-view layout="column" ></div>
@@ -64,7 +68,7 @@
     <script ng-src="turn.min-en.js" ng-if="selectedLanguage == 'en'"></script>
     <script ng-src="turn.min-ar.js" ng-if="selectedLanguage == 'ar'"></script>
  
-    <!-- <script>
+    <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
                 console.log('Service Worker registered');
@@ -72,7 +76,7 @@
                 console.log('Service Worker registration failed: ', err);
             });
         }
-    </script> -->
+    </script>
  
 </body>
 

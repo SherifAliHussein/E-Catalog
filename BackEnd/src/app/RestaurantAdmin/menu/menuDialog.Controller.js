@@ -29,8 +29,7 @@
 				data: model
 			}).then(
 				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('menuAddSuccess'),"success");
-					 // $state.go('Category',{MenuId:menuId});
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('menuAddSuccess'),"success"); 
 					 $uibModalInstance.dismiss('cancel');
 					 callBackFunction();
 					 vm.isChanged = false;
@@ -39,19 +38,7 @@
 					vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 				}
-            );
-			// var newMenu = new MenuResource();
-            // newMenu.menuName = vm.menuName;
-            // newMenu.$create().then(
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",$translate.instant('menuAddSuccess'),"success");
-			// 		$uibModalInstance.dismiss('cancel');
-			// 		callBackFunction();
-            //     },
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            //     }
-            // );
+            ); 
 		}
 
 		vm.LoadUploadImage = function() {
@@ -73,8 +60,7 @@
 						var reader = new FileReader();
 
 						reader.onloadend = function() {
-							vm.menuImage= reader.result;
-							// $scope.Photo = reader.result;
+							vm.menuImage= reader.result; 
 							$scope.$apply();
 						};
 						if (imageFile) {

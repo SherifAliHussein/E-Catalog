@@ -130,7 +130,8 @@
             "Remove":" REMOVE",
             "SAR":" SAR",
             "Total":"TOTAL",
-            "Size":"Size"
+            "Size":"Size",
+            "Logout":"Logout"
         }
         
         var ar_translations = {
@@ -265,7 +266,8 @@
             "Remove":" حذف",
             "SAR":" ريال",
             "Total":"المجموع",
-            "Size":"الحجم"
+            "Size":"الحجم",
+            "Logout":"خروج"
         }
         
         $translateProvider.translations('en',en_translations);
