@@ -39,7 +39,7 @@ namespace ECatalog.API.Controllers
         [ResponseType(typeof(IEnumerable<RestaurantTypeModel>))]
         public IHttpActionResult GetRestaurantType()
         {
-            return Ok(Mapper.Map<List<RestaurantTypeModel>>(_restaurantFacade.GetAllRestaurantType(Language)));
+            return Ok(Mapper.Map<List<RestaurantTypeModel>>(_restaurantFacade.GetAllRestaurantType(Language, UserId)));
 
         }
 
@@ -48,7 +48,7 @@ namespace ECatalog.API.Controllers
         [HttpPost]
         public IHttpActionResult AddRestaurantType([FromBody] RestaurantTypeModel restaurantType)
         {
-            _restaurantFacade.AddRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language);
+            _restaurantFacade.AddRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language, UserId);
             return Ok();
         }
 
@@ -57,7 +57,7 @@ namespace ECatalog.API.Controllers
         [HttpPut]
         public IHttpActionResult UpdateRestaurantType([FromBody] RestaurantTypeModel restaurantType)
         {
-            _restaurantFacade.UpdateRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language);
+            _restaurantFacade.UpdateRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language,UserId);
             return Ok();
         }
 
@@ -99,7 +99,7 @@ namespace ECatalog.API.Controllers
             restaurantDto.Image = new MemoryStream();
             httpPostedFile.InputStream.CopyTo(restaurantDto.Image);
 
-            _restaurantFacade.AddRestaurant(restaurantDto, Language, HostingEnvironment.MapPath("~/Images/"));
+            _restaurantFacade.AddRestaurant(restaurantDto, Language, HostingEnvironment.MapPath("~/Images/"), UserId);
             return Ok();
         }
         [Route("api/Restaurants/{restaurantId:long}/logo", Name = "RestaurantLogo")]
@@ -134,7 +134,7 @@ namespace ECatalog.API.Controllers
         [ResponseType(typeof(IEnumerable<RestaurantModel>))]
         public IHttpActionResult GetAllRestaurants(int page = Page, int pagesize = PageSize)
         {
-            var restaurants = _restaurantFacade.GetAllRestaurant(Language, page, pagesize);
+            var restaurants = _restaurantFacade.GetAllRestaurant(Language, page, pagesize,UserId);
             var data = Mapper.Map<List<RestaurantModel>>(restaurants.Data);
             foreach (var item in data)
             {
@@ -212,7 +212,7 @@ namespace ECatalog.API.Controllers
                 httpPostedFile.InputStream.CopyTo(restaurantDto.Image);
             }
 
-            _restaurantFacade.UpdateRestaurant(restaurantDto, Language, HostingEnvironment.MapPath("~/Images/"));
+            _restaurantFacade.UpdateRestaurant(restaurantDto, Language, HostingEnvironment.MapPath("~/Images/"),UserId);
             return Ok();
         }
 

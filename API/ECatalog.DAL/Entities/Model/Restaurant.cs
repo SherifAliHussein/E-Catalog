@@ -18,6 +18,7 @@ namespace ECatalog.DAL.Entities.Model
             Sizes = new List<Size>();
 
             RestaurantWaiters = new List<RestaurantWaiter>();
+            Branches = new List<Branch>();
         }
         public long RestaurantId { get; set; }
         public bool IsActive { get; set; }
@@ -41,5 +42,13 @@ namespace ECatalog.DAL.Entities.Model
         [ForeignKey("Background")]
         public long BackgroundId { get; set; }
         public virtual Background Background { get; set; }
+        public virtual ICollection<Branch> Branches { get; set; }
+
+        public int WaitersLimit { get; set; }
+
+        [ForeignKey("GlobalAdmin")]
+        public long GlobalAdminId { get; set; }
+        public virtual GlobalAdmin GlobalAdmin { get; set; }
+
     }
 }

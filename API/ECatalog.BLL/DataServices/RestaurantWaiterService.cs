@@ -22,14 +22,27 @@ namespace ECatalog.BLL.DataServices
         {
             return _repository.Queryable().Any(u => u.UserName.ToLower() == userName.ToLower() && u.RestaurantId != restaurantId && !u.IsDeleted);
         }
-        public PagedResultsDto GetAllRestaurantWaiters(long restaurantId, int page, int pageSize)
+        public PagedResultsDto GetAllRestaurantWaiters(long restaurantId, int page, int pageSize,string language)
         {
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = _repository.Query(x => !x.IsDeleted && x.RestaurantId == restaurantId ).Select().Count();
-            results.Data = Mapper.Map<List<RestaurantWaiter>, List<RestaurantWaiterDTO>>(_repository
+            var waiters = _repository
                 .Query(x => !x.IsDeleted && x.RestaurantId == restaurantId).Select()
                 .OrderBy(x => x.RestaurantId).Skip((page - 1) * pageSize)
-                .Take(pageSize).ToList());
+                .Take(pageSize).ToList();
+            results.Data = Mapper.Map<List<RestaurantWaiter>, List<RestaurantWaiterDTO>>(waiters, opt =>
+            {
+                opt.BeforeMap((src, dest) =>
+                    {
+                        foreach (RestaurantWaiter waiter in src)
+                        {
+                            waiter.Branch.BranchTranslations = waiter.Branch.BranchTranslations
+                                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+                        }
+
+                    }
+                );
+            });
             return results;
         }
     }

@@ -38,6 +38,8 @@ namespace ECatalog.DAL.Entities
 
         public DbSet<Template> Templates { get; set; }
         public DbSet<Page> Pages { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<BranchTranslation> BranchTranslations { get; set; }
 
 
         public ECatalogContext() : base("name=ECatalogDB")
@@ -62,6 +64,19 @@ namespace ECatalog.DAL.Entities
                 .WillCascadeOnDelete(false);
 
 
+            modelBuilder.Entity<Branch>()
+                .HasRequired(c => c.Restaurant)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<RestaurantType>()
+                .HasRequired(c => c.GlobalAdmin)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Restaurant>()
+                .HasRequired(c => c.GlobalAdmin)
+                .WithMany()
+                .WillCascadeOnDelete(false);
             //modelBuilder.Entity<RestaurantWaiter>()
             //    .HasRequired(c => c.Restaurant)
             //    .WithMany()

@@ -10,7 +10,7 @@ namespace ECatalog.BLL.DataServices.Interfaces
 {
     public interface IRestaurantTypeTranslationService: IService<RestaurantTypeTranslation>
     {
-        bool CheckRepeatedType(string typeName, string language, long restaurantTypeId);
-        List<RestaurantTypeTranslation> GeRestaurantTypeTranslation(string language);
+        bool CheckRepeatedType(string typeName, string language, long restaurantTypeId, long userId);
+        List<RestaurantTypeTranslation> GeRestaurantTypeTranslation(string language, long userId);
     }
 }

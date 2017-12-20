@@ -37,6 +37,13 @@
                             <div ng-if="newWaiterForm.confirmPassword.$error.equalto && !newWaiterForm.confirmPassword.$error.required">Passwords don't match.</div>
                         </div>
                     </div>
+                    <div >
+                            <select required class="select-simple form-control pmd-select2" 
+                                    ng-options="item.branchTitle for item in waiterDlCtrl.Branches"  
+                                    ng-model="waiterDlCtrl.selectedBranch">
+                            </select>
+                            <div ng-if="waiterDlCtrl.Branches.length <=0">{{'NoBranchAvailable' | translate}} </div>
+                        </div>
             </form>
         </div>
         <div class="pmd-modal-action text-right">

@@ -18,19 +18,19 @@ namespace ECatalog.BLL.DataServices.FakeServices
         {
             dbFakeData = new fakeData();
         }
-        public bool CheckRepeatedType(string typeName, string language, long restaurantTypeId)
+        public bool CheckRepeatedType(string typeName, string language, long restaurantTypeId, long userId)
         {
             var restaurantTypeTranslations = dbFakeData._RestaurantTypeTranslations
                 .Where(x => x.Language.ToLower() == language.ToLower() &&
                             x.TypeName.ToLower() == typeName.ToLower() &&
-                            !x.RestaurantType.IsDeleted && x.RestaurantTypeId != restaurantTypeId).ToList();
+                            !x.RestaurantType.IsDeleted && x.RestaurantTypeId != restaurantTypeId && x.RestaurantType.GlobalAdminId == userId).ToList();
             return restaurantTypeTranslations.Count > 0;
         }
 
-        public List<RestaurantTypeTranslation> GeRestaurantTypeTranslation(string language)
+        public List<RestaurantTypeTranslation> GeRestaurantTypeTranslation(string language, long userId)
         {
 
-            return dbFakeData._RestaurantTypeTranslations.Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+            return dbFakeData._RestaurantTypeTranslations.Where(x => x.Language.ToLower() == language.ToLower() && x.RestaurantType.GlobalAdminId == userId).ToList();
         }
 
         public override void InsertRange(IEnumerable<RestaurantTypeTranslation> entities)

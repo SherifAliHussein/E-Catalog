@@ -132,6 +132,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					ng-options="item.typeName for item in rewRestCtrl.RestaurantType"  \n' +
     '					ng-model="rewRestCtrl.selectedType">\n' +
     '				</select>\n' +
+    '\n' +
+    '				\n' +
     '			</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
@@ -148,7 +150,30 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div ng-if="newRestaurantForm.restaurantDescription.$error.required && !newRestaurantForm.restaurantDescription.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(newRestaurantForm.restaurantDescription.$error.minlength || newRestaurantForm.restaurantDescription.$error.maxlength) && !newRestaurantForm.restaurantDescription.$error.required">{{\'DescLengthError\' | translate}}</div>\n' +
     '                </div>\n' +
-    '			</div>			\n' +
+    '			</div>\n' +
+    '			\n' +
+    '			<!-- Max Users Cycle -->\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '				<label for="first-name">{{\'MaxNumOfUsersLbl\' | translate}}</label>\n' +
+    '				<input type="number" ng-disabled="true" class="mat-input form-control" name="MaxNumOfUsers" ng-model="rewRestCtrl.MaxNumOfUsers">\n' +
+    '			</div>\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '				<label for="first-name">{{\'RemainingNumOfUsersLbl\' | translate}}</label>\n' +
+    '				<br/><br/>\n' +
+    '				<input type="number" ng-value="{{10}}" ng-disabled="true" class="mat-input form-control" name="RemNumOfUsers" ng-model="rewRestCtrl.RemNumOfUsers">\n' +
+    '			</div>\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '				<label for="first-name">{{\'SelectNumOfUsersLbl\' | translate}}</label>\n' +
+    '				<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="rewRestCtrl.RestaurantNumOfUsers" max="{{rewRestCtrl.RemNumOfUsers}}" min= "1">\n' +
+    '				<div ng-messages="newRestaurantForm.RestaurantNumOfUsers.$error">\n' +
+    '					<div ng-if="newRestaurantForm.RestaurantNumOfUsers.$error.required && !newRestaurantForm.RestaurantNumOfUsers.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required">{{\'NumbersOfUsersNotApplicable\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '			</div>\n' +
+    '			<!-- End Max Users Cycle -->\n' +
+    '			\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label" ng-if="rewRestCtrl.mode==\'new\'">\n' +
     '				<label for="first-name">{{\'AdminUserLbl\' | translate}}</label>\n' +
     '				<input required type="text" class="mat-input form-control" name="restaurantAdmin" ng-model="rewRestCtrl.restaurantAdmin">\n' +
@@ -486,6 +511,56 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/RestaurantAdmin/templates/branch.html',
+    '<div >\n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '        <button  ng-click="branchCtrl.openBranchDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBranchBtn\' | translate}}</button>\n' +
+    '        \n' +
+    '    </div>\n' +
+    '    \n' +
+    '    <div ng-if="branchCtrl.branches.results.length == 0">\n' +
+    '            <span>{{\'NoBranchAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="branchCtrl.branches.results.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th >{{\'Title\' | translate}}</th>\n' +
+    '                        <th >{{\'Address\' | translate}}</th>\n' +
+    '                        <th >{{\'status\' | translate}}</th>\n' +
+    '                        <th ></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="branch in branchCtrl.branches.results">\n' +
+    '                        <td data-title="Name" >{{branch.branchTitle}}</td>\n' +
+    '                        <td data-title="Address" >{{branch.branchAddress}}</td>\n' +
+    '                \n' +
+    '                        <!-- <td></td> -->\n' +
+    '                        <td>\n' +
+    '                            <a ng-show="!branch.isActive" ng-click="branchCtrl.Activate(branch)" class="cursorPointer">{{\'ActivateBtn\' | translate}}</a>\n' +
+    '                            <a ng-show="branch.isActive" ng-click="branchCtrl.Deactivate(branch)" class="cursorPointer">{{\'DeActivateBtn\' | translate}}</a>\n' +
+    '                        </td>\n' +
+    '                        <td width="30%">\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="branchCtrl.openEditBranchDialog($index)">mode_edit</i> \n' +
+    '                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="branchCtrl.openDeleteBranchDialog(branch.branchTitle,branch.branchId)">delete</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '        <div style="text-align:center;" paging page="1" page-size="10" total="branchCtrl.branches.totalCount" paging-action="branchCtrl.changePage( page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '           </div>\n' +
+    '    </div> \n' +
+    '\n' +
+    '\n' +
+    '</div>					\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/RestaurantAdmin/templates/categoryTemplate.html',
     '<div ng-if="CategoryTemplateCtrl.menus.length == 0">\n' +
     '        <span>{{\'NoMenusAvailable\' | translate}}</span>\n' +
@@ -575,6 +650,52 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '\n' +
     '\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/RestaurantAdmin/templates/editBranch.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <button class="close" type="button" ng-click="editBranchDlCtrl.close()">×</button>\n' +
+    '        <h2 class="pmd-card-title-text">{{\'UpdateBranchLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editBranchForm">\n' +
+    '            <div ng-if="editBranchDlCtrl.mode==\'map\'">\n' +
+    '                <select required class="select-simple form-control pmd-select2" \n' +
+    '                        ng-options="item.branchTitle for item in editBranchDlCtrl.englishBranches"  \n' +
+    '                        ng-model="editBranchDlCtrl.selectedBranch">\n' +
+    '                </select>\n' +
+    '                <div ng-if="editBranchDlCtrl.englishBranches.length <=0">{{\'NoBranchDefault\' | translate}} </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Title\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="branchTitle" ng-model="editBranchDlCtrl.branchTitle"  ng-minlength="3" ng-maxlength="40">\n' +
+    '                <div ng-messages="editBranchForm.branchTitle.$error" >\n' +
+    '                    <div ng-if="editBranchForm.branchTitle.$error.required && !editBranchForm.branchTitle.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                    <div ng-if="(editBranchForm.branchTitle.$error.minlength || editBranchForm.branchTitle.$error.maxlength) && !editBranchForm.branchTitle.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Address\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="branchAddress" ng-model="editBranchDlCtrl.branchAddress"  ng-minlength="3" ng-maxlength="300">\n' +
+    '                <div ng-messages="editBranchForm.branchAddress.$error" >\n' +
+    '                    <div ng-if="editBranchForm.branchAddress.$error.required && !editBranchForm.branchAddress.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                    <div ng-if="(editBranchForm.branchAddress.$error.minlength || editBranchForm.branchAddress.$error.maxlength) && !editBranchForm.branchAddress.$error.required">{{\'DescLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button ng-disabled="editBranchForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editBranchDlCtrl.updateBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editBranchDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '    \n' +
     '');
 }]);
 
@@ -936,6 +1057,13 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <div ng-if="newWaiterForm.confirmPassword.$error.equalto && !newWaiterForm.confirmPassword.$error.required">Passwords don\'t match.</div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
+    '                    <div >\n' +
+    '                        <select required class="select-simple form-control pmd-select2" \n' +
+    '                            ng-options="item.branchTitle for item in editWaiterDlCtrl.Branches"  \n' +
+    '                            ng-model="editWaiterDlCtrl.selectedBranch">\n' +
+    '                        </select>\n' +
+    '                        <div ng-if="editWaiterDlCtrl.Branches.length <=0">{{\'NoBranchAvailable\' | translate}} </div>\n' +
+    '                    </div>\n' +
     '            </form>\n' +
     '        </div>\n' +
     '        <div class="pmd-modal-action text-right">\n' +
@@ -1030,6 +1158,43 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    \n' +
     '        \n' +
     '    ');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/RestaurantAdmin/templates/newBranch.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <button class="close" type="button" ng-click="branchDlCtrl.close()">×</button>\n' +
+    '        <h2 class="pmd-card-title-text">{{\'newBranchLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newBranchForm">\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <label for="first-name">{{\'Title\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="branchTitle" ng-model="branchDlCtrl.branchTitle"  ng-minlength="3" ng-maxlength="40">\n' +
+    '                <div ng-messages="newBranchForm.branchTitle.$error" >\n' +
+    '                    <div ng-if="newBranchForm.branchTitle.$error.required && !newBranchForm.branchTitle.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                    <div ng-if="(newBranchForm.branchTitle.$error.minlength || newBranchForm.branchTitle.$error.maxlength) && !newBranchForm.branchTitle.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <label for="first-name">{{\'Address\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="branchAddress" ng-model="branchDlCtrl.branchAddress"  ng-minlength="3" ng-maxlength="300">\n' +
+    '                <div ng-messages="newBranchForm.branchAddress.$error" >\n' +
+    '                    <div ng-if="newBranchForm.branchAddress.$error.required && !newBranchForm.branchAddress.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                    <div ng-if="(newBranchForm.branchAddress.$error.minlength || newBranchForm.branchAddress.$error.maxlength) && !newBranchForm.branchAddress.$error.required">{{\'DescLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button ng-disabled="newBranchForm.$invalid  || branchDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="branchDlCtrl.AddNewBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="branchDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '    \n' +
+    '');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -1346,6 +1511,13 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <div ng-if="newWaiterForm.confirmPassword.$error.equalto && !newWaiterForm.confirmPassword.$error.required">Passwords don\'t match.</div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
+    '                    <div >\n' +
+    '                            <select required class="select-simple form-control pmd-select2" \n' +
+    '                                    ng-options="item.branchTitle for item in waiterDlCtrl.Branches"  \n' +
+    '                                    ng-model="waiterDlCtrl.selectedBranch">\n' +
+    '                            </select>\n' +
+    '                            <div ng-if="waiterDlCtrl.Branches.length <=0">{{\'NoBranchAvailable\' | translate}} </div>\n' +
+    '                        </div>\n' +
     '            </form>\n' +
     '        </div>\n' +
     '        <div class="pmd-modal-action text-right">\n' +
@@ -1444,11 +1616,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/RestaurantAdmin/templates/waiter.html',
     '<div >\n' +
     '	<div style="margin-bottom:10px">\n' +
-    '		<button  ng-click="waiterCtrl.openWaiterDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddWaiterBtn\' | translate}}</button>\n' +
+    '		<button ng-disabled="waiterCtrl.waiters.totalCount == waiterCtrl.waitersLimit"  ng-click="waiterCtrl.openWaiterDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddWaiterBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '	<div ng-if="waiterCtrl.waiters.results.length == 0">\n' +
-    '			<span>{{\'NoWaiterAvailable\' | translate}}</span>\n' +
-    '		</div>\n' +
+    '		<span>{{\'NoWaiterAvailable\' | translate}}</span>\n' +
+    '	</div>\n' +
+    '	<span>\n' +
+    '		{{waiterCtrl.waiters.totalCount}} / {{waiterCtrl.waitersLimit}}\n' +
+    '	</span>\n' +
     '	\n' +
     '	<div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="waiterCtrl.waiters.results.length > 0">\n' +
     '		<div class="table-responsive">\n' +
@@ -1457,14 +1632,19 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<tr>\n' +
     '						<th >{{\'Name\' | translate}}</th>\n' +
     '						<th >{{\'UserName\' | translate}}</th>\n' +
+    '						<th >{{\'Title\' | translate}}</th>\n' +
+    '						\n' +
     '						<th ></th>\n' +
     '					</tr>\n' +
     '				</thead>\n' +
     '				<tbody>\n' +
     '					<tr ng-repeat="waiter in waiterCtrl.waiters.results">\n' +
-    '						<td data-title="Name" width="50%">{{waiter.name}}</td>\n' +
+    '						<td data-title="Name" width="30%">{{waiter.name}}</td>\n' +
     '						<td>\n' +
     '                            {{waiter.userName}}\n' +
+    '						</td>\n' +
+    '						<td>\n' +
+    '                            {{waiter.branchTitle}}\n' +
     '						</td>\n' +
     '						<td >\n' +
     '							<i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="waiterCtrl.openEditWaiterDialog($index)">mode_edit</i> \n' +
@@ -1474,7 +1654,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				</tbody>\n' +
     '			</table>\n' +
     '		</div>\n' +
-    '		<div style="text-align:center;" paging page="1" page-size="10" total="waiterCtrl.menus.totalCount" paging-action="waiterCtrl.changePage( page)"\n' +
+    '		<div style="text-align:center;" paging page="1" page-size="10" total="waiterCtrl.waiters.totalCount" paging-action="waiterCtrl.changePage( page)"\n' +
     '		flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
     '		   </div>\n' +
     '	</div> \n' +

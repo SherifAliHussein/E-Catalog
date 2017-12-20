@@ -12,10 +12,10 @@
     "angular-animate": "^1.6.6",
     "angular-aria": "^1.6.6",
     "angular-clipboard": "^1.5.0",
-    "angular-ui-bootstrap": "2.5.0",
     "angular-paging": "2.2.1",
     "angular-permission": "^2.3.4",
     "angular-resource": "1.5.2",
+    "angular-ui-bootstrap": "2.5.0",
     "angular-ui-event": "^1.0.0",
     "angular-ui-router": "1.0.0",
     "angular-utils-ui-breadcrumbs": "^0.2.2-1",
@@ -24,7 +24,9 @@
     "modalmddatepicker": "^1.0.13",
     "ngprogress-lite": "^1.0.8",
     "ngstorage": "^0.3.10",
-    "optipng-bin": "^3.1.2"
+    "optipng-bin": "^3.1.2",
+    "propellerkit": "^1.1.0",
+    "propellerkit-select2": "^1.1.0"
   },
   "devDependencies": {
     "add-stream": "^1.0.0",

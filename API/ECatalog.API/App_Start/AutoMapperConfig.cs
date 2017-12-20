@@ -62,8 +62,15 @@ namespace ECatalog.API.App_Start
             mapperConfiguration.CreateMap<CategoryPageTemplateDTO, CategoryPageTemplateModel>();
 
 
+            mapperConfiguration.CreateMap<BranchModel, BranchDto>();
+            mapperConfiguration.CreateMap<BranchDto, BranchModel>();
+
+            mapperConfiguration.CreateMap<GlobalAdminModel, GlobalAdminDto>();
+            
+            mapperConfiguration.CreateMap<MaxAndConsUserDTO, MaxAndConsUserModel>();
 
             ECatalogBLLConfig.RegisterMappings(mapperConfiguration);
+
             //Mapper.Initialize(m =>
             //{
             //    m.CreateMap<RestaurantTypeModel, RestaurantTypeDto>();

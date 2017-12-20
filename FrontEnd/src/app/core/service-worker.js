@@ -1,4 +1,4 @@
-const cacheName = 'E-Catalog-v1.2.1';
+const cacheName = 'E-Catalog-v1.l.1';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
@@ -11,7 +11,7 @@ const files = [
   'core.js',
   'libs.js',
   'templates.js',
-  'turn.min-en.js',
+  'turn.min.js',
   'turn.min-ar.js',
   'assets/img/back.png',
   'assets/img/back-ar.png',
