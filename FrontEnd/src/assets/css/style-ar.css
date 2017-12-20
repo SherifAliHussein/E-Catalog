@@ -3,7 +3,7 @@
 body{
 	overflow:auto;
 	background-image: url(../assets/img/bg.jpg);
-background-size: 100%;
+    background-size: cover;
 background-repeat: no-repeat;
 font-family:Roboto-Black;}
 
@@ -75,7 +75,30 @@ h3{ font-weight: bold;}
 
 .counter{border-radius: 0!important;
     font-size: 22px!important;
-    color: #000!important;}
+    color: #000!important;
+    width: 41px!important;}
+
+    .main_counter{    width: 100%;
+        overflow: hidden;}
+        .main_counter .counter {
+            float: right;
+            height: 27px;
+            border-radius: 0!important;
+            font-size: 15px!important;
+            color: #000!important;
+            width: 50px!important;
+        }
+
+        .add{    background-color: green;
+            color: #fff!important;
+            padding: 6px;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            margin-right: 10px;
+            font-size: 12px;
+            margin-top: 1px;
+        }
+
 
 .input-group-btn-vertical > .btn {
   display: block;
@@ -86,8 +109,11 @@ h3{ font-weight: bold;}
   margin-left: -1px;
   position: relative;
   border-radius: 0;
-  display: none;
+
 }
+
+.menu_plus{    margin-top: 18px;}
+
 .input-group-btn-vertical > .btn:first-child {
   border-top-right-radius: 4px;
 }
@@ -104,7 +130,8 @@ h3{ font-weight: bold;}
           
 }
 
-.edits{margin-top: 4%;}
+.edits{    margin-top: 4%;
+    text-align: left; }
 
 #flipbook{
 	-webkit-transition:margin-left 0.2s;
@@ -125,14 +152,14 @@ background-size: 100% 100%;
 }
 
 .main_over{background-color: rgba(0, 0, 0, 0.7);
-width: 93%;
+width: 94%;
 height: 100%;
 position: absolute !important;
 top: 0;
 max-width: 100%;}
 
 .main_over:hover{
-	background-color:transparent;
+    background-color: rgba(0,0,0,.4);
 	font-size:45px;
 	}
 	
@@ -165,7 +192,7 @@ max-width: 100%;}
 
 
 .main_over2:hover{
-	background-color:transparent;
+	background-color: rgba(0, 0, 0, 0.4);
 	}
 	
 	.main_over2:hover p{
@@ -192,7 +219,8 @@ float: none!important;
         border-radius: 5px;
         padding-left: 10px;
         padding-right: 10px;
-        font-size: 15px;}
+        font-size: 15px;
+        margin-left: 15px;}
 
 .main_cart p{max-width: 211px;
     font-family: Roboto-light;
@@ -356,10 +384,15 @@ width: 21%;
 }
 
 .logo {
-    margin-right: 5%;
+    margin-right: 3%;
     width: 21vh;
     float: right;
 }
+
+.logout{font-size: 15px!important;
+    float: left!important;
+    color: #fff;
+    margin-top: 6px;}
 
 .subs{margin-top: 40px;
 text-align: center;
@@ -381,9 +414,28 @@ float: none!important;}
     bottom: 0;
     margin-top: auto;
     margin-bottom: auto;
-    
+    padding-top: 3vw;
     color: #fff;
 }
+
+.sub_sub{    background-color: rgba(0,0,0,.7);
+    position: absolute;
+    height: 100%;
+    width: 90.5%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 0;}
+
+    .settings{    float: left;
+        margin-left: 0%;
+        margin-top: 1%;}
+
+        .settings a{
+            float: left;
+            margin-left: 8px;
+        }
 
    .active_pop img{ width: 65px!important;
        margin-top: 5px;
@@ -410,7 +462,7 @@ bottom: 0;
 margin-top: auto;
 margin-bottom: auto;
   
-    padding-top: 10vh;
+    padding-top: 15vh;
 color: #fff;}
 
 
@@ -418,7 +470,7 @@ color: #fff;}
     position: absolute;
     height: 91%;
     border: 4px solid #fff;
-    width: 86%;
+    width: 95%;
     margin-left: auto;
     margin-right: auto;
     left: 0;
@@ -431,6 +483,17 @@ color: #fff;}
     color: #fff;
     font-family: 'Bad Script', cursive;
     font-weight: bold;
+}
+.radio {
+    float: right;
+    min-width: 83px;
+    margin-top: 0!important;
+    padding-right: 20px;
+    padding-left: 0;
+}
+
+.orange {
+    color: #ffa800!important;
 }
 
 .active_book p{font-size: 22px;
@@ -485,7 +548,8 @@ text-align: center;}
 }
 
 
-.subs img{width:100%;}
+.subs img{width:100%;
+    min-height: 145px;}
 
 .header{margin-top: 2%;
 margin-bottom: 19px;
@@ -507,7 +571,7 @@ font-size: 21px;
 margin-bottom: 3px;}
 
 .main_data p{line-height: 14px;
-font-size: 11px;
+font-size: 14px;
 margin-bottom: 0px;
 font-family:Roboto-Light;}
 
@@ -527,7 +591,8 @@ max-height: 98%;}
 	max-width: 23px;}
 	
 	.lists_action img{width:auto;
-	max-width: 23px;}
+    max-width: 23px;
+    margin-left: 20px;}
 
 .offer_data{
 	position: absolute;
@@ -536,12 +601,18 @@ color: #fff;
 padding-left: 10px;
 width: 100%;}
 
-.lists_action{float: right;}
+.radio_s{       float: right!important;
+    margin-right: -20px!important;}
+
+    
+
+.lists_action{float: left;}
 
 .list_price{
-	float:left;
-	font-family:Roboto-Black;
-	color:#f72525;}
+    float: right;
+    font-family: Roboto-Black;
+    color: #f72525;
+    margin-left: 13px;}
 	
 
 .offers{
@@ -568,12 +639,36 @@ margin-bottom: 0px;
 padding-right: 12px;
 margin-top: 5px;}
 
+.row_size{
+    margin-left: -10px;
+    margin-right: -20px;
+    padding-top: 26px!important;
+}
+
+.arrow_img{
+    /* -webkit-transform: rotatey(150deg);
+    transform: rotatey(150deg); */
+}
+
+.main_arrow{    float: right;}
 
 
-.lists p{margin-bottom: 0px;}
+.lists p{margin-bottom: 10px;
+    font-size: 14px;}
 
 .items_edit{margin-top: 10px;
-    padding-left: 0 !important;}
+    padding-left: 0;
+    overflow: hidden;}
+
+    .y_price{    color: #ffa800!important;
+        font-family: Roboto-Black!important;
+        width: 30px;
+        padding: 0;
+        margin: 0;
+        float: right;
+        padding-top: 6px;
+        font-weight: bold;
+        font-size: 10px;}
 
 .lists{overflow: hidden;
     margin-bottom: 6px;}
@@ -622,8 +717,12 @@ border-bottom: 1px solid #ffa800;
 max-width: 24px;}
 
 .item_price{color:#ffa800;
+    
+    line-height: 17px;
 font-family: Roboto-Black !important;}
-.item_price span{color:#000;}
+.item_price span{color: #000;
+    font-size: 13px;
+    font-weight: bold;}
 
 #flipbook .page-wrapper{
 	-webkit-perspective:2000px;
@@ -896,7 +995,7 @@ body {
     
 
     .ssss {
-        padding-left: 8px;
+        padding-right: 3px;
     }
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
         display: none !important;

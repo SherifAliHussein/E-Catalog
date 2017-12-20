@@ -6,8 +6,7 @@
         .controller('ItemController', ['$scope', '$translate', '$stateParams', 'appCONSTANTS', 'categoryItemsTemplatePrepService', 'totalCartService','CartIconService', ItemController])
 
     function ItemController($scope, $translate, $stateParams, appCONSTANTS, categoryItemsTemplatePrepService,  totalCartService,CartIconService) {
-
-        $scope.letterLimit = 2;
+ 
         var vm = this;
         $scope.cartIcon = true;
         $scope.$watch("cartIcon", function (newValue) {
@@ -22,8 +21,7 @@
         // } 
        vm.currentItem=0; 
        vm.selectedSize = 10;
-        vm.selectedSide = 10;
-        $scope.selectedCount = 0;   
+        vm.selectedSide = 10; 
         $scope.checkradioasd = -1;
         $scope.selectedCount=1;
         $scope.homeTotalNo = '';
@@ -37,6 +35,11 @@
         $scope.displayAdd = false;
 
         $scope.addItemToCart = function (product) {
+       if($scope.selectedCount < 1)
+       {
+        alert("Must postive number"); 
+        return;
+       }     
 if(vm.currentItem != product.itemID){
     $scope.item = {
         itemobj: "",
@@ -85,7 +88,8 @@ if(vm.currentItem != product.itemID){
 
                           if (id === stordId && objsize ===stordSize) {
                             repeat = true;
-                            $scope.cart[z].itemobj.count += 1;
+                            $scope.cart[z].itemobj.count +=CheckOutLocalstorage[s].itemobj.count;
+                            // $scope.cart[z].itemobj.count += 1;
                       //  $scope.cart.push(CheckOutLocalstorage[s]); 
                         
                         }
@@ -149,7 +153,16 @@ if(vm.currentItem != product.itemID){
                 }
             }
         };
-
+        $scope.addCounter = function () { 
+            $scope.selectedCount = $scope.selectedCount+1;  
+            
+        };
+        $scope.removeCounter = function () { 
+            if($scope.selectedCount <= 1){
+return;
+            }
+            $scope.selectedCount = $scope.selectedCount-1;  
+        };
     }
 
 }

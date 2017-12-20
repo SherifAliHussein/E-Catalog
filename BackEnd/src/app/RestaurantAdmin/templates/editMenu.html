@@ -16,7 +16,8 @@
 				<input required type="text" class="mat-input form-control" name="menuName" ng-model="editMenuDlCtrl.menuName" ng-minlength="3" ng-maxlength="40">
 				<div ng-messages="editMenuForm.menuName.$error" >
 					<div ng-if="editMenuForm.menuName.$error.required && !editMenuForm.menuName.$pristine">{{'requiredErr' | translate}}</div>
-					<div ng-if="(editMenuDlCtrl.menuName.$error.minlength || editMenuDlCtrl.menuName.$error.maxlength) && !editMenuDlCtrl.menuName.$error.required">{{'NameLengthError' | translate}}</div>
+					<div ng-if="(editMenuForm.menuName.$error.minlength || editMenuForm.menuName.$error.maxlength) && !editMenuForm.menuName.$error.required">{{'NameLengthError' | translate}}</div>
+					
                 </div>
 			</div> -->
 			<div> 

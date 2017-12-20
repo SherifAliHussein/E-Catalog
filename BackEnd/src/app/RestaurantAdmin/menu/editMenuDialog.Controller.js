@@ -38,22 +38,7 @@
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 				}
             );
-			// var newMenu = new MenuResource();
-            // newMenu.menuName = vm.menuName;
-			// if(mode == "edit")
-			// 	newMenu.menuId = menu.menuId;
-			// else
-			// 	newMenu.menuId = vm.selectedMenu.menuId;
-            // newMenu.$update().then(
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",$translate.instant('menuUpdateSucess'),"success");
-			// 		$uibModalInstance.dismiss('cancel');
-			// 		callBackFunction();
-            //     },
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            //     }
-            // );
+		 
 		}
 		vm.LoadUploadImage = function() {
 			$("#menuImage").click();

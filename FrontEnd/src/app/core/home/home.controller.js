@@ -171,6 +171,12 @@
         }
 
         $scope.logout = function () {
+           
+            $scope.homeTotalNo = 0; 
+                        $scope.$watch("homeTotalNo", function (newValue) {
+                            totalCartService.homeTotalNo = newValue;
+                        });
+                         localStorage.removeItem('checkOut');
             $scope.globalInfo='';
                authorizationService.logout();
             $state.go('login');

@@ -7,17 +7,17 @@
                 </div> <div class="col-sm-8 col-xs-8 col-md-8">
                   
                     <h3>
-                            {{item.itemName < 25 ? 'item.itemName' : item.itemName | limitTo:25...}}  
+                            {{item.itemName < 25 ? 'item.itemName' : item.itemName | limitTo:25}}   
            </h3>
-                            <p style="min-height: 40px;"> 
+                            <p> 
                              
-                            {{item.itemDescription < 90 ? 'item.itemDescription' : item.itemDescription | limitTo:90...}}  
+                            {{item.itemDescription < 90 ? 'item.itemDescription' : item.itemDescription | limitTo:90}} 
                          
                           </p> 
                     <div class="col-sm-12 col-xs-12 col-md-12 no_padding">
 
                         <div class="col-sm-5 col-xs-5 col-md-5 no_padding">
-                            <p class="item_price" ng-repeat="size in item.sizes">{{size.price}}   <span class="ssss">{{size.sizeName}}</span></p>
+                            <div class="item_price" ng-repeat="size in item.sizes |limitTo:3"><h5 class="y_price">{{size.price}}</h5>   <span class="ssss">{{size.sizeName}}</span></div>
                             <!-- <p class="item_price">110 <span class="ssss">M</span></p>
                             <p class="item_price">130 <span class="ssss">L</span></p> -->
                         </div>

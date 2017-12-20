@@ -42,22 +42,6 @@
 				}
             );
             
-			// var updateCategory = new MenuResource();
-            // updateCategory.categoryName = vm.categoryName;
-			// if(mode == "edit")
-			// 	updateCategory.menuId = Category.menuId;
-			// else
-			// 	updateCategory.menuId = vm.selecteCategory.menuId;
-            // newMenu.$update().then(
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",$translate.instant('menuUpdateSucess'),"success");
-			// 		$uibModalInstance.dismiss('cancel');
-			// 		callBackFunction();
-            //     },
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            //     }
-            // );
         }
         vm.LoadUploadImage = function() {
 			$("#categoryImage").click();

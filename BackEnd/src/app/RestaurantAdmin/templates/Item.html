@@ -25,9 +25,9 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="item in itemCtrl.items.results">
-                        <td data-title="Name"  width="15%">{{item.itemName}}</td>
+                        <td data-title="Name"  width="15%">{{item.itemName  | limitTo:10}}</td>
                         <td data-title="Image" ><img ng-src="{{item.imageURL}}?type='thumbnail'&date={{itemCtrl.Now}}" ng-alt="{{item.itemName}}" style="max-height: 200px;max-width: 200px;"/></td>
-                        <td data-title="Description">{{item.itemDescription}}</td>                        
+                        <td data-title="Description">{{item.itemDescription  | limitTo:50}}</td>                        
                         <!-- <td data-title="Description" width="5%">{{item.price}}</td>                         -->
                         <td data-title="Size" width="10%" >
                             <div ng-init="sizeLimit=2">

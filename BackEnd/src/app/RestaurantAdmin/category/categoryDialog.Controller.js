@@ -29,8 +29,7 @@
 				data: model
 			}).then(
 				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryAddSuccess'),"success");
-					 // $state.go('Category',{MenuId:menuId});
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryAddSuccess'),"success"); 
 					 vm.isChanged = false;
 					 $state.go('Category', {menuId: $stateParams.menuId});
 				},
@@ -60,8 +59,7 @@
 						var reader = new FileReader();
 
 						reader.onloadend = function() {
-							vm.categoryImage= reader.result;
-							// $scope.Photo = reader.result;
+							vm.categoryImage= reader.result; 
 							$scope.$apply();
 						};
 						if (imageFile) {

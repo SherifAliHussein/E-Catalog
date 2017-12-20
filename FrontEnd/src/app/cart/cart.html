@@ -1,4 +1,30 @@
-
+<script>
+    
+            $(document).ready(function () {
+                //Stop people from typing
+                $('.spinner input').keydown(function (e) {
+                    e.preventDefault();
+                    return false;
+                });
+                var minNumber = 0;
+                var maxNumber = 1000;
+                $('.spinner .btn:first-of-type').on('click', function () {
+                    if ($('.spinner input').val() == maxNumber) {
+                        return false;
+                    } else {
+                        $('.spinner input').val(parseInt($('.spinner input').val(), 10) + 1);
+                    }
+                });
+    
+                $('.spinner .btn:last-of-type').on('click', function () {
+                    if ($('.spinner input').val() == minNumber) {
+                        return false;
+                    } else {
+                        $('.spinner input').val(parseInt($('.spinner input').val(), 10) - 1);
+                    }
+                });
+            });
+        </script>
    <a class="back" href="#">
     <img alt="" />
 </a>
@@ -14,8 +40,9 @@
                     <tr>
                         <th>{{'Item' | translate}}</th>
                         <th>{{'NUM' | translate}}</th>
+                        <!-- <th>{{'Size' | translate}}</th> -->
                         <th>{{'Price' | translate}}</th>
-                        <th>{{'EDIT' | translate}}</th> 
+                        <th></th> 
                     </tr>
                     <tr ng-repeat="c in cartCtrl.repeatCart">
                         <td>
@@ -24,29 +51,32 @@
                                 <img ng-src="{{c.itemobj.imageURL}}" />
                             </div>
                             <div class="col-md-8 col-sm-8 col-xs-8">
-                                <h3> {{c.itemobj.itemName}}</h3>
+                                <h3> {{c.itemobj.itemName | limitTo:20}}</h3>
                                 <p>
-                                   {{c.itemobj.itemDescription}}
+                                   {{c.itemobj.itemDescription | limitTo:63}}
                                 </p>
                             </div>
 
                         </td>
-                        <td>
+                       
+                            <td>   
+                                    <span ><img  class="arrow_img" ng-click="removeCounter(c,cartCtrl.index = $index)" style="width: 21px!important;height: 21px!important;" ng-src="../assets/img/Subtract2.png" /></span>
+                                <input style="width: 36px;"  type="number"  ng-model="c.itemobj.count" readonly="readonly">
+                                <span><img class="arrow_img" ng-click="addCounter(c,cartCtrl.index = $index)" style="width: 23px!important;height: 21px!important;" ng-src="../assets/img/Plus.png" /></span>
+        
 
-                            <div class="">
-                                <div class="input-group spinner">
-                                    <input type="text" class="form-control counter" value="{{c.itemobj.count}}" readonly="readonly">
+                                    <!-- <input type="text" class="form-control counter" value="{{c.itemobj.count}}" >
                                     <div class="input-group-btn-vertical">
                                         <div class="btn btn-default left_arrow"><i class="fa fa-caret-up"></i></div>
                                         <div class="btn btn-default right_arrow"><i class="fa fa-caret-down"></i></div>
-                                    </div>
-                                </div>
-                            </div>
+                                    </div> --> 
                         </td>
-                        <td><span class="bold_td">{{c.size.price*c.itemobj.count}} {{'SAR' | translate}}</span></td>
                         <td>
-                            <input class="btn btn-default" type="button" ng-click="viewItemDetail(c)" value="{{'Add' | translate}}" data-lity-target="#inline2" data-lity/>
-                            <input class="btn btn-default" type="button" ng-click="updateItemCart(c,cartCtrl.index = $index)" value="{{'EDIT' | translate}}" data-lity-target="#inline2" data-lity/>
+                                <!-- {{c.size.sizeName}} -->
+                            </td> <td><span class="bold_td">{{c.size.price*c.itemobj.count}} {{'SAR' | translate}}</span></td>
+                        <td>
+                            <!-- <input class="btn btn-default" type="button" ng-click="viewItemDetail(c)" value="{{'Add' | translate}}" data-lity-target="#inline2" data-lity/> -->
+                            <!-- <input class="btn btn-default" type="button" ng-click="updateItemCart(c,cartCtrl.index = $index)" value="{{'EDIT' | translate}}" data-lity-target="#inline2" data-lity/> -->
                             <input class="btn btn-danger" type="button" ng-click="removeItemCart(c)" value="{{'Remove' | translate}}" />
                             <!--<a href="javascript:void(0);" ng-click="viewItemDetail(c)" data-lity-target="#inline2" data-lity><img src="assets/img/view.png" style="width: 9%;" alt="" /></a>-->
                         </td>
@@ -89,13 +119,25 @@
 
     <div class="col-sm-6 col-xs-6 col-md-6 header_pop">
         <img ng-src="{{cartCtrl.itemdetails.imageURL}}" />
-    </div>
-    <!--{{homeTotalNo}}-->
+        <div class="menu_plus">
+            
+                <div  class="radio" ng-repeat="(key,val) in cartCtrl.itemdetails.sizes">
+                        <input type="radio"  ng-click="radioSizeClick(val,cartCtrl.itemDetails.itemID)" ng-model="$parent.checkradioasd" ng-value='val.sizeId'  >
+                        {{val.price}}
+                        <span>{{val.sizeName}}</span>
+                   </div>
+        
+        </div>
+        <div class="main_counter">
+                <input type="number" ng-model="selectedCount" class="form-control counter" value="1" >
+                
+                       <input type="button" class="btn add" ng-click="editItemToCart(cartCtrl.itemdetails)" value="{{'Edit' | translate}}" ng-show="displayEditBtn" data-lity-close>
+            </div>
+
+    </div> 
     <!-- <select ng-model="selectedCount"  ng-init="selectedCount = cartCtrl.counts[0]" ng-options="x for x in cartCtrl.counts"></select> -->
-    <input type="number" ng-model="selectedCount" class="form-control counter" value="1" >
-    
-    <input type="button" ng-click="addItemToCart(cartCtrl.itemdetails)" value="{{'Add' | translate}}" ng-show="displayAdd" ng-disabled="disableAdd"  data-lity-close>
-    <input type="button" ng-click="editItemToCart(cartCtrl.itemdetails)" value="{{'Edit' | translate}}" ng-show="displayEditBtn" data-lity-close>
+
+    <!-- <input type="button" ng-click="addItemToCart(cartCtrl.itemdetails)" value="{{'Add' | translate}}" ng-show="displayAdd" ng-disabled="disableAdd"  data-lity-close> -->
 
     <div class="col-sm-6 col-xs-6 col-md-6 ">
         <h3>
@@ -105,24 +147,18 @@
         </h3>
         <p>{{cartCtrl.itemdetails.itemDescription}}</p>
         <div class="col-sm-6 col-xs-6 col-md-6">
-            <div class="menu_plus">
-                <h3>{{'Size' | translate}} </h3>
+            <div class="menu_plus"> 
                 <!-- <p ng-repeat="size in cartCtrl.itemdetails.sizes" >
                     {{size.price}}
                     <span>{{size.sizeName}}</span>
                     <input type="radio"    ng-model="selectedSize" ng-click="radioSizeClick(size)" name="name" required />
                 </p>
                  -->
-                <div ng-repeat="(key,val) in cartCtrl.itemdetails.sizes">
-                    <input type="radio"  ng-click="radioSizeClick(val)" ng-model="$parent.checkradioasd" ng-value='val.sizeId'  >
-                    {{val.price}}
-                    <span>{{val.sizeName}}</span>
-               </div>
+            
                <!--   <br>
               <div>Selected : {{checkradioasd}}</div> -->
 
-            </div>
-            <br>
+            </div> 
             <!--<div class="menu_plus" style="margin-top: 41px;">
                 <h3>Side Items</h3>
                 {{cartCtrl.itemdetails.sides[0].sideItemName}}

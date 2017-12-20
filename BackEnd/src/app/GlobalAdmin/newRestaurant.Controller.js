@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-	
+
     angular
         .module('home')
         .controller('newRestaurantController', ['$scope','$translate','$http', 'appCONSTANTS' ,'$state', 'RestaurantResource','ToastService' ,'allRestaurantTypePrepService', 'waitersLimitPrepService',  newRestaurantController])
@@ -39,71 +39,71 @@
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('restaurantAddSuccess'),"success");
 					$state.go('restaurants');
 				},
-				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+				function (data, status) {
+				    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}
 			);
 
-			// var newRestaurant = new RestaurantResource();
+            // var newRestaurant = new RestaurantResource();
             // newRestaurant.restaurantAdminUserName = vm.restaurantAdmin;
-			// newRestaurant.restaurantAdminPassword = vm.restaurantAdminPassword;
-			// newRestaurant.restaurantName = vm.restaurantName;
-			// newRestaurant.restaurantDescription = vm.restaurantDescription;
-			// newRestaurant.restaurantTypeId = vm.selectedType.restaurantTypeId;
-			// newRestaurant.Image = restaurantLogo;
+            // newRestaurant.restaurantAdminPassword = vm.restaurantAdminPassword;
+            // newRestaurant.restaurantName = vm.restaurantName;
+            // newRestaurant.restaurantDescription = vm.restaurantDescription;
+            // newRestaurant.restaurantTypeId = vm.selectedType.restaurantTypeId;
+            // newRestaurant.Image = restaurantLogo;
             // newRestaurant.$create().then(
             //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp","restaurant added successfully.","success");
-			// 		$state.go('restaurants');
+            // 		ToastService.show("right","bottom","fadeInUp","restaurant added successfully.","success");
+            // 		$state.go('restaurants');
             //     },
             //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+            // 		ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
             //     }
             // );
 		}
 		
 
-		vm.LoadUploadLogo = function() {
-			$("#logoImage").click();
-		}
-		var restaurantLogo; 
-		$scope.AddRestaurantLogo = function(element) {
-			var logoFile = element[0];
+        vm.LoadUploadLogo = function () {
+            $("#logoImage").click();
+        }
+        var restaurantLogo;
+        $scope.AddRestaurantLogo = function (element) {
+            var logoFile = element[0];
 
-			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+            var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
-			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+            if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
 
-				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
-					$scope.newRestaurantForm.$dirty=true;
-					$scope.$apply(function() {
-						
-						restaurantLogo= logoFile;
-						var reader = new FileReader();
+                if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+                    $scope.newRestaurantForm.$dirty = true;
+                    $scope.$apply(function () {
 
-						reader.onloadend = function() {
-							vm.restaurantLogo= reader.result;
-							// $scope.Photo = reader.result;
-							$scope.$apply();
-						};
-						if (logoFile) {
-							reader.readAsDataURL(logoFile);
-						}
-					})
-				} else {
-					$("#logoImage").val('');
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
-				}
+                        restaurantLogo = logoFile;
+                        var reader = new FileReader();
 
-			} else {
-				if (logoFile) {
-					$("#logoImage").val('');
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
-				}
+                        reader.onloadend = function () {
+                            vm.restaurantLogo = reader.result;
+                            // $scope.Photo = reader.result;
+                            $scope.$apply();
+                        };
+                        if (logoFile) {
+                            reader.readAsDataURL(logoFile);
+                        }
+                    })
+                } else {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+                }
 
-			}
+            } else {
+                if (logoFile) {
+                    $("#logoImage").val('');
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+                }
+
+            }
 
 
-		}
-	}	
+        }
+    }
 }());

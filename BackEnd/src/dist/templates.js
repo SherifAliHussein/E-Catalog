@@ -560,9 +560,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                </thead>\n' +
     '                <tbody>\n' +
     '                    <tr ng-repeat="item in itemCtrl.items.results">\n' +
-    '                        <td data-title="Name"  width="15%">{{item.itemName}}</td>\n' +
+    '                        <td data-title="Name"  width="15%">{{item.itemName  | limitTo:10}}</td>\n' +
     '                        <td data-title="Image" ><img ng-src="{{item.imageURL}}?type=\'thumbnail\'&date={{itemCtrl.Now}}" ng-alt="{{item.itemName}}" style="max-height: 200px;max-width: 200px;"/></td>\n' +
-    '                        <td data-title="Description">{{item.itemDescription}}</td>                        \n' +
+    '                        <td data-title="Description">{{item.itemDescription  | limitTo:50}}</td>                        \n' +
     '                        <!-- <td data-title="Description" width="5%">{{item.price}}</td>                         -->\n' +
     '                        <td data-title="Size" width="10%" >\n' +
     '                            <div ng-init="sizeLimit=2">\n' +
@@ -930,7 +930,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '                        <label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '                        <input required type="text" class="mat-input form-control" name="categoryName" ng-model="editCategoryDlCtrl.categoryName"  ng-minlength="3" ng-maxlength="100">\n' +
+    '                        <input required type="text" class="mat-input form-control" name="categoryName" ng-model="editCategoryDlCtrl.categoryName"  ng-minlength="3" ng-maxlength="40">\n' +
     '                        <div ng-messages="editCategoryForm.categoryName.$error" >\n' +
     '                            <div ng-if="editCategoryForm.categoryName.$error.required && !editCategoryForm.categoryName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '                            <div ng-if="(editCategoryForm.categoryName.$error.minlength || editCategoryForm.categoryName.$error.maxlength) && !editCategoryForm.categoryName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
@@ -1017,7 +1017,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '			<!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="itemName" ng-model="editItemCtrl.item.itemName" ng-minlength="3" ng-maxlength="100">\n' +
+    '				<input required type="text" class="mat-input form-control" name="itemName" ng-model="editItemCtrl.item.itemName" ng-minlength="3" ng-maxlength="40">\n' +
     '				<div ng-messages="newItemForm.itemName.$error" >\n' +
     '					<div ng-if="newItemForm.itemName.$error.required && !newItemForm.itemName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(newItemForm.itemName.$error.minlength || newItemForm.itemName.$error.maxlength) && !newItemForm.itemName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
@@ -1158,7 +1158,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<input required type="text" class="mat-input form-control" name="menuName" ng-model="editMenuDlCtrl.menuName" ng-minlength="3" ng-maxlength="40">\n' +
     '				<div ng-messages="editMenuForm.menuName.$error" >\n' +
     '					<div ng-if="editMenuForm.menuName.$error.required && !editMenuForm.menuName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '					<div ng-if="(editMenuDlCtrl.menuName.$error.minlength || editMenuDlCtrl.menuName.$error.maxlength) && !editMenuDlCtrl.menuName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '					<div ng-if="(editMenuForm.menuName.$error.minlength || editMenuForm.menuName.$error.maxlength) && !editMenuForm.menuName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '					\n' +
     '                </div>\n' +
     '			</div> -->\n' +
     '			<div> \n' +
@@ -1552,7 +1553,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            <form class="form-horizontal" name="newCategoryForm">\n' +
     '                <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                    <label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '                    <input required type="text" class="mat-input form-control" name="categoryName" ng-model="categoryDlCtrl.categoryName"  ng-minlength="3" ng-maxlength="100">\n' +
+    '                    <input required type="text" class="mat-input form-control" name="categoryName" ng-model="categoryDlCtrl.categoryName"  ng-minlength="3" ng-maxlength="40">\n' +
     '                    <div ng-messages="newCategoryForm.categoryName.$error" >\n' +
     '                        <div ng-if="newCategoryForm.categoryName.$error.required && !newCategoryForm.categoryName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '                        <div ng-if="(newCategoryForm.categoryName.$error.minlength || newCategoryForm.categoryName.$error.maxlength) && !newCategoryForm.categoryName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
@@ -1670,7 +1671,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '			<!-- <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '				<label for="first-name">{{\'Name\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="itemName" ng-model="newItemCtrl.itemName" ng-minlength="3" ng-maxlength="100">\n' +
+    '				<input required type="text" class="mat-input form-control" name="itemName" ng-model="newItemCtrl.itemName" ng-minlength="3" ng-maxlength="40">\n' +
     '				<div ng-messages="newItemForm.itemName.$error" >\n' +
     '					<div ng-if="newItemForm.itemName.$error.required && !newItemForm.itemName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="(newItemForm.itemName.$error.minlength || newItemForm.itemName.$error.maxlength) && !newItemForm.itemName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +

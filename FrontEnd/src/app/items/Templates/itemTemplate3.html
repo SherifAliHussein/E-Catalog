@@ -7,12 +7,12 @@
             <div class="main_data">
                 <div class="col-sm-8 col-xs-8 col-md-8">
                         <h3>
-                                {{pageitems.itemModels[0].itemName < 20 ? 'pageitems.itemModels[0].itemName' : pageitems.itemModels[0].itemName | limitTo:20...}}  
+                                {{pageitems.itemModels[0].itemName < 20 ? 'pageitems.itemModels[0].itemName' : pageitems.itemModels[0].itemName | limitTo:20 }}  
                </h3>
                               <!-- <p style="white-space: pre;min-height: 40px;">{{pageitems.itemModels[0].itemDescription | limitTo:50}} </p> -->
                               <p style="min-height: 40px;"> 
                                  
-                                {{pageitems.itemModels[0].itemDescription < 200 ? 'pageitems.itemModels[0].itemDescription' : pageitems.itemModels[0].itemDescription | limitTo:200...}}  
+                                {{pageitems.itemModels[0].itemDescription < 200 ? 'pageitems.itemModels[0].itemDescription' : pageitems.itemModels[0].itemDescription | limitTo:200 }}  
                              
                               </p> 
 
@@ -20,13 +20,13 @@
 
 
                 <div class="col-sm-4 col-xs-4 col-md-4">
-                    <div class="row" style="padding-top: 26px!important; ">
-                        <div class="col-sm-5 col-xs-5 col-md-5 no_padding">
-                            <p class="item_price"  ng-repeat="size in pageitems.itemModels[0].sizes">{{size.price}}   <span class="ssss">{{size.sizeName}}</span></p>
+                    <div class="row_size" >
+                        <div class="col-sm-7 col-xs-7 col-md-7 no_padding">
+                            <div class="item_price" ng-repeat="size in pageitems.itemModels[0].sizes |limitTo:3"><h5 class="y_price">{{size.price}}</h5> <span class="ssss">{{size.sizeName}}</span></div>
                             <!-- <p class="item_price">110 <span class="ssss">M</span></p>
                             <p class="item_price">130 <span class="ssss">L</span></p> -->
                         </div>
-                        <div class="col-sm-7 col-xs-7 col-md-7 edits no_padding">
+                        <div class="col-sm-5 col-xs-5 col-md-5 edits no_padding">
 
                             <a  href="javascript:void(0);" ng-click="viewItemDetail(pageitems.itemModels[0])"  data-lity-target="#inline2" data-lity><img src="assets/img/view.png" alt="" /></a>
 
@@ -43,26 +43,27 @@
             <div class="main_data" ng-show="pageitems.itemModels[1] != null">
                 <div class="col-sm-8 col-xs-8 col-md-8">
                         <h3>
-                                {{pageitems.itemModels[1].itemName < 20 ? 'pageitems.itemModels[1].itemName' : pageitems.itemModels[1].itemName | limitTo:20...}}  
+                                {{pageitems.itemModels[1].itemName < 20 ? 'pageitems.itemModels[1].itemName' : pageitems.itemModels[1].itemName | limitTo:20}}   
             
              </h3>
                       
                         <p style="min-height: 40px;"> 
                             
-                             {{pageitems.itemModels[1].itemDescription < 200 ? 'pageitems.itemModels[1].itemDescription' : pageitems.itemModels[1].itemDescription | limitTo:200...}}  
+                             {{pageitems.itemModels[1].itemDescription < 200 ? 'pageitems.itemModels[1].itemDescription' : pageitems.itemModels[1].itemDescription | limitTo:200}}   
                         
                          </p> 
                 </div>
 
 
                 <div class="col-sm-4 col-xs-4 col-md-4">
-                    <div class="row" style="padding-top: 26px!important; ">
-                        <div class="col-sm-5 col-xs-5 col-md-5 no_padding">
-                            <p class="item_price" ng-repeat="size in pageitems.itemModels[1].sizes">{{size.price}}   <span class="ssss">{{size.sizeName}}</span></p>
+                    <div class="row_size"  >
+                        <div class="col-sm-7 col-xs-7 col-md-7 no_padding">
+                            <div class="item_price" ng-repeat="size in pageitems.itemModels[1].sizes |limitTo:3"><h5 class="y_price">{{size.price}}</h5> <span class="ssss">{{size.sizeName}}</span></div>
+                            
                             <!-- <p class="item_price">110 <span class="ssss">M</span></p>
                             <p class="item_price">130 <span class="ssss">L</span></p> -->
                         </div>
-                        <div class="col-sm-7 col-xs-7 col-md-7 edits no_padding">
+                        <div class="col-sm-5 col-xs-5 col-md-5 edits no_padding">
 
                             <a href="javascript:void(0);" ng-click="viewItemDetail(pageitems.itemModels[1])"  data-lity-target="#inline2" data-lity><img src="assets/img/view.png" alt="" /></a>
 
