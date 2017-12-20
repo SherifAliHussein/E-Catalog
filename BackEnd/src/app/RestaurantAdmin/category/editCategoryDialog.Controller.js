@@ -3,40 +3,23 @@
 	
     angular
         .module('home')
-        .controller('editCategoryDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS','ToastService','mode','englishCategories','category','callBackFunction',  editCategoryDialogController])
+        .controller('editCategoryDialogController', ['$scope','$state','$stateParams','$http','$translate','appCONSTANTS','ToastService','categoryPrepService',  editCategoryDialogController])
 
-	function editCategoryDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS,ToastService, mode, englishCategories, category,callBackFunction){
+	function editCategoryDialogController($scope, $state , $stateParams,$http, $translate,appCONSTANTS,ToastService,  categoryPrepService){
 		var vm = this;
-		vm.categoryName = "";
 		
-		vm.mode = mode;
-		vm.englishCategories = englishCategories;
-		if(mode == "edit")
-		{
-            vm.categoryName = category.categoryName;
-            vm.categoryImage = category.imageURL;
-        }
-		else
-            vm.selecteCategory = englishCategories[0];
-        
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.category = categoryPrepService;
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+			$state.go('Category', {menuId: $stateParams.menuId});
 		}
 		
 		vm.updateCategory = function(){
             var updateCategory = new Object();
-            updateCategory.categoryName = vm.categoryName;
+            updateCategory.categoryNameDictionary = vm.category.categoryNameDictionary;
 			updateCategory.isImageChange = isImageChange;
-		
-            if(mode == "edit"){
-				updateCategory.categoryId = category.categoryId;
-				updateCategory.menuId = category.menuId;
-			}
-			else{
-				updateCategory.categoryId = vm.selecteCategory.categoryId;
-				updateCategory.menuId = vm.selecteCategory.menuId;
-				
-			}
+			updateCategory.categoryId = vm.category.categoryId;
+			updateCategory.menuId = vm.category.menuId;
 				
 
 			var model = new FormData();
@@ -52,8 +35,7 @@
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryupdateSuccess'),"success");
                     // $state.go('Category',{MenuId:menuId});
-                    $uibModalInstance.dismiss('cancel');
-                    callBackFunction();
+                    $state.go('Category', {menuId: $stateParams.menuId});
 				},
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
@@ -98,7 +80,7 @@
 						var reader = new FileReader();
 
 						reader.onloadend = function() {
-							vm.categoryImage= reader.result;
+							vm.category.imageURL= reader.result;
 							// $scope.Photo = reader.result;
 							$scope.$apply();
 						};

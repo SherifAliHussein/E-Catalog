@@ -10,18 +10,19 @@ namespace ECatalog.BLL.Services.Interfaces
     public interface IRestaurantFacade
     {
         List<RestaurantTypeDto> GetAllRestaurantType(string language, long userId);
-        bool AddRestaurantType(RestaurantTypeDto restaurantTypeDto, string language, long userId);
-        void UpdateRestaurantType(RestaurantTypeDto restaurantTypeDto, string language, long userId);
-        void AddRestaurant(RestaurantDTO restaurantDto,string language,string path, long userId);
+        bool AddRestaurantType(RestaurantTypeDto restaurantTypeDto, long userId);
+        void UpdateRestaurantType(RestaurantTypeDto restaurantTypeDto, long userId);
+        void AddRestaurant(RestaurantDTO restaurantDto,string path, long userId);
         RestaurantDTO GetRestaurant(long restaurantId, string language);
         PagedResultsDto GetAllRestaurant(string language,int page,int pageSize, long userId);
         void ActivateRestaurant(long restaurantId);
         void DeActivateRestaurant(long restaurantId);
         void DeleteRestaurant(long restaurantId);
-        void UpdateRestaurant(RestaurantDTO restaurantDto, string language, string path, long userId);
+        void UpdateRestaurant(RestaurantDTO restaurantDto, string path, long userId);
         void DeleteRestaurantType(long restaurantTypeId);
         RestaurantDTO CheckRestaurantReady(long restaurantAdminId);
         void PublishRestaurant(long restaurantAdminId);
         ResturantInfoDto GetGlobalRestaurantInfo(long userId, string role);
+        RestaurantTypeDto GetRestaurantTypeById(long restaurantTypeId);
     }
 }

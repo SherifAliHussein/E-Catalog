@@ -49,7 +49,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_category
         {
             try
             {
-                _CategoryFacade.AddCategory(_categoryDto,Strings.DefaultLanguage,"");
+                _CategoryFacade.AddCategory(_categoryDto,"");
             }
             catch (ValidationException ex)
             {
@@ -76,7 +76,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_category
         [Then(@"the category will be added successfully deactivated")]
         public void ThenTheCategoryWillBeAddedSuccessfullyDeactivated()
         {
-            var category = _CategoryFacade.GetCategory(_categoryDto.CategoryId, Strings.DefaultLanguage);
+            var category = _CategoryFacade.GetCategory(_categoryDto.CategoryId);
             Assert.IsFalse(category.IsActive);
         }
         

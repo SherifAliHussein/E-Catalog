@@ -9,8 +9,9 @@
       .factory('PublishRestaurantResource', ['$resource', 'appCONSTANTS', PublishRestaurantResource]);
   
     function MenuResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId', {}, {
+      return $resource(appCONSTANTS.API_URL + 'Menus/:menuId', {}, {
         getAllMenus: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        getMenu: { method: 'GET', useToken: true, },
         create: { method: 'POST', useToken: true },
         deleteMenu: { method: 'DELETE', useToken: true },
         update: { method: 'PUT', useToken: true }

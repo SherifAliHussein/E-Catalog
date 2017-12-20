@@ -3,33 +3,26 @@
 	
     angular
         .module('home')
-        .controller('newRestaurantController', ['$scope','$translate','$http', 'appCONSTANTS' ,'$state', 'RestaurantResource','ToastService', 'englishRestaurantPrepService' ,'allRestaurantTypePrepService', 'waitersLimitPrepService',  newRestaurantController])
+        .controller('newRestaurantController', ['$scope','$translate','$http', 'appCONSTANTS' ,'$state', 'RestaurantResource','ToastService' ,'allRestaurantTypePrepService', 'waitersLimitPrepService',  newRestaurantController])
 
-	function newRestaurantController($scope,$translate,$http, appCONSTANTS, $state, RestaurantResource,ToastService, englishRestaurantPrepService,allRestaurantTypePrepService, waitersLimitPrepService){
+	function newRestaurantController($scope,$translate,$http, appCONSTANTS, $state, RestaurantResource,ToastService,allRestaurantTypePrepService, waitersLimitPrepService){
 		var vm = this;
+		vm.language = appCONSTANTS.supportedLanguage;
 		vm.waitersLimit = waitersLimitPrepService;
 		vm.waitersLimit.maxNumUsers = vm.waitersLimit.maxNumUsers - vm.waitersLimit.consumedUsers;
 		vm.mode = $scope.selectedLanguage != appCONSTANTS.defaultLanguage?"map":"new";
 		vm.close = function(){
 			$state.go('restaurants');
 		}
-		if(vm.mode== "map"){
-			vm.defaultRestaurant =englishRestaurantPrepService.results;
-			vm.save = updateRestaurant;
-			vm.selectedRestaurant = englishRestaurantPrepService.results[0];
-		}
-		else{
-			vm.save = addNewRestaurant;
-		}
 		
 		vm.RestaurantType = allRestaurantTypePrepService;
 		vm.selectedType = allRestaurantTypePrepService[0];
-		function addNewRestaurant(){
+		vm.addNewRestaurant = function(){
 			var newRestaurant = new Object();
             newRestaurant.restaurantAdminUserName = vm.restaurantAdmin;
 			newRestaurant.restaurantAdminPassword = vm.restaurantAdminPassword;
-			newRestaurant.restaurantName = vm.restaurantName;
-			newRestaurant.restaurantDescription = vm.restaurantDescription;
+			newRestaurant.restaurantNameDictionary = vm.restaurantNameDictionary;
+			newRestaurant.restaurantDescriptionDictionary = vm.restaurantDescriptionDictionary;
 			newRestaurant.restaurantTypeId = vm.selectedType.restaurantTypeId;
 			newRestaurant.waitersLimit = vm.restaurantNumOfUsers;
 			var model = new FormData();
@@ -68,45 +61,7 @@
             //     }
             // );
 		}
-		function updateRestaurant(){
-			var updateRestaurant = new Object();
-            updateRestaurant.restaurantAdminUserName = vm.selectedRestaurant.restaurantAdminUserName;
-			updateRestaurant.restaurantAdminPassword = vm.selectedRestaurant.restaurantAdminPassword;
-			updateRestaurant.restaurantName = vm.restaurantName;
-			updateRestaurant.restaurantDescription = vm.restaurantDescription;
-			updateRestaurant.restaurantTypeId = vm.selectedRestaurant.restaurantTypeId;
-			updateRestaurant.restaurantId = vm.selectedRestaurant.restaurantId;
-			updateRestaurant.isLogoChange = false;
-
-			var model = new FormData();
-			model.append('data', JSON.stringify(updateRestaurant));
-			model.append('file', restaurantLogo);
-			$http({
-				method: 'put',
-				url: appCONSTANTS.API_URL + 'Restaurants/',
-				useToken: true,
-				headers: { 'Content-Type': undefined },
-				data: model
-			}).then(
-				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('restaurantUpdateSuccess'),"success");
-					$state.go('restaurants');
-				},
-				function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-				}
-			);
-
-            // updateRestaurant.$update().then(
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp","restaurant updated successfully.","success");
-			// 		$state.go('restaurants');
-            //     },
-            //     function(data, status) {
-			// 		ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            //     }
-            // );
-		}
+		
 
 		vm.LoadUploadLogo = function() {
 			$("#logoImage").click();

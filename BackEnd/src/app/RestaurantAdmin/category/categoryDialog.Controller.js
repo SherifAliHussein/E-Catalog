@@ -3,20 +3,20 @@
 	
     angular
         .module('home')
-        .controller('categoryDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS' , 'CategoryResource','ToastService','menuId','callBackFunction','$rootScope',  categoryDialogController])
+        .controller('categoryDialogController', ['$scope','$state','$stateParams','$http','$translate','appCONSTANTS' , 'CategoryResource','ToastService','$rootScope',  categoryDialogController])
 
-	function categoryDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS , CategoryResource,ToastService,menuId,callBackFunction,$rootScope){
+	function categoryDialogController($scope, $state,$stateParams ,$http, $translate,appCONSTANTS , CategoryResource,ToastService,$rootScope){
 		var vm = this;
-		vm.menuName = "";
+		vm.language = appCONSTANTS.supportedLanguage;
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+			$state.go('Category', {menuId: $stateParams.menuId});
 		}
 		vm.isChanged = false;
 		vm.AddNewCategory = function(){
 			vm.isChanged = true;
             var newCategroy = new Object();
-            newCategroy.categoryName = vm.categoryName;
-            newCategroy.menuId = menuId;
+            newCategroy.categoryNameDictionary = vm.categoryNameDictionary;
+            newCategroy.menuId = $stateParams.menuId;
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(newCategroy));
@@ -32,8 +32,7 @@
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryAddSuccess'),"success");
 					 // $state.go('Category',{MenuId:menuId});
 					 vm.isChanged = false;
-					 $uibModalInstance.dismiss('cancel');
-					 callBackFunction();
+					 $state.go('Category', {menuId: $stateParams.menuId});
 				},
 				function(data, status) {
 					vm.isChanged = false;

@@ -1,13 +1,13 @@
 <div >
 	<div style="margin-bottom:10px">
-		<button  ng-click="$state.go('newRestaurant');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddRestaurantBtn' | translate}}</button>
+		<button ng-disabled="restaurantCtrl.waitersLimit.consumedUsers == restaurantCtrl.waitersLimit.maxNumUsers" ng-click="$state.go('newRestaurant');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddRestaurantBtn' | translate}}</button>
 
 	</div>
 	<div ng-if="restaurantCtrl.restaurant.results.length == 0">
 			<span>{{'NoRestaurantAvailable' | translate}}</span>
 		</div>
 		<span>
-			{{restaurantCtrl.waitersLimit.consumedUsers}} / {{restaurantCtrl.waitersLimit.maxNumUsers}}
+			{{restaurantCtrl.waitersLimit.consumedUsers}} / {{restaurantCtrl.waitersLimit.maxNumUsers}} ({{'waitersLimitConsumedLbl'|translate}})
 		</span>
 		
 	<div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="restaurantCtrl.restaurant.results.length >0">

@@ -11,6 +11,7 @@ namespace ECatalog.BLL.DTOs
     {
         public long MenuId { get; set; }
         public string MenuName { get; set; }
+        public Dictionary<string, string> MenuNameDictionary { get; set; }
         public bool IsActive { get; set; }
         public MemoryStream Image { get; set; }
         public bool IsImageChange { get; set; }

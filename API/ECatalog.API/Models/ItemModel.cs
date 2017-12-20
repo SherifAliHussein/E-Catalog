@@ -10,7 +10,9 @@ namespace ECatalog.API.Models
     {
         public long ItemID { get; set; }
         public string ItemName { get; set; }
+        public Dictionary<string, string> ItemNameDictionary { get; set; }
         public string ItemDescription { get; set; }
+        public Dictionary<string, string> ItemDescriptionDictionary { get; set; }
         public long CategoryId { get; set; }
         public long MenuId { get; set; }
         public long RestaurantId { get; set; }

@@ -44,7 +44,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Delete_menu
         {
             var exception = Assert.Catch<NotFoundException>(() =>
             {
-                _MenuFacade.GetMenu(_menuId, Strings.DefaultLanguage);
+                _MenuFacade.GetMenu(_menuId);
             });
             Assert.AreEqual(exception.ErrorCode, ErrorCodes.MenuDeleted);
         }

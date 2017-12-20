@@ -27,6 +27,9 @@ namespace ECatalog.BLL
         {
             mapperConfiguration.CreateMap<User, UserDto>();
             mapperConfiguration.CreateMap<RestaurantTypeTranslation, RestaurantTypeDto>();
+            mapperConfiguration.CreateMap<RestaurantType, RestaurantTypeDto>()
+                .ForMember(dto => dto.TypeNameDictionary, m => m.MapFrom(src => src.RestaurantTypeTranslations.ToDictionary(translation => translation.Language.ToLower(), translation=> translation.TypeName)));
+
             mapperConfiguration.CreateMap<Restaurant, RestaurantDTO>()
                 .ForMember(dto => dto.RestaurantName,
                     m => m.MapFrom(src => src.RestaurantTranslations.FirstOrDefault().RestaurantName))
@@ -37,7 +40,9 @@ namespace ECatalog.BLL
                 .ForMember(dto => dto.RestaurantAdminPassword,
                     m => m.MapFrom(src => PasswordHelper.Decrypt(src.RestaurantAdmin.Password)))
                 .ForMember(dto => dto.Image,m => m.Ignore())
-                .ForMember(dto => dto.ConsumedWaiters,m => m.MapFrom(src => src.RestaurantWaiters.Count(x=>!x.IsDeleted)));
+                .ForMember(dto => dto.ConsumedWaiters,m => m.MapFrom(src => src.RestaurantWaiters.Count(x=>!x.IsDeleted)))
+                .ForMember(dto => dto.RestaurantNameDictionary, m => m.MapFrom(src => src.RestaurantTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.RestaurantName)))
+                .ForMember(dto => dto.RestaurantDescriptionDictionary, m => m.MapFrom(src => src.RestaurantTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.RestaurantDescription)));
                 //.ForMember(dto => dto.RestaurantAdminUserName,
                 //    m => m.MapFrom(src => PasswordHelper.Decrypt(src.RestaurantAdmin.UserName)));
 
@@ -45,11 +50,13 @@ namespace ECatalog.BLL
             mapperConfiguration.CreateMap<CategoryDTO, Category>();
             mapperConfiguration.CreateMap<Category, CategoryDTO>()
                 .ForMember(dest => dest.CategoryName, m => m.MapFrom(src => src.CategoryTranslations.FirstOrDefault().CategoryName))
-                .ForMember(dest => dest.RestaurantId, m => m.MapFrom(src => src.Menu.RestaurantId));
+                .ForMember(dest => dest.RestaurantId, m => m.MapFrom(src => src.Menu.RestaurantId))
+                .ForMember(dto => dto.CategoryNameDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.CategoryName)));
 
             mapperConfiguration.CreateMap<MenuDTO, Menu>();
             mapperConfiguration.CreateMap<Menu, MenuDTO>()
-                .ForMember(dest => dest.MenuName, m => m.MapFrom(src => src.MenuTranslations.FirstOrDefault().MenuName));
+                .ForMember(dest => dest.MenuName, m => m.MapFrom(src => src.MenuTranslations.FirstOrDefault().MenuName))
+                .ForMember(dto => dto.MenuNameDictionary, m => m.MapFrom(src => src.MenuTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.MenuName)));
 
             mapperConfiguration.CreateMap<Menu, MenuWithCategoriesDTO>()
                 .ForMember(dest => dest.MenuName, m => m.MapFrom(src => src.MenuTranslations.FirstOrDefault().MenuName))
@@ -82,14 +89,17 @@ namespace ECatalog.BLL
                 .ForMember(dest => dest.MenuId, m => m.MapFrom(src => src.Category.MenuId))
                 .ForMember(dest => dest.RestaurantId, m => m.MapFrom(src => src.Category.Menu.RestaurantId))
                 .ForMember(dest => dest.Sizes, m => m.MapFrom(src => src.ItemSizes.Where(x=>!x.Size.IsDeleted)))
-                .ForMember(dest => dest.SideItems, m => m.MapFrom(src => src.ItemSideItems.Where(x=>!x.SideItem.IsDeleted)));
+                .ForMember(dest => dest.SideItems, m => m.MapFrom(src => src.ItemSideItems.Where(x=>!x.SideItem.IsDeleted)))
+                .ForMember(dto => dto.ItemNameDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.ItemName)))
+                .ForMember(dto => dto.ItemDescriptionDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.ItemDescription)));
 
 
             mapperConfiguration.CreateMap<RefreshToken, RefreshTokenDto>().ReverseMap();
 
             mapperConfiguration.CreateMap<SizeDto, Size>();
             mapperConfiguration.CreateMap<Size, SizeDto>()
-                .ForMember(dest => dest.SizeName, m => m.MapFrom(src => src.SizeTranslations.FirstOrDefault().SizeName));
+                .ForMember(dest => dest.SizeName, m => m.MapFrom(src => src.SizeTranslations.FirstOrDefault().SizeName))
+                .ForMember(dto => dto.SizeNameDictionary, m => m.MapFrom(src => src.SizeTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.SizeName)));
 
             mapperConfiguration.CreateMap<SideItemDTO, SideItem>();
             mapperConfiguration.CreateMap<SideItem, SideItemDTO>()
@@ -116,7 +126,9 @@ namespace ECatalog.BLL
             mapperConfiguration.CreateMap<BranchDto, Branch>();
             mapperConfiguration.CreateMap<Branch, BranchDto>()
                 .ForMember(dest => dest.BranchTitle, m => m.MapFrom(src => src.BranchTranslations.FirstOrDefault().BranchTitle))
-                .ForMember(dest => dest.BranchAddress, m => m.MapFrom(src => src.BranchTranslations.FirstOrDefault().BranchAddress));
+                .ForMember(dest => dest.BranchAddress, m => m.MapFrom(src => src.BranchTranslations.FirstOrDefault().BranchAddress))
+                .ForMember(dto => dto.BranchTitleDictionary, m => m.MapFrom(src => src.BranchTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.BranchTitle)))
+                .ForMember(dto => dto.BranchAddressDictionary, m => m.MapFrom(src => src.BranchTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.BranchAddress)));
 
             mapperConfiguration.CreateMap<GlobalAdminDto, GlobalAdmin>();
 

@@ -53,7 +53,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Activate_Deactivate_menu_for_restau
         [Then(@"the menu will be activated")]
         public void ThenTheMenuWillBeActivated()
         {
-            var menu = _MenuFacade.GetMenu(1, Strings.DefaultLanguage);
+            var menu = _MenuFacade.GetMenu(1);
             Assert.IsTrue(menu.IsActive);
         }
         
@@ -66,7 +66,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Activate_Deactivate_menu_for_restau
         [Then(@"menu will be deactivate")]
         public void ThenMenuWillBeDeactivate()
         {
-            var menu = _MenuFacade.GetMenu(1, Strings.DefaultLanguage);
+            var menu = _MenuFacade.GetMenu(1);
             Assert.IsFalse(menu.IsActive);
         }
 

@@ -68,7 +68,7 @@ namespace ECatalog.API.Controllers
             itemDto.Image2 = new MemoryStream();
             httpPostedFile2.InputStream.CopyTo(itemDto.Image2);
 
-            _itemFacade.AddItem(itemDto, Language, HostingEnvironment.MapPath("~/Images/"));
+            _itemFacade.AddItem(itemDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 
@@ -139,7 +139,7 @@ namespace ECatalog.API.Controllers
                 itemDto.Image2 = new MemoryStream();
                 httpPostedFile2.InputStream.CopyTo(itemDto.Image2);
             }
-            _itemFacade.UpdateItem(itemDto, Language, HostingEnvironment.MapPath("~/Images/"));
+            _itemFacade.UpdateItem(itemDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 

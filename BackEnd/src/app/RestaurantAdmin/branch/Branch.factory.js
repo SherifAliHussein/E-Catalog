@@ -8,6 +8,7 @@
     function BranchResource($resource, appCONSTANTS) {
       return $resource(appCONSTANTS.API_URL + 'Branches/:branchId', {}, {
         getAllBranches: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        getBranch: { method: 'GET', useToken: true },
         create: { method: 'POST', useToken: true },
         deleteBranch: { method: 'DELETE', useToken: true },
         update: { method: 'PUT', useToken: true }

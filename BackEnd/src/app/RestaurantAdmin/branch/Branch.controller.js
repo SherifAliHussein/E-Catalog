@@ -3,12 +3,12 @@
 	
     angular
         .module('home')
-        .controller('branchController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal', 'BranchResource','ActivateBranchResource','DeactivateBranchResource','branchPrepService','ToastService',  branchController])
+        .controller('branchController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal', 'BranchResource','ActivateBranchResource','DeactivateBranchResource','branchsPrepService','ToastService',  branchController])
 
-    function branchController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal, BranchResource,ActivateBranchResource,DeactivateBranchResource,branchPrepService,ToastService){
+    function branchController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal, BranchResource,ActivateBranchResource,DeactivateBranchResource,branchsPrepService,ToastService){
 
         var vm = this;
-		vm.branches = branchPrepService;
+		vm.branches = branchsPrepService;
 		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")

@@ -65,7 +65,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_category
         {
             try
             {
-                _CategoryFacade.UpdateCategory(_categoryDto,Strings.DefaultLanguage,"");
+                _CategoryFacade.UpdateCategory(_categoryDto,"");
             }
             catch (ValidationException ex)
             {
@@ -76,7 +76,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_category
         [Then(@"category name will update successfully")]
         public void ThenCategoryNameWillUpdateSuccessfully()
         {
-            var category = _CategoryFacade.GetCategory(_categoryDto.CategoryId, Strings.DefaultLanguage);
+            var category = _CategoryFacade.GetCategory(_categoryDto.CategoryId);
             Assert.AreEqual("new chicken", category.CategoryName);
         }
         

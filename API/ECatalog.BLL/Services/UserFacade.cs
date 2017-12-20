@@ -191,7 +191,7 @@ namespace ECatalog.BLL.Services
 
         public MaxAndConsUserDTO GetMaxAndConsumedUsers(long userId)
         {
-            var maxNum = _globalAdminService.Find(userId).Packages.Select(x=>x.MaxNumberOfWaiters).Sum();
+            var maxNum = _packageService.GetWaitersCountByAdminId(userId);
 
             var consumedUsers = _restaurantService.GetAllResturantsLimits(userId);
 

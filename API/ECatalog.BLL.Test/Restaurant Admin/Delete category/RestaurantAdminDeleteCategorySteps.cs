@@ -43,7 +43,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Delete_category
         {
             var exception = Assert.Catch<NotFoundException>(() =>
             {
-                _CategoryFacade.GetCategory(_categoryId, Strings.DefaultLanguage);
+                _CategoryFacade.GetCategory(_categoryId);
             });
             Assert.AreEqual(exception.ErrorCode, ErrorCodes.CategoryDeleted);
         }

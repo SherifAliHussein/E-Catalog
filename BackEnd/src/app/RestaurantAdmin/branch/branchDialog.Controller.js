@@ -3,26 +3,26 @@
 	
     angular
         .module('home')
-        .controller('branchDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS' , 'BranchResource','ToastService','callBackFunction','$rootScope',  branchDialogController])
+        .controller('branchDialogController', ['$scope','$state','appCONSTANTS','$http','$translate' , 'BranchResource','ToastService','$rootScope',  branchDialogController])
 
-	function branchDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS , BranchResource,ToastService,callBackFunction,$rootScope){
+	function branchDialogController($scope, $state , appCONSTANTS,$http, $translate , BranchResource,ToastService,$rootScope){
 		var vm = this;
-		
+        vm.language = appCONSTANTS.supportedLanguage;
+        
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+            $state.go('branch');            
 		}
 		vm.isChanged = false;
 		vm.AddNewBranch = function(){
 			vm.isChanged = true;
             var newBranch = new BranchResource();
-            newBranch.branchTitle = vm.branchTitle;
-            newBranch.branchAddress = vm.branchAddress;
+            newBranch.branchTitleDictionary = vm.branchTitleDictionary;
+            newBranch.branchAddressDictionary = vm.branchAddressDictionary;
             newBranch.$create().then(
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('BranchAddSuccess'),"success");
 					 vm.isChanged = false;                     
-                    $uibModalInstance.dismiss('cancel');
-					callBackFunction();
+                     $state.go('branch');                     
                 },
                 function(data, status) {
                     vm.isChanged = false;                     

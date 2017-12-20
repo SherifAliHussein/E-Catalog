@@ -20,7 +20,41 @@
 					ng-model="editItemCtrl.selectedRestaurant">
 				</select>
 			</div> -->
-			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+			
+			<div> 
+				<ul class="nav nav-tabs" role="tablist">
+                	<li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editItemCtrl.language">
+                    	<a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+                            {{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editItemCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+                                    <input required type="text" class="mat-input form-control" name="itemNameDictionary{{lang.value+'Name'}}" ng-model="editItemCtrl.item.itemNameDictionary[lang.key]" ng-minlength="3" ng-maxlength="100">
+                                    <div ng-messages="newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error" >        
+                                        <div ng-show="newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.required && !newItemForm.itemNameDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                        <div ng-show="(newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.minlength || newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.maxlength) && !newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError' | translate}}</div>
+                                    </div>
+								</div>
+								<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+									<label for="first-name">{{ lang.value+'DescriptionLbl' | translate}}</label>
+									<textarea required  class="form-control" name="itemDescriptionDictionary{{lang.value+'Name'}}" ng-model="editItemCtrl.item.itemDescriptionDictionary[lang.key]"  ng-minlength="3" ng-maxlength="300"></textarea>
+									<div ng-messages="newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error" >
+										<div ng-show="newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.required && !newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+										<div ng-show="(newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.minlength || newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.maxlength) && !newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.required">{{'DescLengthError' | translate}}</div>
+									</div>
+								</div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 				<label for="first-name">{{'Name' | translate}}</label>
 				<input required type="text" class="mat-input form-control" name="itemName" ng-model="editItemCtrl.item.itemName" ng-minlength="3" ng-maxlength="100">
 				<div ng-messages="newItemForm.itemName.$error" >
@@ -35,7 +69,8 @@
 					<div ng-if="newItemForm.itemDescription.$error.required && !newItemForm.itemDescription.$pristine">{{'requiredErr' | translate}}</div>
 					<div ng-if="(newItemForm.itemDescription.$error.minlength || newItemForm.itemDescription.$error.maxlength) && !newItemForm.itemDescription.$error.required">{{'DescLengthError' | translate}}</div>
                 </div>
-			</div>			
+			</div>			 -->
+
 			<!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >
 				<label for="first-name">{{'Pricelbl' | translate}}</label>
 				<input required type="number" class="mat-input form-control" name="price" ng-model="editItemCtrl.item.price" min="1">
@@ -132,7 +167,7 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="newItemForm.$invalid || (editItemCtrl.mode=='new' && (editItemCtrl.itemImage== null || editItemCtrl.itemImage2== null)) 
+		<button ng-disabled="newItemForm.$invalid 
 		|| (editItemCtrl.hasSideItem && editItemCtrl.SelectedSideItems.length<=0)|| (editItemCtrl.hasSideItem && editItemCtrl.maxSideItemValueError)" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{'saveChangesBtn' | translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{'DiscardBtn' | translate}}</button>
 	</div>

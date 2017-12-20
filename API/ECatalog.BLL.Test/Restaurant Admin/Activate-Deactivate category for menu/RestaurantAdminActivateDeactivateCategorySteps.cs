@@ -60,7 +60,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Activate_Deactivate_category_for_me
         [Then(@"the category will be activated")]
         public void ThenTheCategoryWillBeActivated()
         {
-            var category = _CategoryFacade.GetCategory(1, Strings.DefaultLanguage);
+            var category = _CategoryFacade.GetCategory(1);
             Assert.IsTrue(category.IsActive);
         }
         
@@ -73,7 +73,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Activate_Deactivate_category_for_me
         [Then(@"category will be deactivate")]
         public void ThenCategoryWillBeDeactivate()
         {
-            var category = _CategoryFacade.GetCategory(2, Strings.DefaultLanguage);
+            var category = _CategoryFacade.GetCategory(2);
             Assert.IsFalse(category.IsActive);
         }
 

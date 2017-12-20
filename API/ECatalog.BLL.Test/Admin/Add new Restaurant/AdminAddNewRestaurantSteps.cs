@@ -45,7 +45,7 @@ namespace ECatalog.BLL.Test
         {
             try
             {
-                _RestaurantFacade.AddRestaurant(_restaurantDto,Strings.DefaultLanguage,"", _userDto.UserId);
+                _RestaurantFacade.AddRestaurant(_restaurantDto,"", _userDto.UserId);
             }
             catch (ValidationException ex)
             {

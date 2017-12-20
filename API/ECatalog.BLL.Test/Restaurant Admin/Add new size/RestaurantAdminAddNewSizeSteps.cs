@@ -66,7 +66,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_size
         {
             try
             {
-                _SizeFacade.AddSize(_sizeDto, _userDto.UserId, Strings.DefaultLanguage);
+                _SizeFacade.AddSize(_sizeDto, _userDto.UserId);
             }
             catch (ValidationException ex)
             {
@@ -77,7 +77,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_size
         [Then(@"the size will be added successfully deactivated")]
         public void ThenTheSizeWillBeAddedSuccessfullyDeactivated()
         {
-            var size = _SizeFacade.GetSize(_sizeDto.SizeId, Strings.DefaultLanguage);
+            var size = _SizeFacade.GetSize(_sizeDto.SizeId );
             Assert.NotNull(size);
         }
         

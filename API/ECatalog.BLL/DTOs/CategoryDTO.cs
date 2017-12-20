@@ -13,6 +13,7 @@ namespace ECatalog.BLL.DTOs
         public long MenuId { get; set; }
         public long RestaurantId { get; set; }
         public string CategoryName { get; set; }
+        public Dictionary<string, string> CategoryNameDictionary { get; set; }
         public bool IsActive { get; set; }
         public MemoryStream Image { get; set; }
         public bool IsImageChange { get; set; }

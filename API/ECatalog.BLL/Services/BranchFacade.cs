@@ -25,55 +25,65 @@ namespace ECatalog.BLL.Services
             _restaurantService = restaurantService;
         }
 
-        public void AddBranch(BranchDto branchDto, long restaurantAdminId, string language)
+        public void AddBranch(BranchDto branchDto, long restaurantAdminId)
         {
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             if (restaurant.IsDeleted) throw new ValidationException(ErrorCodes.RestaurantDeleted);
-            ValidateBranch(branchDto, language);
+            ValidateBranch(branchDto);
 
             var branch = Mapper.Map<Branch>(branchDto);
             branch.RestaurantId = restaurant.RestaurantId;
-            branch.BranchTranslations.Add(new BranchTranslation
+            foreach (var branchTitle in branchDto.BranchTitleDictionary)
             {
-                BranchTitle = branchDto.BranchTitle,
-                BranchAddress = branchDto.BranchAddress,
-                Language = language
-            });
-
+                branch.BranchTranslations.Add(new BranchTranslation
+                {
+                    BranchTitle = branchTitle.Value,
+                    BranchAddress = branchDto.BranchAddressDictionary[branchTitle.Key],
+                    Language = branchTitle.Key.ToLower()
+                });
+            }
             _branchTranslationService.InsertRange(branch.BranchTranslations);
             _branchService.Insert(branch);
             SaveChanges();
             
         }
 
-        private void ValidateBranch(BranchDto branchDto, string language)
+        private void ValidateBranch(BranchDto branchDto)
         {
-            if (string.IsNullOrEmpty(branchDto.BranchTitle))
-                throw new ValidationException(ErrorCodes.EmptyBranchTitle);
-            if (branchDto.BranchTitle.Length > 300)
-                throw new ValidationException(ErrorCodes.BranchTiteExceedLength);
-            if (string.IsNullOrEmpty(branchDto.BranchAddress))
-                throw new ValidationException(ErrorCodes.EmptyBranchAddress);
-            if (branchDto.BranchAddress.Length > 300)
-                throw new ValidationException(ErrorCodes.BranchAddressExceedLength);
-            if (_branchTranslationService.CheckBranchTitleExist(branchDto.BranchTitle, language, branchDto.BranchId)) throw new ValidationException(ErrorCodes.BranchTitleAlreadyExist);
+            foreach (var branchTitle in branchDto.BranchTitleDictionary)
+            {
+                if (string.IsNullOrEmpty(branchTitle.Value))
+                    throw new ValidationException(ErrorCodes.EmptyBranchTitle);
+                if (branchTitle.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.BranchTiteExceedLength);
+                if (_branchTranslationService.CheckBranchTitleExist(branchTitle.Value, branchTitle.Key, branchDto.BranchId)
+                ) throw new ValidationException(ErrorCodes.BranchTitleAlreadyExist);
+            }
+            foreach (var branchAddress in branchDto.BranchAddressDictionary)
+            {
+                if (string.IsNullOrEmpty(branchAddress.Value))
+                    throw new ValidationException(ErrorCodes.EmptyBranchAddress);
+                if (branchAddress.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.BranchAddressExceedLength);
+            }
         }
-        public BranchDto GetBranch(long branchId, string language)
+        public BranchDto GetBranch(long branchId)
         {
             var branch = _branchService.Find(branchId);
             if (branch == null) throw new NotFoundException(ErrorCodes.BranchNotFound);
             if (branch.IsDeleted) throw new NotFoundException(ErrorCodes.BranchDeleted);
-            return Mapper.Map<Branch,BranchDto>(branch, opt =>
-            {
-                opt.BeforeMap((src, dest) =>
-                    {
-                        src.BranchTranslations = src.BranchTranslations
-                            .Where(x => x.Language.ToLower() == language.ToLower())
-                            .ToList();
-                    }
-                );
-            });
+            //return Mapper.Map<Branch,BranchDto>(branch, opt =>
+            //{
+            //    opt.BeforeMap((src, dest) =>
+            //        {
+            //            src.BranchTranslations = src.BranchTranslations
+            //                .Where(x => x.Language.ToLower() == language.ToLower())
+            //                .ToList();
+            //        }
+            //    );
+            //});
+            return Mapper.Map<BranchDto>(branch);
         }
 
         public void ActivateBranch(long branchId)
@@ -102,29 +112,30 @@ namespace ECatalog.BLL.Services
             _branchService.Update(branch);
             SaveChanges();
         }
-        public void UpdateBranch(BranchDto branchDto, string language)
+        public void UpdateBranch(BranchDto branchDto)
         {
-            ValidateBranch(branchDto, language);
+            ValidateBranch(branchDto);
             var branch = _branchService.Find(branchDto.BranchId);
             if (branch == null) throw new NotFoundException(ErrorCodes.BranchNotFound);
-
-            var branchTranslation =
-                branch.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            if (branchTranslation == null)
+            foreach (var branchTitle in branchDto.BranchTitleDictionary)
             {
-                branch.BranchTranslations.Add(new BranchTranslation
+                var branchTranslation =
+                    branch.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == branchTitle.Key.ToLower());
+                if (branchTranslation == null)
                 {
-                    Language = language,
-                    BranchTitle = branchDto.BranchTitle,
-                    BranchAddress = branchDto.BranchAddress
-                });
+                    branch.BranchTranslations.Add(new BranchTranslation
+                    {
+                        Language = branchTitle.Key.ToLower(),
+                        BranchTitle = branchTitle.Value,
+                        BranchAddress = branchDto.BranchAddressDictionary[branchTitle.Key]
+                    });
+                }
+                else
+                {
+                    branchTranslation.BranchTitle = branchTitle.Value;
+                    branchTranslation.BranchAddress = branchDto.BranchAddressDictionary[branchTitle.Key];
+                }
             }
-            else
-            {
-                branchTranslation.BranchTitle = branchDto.BranchTitle;
-                branchTranslation.BranchAddress = branchDto.BranchAddress;
-            }
-
             _branchService.Update(branch);
             SaveChanges();
         }

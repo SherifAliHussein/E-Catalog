@@ -3,37 +3,22 @@
 	
     angular
         .module('home')
-        .controller('editMenuDialogController', ['$scope','$http','appCONSTANTS','$uibModalInstance','$translate', 'MenuResource','ToastService','mode','englishMenus','menu','callBackFunction',  editMenuDialogController])
+        .controller('editMenuDialogController', ['$scope','$http', '$state','appCONSTANTS','$translate', 'MenuResource','ToastService','menuPrepService',  editMenuDialogController])
 
-	function editMenuDialogController($scope,$http , appCONSTANTS,$uibModalInstance, $translate, MenuResource,ToastService, mode, englishMenus, menu,callBackFunction){
+	function editMenuDialogController($scope,$http, $state , appCONSTANTS, $translate, MenuResource,ToastService, menuPrepService){
 		var vm = this;
 		vm.menuName = "";
-		
-		vm.mode = mode;
-		vm.englishMenus = englishMenus;
-		if(mode == "edit")
-		{
-			vm.menuName = menu.menuName;
-			vm.menuImage = menu.imageURL;
-		}
-			
-		else
-			vm.selectedMenu = englishMenus[0];
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.menu = menuPrepService;
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+			$state.go('Menu');
 		}
 		
 		vm.updateMenu = function(){
 			var updateMenu  = new Object();
-            updateMenu.menuName = vm.menuName;
+            updateMenu.menuNameDictionary = vm.menu.menuNameDictionary;
 			updateMenu.isImageChange = isImageChange;
-		
-            if(mode == "edit"){
-				updateMenu.menuId = menu.menuId;
-			}
-			else{
-				updateMenu.menuId = vm.selectedMenu.menuId;				
-			}				
+			updateMenu.menuId = vm.menu.menuId;
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(updateMenu));
@@ -47,8 +32,7 @@
 			}).then(
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('menuUpdateSucess'),"success");
-                    $uibModalInstance.dismiss('cancel');
-                    callBackFunction();
+                    $state.go('Menu');
 				},
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
@@ -92,7 +76,7 @@
 						var reader = new FileReader();
 
 						reader.onloadend = function() {
-							vm.menuImage= reader.result;
+							vm.menu.imageURL= reader.result;
 							// $scope.Photo = reader.result;
 							$scope.$apply();
 						};

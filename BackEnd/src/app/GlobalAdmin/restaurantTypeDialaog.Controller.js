@@ -3,23 +3,22 @@
 	
     angular
         .module('home')
-        .controller('restaurantTypeDialogController', ['$uibModalInstance', 'RestaurantTypeResource','ToastService','callBackFunction','$rootScope','$translate',  restaurantTypeDialogController])
+        .controller('restaurantTypeDialogController', ['$state', 'appCONSTANTS', 'RestaurantTypeResource','ToastService','$rootScope','$translate',  restaurantTypeDialogController])
 
-	function restaurantTypeDialogController($uibModalInstance, RestaurantTypeResource,ToastService,callBackFunction,$rootScope,$translate){
+	function restaurantTypeDialogController($state, appCONSTANTS, RestaurantTypeResource,ToastService,$rootScope,$translate){
 		var vm = this;
-		vm.typeName = "";
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
+		// vm.typeName = "";
+		vm.typeNameDictionary = {};
+		vm.language = appCONSTANTS.supportedLanguage;
 		
 		vm.AddNewType = function(){
+			console.log(vm.typeNameDictionary)
 			var newType = new RestaurantTypeResource();
-            newType.typeName = vm.typeName;
+            newType.typeNameDictionary = vm.typeNameDictionary;
             newType.$create().then(
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('RestaurantTypeAddSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
+					$state.go('restaurantType');
                 },
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");

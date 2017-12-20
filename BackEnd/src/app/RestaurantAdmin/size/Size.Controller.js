@@ -3,12 +3,12 @@
 	
     angular
         .module('home')
-        .controller('sizeController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SizeResource','sizePrepService','ToastService',  sizeController])
+        .controller('sizeController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SizeResource','sizesPrepService','ToastService',  sizeController])
 
-    function sizeController($scope ,$translate , appCONSTANTS,$uibModal, SizeResource,sizePrepService,ToastService){
+    function sizeController($scope ,$translate , appCONSTANTS,$uibModal, SizeResource,sizesPrepService,ToastService){
 
         var vm = this;
-		vm.sizes = sizePrepService;
+		vm.sizes = sizesPrepService;
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
 		

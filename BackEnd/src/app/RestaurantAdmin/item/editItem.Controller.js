@@ -7,7 +7,7 @@
 
 	function editItemController($scope,$http,$translate ,$stateParams ,appCONSTANTS, $state, ItemResource,ToastService, itemPrepService, ItemSizePrepService, ItemSideItemPrepService){
 		var vm = this;
-		
+		vm.language = appCONSTANTS.supportedLanguage;
 		vm.item = itemPrepService;		
 		vm.item.imageURL2 = vm.item.imageURL +"?type=orignal2&date="+ $scope.getCurrentTime();
 		vm.item.imageURL = vm.item.imageURL +"?date="+ $scope.getCurrentTime();
@@ -48,8 +48,8 @@
 		}
 		vm.updateItem = function(){
 			var updatedItem = new Object();
-            updatedItem.itemName = vm.item.itemName;
-			updatedItem.itemDescription = vm.item.itemDescription;
+            updatedItem.itemNameDictionary = vm.item.itemNameDictionary;
+			updatedItem.itemDescriptionDictionary = vm.item.itemDescriptionDictionary;
 			updatedItem.categoryId = $stateParams.categoryId;
 			
 			updatedItem.sizes = [];

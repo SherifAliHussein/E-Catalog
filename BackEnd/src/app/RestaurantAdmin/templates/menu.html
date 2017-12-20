@@ -1,6 +1,6 @@
 <div >
 	<div style="margin-bottom:10px">
-		<button  ng-click="menuCtrl.openMenuDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddMenuBtn' | translate}}</button>
+		<button  ng-click="$state.go('newMenu');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddMenuBtn' | translate}}</button>
 		<span ng-if="!menuCtrl.menus.isParentTranslated"> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RestaurantNotTranslated' | translate}}</span>
 		<button ng-disabled="menuCtrl.RestaurantIsReady"  ng-click="menuCtrl.Publish()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'ReadyLbl' | translate}}</button>
 	</div>
@@ -32,7 +32,7 @@
 							<a ng-click="$state.go('Category', {menuId: menu.menuId});" class="cursorPointer">{{'CategoriesBtn' | translate}}</a>
 						</td>
 						<td >
-							<i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="menuCtrl.openEditMenuDialog($index)">mode_edit</i> 
+							<i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editMenu',{menuId: menu.menuId});">mode_edit</i> 
 							<i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="menuCtrl.openDeleteMenuDialog(menu.menuName,menu.menuId)">delete</i>
 						</td>
 					</tr>

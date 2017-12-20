@@ -43,7 +43,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Delete_size
         {
             var exception = Assert.Catch<NotFoundException>(() =>
             {
-                _SizeFacade.GetSize(_sizeId, Strings.DefaultLanguage);
+                _SizeFacade.GetSize(_sizeId );
             });
             Assert.AreEqual(exception.ErrorCode, ErrorCodes.SizeDeleted);
         }

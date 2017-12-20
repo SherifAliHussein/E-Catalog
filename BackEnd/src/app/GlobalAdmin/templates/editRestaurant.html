@@ -13,7 +13,46 @@
 				</select>
 				<div ng-if="editRestCtrl.RestaurantType.length <=0">{{'NoRestaurantDefault' | translate}} </div>
 			</div>
-			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+			<div> 
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editRestCtrl.language">
+						<a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+							{{lang.value | translate}}
+						</a>
+					</li>
+					<!-- <li role="presentation">
+						<a href="javascript:void(0);" data-target="#arabic-form" aria-controls="about" role="tab" data-toggle="tab">{{'arabic' | translate}}</a>
+					</li> -->
+				</ul>
+				<div class="pmd-card">
+					<div class="pmd-card-body">
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editRestCtrl.language" id="{{lang.value}}-form">
+								<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+									<label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+									<input required type="text" class="mat-input form-control" name="restaurantNameDictionary{{lang.value+'Name'}}" ng-model="editRestCtrl.restaurant.restaurantNameDictionary[lang.key]" ng-minlength="3" ng-maxlength="100">
+									<div ng-messages="newRestaurantForm.restaurantNameDictionary{{lang.value+'Name'}}.$error" >
+										
+										<div ng-show="newRestaurantForm.restaurantNameDictionary{{lang.value+'Name'}}.$error.required && !newRestaurantForm.restaurantNameDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+										<div ng-show="(newRestaurantForm.restaurantNameDictionary{{lang.value+'Name'}}.$error.minlength || newRestaurantForm.restaurantNameDictionary{{lang.value+'Name'}}.$error.maxlength) && !newRestaurantForm.restaurantNameDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError' | translate}}</div>
+									</div>
+								</div>
+								<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+									<label for="first-name">{{ lang.value+'DescriptionLbl' | translate}}</label>
+									<textarea required  class="form-control" name="restaurantDescriptionDictionary{{lang.value+'Name'}}" ng-model="editRestCtrl.restaurant.restaurantDescriptionDictionary[lang.key]"  ng-minlength="3" ng-maxlength="300"></textarea>
+									<div ng-messages="newRestaurantForm.restaurantDescriptionDictionary{{lang.value+'Name'}}.$error" >
+										<div ng-show="newRestaurantForm.restaurantDescriptionDictionary{{lang.value+'Name'}}.$error.required && !newRestaurantForm.restaurantDescriptionDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+										<div ng-show="(newRestaurantForm.restaurantDescriptionDictionary{{lang.value+'Name'}}.$error.minlength || newRestaurantForm.restaurantDescriptionDictionary{{lang.value+'Name'}}.$error.maxlength) && !newRestaurantForm.restaurantDescriptionDictionary{{lang.value+'Name'}}.$error.required">{{'DescLengthError' | translate}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+			<!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 				<label for="first-name">{{'Name' | translate}}</label>
 				<input required type="text" class="mat-input form-control" name="restaurantName" ng-model="editRestCtrl.restaurant.restaurantName" ng-minlength="3" ng-maxlength="100">
 				<div ng-messages="newRestaurantForm.restaurantName.$error" >
@@ -28,7 +67,7 @@
 					<div ng-if="newRestaurantForm.restaurantDescription.$error.required && !newRestaurantForm.restaurantDescription.$pristine">{{'requiredErr' | translate}}</div>
 					<div ng-if="(newRestaurantForm.restaurantDescription.$error.minlength || newRestaurantForm.restaurantDescription.$error.maxlength) && !newRestaurantForm.restaurantDescription.$error.required">{{'DescLengthError' | translate}}</div>
                 </div>
-			</div>			
+			</div>			 -->
 
 			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'NumOfUsersLbl' | translate}}</label>

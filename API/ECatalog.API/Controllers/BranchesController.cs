@@ -33,7 +33,7 @@ namespace ECatalog.API.Controllers
         [HttpPost]
         public IHttpActionResult AddBranch([FromBody] BranchModel branchModel)
         {
-            _branchFacade.AddBranch(Mapper.Map<BranchDto>(branchModel),UserId, Language);
+            _branchFacade.AddBranch(Mapper.Map<BranchDto>(branchModel),UserId);
             return Ok();
         }
 
@@ -43,7 +43,7 @@ namespace ECatalog.API.Controllers
         [ResponseType(typeof(BranchModel))]
         public IHttpActionResult GetBranch(long branchId)
         {
-            return Ok(Mapper.Map<BranchModel>(_branchFacade.GetBranch(branchId, Language)));
+            return Ok(Mapper.Map<BranchModel>(_branchFacade.GetBranch(branchId)));
         }
 
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin, Enums.RoleType.Waiter)]
@@ -91,7 +91,7 @@ namespace ECatalog.API.Controllers
         [HttpPut]
         public IHttpActionResult UpdateBranch([FromBody] BranchModel branchModel)
         {
-            _branchFacade.UpdateBranch(Mapper.Map<BranchDto>(branchModel), Language);
+            _branchFacade.UpdateBranch(Mapper.Map<BranchDto>(branchModel));
             return Ok();
         }
     }

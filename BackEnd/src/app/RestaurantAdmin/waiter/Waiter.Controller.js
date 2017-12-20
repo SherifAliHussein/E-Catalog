@@ -10,6 +10,8 @@
         var vm = this;
 		vm.waiters = waitersPrepService;
 		vm.waitersLimit = WaitersLimitPrepService.waiterLimit;
+		// alert(WaitersLimitPrepService.waiterLimit)
+		console.log(WaitersLimitPrepService)
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 		

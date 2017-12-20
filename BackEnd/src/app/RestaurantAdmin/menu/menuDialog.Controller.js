@@ -3,20 +3,20 @@
 	
     angular
         .module('home')
-        .controller('menuDialogController', ['$scope','$http','appCONSTANTS','$uibModalInstance','$translate' , 'MenuResource','ToastService','callBackFunction','$rootScope',  menuDialogController])
+        .controller('menuDialogController', ['$scope','$http','$state','appCONSTANTS','$translate' , 'MenuResource','ToastService','$rootScope',  menuDialogController])
 
-	function menuDialogController($scope,$http , appCONSTANTS,$uibModalInstance, $translate , MenuResource,ToastService,callBackFunction,$rootScope){
+	function menuDialogController($scope,$http , $state , appCONSTANTS, $translate , MenuResource,ToastService,$rootScope){
 		var vm = this;
-		vm.menuName = "";
+		vm.language = appCONSTANTS.supportedLanguage;
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+			$state.go('Menu');
 		}
 		vm.isChanged = false;
 		
 		vm.AddNewMenu = function(){
 			vm.isChanged = true;
             var newMenu = new Object();
-            newMenu.menuName = vm.menuName;
+            newMenu.menuNameDictionary = vm.menuNameDictionary;
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(newMenu));
@@ -31,8 +31,7 @@
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('menuAddSuccess'),"success");
 					 // $state.go('Category',{MenuId:menuId});
-					 $uibModalInstance.dismiss('cancel');
-					 callBackFunction();
+					 $state.go('Menu');
 					 vm.isChanged = false;
 				},
 				function(data, status) {

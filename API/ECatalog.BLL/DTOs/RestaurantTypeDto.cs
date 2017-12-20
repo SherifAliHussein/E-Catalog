@@ -10,5 +10,6 @@ namespace ECatalog.BLL.DTOs
     {
         public long RestaurantTypeId { get; set; }
         public string TypeName { get; set; }
+        public Dictionary<string, string> TypeNameDictionary { get; set; }
     }
 }

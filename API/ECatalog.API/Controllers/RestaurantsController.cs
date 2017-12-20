@@ -48,8 +48,16 @@ namespace ECatalog.API.Controllers
         [HttpPost]
         public IHttpActionResult AddRestaurantType([FromBody] RestaurantTypeModel restaurantType)
         {
-            _restaurantFacade.AddRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language, UserId);
+            _restaurantFacade.AddRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), UserId);
             return Ok();
+        }
+
+        [AuthorizeRoles(Enums.RoleType.GlobalAdmin)]
+        [Route("api/Restaurants/type/{restaurantTypeId:long}")]
+        [HttpGet]
+        public IHttpActionResult GetRestaurantType(long restaurantTypeId)
+        {
+            return Ok(Mapper.Map<RestaurantTypeModel>(_restaurantFacade.GetRestaurantTypeById(restaurantTypeId)));
         }
 
         [AuthorizeRoles(Enums.RoleType.GlobalAdmin)]
@@ -57,7 +65,7 @@ namespace ECatalog.API.Controllers
         [HttpPut]
         public IHttpActionResult UpdateRestaurantType([FromBody] RestaurantTypeModel restaurantType)
         {
-            _restaurantFacade.UpdateRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType), Language,UserId);
+            _restaurantFacade.UpdateRestaurantType(Mapper.Map<RestaurantTypeDto>(restaurantType),UserId);
             return Ok();
         }
 
@@ -99,7 +107,7 @@ namespace ECatalog.API.Controllers
             restaurantDto.Image = new MemoryStream();
             httpPostedFile.InputStream.CopyTo(restaurantDto.Image);
 
-            _restaurantFacade.AddRestaurant(restaurantDto, Language, HostingEnvironment.MapPath("~/Images/"), UserId);
+            _restaurantFacade.AddRestaurant(restaurantDto, HostingEnvironment.MapPath("~/Images/"), UserId);
             return Ok();
         }
         [Route("api/Restaurants/{restaurantId:long}/logo", Name = "RestaurantLogo")]
@@ -212,7 +220,7 @@ namespace ECatalog.API.Controllers
                 httpPostedFile.InputStream.CopyTo(restaurantDto.Image);
             }
 
-            _restaurantFacade.UpdateRestaurant(restaurantDto, Language, HostingEnvironment.MapPath("~/Images/"),UserId);
+            _restaurantFacade.UpdateRestaurant(restaurantDto, HostingEnvironment.MapPath("~/Images/"),UserId);
             return Ok();
         }
 

@@ -105,7 +105,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_item
         {
             try
             {
-                _ItemFacade.UpdateItem(_itemDto,Strings.DefaultLanguage,"");
+                _ItemFacade.UpdateItem(_itemDto,"");
             }
             catch (ValidationException ex)
             {

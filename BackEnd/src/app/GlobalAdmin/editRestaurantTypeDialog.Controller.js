@@ -3,34 +3,25 @@
 	
     angular
         .module('home')
-        .controller('editRestaurantTypeDialogController', ['$uibModalInstance', 'RestaurantTypeResource','ToastService','mode','englishRestaurantType','type','callBackFunction','$translate',  editRestaurantTypeDialogController])
+        .controller('editRestaurantTypeDialogController', ['$state', 'appCONSTANTS', 'RestaurantTypeResource','ToastService','restaurantTypePrepService','$translate',  editRestaurantTypeDialogController])
 
-	function editRestaurantTypeDialogController($uibModalInstance, RestaurantTypeResource,ToastService, mode, englishRestaurantType, type,callBackFunction,$translate){
+	function editRestaurantTypeDialogController($state, appCONSTANTS, RestaurantTypeResource,ToastService, restaurantTypePrepService ,$translate){
 		var vm = this;
 		vm.typeName = "";
+		vm.language = appCONSTANTS.supportedLanguage;
 		
-		vm.mode = mode;
-		vm.englishRestaurantType = englishRestaurantType;
-		if(mode == "edit")
-			vm.typeName = type.typeName;
-		else
-			vm.selectedType = englishRestaurantType[0];
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
+		vm.restaurantType = restaurantTypePrepService;
 		
 		vm.updateType = function(){
 			var newType = new RestaurantTypeResource();
-            newType.typeName = vm.typeName;
-			if(mode == "edit")
-				newType.restaurantTypeId = type.restaurantTypeId;
-			else
-				newType.restaurantTypeId = vm.selectedType.restaurantTypeId;
+			
+			newType.restaurantTypeId = vm.restaurantType.restaurantTypeId;
+			newType.typeNameDictionary = vm.restaurantType.typeNameDictionary;
             newType.$update().then(
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('RestaurantTypeUpdateSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
+					$state.go('restaurantType');
+					
                 },
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");

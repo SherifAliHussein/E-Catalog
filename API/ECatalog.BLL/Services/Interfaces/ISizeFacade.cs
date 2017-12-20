@@ -10,9 +10,9 @@ namespace ECatalog.BLL.Services.Interfaces
     public interface ISizeFacade
     {
         PagedResultsDto GetAllSizes(string language,long userId, int page, int pageSize);
-        void AddSize(SizeDto sizeDto,long restaurantAdminId, string language);
-        SizeDto GetSize(long sizeId, string language);
-        void UpdateSize(SizeDto sizeDto,long restaurantAdminId, string language);
+        void AddSize(SizeDto sizeDto,long restaurantAdminId);
+        SizeDto GetSize(long sizeId);
+        void UpdateSize(SizeDto sizeDto,long restaurantAdminId);
         void DeleteSize(long sizeId);
     }
 }

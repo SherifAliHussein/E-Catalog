@@ -3,34 +3,25 @@
 	
     angular
         .module('home')
-        .controller('editSizeDialogController', ['$uibModalInstance','$translate', 'SizeResource','ToastService','mode','englishSizes','size','callBackFunction',  editSizeDialogController])
+        .controller('editSizeDialogController', ['$state', 'appCONSTANTS','$translate', 'SizeResource','ToastService','sizePrepService',  editSizeDialogController])
 
-	function editSizeDialogController($uibModalInstance, $translate, SizeResource,ToastService, mode, englishSizes, size,callBackFunction){
+	function editSizeDialogController($state, appCONSTANTS, $translate, SizeResource,ToastService, sizePrepService){
 		var vm = this;
-		vm.sizeName = "";
-		
-		vm.mode = mode;
-		vm.englishSizes = englishSizes;
-		if(mode == "edit")
-			vm.sizeName = size.sizeName;
-		else
-			vm.selectedSize = englishSizes[0];
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.size = sizePrepService;
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+			$state.go('size');
 		}
 		
 		vm.updateSize = function(){
 			var updateSize = new SizeResource();
-            updateSize.sizeName = vm.sizeName;
-			if(mode == "edit")
-				updateSize.sizeId = size.sizeId;
-			else
-				updateSize.sizeId = vm.selectedSize.sizeId;
+			updateSize.sizeNameDictionary = vm.size.sizeNameDictionary;
+			updateSize.sizeId = vm.size.sizeId;
             updateSize.$update().then(
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSizeSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
+					$state.go('size');
+					
                 },
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");

@@ -91,7 +91,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_item
         {
             try
             {
-                _ItemFacade.AddItem(_itemDto,Strings.DefaultLanguage,"");
+                _ItemFacade.AddItem(_itemDto,"");
             }
             catch (ValidationException ex)
             {

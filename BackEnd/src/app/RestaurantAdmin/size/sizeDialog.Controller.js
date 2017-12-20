@@ -3,25 +3,24 @@
 	
     angular
         .module('home')
-        .controller('sizeDialogController', ['$uibModalInstance','$translate' , 'SizeResource','ToastService','callBackFunction','$rootScope',  sizeDialogController])
+        .controller('sizeDialogController', ['$state', 'appCONSTANTS','$translate' , 'SizeResource','ToastService','$rootScope',  sizeDialogController])
 
-	function sizeDialogController($uibModalInstance, $translate , SizeResource,ToastService,callBackFunction,$rootScope){
+	function sizeDialogController($state, appCONSTANTS, $translate , SizeResource,ToastService,$rootScope){
 		var vm = this;
-		vm.sizeName = "";
+		vm.language = appCONSTANTS.supportedLanguage;
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+			$state.go('size');
 		}
 		vm.isChanged = false;
 		vm.AddNewSize = function(){
 			vm.isChanged = true;
 			var newSize = new SizeResource();
-            newSize.sizeName = vm.sizeName;
+            newSize.sizeNameDictionary = vm.sizeNameDictionary;
             newSize.$create().then(
                 function(data, status) {
 					vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('sizeAddSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
+					$state.go('size');
                 },
                 function(data, status) {
 					vm.isChanged = false;

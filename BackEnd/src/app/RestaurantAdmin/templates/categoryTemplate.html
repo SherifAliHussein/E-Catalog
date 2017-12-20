@@ -25,12 +25,12 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <span>Total items {{CategoryTemplateCtrl.selectedCategory.itemCount}}</span>
-                    <span>Total remaining items {{CategoryTemplateCtrl.remainingItems}}</span>
+                    <span>{{CategoryTemplateCtrl.selectedCategory.itemCount}} / {{CategoryTemplateCtrl.remainingItems}}</span>
+                    <span>({{'TotalRemaining' | translate}})</span>
                 </div>
             </div>
             <span ng-show="!CategoryTemplateCtrl.isCategoryTemplateReady">
-                Select template for page {{CategoryTemplateCtrl.page}}
+                {{'selectTemplate'|translate}} {{CategoryTemplateCtrl.page}}
             </span>
     </div>
     <div class="modal-body">
@@ -45,11 +45,11 @@
                                     <img ng-src="{{CategoryTemplateCtrl.templates[$index].imageURL}}" style="height: 200px;width: 150px;"/>
                                 </div>
                             </div>
-                            <div class="row-md-2" style="text-align:center">
+                            <!-- <div class="row-md-2" style="text-align:center">
                                 <span>
                                     maximum  {{CategoryTemplateCtrl.templates[$index].itemCount}} item
                                 </span>
-                            </div>
+                            </div> -->
                                 
                         </div>
                     </label>
@@ -57,11 +57,13 @@
 
             </div>
         </div>
-        <button ng-disabled="CategoryTemplateCtrl.selectedTemplateId<=0" ng-click="CategoryTemplateCtrl.selectTemplate()" style="margin-bottom: 20px;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">OK</button>
+        <button ng-disabled="CategoryTemplateCtrl.selectedTemplateId<=0" ng-click="CategoryTemplateCtrl.selectTemplate()" style="margin-bottom: 20px;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+            {{'OkLbl'|translate}}
+        </button>
     
         <div class="row">
             
-        <div ng-if="CategoryTemplateCtrl.selectedTemplates.length > 0">Selected templates</div>
+        <div ng-if="CategoryTemplateCtrl.selectedTemplates.length > 0">{{'selectedTemplates' | translate}}</div>
             <div ng-repeat="template in CategoryTemplateCtrl.selectedTemplates"   >
                  <div class="col-md-2">
                     <div  >  
@@ -72,7 +74,7 @@
                                 </div>
                                 <div class="row-md-2" style="text-align:center">
                                     <span>
-                                       page {{CategoryTemplateCtrl.selectedTemplates[$index].page}} 
+                                       {{'pageLbl'|translate}} {{CategoryTemplateCtrl.selectedTemplates[$index].page}} 
                                     </span>
                                 </div>                                
                             </div>

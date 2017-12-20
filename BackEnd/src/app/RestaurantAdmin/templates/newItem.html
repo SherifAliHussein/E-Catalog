@@ -1,6 +1,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
-		<!-- Select Multiple Tags -->
+		// <!-- Select Multiple Tags -->
 		$(".select-tags").select2({
 			tags: false,
 			theme: "bootstrap",
@@ -9,19 +9,52 @@
 </script>
 <div class="modal-content">
 	<div class="modal-header bordered">
-		<h2 class="pmd-card-title-text" ng-if="newItemCtrl.mode=='new'">{{'NewItemtLbl' | translate}}</h2>
-		<h2 class="pmd-card-title-text" ng-if="newItemCtrl.mode=='map'">{{'UpdateItemLbl' | translate}}</h2>
+		<h2 class="pmd-card-title-text" >{{'NewItemtLbl' | translate}}</h2>
+		<!-- <h2 class="pmd-card-title-text" ng-if="newItemCtrl.mode=='map'">{{'UpdateItemLbl' | translate}}</h2> -->
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal" name="newItemForm">
-			<div ng-if="newItemCtrl.mode=='map'">
+			<!-- <div ng-if="newItemCtrl.mode=='map'">
 				<select required class="select-simple form-control pmd-select2"
 					ng-options="item.itemName for item in newItemCtrl.defaultItems"  
 					ng-model="newItemCtrl.selectedItem">
 				</select>
 				<div ng-if="newItemCtrl.defaultItems.length <=0">{{'NoItemDefault' | translate}} </div>
-			</div>
-			<div class="form-group pmd-textfield pmd-textfield-floating-label">
+			</div> -->
+			<div> 
+				<ul class="nav nav-tabs" role="tablist">
+                	<li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in newItemCtrl.language">
+                    	<a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+                            {{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in newItemCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
+                                    <input required type="text" class="mat-input form-control" name="itemNameDictionary{{lang.value+'Name'}}" ng-model="newItemCtrl.itemNameDictionary[lang.key]" ng-minlength="3" ng-maxlength="100">
+                                    <div ng-messages="newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error" >        
+                                        <div ng-show="newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.required && !newItemForm.itemNameDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                        <div ng-show="(newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.minlength || newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.maxlength) && !newItemForm.itemNameDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError' | translate}}</div>
+                                    </div>
+								</div>
+								<div class="form-group pmd-textfield pmd-textfield-floating-label">
+									<label for="first-name">{{ lang.value+'DescriptionLbl' | translate}}</label>
+									<textarea required  class="form-control" name="itemDescriptionDictionary{{lang.value+'Name'}}" ng-model="newItemCtrl.itemDescriptionDictionary[lang.key]"  ng-minlength="3" ng-maxlength="300"></textarea>
+									<div ng-messages="newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error" >
+										<div ng-show="newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.required && !newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+										<div ng-show="(newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.minlength || newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.maxlength) && !newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error.required">{{'DescLengthError' | translate}}</div>
+									</div>
+								</div>	
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!-- <div class="form-group pmd-textfield pmd-textfield-floating-label">
 				<label for="first-name">{{'Name' | translate}}</label>
 				<input required type="text" class="mat-input form-control" name="itemName" ng-model="newItemCtrl.itemName" ng-minlength="3" ng-maxlength="100">
 				<div ng-messages="newItemForm.itemName.$error" >
@@ -36,7 +69,8 @@
 					<div ng-if="newItemForm.itemDescription.$error.required && !newItemForm.itemDescription.$pristine">{{'requiredErr' | translate}}</div>
 					<div ng-if="(newItemForm.itemDescription.$error.minlength || newItemForm.itemDescription.$error.maxlength) && !newItemForm.itemDescription.$error.required">{{'DescLengthError' | translate}}</div>
                 </div>
-			</div>			
+			</div>	 -->
+
 			<!-- <div class="form-group pmd-textfield pmd-textfield-floating-label" ng-if="newItemCtrl.mode=='new'">
 				<label for="first-name">{{'Pricelbl' | translate}}</label>
 				<input required type="number" class="mat-input form-control" name="price" ng-model="newItemCtrl.price" min="1">
@@ -46,7 +80,7 @@
 			</div> -->
 
 			
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" ng-show="newItemCtrl.mode=='new'" >
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"  >
 				<label>{{'selectSizeLbl' | translate}}</label>
                 <select  class="form-control select-tags pmd-select2-tags" multiple ng-model="newItemCtrl.SelectedSize" name="SelectedSize">
                     <option ng-repeat="size in newItemCtrl.Sizes"  ng-value="{{size}}">{{size.sizeName}}</option>                    
@@ -80,7 +114,7 @@
                 </select>
 			</div>		
 						
-			<div class="form-group pmd-textfield pmd-textfield-floating-label" ng-if="newItemCtrl.mode=='new'" ng-show="newItemCtrl.hasSideItem" >
+			<div class="form-group pmd-textfield pmd-textfield-floating-label" ng-show="newItemCtrl.hasSideItem" >
 					<label for="first-name">{{'MaxValueLbl' | translate}}</label>
 					<input required ng-if="newItemCtrl.hasSideItem" type="number" ng-change="newItemCtrl.CheckMaxSideItemValue()" class="mat-input form-control" name="maxSideItemValue" ng-model="newItemCtrl.maxSideItemValue" min="1">
 					<div ng-messages="newItemForm.maxSideItemValue.$error" >
@@ -92,7 +126,7 @@
 					</div>
 				</div>
 
-			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"  ng-if="newItemCtrl.mode=='new'">       
+			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       
 					<input id="itemImage" name="itemImage" style="display: none;" onchange="angular.element(this).scope().AddItemImage(this.files)" type="file" required>
 					<button ng-click="newItemCtrl.LoadUploadLogo()" >{{'UploadImageBtn' | translate}}</button>
 					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage1' | translate}}</span>
@@ -103,7 +137,7 @@
 			</div>
 
 
-			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"  ng-if="newItemCtrl.mode=='new'">       
+			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       
 					<input id="itemImage2" name="itemImage2" style="display: none;" onchange="angular.element(this).scope().AddItemImage2(this.files)" type="file" required>
 					<button ng-click="newItemCtrl.LoadUploadLogo2()" >{{'UploadImageBtn' | translate}}</button>
 					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage2' | translate}}</span>
@@ -117,9 +151,10 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="newItemForm.$invalid || (newItemCtrl.mode=='new' && (newItemCtrl.itemImage== null || newItemCtrl.itemImage2 == null)) 
-		|| (newItemCtrl.SelectedSize.length<=0 && newItemCtrl.mode=='new')  
-		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || (newItemCtrl.hasSideItem && newItemCtrl.maxSideItemValueError) " class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.save()">{{'saveChangesBtn' | translate}}</button>
+		<button ng-disabled="newItemForm.$invalid ||  (newItemCtrl.itemImage== null || newItemCtrl.itemImage2 == null)
+		|| (newItemCtrl.SelectedSize.length<=0 )  
+		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || (newItemCtrl.hasSideItem && newItemCtrl.maxSideItemValueError) 
+		|| newItemCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.addNewItem()">{{'saveChangesBtn' | translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{'DiscardBtn' | translate}}</button>
 	</div>
 </div>

@@ -9,11 +9,11 @@ namespace ECatalog.BLL.Services.Interfaces
 {
     public interface IitemFacade
     {
-        void AddItem(ItemDTO itemDto, string language, string path);
+        void AddItem(ItemDTO itemDto, string path);
         ItemDTO GetItem(long itemId, string language);
         PagedResultsDto GetAllItemsByCategoryId(string language, long categoryId, int page, int pageSize);
         void DeleteItem(long itemId);
-        void UpdateItem(ItemDTO itemDto, string language, string path);
+        void UpdateItem(ItemDTO itemDto, string path);
         List<ItemNamesDto> GetAllItemNamesByCategoryId(string language, long categoryId);
         void TranslateItem(ItemDTO itemDto, string language);
         void ActivateItem(long itemId);

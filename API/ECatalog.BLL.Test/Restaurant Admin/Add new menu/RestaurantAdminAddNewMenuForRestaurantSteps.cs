@@ -58,7 +58,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_menu
         {
             try
             {
-                _MenuFacade.AddMenu(_menuDto,2, Strings.DefaultLanguage,"");
+                _MenuFacade.AddMenu(_menuDto,2,"");
             }
             catch (ValidationException ex)
             {
@@ -86,7 +86,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Add_new_menu
         [Then(@"the menu will be added successfully deactivated")]
         public void ThenTheMenuWillBeAddedSuccessfullyDeactivated()
         {
-            var menu = _MenuFacade.GetMenu(_menuDto.MenuId, Strings.DefaultLanguage);
+            var menu = _MenuFacade.GetMenu(_menuDto.MenuId);
             Assert.IsFalse(menu.IsActive);
         }
         

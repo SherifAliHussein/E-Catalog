@@ -63,7 +63,7 @@ namespace ECatalog.API.Controllers
             menuDto.Image = new MemoryStream();
             httpPostedFile.InputStream.CopyTo(menuDto.Image);
 
-            _menuFacade.AddMenu(menuDto, UserId,Language, HostingEnvironment.MapPath("~/Images/"));
+            _menuFacade.AddMenu(menuDto, UserId, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 
@@ -73,7 +73,9 @@ namespace ECatalog.API.Controllers
         [ResponseType(typeof(MenuModel))]
         public IHttpActionResult GetMenu(long menuId)
         {
-            return Ok(Mapper.Map<MenuModel>(_menuFacade.GetMenu(menuId,Language)));
+            var menu = Mapper.Map<MenuModel>(_menuFacade.GetMenu(menuId));
+            menu.ImageURL = Url.Link("MenuImage", new { menu.RestaurantId, menu.MenuId });
+            return Ok(menu);
         }
 
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin,Enums.RoleType.Waiter)]
@@ -160,7 +162,7 @@ namespace ECatalog.API.Controllers
                 menuDto.Image = new MemoryStream();
                 httpPostedFile.InputStream.CopyTo(menuDto.Image);
             }
-            _menuFacade.UpdateMenu(menuDto, UserId, Language, HostingEnvironment.MapPath("~/Images/"));
+            _menuFacade.UpdateMenu(menuDto, UserId, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 

@@ -6,7 +6,7 @@
 		<span>{{'NoWaiterAvailable' | translate}}</span>
 	</div>
 	<span>
-		{{waiterCtrl.waiters.totalCount}} / {{waiterCtrl.waitersLimit}}
+		{{waiterCtrl.waiters.totalCount}} / {{waiterCtrl.waitersLimit}} ({{'consumedAndTotal' | translate}})
 	</span>
 	
 	<div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="waiterCtrl.waiters.results.length > 0">

@@ -1,6 +1,6 @@
 <div >
         <div style="margin-bottom:10px">
-            <button  ng-click="categoryCtrl.openCategoryDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddCategoryBtn' | translate}}</button>
+            <button  ng-click="$state.go('newCategory',{menuId: $stateParams.menuId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddCategoryBtn' | translate}}</button>
             <span ng-if="!categoryCtrl.categories.isParentTranslated"> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'MenuNotTranslated' | translate}}</span>
         </div>
         
@@ -29,7 +29,7 @@
                             </td>
                             <td width="30%">
                                 <a ng-click="$state.go('Items', {categoryId: category.categoryId});" class="cursorPointer">{{'ItemsBtn' | translate}}</a>
-                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="categoryCtrl.openEditCategoryDialog($index)">mode_edit</i> 
+                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCategory',{menuId: $stateParams.menuId , categoryId:category.categoryId});">mode_edit</i> 
                                 <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="categoryCtrl.openDeleteCategoryDialog(category.categoryName,category.categoryId)">delete</i>
                             </td>
                         </tr>

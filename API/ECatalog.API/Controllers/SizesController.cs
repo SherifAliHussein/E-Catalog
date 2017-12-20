@@ -28,7 +28,7 @@ namespace ECatalog.API.Controllers
         [HttpPost]
         public IHttpActionResult AddSize([FromBody] SizeModel sizeModel)
         {
-            _sizeFacade.AddSize(Mapper.Map<SizeDto>(sizeModel), UserId, Language);
+            _sizeFacade.AddSize(Mapper.Map<SizeDto>(sizeModel), UserId);
             return Ok();
         }
 
@@ -52,11 +52,19 @@ namespace ECatalog.API.Controllers
         }
 
         [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [Route("api/Sizes/{sizeId:long}", Name = "GetSize")]
+        [HttpGet]
+        public IHttpActionResult GetSize(long sizeId)
+        {
+            return Ok(Mapper.Map<SizeModel>(_sizeFacade.GetSize(sizeId)));
+        }
+
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
         [Route("api/Sizes", Name = "UpdateSize")]
         [HttpPut]
         public IHttpActionResult UpdateSize([FromBody] SizeModel sizeModel)
         {
-            _sizeFacade.UpdateSize(Mapper.Map<SizeDto>(sizeModel),UserId, Language);
+            _sizeFacade.UpdateSize(Mapper.Map<SizeDto>(sizeModel),UserId);
             return Ok();
         }
     }

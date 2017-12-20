@@ -55,7 +55,11 @@
 		.constant('appCONSTANTS', {
 			 'API_URL': 'http://localhost:28867/api/',
 			// 'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
-			'defaultLanguage':'en'
+			'defaultLanguage':'en',
+			'supportedLanguage':{
+				'en-us':{'key':'en-us','value':'english'},
+				'ar-eg':{'key':'ar-eg','value':'arabic'}
+			}
 		})
 		.constant('messageTypeEnum', {
       success: 0,
@@ -139,6 +143,8 @@ angular.module('core')
             "restaurantType" : "Restaurant types",
             "restaurant" : "Restaurants",
             "Name" : "Name",
+            "englishName" : "English Name",
+            "arabicName" : "Arabic Name",
             "AddType": "Add new type",
             "NoRestaurantTypesAvailable":"There is no restaurant types.",
             "saveChangesBtn":"save changes",
@@ -150,6 +156,8 @@ angular.module('core')
             "deleteBtn":"Delete",
             "cancelBtn":"cancel",
             "DescriptionLbl":"Description",
+            "englishDescriptionLbl":"English Description",
+            "arabicDescriptionLbl":"Arabic Description",
             "AddRestaurantBtn":"Add new restaurant",
             "NoRestaurantAvailable":"There is no restaurants.",
             "LogoLbl":"logo",
@@ -268,11 +276,19 @@ angular.module('core')
             "newBranchLbl":"New Branch",
             "Title":"Title",
             "Address":"Address",
+            "englishAddress":"English Address",
+            "arabicAddress":"Arabic Address",
             "BranchAddSuccess":"Branch added successfuly.",
             "UpdateBranchLbl":"Update Branch",
             "BranchUpdateSuccess":"Branch Updated successfuly.",
             "NumOfUsersLbl":"number of waiters",
-            "waitersLimitConsumedLbl":"consumed / limit waiters"
+            "waitersLimitConsumedLbl":"consumed / limit waiters",
+            "consumedAndTotal":"consumed / total",
+            "TotalRemaining":"total / remaining",
+            "OkLbl":"Ok",
+            "pageLbl":"Page",
+            "selectTemplate":"Select template for page",
+            "selectedTemplates":"Selected templates"
             
         }
         
@@ -280,6 +296,8 @@ angular.module('core')
             "restaurantType" : "أنواع المطاعم",
             "restaurant" : "مطاعم",
             "Name" : " الاسم",
+            "englishName" : "الاسم انجليزي",
+            "arabicName" : "الاسم عربي",
             "AddType": "اضف نوع جديد",
             "NoRestaurantTypesAvailable":".لا يوجد انواع مطعم",
             "saveChangesBtn":"حفظ",
@@ -291,6 +309,8 @@ angular.module('core')
             "deleteBtn":"حذف",
             "cancelBtn":"إلغاء",
             "DescriptionLbl":"وصف",
+            "englishDescriptionLbl":"وصف انجليزي",
+            "arabicDescriptionLbl":"وصف انجليزي",
             "AddRestaurantBtn":"اضف مطعم جديد",
             "NoRestaurantAvailable":".لا يوجد مطاعم",
             "LogoLbl":"شعار",
@@ -416,12 +436,20 @@ angular.module('core')
             "newBranchLbl":"فرع جديد",
             "Title":"لقب",
             "Address":"عنوان",
+            "englishAddress":"عنوان انجليزي",
+            "arabicAddress":"عنوان عربي",
             "BranchAddSuccess":".تم ادخال الفرع بنجاح",
             "UpdateBranchLbl":"تحديث الفرع",
             "NoBranchDefault":".يجب ادخال فرع بالانجليزي",
             "BranchUpdateSuccess":".تم تحديث الفرع بنجاح",
             "NumOfUsersLbl":"عدد النوادل",
-            "waitersLimitConsumedLbl":"المستخدم/ المجموع النوادل"
+            "waitersLimitConsumedLbl":"المجموع النوادل / المستخدم",
+            "consumedAndTotal":"المجموع / المستخدم",
+            "TotalRemaining":"المتبقي / المجموع",
+            "OkLbl":"تم",
+            "pageLbl":"صفحه",
+            "selectTemplate":"اختار نموذج لصفحه",
+            "selectedTemplates":"النماذج المختاره"
         }
         
         $translateProvider.translations('en',en_translations);

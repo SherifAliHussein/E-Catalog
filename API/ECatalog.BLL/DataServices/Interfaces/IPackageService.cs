@@ -10,5 +10,6 @@ namespace ECatalog.BLL.DataServices.Interfaces
 {
     public interface IPackageService:IService<Package>
     {
+        int GetWaitersCountByAdminId(long globalAdminId);
     }
 }

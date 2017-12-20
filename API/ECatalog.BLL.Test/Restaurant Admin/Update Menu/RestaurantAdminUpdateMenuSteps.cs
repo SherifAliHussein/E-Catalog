@@ -66,7 +66,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Menu
         {
             try
             {
-                _MenuFacade.UpdateMenu(_menuDto,2,Strings.DefaultLanguage,"");
+                _MenuFacade.UpdateMenu(_menuDto,2,"");
             }
             catch (ValidationException ex)
             {
@@ -83,7 +83,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Menu
         [Then(@"menu name will update successfully")]
         public void ThenMenuNameWillUpdateSuccessfully()
         {
-            var menu = _MenuFacade.GetMenu(_menuDto.MenuId, Strings.DefaultLanguage);
+            var menu = _MenuFacade.GetMenu(_menuDto.MenuId);
             Assert.AreEqual("New menu", menu.MenuName);
         }
         

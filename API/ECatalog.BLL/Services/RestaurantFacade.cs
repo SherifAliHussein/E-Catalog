@@ -64,7 +64,13 @@ namespace ECatalog.BLL.Services
                 _restaurantTypeTranslationService.GeRestaurantTypeTranslation(language,userId));
         }
 
-        public bool AddRestaurantType(RestaurantTypeDto restaurantTypeDto, string language,long userId)
+        public RestaurantTypeDto GetRestaurantTypeById(long restaurantTypeId)
+        {
+            return Mapper.Map<RestaurantTypeDto>(
+                _restaurantTypeService.Find(restaurantTypeId));
+        }
+
+        public bool AddRestaurantType(RestaurantTypeDto restaurantTypeDto,long userId)
         {
             ValidateRestaurantType(restaurantTypeDto);
             RestaurantType restaurantType = new RestaurantType();
@@ -72,61 +78,71 @@ namespace ECatalog.BLL.Services
             restaurantType.RestaurantTypeTranslations = new List<RestaurantTypeTranslation>();
             //foreach (var type in restaurantTypeDto.TypeName)
             //{
-            if (_restaurantTypeTranslationService.CheckRepeatedType(restaurantTypeDto.TypeName, language,
-                restaurantType.RestaurantTypeId,userId))
-            {
-                throw new ValidationException(ErrorCodes.RestaurantTypeAlreadyExist);
-            }
-            restaurantType.RestaurantTypeTranslations.Add(new RestaurantTypeTranslation
-            {
-                Language = language,
-                TypeName = restaurantTypeDto.TypeName,
-                RestaurantTypeId = restaurantType.RestaurantTypeId
 
-            });
+            foreach (var typeName in restaurantTypeDto.TypeNameDictionary)
+            {
+                if (_restaurantTypeTranslationService.CheckRepeatedType(typeName.Value, typeName.Key,
+                    restaurantType.RestaurantTypeId, userId))
+                {
+                    throw new ValidationException(ErrorCodes.RestaurantTypeAlreadyExist);
+                }
+
+                restaurantType.RestaurantTypeTranslations.Add(new RestaurantTypeTranslation
+                {
+                    Language = typeName.Key.ToLower(),
+                    TypeName = typeName.Value,
+                    RestaurantTypeId = restaurantType.RestaurantTypeId
+
+                });
+            }
+
             //}
             restaurantType.GlobalAdminId = userId;
-            _restaurantTypeService.Insert(restaurantType);
             _restaurantTypeTranslationService.InsertRange(restaurantType.RestaurantTypeTranslations);
+            _restaurantTypeService.Insert(restaurantType);
             SaveChanges();
             return true;
         }
 
-        public void UpdateRestaurantType(RestaurantTypeDto restaurantTypeDto, string language, long userId)
+        public void UpdateRestaurantType(RestaurantTypeDto restaurantTypeDto, long userId)
         {
             ValidateRestaurantType(restaurantTypeDto);
             var restaurantType = _restaurantTypeService.Find(restaurantTypeDto.RestaurantTypeId);
             if (restaurantType == null) throw new NotFoundException(ErrorCodes.RestaurantTypeNotFound);
-            //foreach (var type in restaurantTypeDto.TypeName)
-            //{
-            if (_restaurantTypeTranslationService.CheckRepeatedType(restaurantTypeDto.TypeName, language,
-                restaurantType.RestaurantTypeId,userId))
+            foreach (var typeName in restaurantTypeDto.TypeNameDictionary)
             {
-                throw new ValidationException(ErrorCodes.RestaurantTypeAlreadyExist);
-            }
-            var restaurantTypeTranslation =
-                restaurantType.RestaurantTypeTranslations.FirstOrDefault(
-                    x => x.Language.ToLower() == language.ToLower());
-            if (restaurantTypeTranslation != null) restaurantTypeTranslation.TypeName = restaurantTypeDto.TypeName;
-            else
-                restaurantType.RestaurantTypeTranslations.Add(new RestaurantTypeTranslation
+                if (_restaurantTypeTranslationService.CheckRepeatedType(typeName.Value, typeName.Key,
+                    restaurantType.RestaurantTypeId, userId))
                 {
-                    Language = language,
-                    TypeName = restaurantTypeDto.TypeName,
-                    RestaurantTypeId = restaurantType.RestaurantTypeId
-                });
-            // }
+                    throw new ValidationException(ErrorCodes.RestaurantTypeAlreadyExist);
+                }
+                var restaurantTypeTranslation =
+                    restaurantType.RestaurantTypeTranslations.FirstOrDefault(
+                        x => x.Language.ToLower() == typeName.Key.ToLower());
+                if (restaurantTypeTranslation != null) restaurantTypeTranslation.TypeName = typeName.Value;
+                else
+                    restaurantType.RestaurantTypeTranslations.Add(new RestaurantTypeTranslation
+                    {
+                        Language = typeName.Key.ToLower(),
+                        TypeName = typeName.Value,
+                        RestaurantTypeId = restaurantType.RestaurantTypeId
+                    });
+            }
             _restaurantTypeService.Update(restaurantType);
             SaveChanges();
         }
 
         private void ValidateRestaurantType(RestaurantTypeDto restaurantTypeDto)
         {
-            if (string.IsNullOrEmpty(restaurantTypeDto.TypeName))
-                throw new ValidationException(ErrorCodes.EmptyRestaurantType);
-            if (restaurantTypeDto.TypeName.Length > 300)
-                throw new ValidationException(ErrorCodes.RestaurantTypeExceedLength);
-
+            foreach (var typeName in restaurantTypeDto.TypeNameDictionary)
+            {
+                if (string.IsNullOrEmpty(typeName.Value))
+                    throw new ValidationException(ErrorCodes.EmptyRestaurantType);
+                if (typeName.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.RestaurantTypeExceedLength);
+                if (Strings.SupportedLanguages.All(x => x.ToLower() != typeName.Key.ToLower()))
+                    throw new ValidationException(ErrorCodes.UnSupportedLanguage);
+            }
         }
 
         public void DeleteRestaurantType(long restaurantTypeId)
@@ -143,15 +159,12 @@ namespace ECatalog.BLL.Services
             SaveChanges();
         }
 
-        public void AddRestaurant(RestaurantDTO restaurantDto, string language, string path, long userId)
+        public void AddRestaurant(RestaurantDTO restaurantDto, string path, long userId)
         {
-            ValidateRestaurant(restaurantDto, language,userId);
+            ValidateRestaurant(restaurantDto,userId);
 
             var restaurantType = _restaurantTypeService.Find(restaurantDto.RestaurantTypeId);
-            if (Strings.SupportedLanguages.Any(x => !restaurantType.RestaurantTypeTranslations
-                .Select(m => m.Language.ToLower())
-                .Contains(x.ToLower())))
-                throw new ValidationException(ErrorCodes.RestaurantTypeIsNotTranslated);
+
 
             Restaurant restaurant = new Restaurant
             {
@@ -162,13 +175,15 @@ namespace ECatalog.BLL.Services
                 WaitersLimit = restaurantDto.WaitersLimit
 
             };
-            restaurant.RestaurantTranslations.Add(new RestaurantTranslation
+            foreach (var restaurantName in restaurantDto.RestaurantNameDictionary)
             {
-                Language = language,
-                RestaurantName = restaurantDto.RestaurantName,
-                RestaurantDescription = restaurantDto.RestaurantDescription
-            });
-
+                restaurant.RestaurantTranslations.Add(new RestaurantTranslation
+                {
+                    Language = restaurantName.Key.ToLower(),
+                    RestaurantName = restaurantName.Value,
+                    RestaurantDescription = restaurantDto.RestaurantDescriptionDictionary[restaurantName.Key]
+                });
+            }
             restaurant.RestaurantAdmin = new RestaurantAdmin
             {
                 UserName = restaurantDto.RestaurantAdminUserName,
@@ -196,39 +211,51 @@ namespace ECatalog.BLL.Services
             if (restaurant.IsDeleted) throw new NotFoundException(ErrorCodes.RestaurantDeleted);
             //var restaurantAdmin = _restaurantAdminService.Find(restaurant.RestaurantAdminId);
             //if(restaurantAdmin == null) throw new NotFoundException(ErrorCodes.RestaurantAdminNotFound);
-            var restaurantdto = Mapper.Map<Restaurant, RestaurantDTO>(restaurant, opt =>
-            {
-                opt.BeforeMap((src, dest) =>
-                    {
-                        src.RestaurantTranslations = src.RestaurantTranslations
-                            .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
-                        src.RestaurantType.RestaurantTypeTranslations = src.RestaurantType.RestaurantTypeTranslations
-                            .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
-                    }
-                );
-            });
+
+            //var restaurantdto = Mapper.Map<Restaurant, RestaurantDTO>(restaurant, opt =>
+            //{
+            //    opt.BeforeMap((src, dest) =>
+            //        {
+            //            src.RestaurantTranslations = src.RestaurantTranslations
+            //                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+            //            src.RestaurantType.RestaurantTypeTranslations = src.RestaurantType.RestaurantTypeTranslations
+            //                .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+            //        }
+            //    );
+            //});
+
             //restaurantdto.RestaurantAdminPassword = restaurantAdmin.UserName;
             //restaurantdto.RestaurantAdminPassword = restaurantAdmin.Password;
-            return restaurantdto;
+            return Mapper.Map<RestaurantDTO>(restaurant);
         }
 
-        private void ValidateRestaurant(RestaurantDTO restaurantDto, string language, long userId)
+        private void ValidateRestaurant(RestaurantDTO restaurantDto,  long userId)
         {
-
-            if (string.IsNullOrEmpty(restaurantDto.RestaurantName))
-                throw new ValidationException(ErrorCodes.EmptyRestaurantName);
-            if (restaurantDto.RestaurantName.Length > 300)
-                throw new ValidationException(ErrorCodes.RestaurantNameExceedLength);
-            if (string.IsNullOrEmpty(restaurantDto.RestaurantDescription))
-                throw new ValidationException(ErrorCodes.EmptyRestaurantDescription);
+            foreach (var restaurantName in restaurantDto.RestaurantNameDictionary)
+            {
+                if (string.IsNullOrEmpty(restaurantName.Value))
+                    throw new ValidationException(ErrorCodes.EmptyRestaurantName);
+                if (restaurantName.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.RestaurantNameExceedLength);
+                if (_restaurantTranslationService.CheckRestaurantNameExist(restaurantName.Value, restaurantName.Key,restaurantDto.RestaurantId, userId))
+                    throw new ValidationException(ErrorCodes.RestaurantNameAlreadyExist);
+                if (Strings.SupportedLanguages.All(x => x.ToLower() != restaurantName.Key.ToLower()))
+                    throw new ValidationException(ErrorCodes.UnSupportedLanguage);
+            }
+            foreach (var restaurantDescription in restaurantDto.RestaurantDescriptionDictionary)
+            {
+                if (string.IsNullOrEmpty(restaurantDescription.Value))
+                    throw new ValidationException(ErrorCodes.EmptyRestaurantDescription);
+                if (Strings.SupportedLanguages.All(x => x.ToLower() != restaurantDescription.Key.ToLower()))
+                    throw new ValidationException(ErrorCodes.UnSupportedLanguage);
+            }
             if (string.IsNullOrEmpty(restaurantDto.RestaurantAdminUserName))
                 throw new ValidationException(ErrorCodes.EmptyRestaurantAdminUserName);
             if (string.IsNullOrEmpty(restaurantDto.RestaurantAdminPassword))
                 throw new ValidationException(ErrorCodes.EmptyRestaurantAdminPassword);
-            if (restaurantDto.RestaurantAdminPassword.Length < 8 || restaurantDto.RestaurantAdminPassword.Length > 25)
+            if (restaurantDto.RestaurantAdminPassword.Length < 8 ||
+                restaurantDto.RestaurantAdminPassword.Length > 25)
                 throw new ValidationException(ErrorCodes.RestaurantAdminPasswordLengthNotMatched);
-            if (_restaurantTranslationService.CheckRestaurantNameExist(restaurantDto.RestaurantName, language,
-                restaurantDto.RestaurantId,userId)) throw new ValidationException(ErrorCodes.RestaurantNameAlreadyExist);
             if (_restaurantAdminService.CheckUserNameDuplicated(restaurantDto.RestaurantAdminUserName,
                 restaurantDto.RestaurantId))
                 throw new ValidationException(ErrorCodes.RestaurantAdminUserNameAlreadyExist);
@@ -277,11 +304,11 @@ namespace ECatalog.BLL.Services
             SaveChanges();
         }
 
-        public void UpdateRestaurant(RestaurantDTO restaurantDto, string language, string path, long userId)
+        public void UpdateRestaurant(RestaurantDTO restaurantDto, string path, long userId)
         {
             Restaurant restaurant = _restaurantService.Find(restaurantDto.RestaurantId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
-            ValidateRestaurant(restaurantDto, language,userId);
+            ValidateRestaurant(restaurantDto,userId);
             var restaurantType = _restaurantTypeService.Find(restaurantDto.RestaurantTypeId);
             if (Strings.SupportedLanguages.Any(x => !restaurantType.RestaurantTypeTranslations
                 .Select(m => m.Language.ToLower())
@@ -292,21 +319,24 @@ namespace ECatalog.BLL.Services
             restaurant.RestaurantAdmin.Password = PasswordHelper.Encrypt(restaurantDto.RestaurantAdminPassword);
             restaurant.WaitersLimit = restaurantDto.WaitersLimit;
 
-            var restaurantTranslation =
-                restaurant.RestaurantTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            if (restaurantTranslation == null)
+            foreach (var restaurantName in restaurantDto.RestaurantNameDictionary)
             {
-                restaurant.RestaurantTranslations.Add(new RestaurantTranslation
+                var restaurantTranslation =
+                    restaurant.RestaurantTranslations.FirstOrDefault(x => x.Language.ToLower() == restaurantName.Key.ToLower());
+                if (restaurantTranslation == null)
                 {
-                    Language = language,
-                    RestaurantName = restaurantDto.RestaurantName,
-                    RestaurantDescription = restaurantDto.RestaurantDescription
-                });
-            }
-            else
-            {
-                restaurantTranslation.RestaurantName = restaurantDto.RestaurantName;
-                restaurantTranslation.RestaurantDescription = restaurantDto.RestaurantDescription;
+                    restaurant.RestaurantTranslations.Add(new RestaurantTranslation
+                    {
+                        Language = restaurantName.Key.ToLower(),
+                        RestaurantName = restaurantName.Value,
+                        RestaurantDescription = restaurantDto.RestaurantDescriptionDictionary[restaurantName.Key]
+                    });
+                }
+                else
+                {
+                    restaurantTranslation.RestaurantName = restaurantName.Value;
+                    restaurantTranslation.RestaurantDescription = restaurantDto.RestaurantDescriptionDictionary[restaurantName.Key];
+                }
             }
 
             _restaurantService.Update(restaurant);

@@ -7,7 +7,9 @@
 
 	function newItemController($scope,$translate,$http ,$stateParams, appCONSTANTS, $state,ToastService, TranslateItemResource, ItemSizePrepService,ItemSideItemPrepService ,defaultItemsPrepService){
 		var vm = this;
-        vm.mode = $scope.selectedLanguage != appCONSTANTS.defaultLanguage?"map":"new";
+		
+		vm.language = appCONSTANTS.supportedLanguage;
+		
         vm.Sizes = ItemSizePrepService.results;
         vm.SideItems = ItemSideItemPrepService.results;
         vm.SelectedSize = [];
@@ -18,26 +20,22 @@
 		vm.close = function(){
 			$state.go('Items', {categoryId: $stateParams.categoryId});
 		}
-		if(vm.mode== "map"){
-			vm.defaultItems =defaultItemsPrepService;
-			vm.save = updateItem;
-			vm.selectedItem = defaultItemsPrepService[0];
-		}
-		else{
-			vm.save = addNewItem;
-		}
 		
-		function addNewItem(){
+		vm.isChanged = false;
+		
+		vm.addNewItem = function(){
+			vm.isChanged = true;
+			
 			var newItem = new Object();
-            newItem.itemName = vm.itemName;
-			newItem.itemDescription = vm.itemDescription;
+            newItem.itemNameDictionary = vm.itemNameDictionary;
+			newItem.itemDescriptionDictionary = vm.itemDescriptionDictionary;
 			newItem.categoryId = $stateParams.categoryId;
 			
 			newItem.sizes = [];
 			
-         	   vm.SelectedSize.forEach(function(element) {
-            	    newItem.sizes.push(element);
-				}, this);
+         	vm.SelectedSize.forEach(function(element) {
+            	newItem.sizes.push(element);
+			}, this);
 			
 			newItem.sideItems = [];
 			if(vm.hasSideItem){
@@ -61,8 +59,11 @@
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('itemAddSuccess'),"success");
 					$state.go('Items', {categoryId: $stateParams.categoryId});
+					vm.isChanged = false;
+					
 				},
 				function(data, status) {
+					vm.isChanged = false;					
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 				}
 			);

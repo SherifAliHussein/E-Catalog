@@ -16,5 +16,10 @@ namespace ECatalog.BLL.DataServices
         {
             
         }
+
+        public int GetWaitersCountByAdminId(long globalAdminId)
+        {
+            return _repository.Query(x => x.GlobalAdminId == globalAdminId).Select(x => x.MaxNumberOfWaiters).Sum();
+        }
     }
 }

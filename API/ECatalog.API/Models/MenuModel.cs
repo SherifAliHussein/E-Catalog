@@ -10,6 +10,7 @@ namespace ECatalog.API.Models
     {
         public long MenuId { get; set; }
         public string MenuName { get; set; }
+        public Dictionary<string, string> MenuNameDictionary { get; set; }
         public bool IsActive { get; set; }
         public string ImageURL { get; set; }
         public bool IsImageChange { get; set; }

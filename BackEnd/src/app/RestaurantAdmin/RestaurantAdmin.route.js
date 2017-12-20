@@ -19,11 +19,41 @@
                         displayName: 'Menu'
                     },
                     resolve: {
-                        menuPrepService: menuPrepService,
+                        menusPrepService: menusPrepService,
                         RestaurantIsReadyPrepService:RestaurantIsReadyPrepService
                     }
                  
                 })
+                .state('newMenu', {
+                      url: '/NewMenu',
+                      templateUrl: './app/RestaurantAdmin/templates/newMenu.html',
+                      controller: 'menuDialogController',
+                      'controllerAs': 'menuDlCtrl',
+                      data: {
+                          permissions: {
+                              only: ['RestaurantAdmin'],
+                             redirectTo: 'root'
+                          },
+                          displayName: 'Menu'
+                      }
+                   
+                  })
+                  .state('editMenu', {
+                        url: '/Menu/:menuId',
+                        templateUrl: './app/RestaurantAdmin/templates/editMenu.html',
+                        controller: 'editMenuDialogController',
+                        'controllerAs': 'editMenuDlCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                               redirectTo: 'root'
+                            },
+                            displayName: 'Menu'
+                        },
+                        resolve: {
+                            menuPrepService: menuPrepService
+                        }
+                    })
                 .state('Category', {
                       url: '/menu/:menuId/Category',
                       templateUrl: './app/RestaurantAdmin/templates/Category.html',
@@ -37,10 +67,38 @@
                           displayName: 'Category'
                       },
                       resolve: {
-                        categoryPrepService: categoryPrepService
-                      }
-                   
+                        categoriesPrepService: categoriesPrepService
+                      }                   
                   })
+                  .state('newCategory', {
+                        url: '/menu/:menuId/NewCategory',
+                        templateUrl: './app/RestaurantAdmin/templates/newCategory.html',
+                        controller: 'categoryDialogController',
+                        'controllerAs': 'categoryDlCtrl',
+                        data: {
+                            permissions: {
+                                only: ['RestaurantAdmin'],
+                               redirectTo: 'root'
+                            },
+                            displayName: 'Category'
+                        }             
+                    })
+                    .state('editCategory', {
+                          url: '/menu/:menuId/Category/:categoryId',
+                          templateUrl: './app/RestaurantAdmin/templates/editCategory.html',
+                          controller: 'editCategoryDialogController',
+                          'controllerAs': 'editCategoryDlCtrl',
+                          data: {
+                              permissions: {
+                                  only: ['RestaurantAdmin'],
+                                 redirectTo: 'root'
+                              },
+                              displayName: 'Category'
+                          },
+                          resolve: {
+                            categoryPrepService: categoryPrepService
+                          }                   
+                      })
                   .state('size', {
                         url: '/size',
                         templateUrl: './app/RestaurantAdmin/templates/size.html',
@@ -54,10 +112,39 @@
                             displayName: 'Size'
                         },
                         resolve: {
-                          sizePrepService: sizePrepService
+                          sizesPrepService: sizesPrepService
                         }
                      
                     })
+                    .state('newsize', {
+                          url: '/Newsize',
+                          templateUrl: './app/RestaurantAdmin/templates/newSize.html',
+                          controller: 'sizeDialogController',
+                          'controllerAs': 'sizeDlCtrl',
+                          data: {
+                              permissions: {
+                                  only: ['RestaurantAdmin'],
+                                 redirectTo: 'root'
+                              },
+                              displayName: 'Size'
+                          }                       
+                      })
+                      .state('editsize', {
+                            url: '/size/:sizeId',
+                            templateUrl: './app/RestaurantAdmin/templates/editSize.html',
+                            controller: 'editSizeDialogController',
+                            'controllerAs': 'editSizeDlCtrl',
+                            data: {
+                                permissions: {
+                                    only: ['RestaurantAdmin'],
+                                   redirectTo: 'root'
+                                },
+                                displayName: 'Size'
+                            },
+                            resolve: {
+                                sizePrepService: sizePrepService
+                            }                     
+                        })
                     /*.state('sideItem', {
                           url: '/SideItem',
                           templateUrl: './app/RestaurantAdmin/templates/sideItem.html',
@@ -188,28 +275,73 @@
                                   only: ['RestaurantAdmin'],
                                  redirectTo: 'root'
                               },
-                              displayName: 'Size'
+                              displayName: 'Branch'
                           },
                           resolve: {
-                            branchPrepService: branchPrepService
+                            branchsPrepService: branchsPrepService
                           }
                        
                       })
+                      .state('newbranch', {
+                            url: '/newBranch',
+                            templateUrl: './app/RestaurantAdmin/templates/newBranch.html',
+                            controller: 'branchDialogController',
+                            'controllerAs': 'branchDlCtrl',
+                            data: {
+                                permissions: {
+                                    only: ['RestaurantAdmin'],
+                                   redirectTo: 'root'
+                                },
+                                displayName: 'Branch'
+                            }
+                         
+                        })
+                        .state('editbranch', {
+                              url: '/Branch/:branchId',
+                              templateUrl: './app/RestaurantAdmin/templates/editBranch.html',
+                              controller: 'editBranchDialogController',
+                              'controllerAs': 'editBranchDlCtrl',
+                              data: {
+                                  permissions: {
+                                      only: ['RestaurantAdmin'],
+                                     redirectTo: 'root'
+                                  },
+                                  displayName: 'Branch'
+                              },
+                              resolve: {
+                                branchPrepService: branchPrepService
+                              }
+                          })
         });
         
-        menuPrepService.$inject = ['MenuResource']
-        function menuPrepService(MenuResource) {
+        menusPrepService.$inject = ['MenuResource']
+        function menusPrepService(MenuResource) {
             return MenuResource.getAllMenus().$promise;
         }
 
-        categoryPrepService.$inject = ['GetCategoriesResource','$stateParams']
-        function categoryPrepService(GetCategoriesResource,$stateParams) {
+        menuPrepService.$inject = ['MenuResource','$stateParams']
+        function menuPrepService(MenuResource,$stateParams) {
+            return MenuResource.getMenu({menuId : $stateParams.menuId}).$promise;
+        }
+
+        categoriesPrepService.$inject = ['GetCategoriesResource','$stateParams']
+        function categoriesPrepService(GetCategoriesResource,$stateParams) {
             return GetCategoriesResource.getAllCategories({ MenuId: $stateParams.menuId }).$promise;
         }
+
+        categoryPrepService.$inject = ['CategoryResource','$stateParams']
+        function categoryPrepService(CategoryResource,$stateParams) {
+            return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
+        }
         
-        sizePrepService.$inject = ['SizeResource']
-        function sizePrepService(SizeResource) {
+        sizesPrepService.$inject = ['SizeResource']
+        function sizesPrepService(SizeResource) {
             return SizeResource.getAllSizes().$promise;
+        }
+
+        sizePrepService.$inject = ['SizeResource','$stateParams']
+        function sizePrepService(SizeResource,$stateParams) {
+            return SizeResource.getSize({ sizeId: $stateParams.sizeId }).$promise;
         }
         
         sideItemPrepService.$inject = ['SideItemResource']
@@ -272,13 +404,18 @@
             return ActivatedMenuResource.getAllMenusName().$promise;
         }
         
-        branchPrepService.$inject = ['BranchResource']
-        function branchPrepService(BranchResource) {
+        branchsPrepService.$inject = ['BranchResource']
+        function branchsPrepService(BranchResource) {
             return BranchResource.getAllBranches().$promise;
+        }
+
+        branchPrepService.$inject = ['BranchResource','$stateParams']
+        function branchPrepService(BranchResource,$stateParams) {
+            return BranchResource.getBranch({branchId: $stateParams.branchId}).$promise;
         }
         
         WaitersLimitPrepService.$inject = ['WaitersLimitResource']
         function WaitersLimitPrepService(WaitersLimitResource) {
-            return WaitersLimitResource.getWaitersLimit();
+            return WaitersLimitResource.getWaitersLimit().$promise;
         }
 }());

@@ -46,48 +46,56 @@ namespace ECatalog.BLL.Services
             _restaurantService = restaurantService;
         }
 
-        public void AddCategory(CategoryDTO categoryDto, string language, string path)
+        public void AddCategory(CategoryDTO categoryDto, string path)
         {
-            ValidateCategory(categoryDto, language);
+            ValidateCategory(categoryDto);
             var menu = _menuService.Find(categoryDto.MenuId);
             if (menu == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
             if (menu.IsDeleted) throw new ValidationException(ErrorCodes.MenuDeleted);
             var category = Mapper.Map<Category>(categoryDto);
-            category.CategoryTranslations.Add(new CategoryTranslation
+            foreach (var categoryName in categoryDto.CategoryNameDictionary)
             {
-                CategoryName = categoryDto.CategoryName,
-                Language = language
-            });
-            
+                category.CategoryTranslations.Add(new CategoryTranslation
+                {
+                    CategoryName = categoryName.Value,
+                    Language = categoryName.Key
+                });
+            }
             _categoryTranslationService.InsertRange(category.CategoryTranslations);
             _categoryService.Insert(category);
             SaveChanges();
             _manageStorage.UploadImage(path + "\\" + "Restaurant-" + menu.RestaurantId+"\\"+ "Menu-" + menu.MenuId+"\\" + "Category-" + category.CategoryId, categoryDto.Image, category.CategoryId.ToString());
         }
 
-        public CategoryDTO GetCategory(long categoryId, string language)
+        public CategoryDTO GetCategory(long categoryId)
         {
             var category = _categoryService.Find(categoryId);
             if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
             if (category.IsDeleted) throw new NotFoundException(ErrorCodes.CategoryDeleted);
-            return Mapper.Map<Category, CategoryDTO>(category, opt =>
-            {
-                opt.BeforeMap((src, dest) =>
-                    {
-                        src.CategoryTranslations = src.CategoryTranslations
-                            .Where(x => x.Language.ToLower() == language.ToLower())
-                            .ToList();
-                    }
-                );
-            });
+            //return Mapper.Map<Category, CategoryDTO>(category, opt =>
+            //{
+            //    opt.BeforeMap((src, dest) =>
+            //        {
+            //            src.CategoryTranslations = src.CategoryTranslations
+            //                .Where(x => x.Language.ToLower() == language.ToLower())
+            //                .ToList();
+            //        }
+            //    );
+            //});
+            return Mapper.Map<CategoryDTO>(category);
         }
-        private void ValidateCategory(CategoryDTO categoryDto,string language)
+        private void ValidateCategory(CategoryDTO categoryDto)
         {
-            if (string.IsNullOrEmpty(categoryDto.CategoryName))
-                throw new ValidationException(ErrorCodes.EmptyCategoryName);
-            if (categoryDto.CategoryName.Length > 300)
-                throw new ValidationException(ErrorCodes.CategoryNameExceedLength);
-            if (_categoryTranslationService.CheckCategoryNameExistForMenu(categoryDto.CategoryName, language, categoryDto.CategoryId, categoryDto.MenuId)) throw new ValidationException(ErrorCodes.CategoryNameAlreadyExist);
+            foreach (var categoryName in categoryDto.CategoryNameDictionary)
+            {
+                if (string.IsNullOrEmpty(categoryName.Value))
+                    throw new ValidationException(ErrorCodes.EmptyCategoryName);
+                if (categoryName.Value.Length > 300)
+                    throw new ValidationException(ErrorCodes.CategoryNameExceedLength);
+                if (_categoryTranslationService.CheckCategoryNameExistForMenu(categoryName.Value, categoryName.Key,
+                    categoryDto.CategoryId, categoryDto.MenuId))
+                    throw new ValidationException(ErrorCodes.CategoryNameAlreadyExist);
+            }
         }
 
         public PagedResultsDto GetAllCategoriesByMenuId(string language, long menuId, int page, int pageSize)
@@ -174,27 +182,29 @@ namespace ECatalog.BLL.Services
             }
         }
 
-        public void UpdateCategory(CategoryDTO categoryDto, string language, string path)
+        public void UpdateCategory(CategoryDTO categoryDto, string path)
         {
-            ValidateCategory(categoryDto, language);
+            ValidateCategory(categoryDto);
             var category = _categoryService.Find(categoryDto.CategoryId);
             if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
 
-            var categoryTranslation =
-                category.CategoryTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            if (categoryTranslation == null)
+            foreach (var categoryName in categoryDto.CategoryNameDictionary)
             {
-                category.CategoryTranslations.Add(new CategoryTranslation
+                var categoryTranslation =
+                    category.CategoryTranslations.FirstOrDefault(x => x.Language.ToLower() == categoryName.Key.ToLower());
+                if (categoryTranslation == null)
                 {
-                    Language = language,
-                    CategoryName = categoryDto.CategoryName
-                });
+                    category.CategoryTranslations.Add(new CategoryTranslation
+                    {
+                        Language = categoryName.Key.ToLower(),
+                        CategoryName = categoryName.Value
+                    });
+                }
+                else
+                {
+                    categoryTranslation.CategoryName = categoryName.Value;
+                }
             }
-            else
-            {
-                categoryTranslation.CategoryName = categoryDto.CategoryName;
-            }
-
             _categoryService.Update(category);
             SaveChanges();
             if (categoryDto.IsImageChange)

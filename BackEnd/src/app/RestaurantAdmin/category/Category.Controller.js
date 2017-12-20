@@ -3,12 +3,12 @@
 	
     angular
         .module('home')
-        .controller('categoryController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','GetCategoriesResource', 'CategoryResource','ActivateCategoryResource','DeactivateCategoryResource','categoryPrepService','ToastService',  categoryController])
+        .controller('categoryController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','GetCategoriesResource', 'CategoryResource','ActivateCategoryResource','DeactivateCategoryResource','categoriesPrepService','ToastService',  categoryController])
 
-    function categoryController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal,GetCategoriesResource, CategoryResource,ActivateCategoryResource,DeactivateCategoryResource,categoryPrepService,ToastService){
+    function categoryController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal,GetCategoriesResource, CategoryResource,ActivateCategoryResource,DeactivateCategoryResource,categoriesPrepService,ToastService){
 
         var vm = this;
-		vm.categories = categoryPrepService;
+		vm.categories = categoriesPrepService;
 		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		// $($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")

@@ -3,46 +3,30 @@
 	
     angular
         .module('home')
-        .controller('editBranchDialogController', ['$scope','$state','$uibModalInstance','$http','$translate','appCONSTANTS', 'BranchResource','ToastService','mode','englishBranches','branch','callBackFunction',  editBranchDialogController])
+        .controller('editBranchDialogController', ['$scope','$state','$http','$translate','appCONSTANTS', 'BranchResource','ToastService','branchPrepService',  editBranchDialogController])
 
-	function editBranchDialogController($scope, $state , $uibModalInstance,$http, $translate,appCONSTANTS, BranchResource,ToastService, mode, englishBranches, branch,callBackFunction){
+	function editBranchDialogController($scope, $state ,$http, $translate,appCONSTANTS, BranchResource,ToastService, branchPrepService,callBackFunction){
 		var vm = this;
 		vm.categoryName = "";
+		vm.language = appCONSTANTS.supportedLanguage;
 		
-		vm.mode = mode;
-		vm.englishBranches = englishBranches;
-		if(mode == "edit")
-		{
-            vm.branchTitle = branch.branchTitle;
-            vm.branchAddress = branch.branchAddress;
-        }
-		else
-            vm.selectedBranch = englishBranches[0];
-        
+		vm.branch = branchPrepService;
+		
 		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+			$state.go('branch');
 		}
 		
 		vm.updateBranch = function(){
             var updateBranch = new BranchResource();
-            updateBranch.branchTitle = vm.branchTitle;
-            updateBranch.branchAddress = vm.branchAddress;
-		
-            if(mode == "edit"){
-				updateBranch.branchId = branch.branchId;
-				updateBranch.menuId = branch.menuId;
-			}
-			else{
-				updateBranch.branchId = vm.selectedBranch.branchId;
-				updateBranch.menuId = vm.selectedBranch.menuId;
-				
-			}
+            updateBranch.branchTitleDictionary = vm.branch.branchTitleDictionary;
+            updateBranch.branchAddressDictionary = vm.branch.branchAddressDictionary;
+			updateBranch.branchId = vm.branch.branchId;
+			
 			updateBranch.$update().then(
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",$translate.instant('BranchUpdateSuccess'),"success");
 					 vm.isChanged = false;                     
-                    $uibModalInstance.dismiss('cancel');
-					callBackFunction();
+					 $state.go('branch');
                 },
                 function(data, status) {
                     vm.isChanged = false;                     

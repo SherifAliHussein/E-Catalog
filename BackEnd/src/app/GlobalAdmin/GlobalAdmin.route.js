@@ -19,6 +19,37 @@
                         displayName: 'restaurantType'
                     },
                     resolve: {
+                        restaurantTypesPrepService: restaurantTypesPrepService
+                    }
+                 
+                })
+                .state('newRestaurantType', {
+					url: '/newRestaurantType',
+                    templateUrl: './app/GlobalAdmin/templates/newType.html',
+                    controller: 'restaurantTypeDialogController',
+                    'controllerAs': 'restTypeDlCtrl',
+                    data: {
+                        permissions: {
+                            only: ['GlobalAdmin'],
+                           redirectTo: 'root'
+                        },
+                        displayName: 'restaurantType'
+                    }
+                 
+                })
+                .state('editRestaurantType', {
+					url: '/restaurantType/:restaurantTypeId',
+                    templateUrl: './app/GlobalAdmin/templates/editType.html',
+                    controller: 'editRestaurantTypeDialogController',
+                    'controllerAs': 'editRestTypeDlCtrl',
+                    data: {
+                        permissions: {
+                            only: ['GlobalAdmin'],
+                           redirectTo: 'root'
+                        },
+                        displayName: 'restaurantType'
+                    },
+                    resolve: {
                         restaurantTypePrepService: restaurantTypePrepService
                     }
                  
@@ -54,7 +85,6 @@
                         displayName: 'restaurants'
                     },
                     resolve: {
-						englishRestaurantPrepService: englishRestaurantPrepService,
                         allRestaurantTypePrepService: allRestaurantTypePrepService,
                         waitersLimitPrepService: waitersLimitPrepService
                     }                 
@@ -79,9 +109,14 @@
                 })
         });
 
-	restaurantTypePrepService.$inject = ['RestaurantTypeResource']
-    function restaurantTypePrepService(RestaurantTypeResource) {
+	restaurantTypesPrepService.$inject = ['RestaurantTypeResource']
+    function restaurantTypesPrepService(RestaurantTypeResource) {
         return RestaurantTypeResource.getAllRestaurantType().$promise;
+    }
+
+    restaurantTypePrepService.$inject = ['RestaurantTypeResource','$stateParams']
+    function restaurantTypePrepService(RestaurantTypeResource,$stateParams) {
+        return RestaurantTypeResource.getRestaurantType({restaurantTypeId:$stateParams.restaurantTypeId}).$promise;
     }
 
 	restaurantsPrepService.$inject = ['RestaurantResource']

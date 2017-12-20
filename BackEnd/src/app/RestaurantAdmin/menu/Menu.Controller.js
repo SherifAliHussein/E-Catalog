@@ -3,12 +3,12 @@
 	
     angular
         .module('home')
-        .controller('menuController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'MenuResource','menuPrepService','RestaurantIsReadyPrepService','ToastService','ActivateMenuResource','DeactivateMenuResource','PublishRestaurantResource',  menuController])
+        .controller('menuController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'MenuResource','menusPrepService','RestaurantIsReadyPrepService','ToastService','ActivateMenuResource','DeactivateMenuResource','PublishRestaurantResource',  menuController])
 
-    function menuController($scope ,$translate , appCONSTANTS,$uibModal, MenuResource,menuPrepService,RestaurantIsReadyPrepService,ToastService,ActivateMenuResource,DeactivateMenuResource,PublishRestaurantResource){
+    function menuController($scope ,$translate , appCONSTANTS,$uibModal, MenuResource,menusPrepService,RestaurantIsReadyPrepService,ToastService,ActivateMenuResource,DeactivateMenuResource,PublishRestaurantResource){
 
         var vm = this;
-		vm.menus = menuPrepService;
+		vm.menus = menusPrepService;
 		vm.RestaurantIsReady = RestaurantIsReadyPrepService.isReady;
 		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
@@ -61,7 +61,7 @@
 			}
 		}
 		function confirmationDelete(itemId){
-			MenuResource.deleteMenu({MenuId:itemId}).$promise.then(function(results) {
+			MenuResource.deleteMenu({menuId:itemId}).$promise.then(function(results) {
 				ToastService.show("right","bottom","fadeInUp",$translate.instant('menuDeleteSuccess'),"success");
 				refreshMenu();
 			},

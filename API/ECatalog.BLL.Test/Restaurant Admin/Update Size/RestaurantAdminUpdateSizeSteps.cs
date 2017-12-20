@@ -34,7 +34,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Size
             _sizeDto.SizeId = 1;
             try
             {
-                _SizeFacade.UpdateSize(_sizeDto,_userDto.UserId, Strings.DefaultLanguage);
+                _SizeFacade.UpdateSize(_sizeDto,_userDto.UserId);
             }
             catch (ValidationException ex)
             {
@@ -49,7 +49,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Size
             _sizeDto.SizeId = 1;
             try
             {
-                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId, Strings.DefaultLanguage);
+                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId);
             }
             catch (ValidationException ex)
             {
@@ -64,7 +64,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Size
             _sizeDto.SizeId = 2;
             try
             {
-                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId, Strings.DefaultLanguage);
+                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId );
             }
             catch (ValidationException ex)
             {
@@ -79,7 +79,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Size
             _sizeDto.SizeId = 1;
             try
             {
-                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId, Strings.DefaultLanguage);
+                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId );
             }
             catch (ValidationException ex)
             {
@@ -94,7 +94,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Size
             _sizeDto.SizeId = 1;
             try
             {
-                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId, Strings.DefaultLanguage);
+                _SizeFacade.UpdateSize(_sizeDto, _userDto.UserId );
             }
             catch (ValidationException ex)
             {
@@ -105,7 +105,7 @@ namespace ECatalog.BLL.Test.Restaurant_Admin.Update_Size
         [Then(@"size name will update successfully")]
         public void ThenSizeNameWillUpdateSuccessfully()
         {
-            var size = _SizeFacade.GetSize(_sizeDto.SizeId, Strings.DefaultLanguage);
+            var size = _SizeFacade.GetSize(_sizeDto.SizeId );
             Assert.AreEqual(_sizeDto.SizeName, size.SizeName);
         }
         

@@ -3,12 +3,12 @@
 	
     angular
         .module('home')
-        .controller('restaurantTypeController', ['$scope', '$translate' , 'appCONSTANTS','$uibModal', 'RestaurantTypeResource','restaurantTypePrepService','ToastService',  restaurantTypeController])
+        .controller('restaurantTypeController', ['$scope', '$translate' , 'appCONSTANTS','$uibModal', 'RestaurantTypeResource','restaurantTypesPrepService','ToastService',  restaurantTypeController])
 
-    function restaurantTypeController($scope, $translate, appCONSTANTS,$uibModal, RestaurantTypeResource,restaurantTypePrepService,ToastService){
+    function restaurantTypeController($scope, $translate, appCONSTANTS,$uibModal, RestaurantTypeResource,restaurantTypesPrepService,ToastService){
 
         var vm = this;
-		vm.restaurantTypes = restaurantTypePrepService;
+		vm.restaurantTypes = restaurantTypesPrepService;
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
 		

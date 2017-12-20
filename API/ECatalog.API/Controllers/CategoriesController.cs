@@ -63,7 +63,7 @@ namespace ECatalog.API.Controllers
             categoryDto.Image = new MemoryStream();
             httpPostedFile.InputStream.CopyTo(categoryDto.Image);
 
-            _categoryFacade.AddCategory(categoryDto, Language, HostingEnvironment.MapPath("~/Images/"));
+            _categoryFacade.AddCategory(categoryDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 
@@ -73,7 +73,7 @@ namespace ECatalog.API.Controllers
         [ResponseType(typeof(CategoryModel))]
         public IHttpActionResult GetCategory(long categoryId)
         {
-            var category = Mapper.Map<CategoryModel>(_categoryFacade.GetCategory(categoryId, Language));
+            var category = Mapper.Map<CategoryModel>(_categoryFacade.GetCategory(categoryId));
             category.ImageURL = Url.Link("CategoryImage", new {category.RestaurantId, category.MenuId, category.CategoryId});
             
             return Ok(category);
@@ -138,7 +138,7 @@ namespace ECatalog.API.Controllers
                 categoryDto.Image = new MemoryStream();
                 httpPostedFile.InputStream.CopyTo(categoryDto.Image);
             }
-            _categoryFacade.UpdateCategory(categoryDto, Language, HostingEnvironment.MapPath("~/Images/"));
+            _categoryFacade.UpdateCategory(categoryDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 

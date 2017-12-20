@@ -38,21 +38,25 @@ namespace ECatalog.BLL.Services
             return _sizeTranslationService.GetAllSizes(language,userId, page, pageSize);
         }
 
-        public void AddSize(SizeDto sizeDto,long restaurantAdminId, string language)
+        public void AddSize(SizeDto sizeDto,long restaurantAdminId)
         {
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             if (restaurant.IsDeleted) throw new ValidationException(ErrorCodes.RestaurantDeleted);
-            ValidateSize(sizeDto, language, restaurantAdminId);
+            ValidateSize(sizeDto, restaurantAdminId);
             var size = new Size();
-            size.SizeTranslations.Add(new SizeTranslation
+
+            foreach (var sizeName in sizeDto.SizeNameDictionary)
             {
-                SizeName = sizeDto.SizeName,
-                Language = language
-            });
+                size.SizeTranslations.Add(new SizeTranslation
+                {
+                    SizeName = sizeName.Value,
+                    Language = sizeName.Key.ToLower()
+                });
+            }
             size.RestaurantId = restaurant.RestaurantId;
-            _sizeService.Insert(size);
             _sizeTranslationService.InsertRange(size.SizeTranslations);
+            _sizeService.Insert(size);
             SaveChanges();
         }
         public void DeleteSize(long sizeId)
@@ -64,51 +68,60 @@ namespace ECatalog.BLL.Services
             _sizeService.Update(size);
             SaveChanges();
         }
-        public SizeDto GetSize(long sizeId, string language)
+        public SizeDto GetSize(long sizeId)
         {
             var size = _sizeService.Find(sizeId);
             if (size == null) throw new NotFoundException(ErrorCodes.SizeNotFound);
             if (size.IsDeleted) throw new NotFoundException(ErrorCodes.SizeDeleted);
-            return Mapper.Map<Size, SizeDto>(size, opt =>
-            {
-                opt.BeforeMap((src, dest) =>
-                    {
-                        src.SizeTranslations = src.SizeTranslations
-                            .Where(x => x.Language.ToLower() == language.ToLower())
-                            .ToList();
-                    }
-                );
-            });
+            //return Mapper.Map<Size, SizeDto>(size, opt =>
+            //{
+            //    opt.BeforeMap((src, dest) =>
+            //        {
+            //            src.SizeTranslations = src.SizeTranslations
+            //                .Where(x => x.Language.ToLower() == language.ToLower())
+            //                .ToList();
+            //        }
+            //    );
+            //});
+            return Mapper.Map<SizeDto>(size);
         }
 
-        private void ValidateSize(SizeDto sizeDto,string language,long restaurantAdminId)
+        private void ValidateSize(SizeDto sizeDto,long restaurantAdminId)
         {
-            if (string.IsNullOrEmpty(sizeDto.SizeName)) throw new ValidationException(ErrorCodes.EmptySizeName);
-            if (sizeDto.SizeName.Length > 100) throw new ValidationException(ErrorCodes.SizeNameExceedLength);
-            if (sizeDto.SizeName.Length < 3) throw new ValidationException(ErrorCodes.SizeNameMinimumLength);
-            if (_sizeTranslationService.CheckSizeNameExist(sizeDto.SizeName, language, sizeDto.SizeId, restaurantAdminId)) throw new ValidationException(ErrorCodes.SizeNameAlreadyExist);
+            foreach (var sizeName in sizeDto.SizeNameDictionary)
+            {
+                if (string.IsNullOrEmpty(sizeName.Value)) throw new ValidationException(ErrorCodes.EmptySizeName);
+                if (sizeName.Value.Length > 100) throw new ValidationException(ErrorCodes.SizeNameExceedLength);
+                if (sizeName.Value.Length < 3) throw new ValidationException(ErrorCodes.SizeNameMinimumLength);
+                if (_sizeTranslationService.CheckSizeNameExist(sizeName.Value, sizeName.Key, sizeDto.SizeId,
+                    restaurantAdminId)) throw new ValidationException(ErrorCodes.SizeNameAlreadyExist);
+            }
         }
 
-        public void UpdateSize(SizeDto sizeDto, long restaurantAdminId, string language)
+        public void UpdateSize(SizeDto sizeDto, long restaurantAdminId)
         {
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             if (restaurant.IsDeleted) throw new ValidationException(ErrorCodes.RestaurantDeleted);
             var size = _sizeService.Find(sizeDto.SizeId);
             if (size == null) throw new NotFoundException(ErrorCodes.SizeNotFound);
-            ValidateSize(sizeDto, language, restaurantAdminId);
-            var sizeTranslation = size.SizeTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            if (sizeTranslation == null)
+            ValidateSize(sizeDto, restaurantAdminId);
+            foreach (var sizeName in sizeDto.SizeNameDictionary)
             {
-                size.SizeTranslations.Add(new SizeTranslation
+                var sizeTranslation =
+                    size.SizeTranslations.FirstOrDefault(x => x.Language.ToLower() == sizeName.Key.ToLower());
+                if (sizeTranslation == null)
                 {
-                    Language = language,
-                    SizeName = sizeDto.SizeName
-                });
-            }
-            else
-            {
-                sizeTranslation.SizeName = sizeDto.SizeName;
+                    size.SizeTranslations.Add(new SizeTranslation
+                    {
+                        Language = sizeName.Key.ToLower(),
+                        SizeName = sizeName.Value
+                    });
+                }
+                else
+                {
+                    sizeTranslation.SizeName = sizeName.Value;
+                }
             }
             size.RestaurantId = restaurant.RestaurantId;
             _sizeService.Update(size);

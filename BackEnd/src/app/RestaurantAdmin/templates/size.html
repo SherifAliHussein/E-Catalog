@@ -1,6 +1,6 @@
 <div >
         <div style="margin-bottom:10px">
-            <button  ng-click="sizeCtrl.openSizeDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddSizeBtn' | translate}}</button>
+            <button  ng-click="$state.go('newsize');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddSizeBtn' | translate}}</button>
     
         </div>
         <div ng-if="sizeCtrl.sizes.results.length == 0">
@@ -19,7 +19,7 @@
                         <tr ng-repeat="size in sizeCtrl.sizes.results">
                             <td data-title="Name" width="30%">{{size.sizeName}}</td>
                             <td  width="70%">
-                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="sizeCtrl.openEditSizeDialog($index)">mode_edit</i> 
+                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editsize',{sizeId: size.sizeId});">mode_edit</i> 
                                 <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="sizeCtrl.openDeleteSizeDialog(size.sizeName,size.sizeId)">delete</i>
                             </td>
                         </tr>

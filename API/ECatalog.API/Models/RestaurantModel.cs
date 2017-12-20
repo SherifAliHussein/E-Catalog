@@ -11,7 +11,9 @@ namespace ECatalog.API.Models
         public string RestaurantAdminUserName { get; set; }
         public string RestaurantAdminPassword { get; set; }
         public string RestaurantName { get; set; }
+        public Dictionary<string, string> RestaurantNameDictionary { get; set; }
         public string RestaurantDescription { get; set; }
+        public Dictionary<string, string> RestaurantDescriptionDictionary { get; set; }
         public string RestaurantTypeName { get; set; }
         public long RestaurantTypeId { get; set; }
         public bool IsActive { get; set; }

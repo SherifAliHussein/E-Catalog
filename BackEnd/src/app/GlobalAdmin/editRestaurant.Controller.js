@@ -7,7 +7,7 @@
 
 	function editRestaurantController($scope,$http,$translate,appCONSTANTS, $state, RestaurantResource,ToastService, restaurantPrepService, allRestaurantTypePrepService,waitersLimitPrepService){
 		var vm = this;
-		
+		vm.language = appCONSTANTS.supportedLanguage;
 		vm.RestaurantType = allRestaurantTypePrepService;
 		vm.restaurant = restaurantPrepService;
 		vm.waitersLimit = waitersLimitPrepService;
@@ -21,8 +21,8 @@
 			var updateRestaurant = new Object();
             updateRestaurant.restaurantAdminUserName = vm.restaurant.restaurantAdminUserName;
 			updateRestaurant.restaurantAdminPassword = vm.restaurant.restaurantAdminPassword;
-			updateRestaurant.restaurantName = vm.restaurant.restaurantName;
-			updateRestaurant.restaurantDescription = vm.restaurant.restaurantDescription;
+			updateRestaurant.restaurantNameDictionary = vm.restaurant.restaurantNameDictionary;
+			updateRestaurant.restaurantDescriptionDictionary = vm.restaurant.restaurantDescriptionDictionary;
 			updateRestaurant.restaurantTypeId = vm.restaurant.restaurantTypeId;
 			updateRestaurant.restaurantId = vm.restaurant.restaurantId;
 			updateRestaurant.isLogoChange = isLogoChange;

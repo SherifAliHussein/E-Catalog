@@ -46,49 +46,57 @@ namespace ECatalog.BLL.Services
             _restaurantWaiterService = restaurantWaiterService;
         }
 
-        public void AddMenu(MenuDTO menuDto,long restaurantAdminId,string language,string path)
+        public void AddMenu(MenuDTO menuDto,long restaurantAdminId, string path)
         {
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             if (restaurant.IsDeleted) throw new ValidationException(ErrorCodes.RestaurantDeleted);
-            ValidateMenu(menuDto, language,restaurant.RestaurantId);
+            ValidateMenu(menuDto,restaurant.RestaurantId);
             var menu = new Menu();
-            menu.MenuTranslations.Add(new MenuTranslation
+            foreach (var menuName in menuDto.MenuNameDictionary)
             {
-                MenuName = menuDto.MenuName,
-                Language = language
-            });
+                menu.MenuTranslations.Add(new MenuTranslation
+                {
+                    MenuName = menuName.Value,
+                    Language = menuName.Key.ToLower()
+                });
+            }
             menu.RestaurantId = restaurant.RestaurantId;
-            _menuService.Insert(menu);
             _menuTranslationService.InsertRange(menu.MenuTranslations);
+            _menuService.Insert(menu);
             SaveChanges();
             _manageStorage.UploadImage(path + "\\" + "Restaurant-" + menu.RestaurantId + "\\" + "Menu-" + menu.MenuId, menuDto.Image, menu.MenuId.ToString());
         }
 
-        public MenuDTO GetMenu(long menuId, string language)
+        public MenuDTO GetMenu(long menuId)
         {
             var menu = _menuService.Find(menuId);
             if(menu == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
             if(menu.IsDeleted) throw new NotFoundException(ErrorCodes.MenuDeleted);
-            return Mapper.Map<Menu, MenuDTO>(menu, opt =>
-            {
-                opt.BeforeMap((src, dest) =>
-                    {
-                        src.MenuTranslations = src.MenuTranslations
-                            .Where(x => x.Language.ToLower() == language.ToLower())
-                            .ToList();
-                    }
-                ); 
-            });
+            //return Mapper.Map<Menu, MenuDTO>(menu, opt =>
+            //{
+            //    opt.BeforeMap((src, dest) =>
+            //        {
+            //            src.MenuTranslations = src.MenuTranslations
+            //                .Where(x => x.Language.ToLower() == language.ToLower())
+            //                .ToList();
+            //        }
+            //    ); 
+            //});
+            return Mapper.Map<MenuDTO>(menu);
         }
-        private void ValidateMenu(MenuDTO menuDto, string language,long restaurantId)
+        private void ValidateMenu(MenuDTO menuDto, long restaurantId)
         {
-            if (string.IsNullOrEmpty(menuDto.MenuName))
-                throw new ValidationException(ErrorCodes.EmptyMenuName);
-            if (menuDto.MenuName.Length > 300)
+            foreach (var menuName in menuDto.MenuNameDictionary)
+            {
+                if (string.IsNullOrEmpty(menuName.Value))
+                    throw new ValidationException(ErrorCodes.EmptyMenuName);
+                if (menuName.Value.Length > 300)
 
-                throw new ValidationException(ErrorCodes.MenuNameExceedLength);
-            if ( _menuTranslationService.CheckMenuNameExistForRestaurant(menuDto.MenuName, language, menuDto.MenuId, restaurantId)) throw new ValidationException(ErrorCodes.MenuNameAlreadyExist);
+                    throw new ValidationException(ErrorCodes.MenuNameExceedLength);
+                if (_menuTranslationService.CheckMenuNameExistForRestaurant(menuName.Value, menuName.Key, menuDto.MenuId,
+                    restaurantId)) throw new ValidationException(ErrorCodes.MenuNameAlreadyExist);
+            }
         }
 
         public PagedResultsDto GetAllMenusByRestaurantId(string language,long restaurantAdminId, int page, int pageSize)
@@ -157,25 +165,28 @@ namespace ECatalog.BLL.Services
             SaveChanges();
         }
 
-        public void UpdateMenu(MenuDTO menuDto, long restaurantAdminId, string language, string path)
+        public void UpdateMenu(MenuDTO menuDto, long restaurantAdminId, string path)
         {
             var menu = _menuService.Find(menuDto.MenuId);
             if (menu == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
-            ValidateMenu(menuDto, language,menu.RestaurantId);
-            var menuTranslation = menu.MenuTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            if (menuTranslation == null)
+            ValidateMenu(menuDto,menu.RestaurantId);
+            foreach (var menuName in menuDto.MenuNameDictionary)
             {
-                menu.MenuTranslations.Add(new MenuTranslation
+                var menuTranslation =
+                    menu.MenuTranslations.FirstOrDefault(x => x.Language.ToLower() == menuName.Key.ToLower());
+                if (menuTranslation == null)
                 {
-                    Language = language,
-                    MenuName = menuDto.MenuName
-                });
+                    menu.MenuTranslations.Add(new MenuTranslation
+                    {
+                        Language = menuName.Key.ToLower(),
+                        MenuName = menuName.Value
+                    });
+                }
+                else
+                {
+                    menuTranslation.MenuName = menuName.Value;
+                }
             }
-            else
-            {
-                menuTranslation.MenuName = menuDto.MenuName;
-            }
-
             _menuService.Update(menu);
             SaveChanges();
             if (menuDto.IsImageChange)

@@ -9,6 +9,7 @@
   
     function CategoryResource($resource, appCONSTANTS) {
       return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId', {}, {
+        getCategory: { method: 'GET', useToken: true },
         create: { method: 'POST', useToken: true },
         deleteCategory: { method: 'DELETE', useToken: true },
         update: { method: 'PUT', useToken: true }

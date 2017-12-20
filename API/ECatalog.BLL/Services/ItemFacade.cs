@@ -72,9 +72,9 @@ namespace ECatalog.BLL.Services
         }
 
 
-        public void AddItem(ItemDTO itemDto,string language, string path)
+        public void AddItem(ItemDTO itemDto, string path)
         {
-            ValidateItem(itemDto, language);
+            ValidateItem(itemDto);
             var category = _categoryService.Find(itemDto.CategoryId);
             if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
             if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
@@ -85,12 +85,15 @@ namespace ECatalog.BLL.Services
             if (Strings.SupportedLanguages.Any(lang => itemDto.SideItems.Any(x => _sideItemTranslationService.CheckSideItemNameTranslated(lang.ToLower(), x.SideItemId))))
                 throw new ValidationException(ErrorCodes.SideItemIsNotTranslated);
 
-            item.ItemTranslations.Add(new ItemTranslation
+            foreach (var itemName in itemDto.ItemNameDictionary)
             {
-                ItemName = itemDto.ItemName,
-                ItemDescription = itemDto.ItemDescription,
-                Language = language
-            });
+                item.ItemTranslations.Add(new ItemTranslation
+                {
+                    ItemName = itemName.Value,
+                    ItemDescription = itemDto.ItemDescriptionDictionary[itemName.Key],
+                    Language = itemName.Key.ToLower()
+                });
+            }
             foreach (var sizeDto in itemDto.Sizes)
             {
                 item.ItemSizes.Add(new ItemSize
@@ -110,11 +113,9 @@ namespace ECatalog.BLL.Services
             }
             //item.CategoryId = categoryId;
             _itemSideItemService.InsertRange(item.ItemSideItems);
-            _itemSizeService.InsertRange(item.ItemSizes);
             _itemTranslationService.InsertRange(item.ItemTranslations);
+            _itemSizeService.InsertRange(item.ItemSizes);
             _itemService.Insert(item);
-
-            
 
             SaveChanges();
             _manageStorage.UploadImage(path + "\\" + "Restaurant-" + + category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\"+ "Category-"+ item.CategoryId + "\\Items", itemDto.Image, item.ItemId+"-1");
@@ -126,28 +127,38 @@ namespace ECatalog.BLL.Services
             var item = _itemService.Find(itemId);
             if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
             if (item.IsDeleted) throw new NotFoundException(ErrorCodes.ItemDeleted);
-            return Mapper.Map<Item, ItemDTO>(item, opt =>
-            {
-                opt.BeforeMap((src, dest) =>
-                    {
-                        src.ItemTranslations = src.ItemTranslations
-                            .Where(x => x.Language.ToLower() == language.ToLower())
-                            .ToList();
-                    }
-                );
-            });
+            //return Mapper.Map<Item, ItemDTO>(item, opt =>
+            //{
+            //    opt.BeforeMap((src, dest) =>
+            //        {
+            //            src.ItemTranslations = src.ItemTranslations
+            //                .Where(x => x.Language.ToLower() == language.ToLower())
+            //                .ToList();
+            //        }
+            //    );
+            //});
+            var itemDto = Mapper.Map<ItemDTO>(item);
+            var itemTranslation = item.ItemTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
+            itemDto.ItemName = itemTranslation.ItemName;
+            itemDto.ItemDescription = itemTranslation.ItemDescription;
+            return itemDto;
         }
-        private void ValidateItem(ItemDTO itemDto, string language)
+
+        private void ValidateItem(ItemDTO itemDto)
         {
-            if (string.IsNullOrEmpty(itemDto.ItemName))
-                throw new ValidationException(ErrorCodes.EmptyItemName);
-            if (string.IsNullOrEmpty(itemDto.ItemDescription))
-                throw new ValidationException(ErrorCodes.EmptyItemDescription);
-            if (itemDto.ItemName.Length > 100)
-                throw new ValidationException(ErrorCodes.ItemNameExceedLength);
-            if(itemDto.Sizes.Any(x=> double.IsNaN(x.Price) || x.Price <= 0))
+            foreach (var itemName in itemDto.ItemNameDictionary)
+            {
+                if (string.IsNullOrEmpty(itemName.Value))
+                    throw new ValidationException(ErrorCodes.EmptyItemName);
+                if (string.IsNullOrEmpty(itemDto.ItemDescriptionDictionary[itemName.Key]))
+                    throw new ValidationException(ErrorCodes.EmptyItemDescription);
+                if (itemName.Value.Length > 100)
+                    throw new ValidationException(ErrorCodes.ItemNameExceedLength);
+                if (_itemTranslationService.CheckItemNameExistForCategory(itemName.Value, itemName.Key, itemDto.ItemID,
+                    itemDto.CategoryId)) throw new ValidationException(ErrorCodes.ItemNameAlreadyExist);
+            }
+            if (itemDto.Sizes.Any(x => double.IsNaN(x.Price) || x.Price <= 0))
                 throw new ValidationException(ErrorCodes.InvalidItemPrice);
-            if (_itemTranslationService.CheckItemNameExistForCategory(itemDto.ItemName, language, itemDto.ItemID, itemDto.CategoryId)) throw new ValidationException(ErrorCodes.ItemNameAlreadyExist);
         }
 
         public PagedResultsDto GetAllItemsByCategoryId(string language, long categoryId, int page, int pageSize)
@@ -254,9 +265,9 @@ namespace ECatalog.BLL.Services
                 _restaurantService.Update(item.Category.Menu.Restaurant);
             }
         }
-        public void UpdateItem(ItemDTO itemDto, string language, string path)
+        public void UpdateItem(ItemDTO itemDto, string path)
         {
-            ValidateItem(itemDto, language);
+            ValidateItem(itemDto);
             var item = _itemService.Find(itemDto.ItemID);
             if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
 
@@ -265,20 +276,24 @@ namespace ECatalog.BLL.Services
             if (Strings.SupportedLanguages.Any(lang => itemDto.SideItems.Any(x => _sideItemTranslationService.CheckSideItemNameTranslated(lang.ToLower(), x.SideItemId))))
                 throw new ValidationException(ErrorCodes.SideItemIsNotTranslated);
 
-            var itemTranslation = item.ItemTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            if (itemTranslation == null)
+            foreach (var itemName in itemDto.ItemNameDictionary)
             {
-                item.ItemTranslations.Add(new ItemTranslation
+                var itemTranslation =
+                    item.ItemTranslations.FirstOrDefault(x => x.Language.ToLower() == itemName.Key.ToLower());
+                if (itemTranslation == null)
                 {
-                    Language = language,
-                    ItemName = itemDto.ItemName,
-                    ItemDescription = itemDto.ItemDescription
-                });
-            }
-            else
-            {
-                itemTranslation.ItemName = itemDto.ItemName;
-                itemTranslation.ItemDescription = itemDto.ItemDescription;
+                    item.ItemTranslations.Add(new ItemTranslation
+                    {
+                        Language = itemName.Key.ToLower(),
+                        ItemName = itemName.Value,
+                        ItemDescription = itemDto.ItemDescriptionDictionary[itemName.Key]
+                    });
+                }
+                else
+                {
+                    itemTranslation.ItemName = itemName.Value;
+                    itemTranslation.ItemDescription = itemDto.ItemDescriptionDictionary[itemName.Key];
+                }
             }
             foreach (var sizeDto in itemDto.Sizes)
             {

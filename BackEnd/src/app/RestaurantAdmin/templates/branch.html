@@ -1,6 +1,6 @@
 <div >
     <div style="margin-bottom:10px">
-        <button  ng-click="branchCtrl.openBranchDialog()" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddBranchBtn' | translate}}</button>
+        <button  ng-click="$state.go('newbranch');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddBranchBtn' | translate}}</button>
         
     </div>
     
@@ -29,7 +29,7 @@
                             <a ng-show="branch.isActive" ng-click="branchCtrl.Deactivate(branch)" class="cursorPointer">{{'DeActivateBtn' | translate}}</a>
                         </td>
                         <td width="30%">
-                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="branchCtrl.openEditBranchDialog($index)">mode_edit</i> 
+                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editbranch',{branchId: branch.branchId});">mode_edit</i> 
                             <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="branchCtrl.openDeleteBranchDialog(branch.branchTitle,branch.branchId)">delete</i>
                         </td>
                     </tr>
