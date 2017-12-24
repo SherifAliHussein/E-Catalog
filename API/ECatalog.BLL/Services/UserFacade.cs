@@ -67,9 +67,11 @@ namespace ECatalog.BLL.Services
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             var consumedWaiters = restaurant.GlobalAdmin.Restaurants.Where(x => !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
             Package package;
+            
+
+            package = restaurant.GlobalAdmin.Packages.OrderBy(x => x.Start).FirstOrDefault();
             while (true)
             {
-                package = restaurant.GlobalAdmin.Packages.OrderBy(x=>x.Start).Skip(1).FirstOrDefault();
                 if (package.MaxNumberOfWaiters > consumedWaiters)
                 {
                     break;
@@ -79,6 +81,7 @@ namespace ECatalog.BLL.Services
                     consumedWaiters = consumedWaiters - package.MaxNumberOfWaiters;
                 }
 
+                package = restaurant.GlobalAdmin.Packages.OrderBy(x => x.Start).Skip(1).FirstOrDefault();
             }
             var packages = restaurant.GlobalAdmin.Packages;
             RestaurantWaiter restaurantWaiter = Mapper.Map<RestaurantWaiter>(restaurantWaiterDto);

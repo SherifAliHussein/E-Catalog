@@ -83,7 +83,10 @@ font-family:Roboto-Black;}
         overflow: hidden;}
 
         .main_counter .counter{    float: left;
-            height: 27px;}
+            height: 27px;
+            margin-left: 5px;
+            margin-right: 5px;
+            text-align: right;}
 
             .add{    background-color: green;
                 color: #fff;
@@ -139,11 +142,11 @@ font-family:Roboto-Black;}
 	white-space: normal;
 	background-image: url(../assets/img/book.png);
 background-size: 100% 100%;
- width: 940px;
-            height: 568px;
+width: 1150px;
+height: 620px;
 
 float: right;
-margin-right: 5%;
+margin-right: 10%;
 }
 
 .main_over{background-color: rgba(0, 0, 0, 0.7);
@@ -206,7 +209,8 @@ float: none!important;
     font-family: Roboto-light;
     font-size: 10px;}
 .main_cart img{width: 100%;
-    margin-bottom: 10px;}
+    margin-bottom: 10px;
+    margin-top: 5px;}
 	
 	hr {
     margin-top: 0!important;}
@@ -384,6 +388,11 @@ text-align: center;
 margin-left: auto;
 margin-right: auto;
 float: none!important;}
+.subs2{margin-top: 40px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    float: none!important;}
 
 
 .active_pop {
@@ -526,12 +535,18 @@ text-align: center;}
 }
 
 
-.subs img{width:100%;
-    min-height: 145px;}
 
-.header{margin-top: 2%;
-margin-bottom: 19px;
-overflow: hidden;}
+.subs2 img{width:100%;
+    min-height: 145px;
+    height: 258px;}
+
+.subs img{width:100%;
+    min-height: 145px;
+    height: 258px;}
+
+.header{    margin-top: 1%;
+    margin-bottom: 7px;
+    overflow: hidden;}
 
 .cart_icon{   width: 87%;
     float: right;
@@ -700,7 +715,7 @@ font-family: Roboto-Black !important;}
 
 
 .page1{width: 100%;
-height: 97%;
+    height: 97%!important;
 background-image: url(../assets/img/page1.png);
 padding-left: 30px;
 background-size: 100% 100%;
@@ -708,7 +723,7 @@ padding-top: 26px;
 margin-top: 4px;}
 
 .page2{width: 95%;
-height: 97%;
+    height: 97%!important;
 background-image: url(../assets/img/page2.png);
 padding-left: 14px;
 background-size: 100% 100%;
@@ -837,6 +852,13 @@ box-shadow: none !important;
 
 @media all and (max-width: 1024px){
 
+
+    .subs2 img{
+        height: 113px;}
+
+    .subs img{
+        height: 190px;}
+
     .active {
 
         padding-top: 8vh;
@@ -844,8 +866,10 @@ box-shadow: none !important;
 	
 	#flipbook{
 
- width: 740px;
-            height: 578px;}
+ width: 960px;
+            height: 555px;
+            margin-right: 3%;
+        }
 			
 			.cover img {
  
@@ -859,6 +883,8 @@ box-shadow: none !important;
 	.active2 {
  
     padding-top: 4vh;}
+    
+    html{    height: 100%;}
 
 body {
     background-size: cover;
@@ -885,19 +911,60 @@ body {
     width: 77%!important;
 }
 
+.back {
+    position: absolute;
+    margin-top: 0;
+    text-align: center;
+    top: 17px;
+    left: 20vw;
+}
+
 }
 
 @media all and (max-width: 768px){
 
+    #flipbook {
+    width: 725px;
+    height: 555px;
+    margin-right: 3%;
+}
+.logo {
+    margin-left: 3%;
+    width: 13vh;
+    float: left;
+}
+
 .active {
-    padding-top: 12vh;
+    padding-top: 6vh;
 }
 
+.main_over {
+    width: 88%;
+}
 
-.main_over p{font-family: 'Bad Script', cursive;
-    font-size: 7vw;}
+.subs {
+    margin-top: 10vh;}
+
+    .main_over:hover p {
+        font-size: 33px;}
 
 }
+
+@media all and (max-width: 600px){
+
+    html{    height: auto;}
+.subs img {
+ 
+    height: 260px;
+}
+.main_over {
+    width: 95%;
+}
+.active {
+    padding-top: 29vh;
+}
+}
+
 
 
 @media all and (max-width: 520px){
@@ -926,7 +993,7 @@ body {
             width: 80% !important;
         }
         .main_over {
-            width: 90%;
+            width: 92%;
         }
         
         .main_lity{max-height: 88vh!important;}

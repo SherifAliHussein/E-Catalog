@@ -1,7 +1,7 @@
 
-<div class="sub_data">
+<!-- <div class="sub_data">
     <div class="main_category">
-        <div class="col-sm-12 col-xs-12 col-md-12 subs">
+        <div class="col-sm-12 col-xs-12 col-md-12 subs2">
             <div class="sub_content">
                 <img src="{{itemCtrl.catgoryTemplates.menuImageURL}}" alt="" style="max-height: 177px;"/>
 <div class="sub_sub">
@@ -21,10 +21,12 @@
         </div>
     </div>
 
-    <a class="back" href="#">
-        <img alt="" />
-    </a>
-</div>
+   
+</div> -->
+<a class="back" href="#">
+    <img alt="" />
+</a>
+
 <flipbook itempagectrl="itemCtrl.catgoryTemplates.templates" itemdetails="itemCtrl.itemDetails"></flipbook>
 <div id="inline2" class="main_lity lity-hide">
     <div class="col-sm-6 col-xs-6 col-md-6 header_pop">
@@ -45,34 +47,34 @@
                   </div>
              </div>
           </div>
+          <div class="col-sm-6 col-xs-6 col-md-6 "> 
+            <h3>{{itemCtrl.itemDetails.itemName}}</h3>
+            <p>{{itemCtrl.itemDetails.itemDescription}}</p>
+       
+                <!--<div class="menu_plus" style="    margin-top: 41px;">
+                    <h3>Side Items</h3>
+    
+                    <p ng-repeat="side in itemCtrl.itemDetails.sideItems">
+                        <span>{{side.sideItemName}}</span>
+                        <span>{{side.value}}</span>
+                        <input type="checkbox" ng-model="selectedSide" ng-click="checkSideClick(side)" name="name" required  >
+                    </p>
+                    <br>
+                    * Please note the Max Side Item Value : {{itemCtrl.itemDetails.maxSideItemValue}}
+                </div>-->
+         
+        </div>
           <div class="main_counter">
-                <span class="main_arrow"><img  class="arrow_img" ng-click="removeCounter()" style="width: 21px!important;height: 21px!important;" ng-src="../assets/img/Subtract.ico" /></span>
+                <span class="main_arrow"><img  class="arrow_img" ng-click="removeCounter()" style="" ng-src="../assets/img/Subtract.png" /></span>
 
                 <input  type="number" ng-model="selectedCount" class="form-control counter" value="1" readonly="readonly">
-                <span><img class="arrow_img" ng-click="addCounter()" style="    width: 24px!important;
-                    height: 23px!important;" ng-src="../assets/img/Plus.ico" /></span>
+                <span><img class="arrow_img" ng-click="addCounter()" style="" ng-src="../assets/img/plus.png" /></span>
 
                 <!-- <select ng-model="selectedCount" ng-init="selectedCount = itemCtrl.counts[0]" ng-options="x for x in itemCtrl.counts"></select> -->
              <input type="button" class="btn add" ng-click="addItemToCart(itemCtrl.itemDetails)" ng-disabled="!displayAdd" value="{{'Add' | translate}}" data-lity-close>
             </div>
-    </div>
-     <div class="col-sm-6 col-xs-6 col-md-6 "> 
-        <h3>{{itemCtrl.itemDetails.itemName}}</h3>
-        <p>{{itemCtrl.itemDetails.itemDescription}}</p>
+    <!-- </div> -->
    
-            <!--<div class="menu_plus" style="    margin-top: 41px;">
-                <h3>Side Items</h3>
-
-                <p ng-repeat="side in itemCtrl.itemDetails.sideItems">
-                    <span>{{side.sideItemName}}</span>
-                    <span>{{side.value}}</span>
-                    <input type="checkbox" ng-model="selectedSide" ng-click="checkSideClick(side)" name="name" required  >
-                </p>
-                <br>
-                * Please note the Max Side Item Value : {{itemCtrl.itemDetails.maxSideItemValue}}
-            </div>-->
-     
-    </div>
  
     
     <!-- <div class="col-sm-6 col-xs-6 col-md-6">

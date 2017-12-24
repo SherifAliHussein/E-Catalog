@@ -87,6 +87,9 @@ h3{ font-weight: bold;}
             font-size: 15px!important;
             color: #000!important;
             width: 50px!important;
+            margin-left: 5px;
+            margin-right: 5px;
+            text-align: left;
         }
 
         .add{    background-color: green;
@@ -144,11 +147,10 @@ h3{ font-weight: bold;}
 	white-space: normal;
 	background-image: url(../assets/img/book-ar.png);
 background-size: 100% 100%;
- width: 940px;
-            height: 568px;
-
-    float: left;
-    margin-left: 5%;
+width: 1150px;
+height: 620px;
+float: left;
+margin-left: 10%;
 }
 
 .main_over{background-color: rgba(0, 0, 0, 0.7);
@@ -548,11 +550,12 @@ text-align: center;}
 }
 
 
-.subs img{width:100%;
-    min-height: 145px;}
+.subs img{    width: 100%;
+    min-height: 145px;
+    height: 258px;}
 
-.header{margin-top: 2%;
-margin-bottom: 19px;
+.header{    margin-top: 1%;
+    margin-bottom: 4px;
     overflow: hidden;
 }
 
@@ -746,7 +749,7 @@ font-family: Roboto-Black !important;}
 
 
 .page1{      width: 100%;
-    height: 97%;
+        height: 97%!important;
     background-image: url(../assets/img/page1.png);
     padding-right: 14px;
     background-size: 100% 100%;
@@ -757,7 +760,7 @@ font-family: Roboto-Black !important;}
     padding-left: 34px;}
 
 .page2{width: 95%;
-height: 97%;
+    height: 97%!important;
 background-image: url(../assets/img/page2.png);
 padding-left: 14px;
 background-size: 100% 100%;
@@ -889,7 +892,7 @@ box-shadow: none !important;
 
 @media all and (max-width: 1024px){
 
-    .active {
+    /* .active {
 
         padding-top: 8vh;
     }
@@ -935,7 +938,74 @@ body {
 .lity-container {
   
     width: 77%!important;
+} */
+.subs2 img{
+    height: 113px;}
+
+.subs img{
+    height: 190px;}
+
+.active {
+
+    padding-top: 8vh;
 }
+
+#flipbook{
+
+width: 960px;
+height: 570px;
+margin-left: 3%;
+    }
+        
+        .cover img {
+
+height: 578px;
+}
+
+.active_book {
+
+padding-top: 4vh;}
+
+.active2 {
+
+padding-top: 4vh;}
+
+html{    height: 100%;}
+
+body {
+background-size: cover;
+
+}
+
+.main_form {
+
+background-color: #000;
+background-image: none;
+margin-bottom: 30px;
+}
+
+.main_over {
+width: 91%;}
+
+.lity-container {
+
+width: 85%;
+}
+
+.lity-container {
+
+width: 77%!important;
+}
+
+.back {
+    position: absolute;
+    margin-top: 0;
+    text-align: center;
+    top: 17px;
+    right: 20vw;
+    width: 73px;
+}
+
 
 }
 
@@ -950,15 +1020,47 @@ body {
 
 @media all and (max-width: 768px){
 
-.active {
-    padding-top: 12vh;
+    #flipbook {
+        width: 725px;
+        height: 555px;
+        margin-right: 3%;
+    }
+    .logo {
+        margin-left: 3%;
+        width: 13vh;
+        float: left;
+    }
+    
+    .active {
+        padding-top: 6vh;
+    }
+    
+    .main_over {
+        width: 88%;
+    }
+    
+    .subs {
+        margin-top: 10vh;}
+    
+        .main_over:hover p {
+            font-size: 33px;}
+
 }
 
-
-.main_over p{font-family: 'Bad Script', cursive;
-    font-size: 7vw;}
-
-}
+@media all and (max-width: 600px){
+    
+        html{    height: auto;}
+    .subs img {
+     
+        height: 260px;
+    }
+    .main_over {
+        width: 95%;
+    }
+    .active {
+        padding-top: 29vh;
+    }
+    }
 
 
 @media all and (max-width: 520px){
