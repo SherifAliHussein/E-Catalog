@@ -16,5 +16,6 @@ namespace ECatalog.BLL.DTOs
         public Guid PackageGuid { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+        public bool IsActive { get; set; }
     }
 }

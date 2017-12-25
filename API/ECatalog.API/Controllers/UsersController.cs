@@ -25,12 +25,35 @@ namespace ECatalog.API.Controllers
         [HttpPost]
         public IHttpActionResult Register([FromBody] GlobalAdminModel globalAdminModel)
         {
-            if (Request.Headers.Authorization.Scheme == "faaf" &&
-                Request.Headers.Authorization.Parameter == "asdasdas")
+            //if (Request.Headers.Authorization.Scheme == "X-Auth-Token" &&
+            //    Request.Headers.Authorization.Parameter == "asdasdas")
 
                 _userFacade.AddNewGlobalUser(Mapper.Map<GlobalAdminDto>(globalAdminModel));
             return Ok();
-            return Unauthorized();
+            //return Unauthorized();
+        }
+
+        [Route("api/Users/", Name = "UpdateGlobalUser")]
+        [HttpPut]
+        public IHttpActionResult UpdateGlobalUser([FromBody] GlobalAdminModel globalAdminModel)
+        {
+            //if (Request.Headers.Authorization.Scheme == "X-Auth-Token" &&
+            //    Request.Headers.Authorization.Parameter == "asdasdas")
+
+            _userFacade.UpdateGlobalUser(Mapper.Map<GlobalAdminDto>(globalAdminModel));
+            return Ok();
+            //return Unauthorized();
+        }
+        [Route("api/Users/Package", Name = "UpdatePackage")]
+        [HttpPut]
+        public IHttpActionResult UpdatePackage([FromBody] GlobalAdminModel globalAdminModel)
+        {
+            //if (Request.Headers.Authorization.Scheme == "X-Auth-Token" &&
+            //    Request.Headers.Authorization.Parameter == "asdasdas")
+
+            _userFacade.UpdateAdminPackage(Mapper.Map<GlobalAdminDto>(globalAdminModel));
+            return Ok();
+            //return Unauthorized();
         }
 
         [AuthorizeRoles(Enums.RoleType.GlobalAdmin)]

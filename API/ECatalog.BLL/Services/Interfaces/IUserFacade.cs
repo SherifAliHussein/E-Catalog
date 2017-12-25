@@ -20,5 +20,6 @@ namespace ECatalog.BLL.Services.Interfaces
         void AddNewGlobalUser(GlobalAdminDto globalAdminDto);
         void UpdateGlobalUser(GlobalAdminDto globalAdminDto);
         MaxAndConsUserDTO GetMaxAndConsumedUsers(long userId);
+        void UpdateAdminPackage(GlobalAdminDto globalAdminDto);
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -11,6 +14,7 @@ using ECatalog.BLL.Services.Interfaces;
 using ECatalog.Common;
 using ECatalog.Common.CustomException;
 using ECatalog.DAL.Entities.Model;
+using Newtonsoft.Json;
 using Repository.Pattern.UnitOfWork;
 using ApplicationException = System.ApplicationException;
 
@@ -91,6 +95,7 @@ namespace ECatalog.BLL.Services
             restaurantWaiter.PackageId = package.PackageId;
             _restaurantWaiterService.Insert(restaurantWaiter);
             SaveChanges();
+            UpdateSubscription(restaurant.GlobalAdminId, package.PackageGuid,package.Waiters.Count);
         }
 
         public RestaurantWaiterDTO GetRestaurantWaiter(long waiterId)
@@ -137,6 +142,7 @@ namespace ECatalog.BLL.Services
             restaurantWaiter.IsDeleted = true;
             _restaurantWaiterService.Update(restaurantWaiter);
             SaveChanges();
+            UpdateSubscription(restaurantWaiter.Restaurant.GlobalAdminId, restaurantWaiter.Package.PackageGuid, restaurantWaiter.Package.Waiters.Count);
         }
 
         public int GetWaiterLimitByRestaurantAdminId(long restaurantAdminId)
@@ -151,15 +157,17 @@ namespace ECatalog.BLL.Services
             admin.UserName = globalAdminDto.UserName;
             admin.UserAccountId = globalAdminDto.UserAccountId;
             admin.Role = Enums.RoleType.GlobalAdmin;
-            admin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
-            admin.Packages.Add(new Package
-            {
-                End = globalAdminDto.End,
-                Start = globalAdminDto.Start,
-                MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters,
-                PackageGuid = globalAdminDto.PackageGuid
-            });
-            _packageService.InsertRange(admin.Packages);
+            //admin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
+            admin.Password = globalAdminDto.Password;
+            admin.IsActive = globalAdminDto.IsActive;
+            //admin.Packages.Add(new Package
+            //{
+            //    End = globalAdminDto.End,
+            //    Start = globalAdminDto.Start,
+            //    MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters,
+            //    PackageGuid = globalAdminDto.PackageGuid
+            //});
+            //_packageService.InsertRange(admin.Packages);
             _globalAdminService.Insert(admin);
             SaveChanges();
         }
@@ -168,7 +176,17 @@ namespace ECatalog.BLL.Services
         {
             var globalAdmin = _globalAdminService.GetGlobalAdminByAccountId(globalAdminDto.UserAccountId);
             globalAdmin.UserName = globalAdminDto.UserName;
-            globalAdmin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
+            //globalAdmin.Password = PasswordHelper.Encrypt(globalAdminDto.Password);
+            globalAdmin.Password = globalAdminDto.Password;
+            globalAdmin.IsActive = globalAdminDto.IsActive;
+            
+            _globalAdminService.Update(globalAdmin);
+            SaveChanges();
+        }
+
+        public void UpdateAdminPackage(GlobalAdminDto globalAdminDto)
+        {
+            var globalAdmin = _globalAdminService.GetGlobalAdminByAccountId(globalAdminDto.UserAccountId);
             var package = globalAdmin.Packages.FirstOrDefault(x => x.PackageGuid == globalAdminDto.PackageGuid);
             if (package == null)
             {
@@ -179,12 +197,13 @@ namespace ECatalog.BLL.Services
                     MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters,
                     PackageGuid = globalAdminDto.PackageGuid
                 });
-            _packageService.InsertRange(globalAdmin.Packages);
+                _packageService.InsertRange(globalAdmin.Packages);
             }
             else
             {
                 package.End = globalAdminDto.End;
-                _packageService.Update(package); 
+                package.Start = globalAdminDto.Start;
+                _packageService.Update(package);
             }
 
             _globalAdminService.Update(globalAdmin);
@@ -206,5 +225,38 @@ namespace ECatalog.BLL.Services
             return MaxCon;
         }
 
+        private void UpdateSubscription(long globalAdminId, Guid packageGuid,int consumed)
+        {
+            var globalAdmin = _globalAdminService.Find(globalAdminId);
+            string url = ConfigurationManager.AppSettings["subscriptionURL"];
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + "/Users/EditRegisterUser");
+            //request.Headers.Add("X-Auth-Token:" + token);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            var serializer = JsonConvert.SerializeObject(new
+            {
+                userConsumer = consumed,
+                userAccountId = globalAdmin.UserAccountId,
+                backageGuid = packageGuid
+            });
+            //request.ContentLength = serializer.Length;
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = serializer;
+
+                streamWriter.Write(json);
+            }
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+                var infoResponse = readStream.ReadToEnd();
+
+                response.Close();
+                receiveStream.Close();
+                readStream.Close();
+            }
+        }
     }
 }

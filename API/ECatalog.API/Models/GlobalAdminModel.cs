@@ -12,5 +12,9 @@ namespace ECatalog.API.Models
         public string Password { get; set; }
         public Guid UserAccountId { get; set; }
         public int MaxNumberOfWaiters { get; set; }
+        public Guid PackageGuid { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public bool IsActive { get; set; }
     }
 }

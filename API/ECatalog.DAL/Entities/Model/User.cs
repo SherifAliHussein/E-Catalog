@@ -25,6 +25,7 @@ namespace ECatalog.DAL.Entities.Model
 
         public bool IsDeleted { get; set; }
 
+        public bool IsActive { get; set; }
        // public virtual Restaurant Restaurant { get; set; }
     }
 }

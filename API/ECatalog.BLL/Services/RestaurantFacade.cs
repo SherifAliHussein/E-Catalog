@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -13,6 +16,7 @@ using ECatalog.Common;
 using ECatalog.Common.CustomException;
 using ECatalog.DAL.Entities.Model;
 using Microsoft.Practices.ObjectBuilder2;
+using Newtonsoft.Json;
 using Repository.Pattern.UnitOfWork;
 
 namespace ECatalog.BLL.Services
@@ -27,12 +31,13 @@ namespace ECatalog.BLL.Services
         private IRestaurantAdminService _restaurantAdminService;
         private IManageStorage _manageStorage;
         private IRestaurantWaiterService _restaurantWaiterService;
+        private IGlobalAdminService _globalAdminService;
 
         public RestaurantFacade(IRestaurantTypeService restaurantTypeService,
             IRestaurantTypeTranslationService restaurantTypeTranslationService
             , IRestaurantService restaurantService, IRestaurantTranslationService restaurantTranslationService,
             IUserService userService, IRestaurantAdminService restaurantAdminService
-            , IManageStorage manageStorage,IRestaurantWaiterService restaurantWaiterService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
+            , IManageStorage manageStorage,IRestaurantWaiterService restaurantWaiterService, IGlobalAdminService globalAdminService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
         {
             _restaurantTypeService = restaurantTypeService;
             _restaurantTypeTranslationService = restaurantTypeTranslationService;
@@ -42,6 +47,7 @@ namespace ECatalog.BLL.Services
             _restaurantAdminService = restaurantAdminService;
             _manageStorage = manageStorage;
             _restaurantWaiterService = restaurantWaiterService;
+            _globalAdminService = globalAdminService;
         }
 
         public RestaurantFacade(IRestaurantTypeService restaurantTypeService,
@@ -395,5 +401,6 @@ namespace ECatalog.BLL.Services
             return restaurantdto;
         }
 
+        
     }
 }

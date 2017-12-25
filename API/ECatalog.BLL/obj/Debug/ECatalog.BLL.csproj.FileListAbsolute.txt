@@ -94,3 +94,5 @@ E:\Projects\ECatalog\API\ECatalog.BLL\bin\Debug\LinqKit.xml
 E:\Projects\ECatalog\API\ECatalog.BLL\obj\Debug\ECatalog.BLL.csprojResolveAssemblyReference.cache
 E:\Projects\ECatalog\API\ECatalog.BLL\obj\Debug\ECatalog.BLL.dll
 E:\Projects\ECatalog\API\ECatalog.BLL\obj\Debug\ECatalog.BLL.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.BLL\bin\Debug\Newtonsoft.Json.xml
