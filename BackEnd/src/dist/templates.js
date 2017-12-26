@@ -2106,6 +2106,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<th >{{\'Name\' | translate}}</th>\n' +
     '						<th >{{\'UserName\' | translate}}</th>\n' +
     '						<th >{{\'Title\' | translate}}</th>\n' +
+    '						<th >{{\'startDatelbl\' | translate}}</th>\n' +
+    '						<th >{{\'endDatelbl\' | translate}}</th>\n' +
     '						\n' +
     '						<th ></th>\n' +
     '					</tr>\n' +
@@ -2118,6 +2120,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</td>\n' +
     '						<td>\n' +
     '                            {{waiter.branchTitle}}\n' +
+    '						</td>\n' +
+    '						<td>\n' +
+    '                            {{waiter.start}}\n' +
+    '						</td>\n' +
+    '						<td>\n' +
+    '                            {{waiter.end}}\n' +
     '						</td>\n' +
     '						<td >\n' +
     '							<i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="waiterCtrl.openEditWaiterDialog($index)">mode_edit</i> \n' +

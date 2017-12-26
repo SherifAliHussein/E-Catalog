@@ -90,11 +90,12 @@ namespace ECatalog.BLL.Services
             var consumedWaiters = _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select(x => x.Waiters.Count(w=>!w.IsDeleted)).Sum();
             Package package;
 
-            var packages= _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select().ToList();
+            var packages= _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Include(x=>x.Waiters).Select().ToList();
             package = packages.OrderBy(x => x.Start).FirstOrDefault();
+            int count = 1;
             while (true)
             {
-                if (package.MaxNumberOfWaiters > consumedWaiters)
+                if (package.MaxNumberOfWaiters > consumedWaiters && package.MaxNumberOfWaiters > package.Waiters.Count)
                 {
                     break;
                 }
@@ -103,7 +104,8 @@ namespace ECatalog.BLL.Services
                     consumedWaiters = consumedWaiters - package.MaxNumberOfWaiters;
                 }
 
-                package = packages.OrderBy(x => x.Start).Skip(1).FirstOrDefault();
+                package = packages.OrderBy(x => x.Start).Skip(count).FirstOrDefault();
+                count++;
             }
             ///var packages = restaurant.GlobalAdmin.Packages;
             RestaurantWaiter restaurantWaiter = Mapper.Map<RestaurantWaiter>(restaurantWaiterDto);

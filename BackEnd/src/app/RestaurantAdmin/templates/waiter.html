@@ -17,6 +17,8 @@
 						<th >{{'Name' | translate}}</th>
 						<th >{{'UserName' | translate}}</th>
 						<th >{{'Title' | translate}}</th>
+						<th >{{'startDatelbl' | translate}}</th>
+						<th >{{'endDatelbl' | translate}}</th>
 						
 						<th ></th>
 					</tr>
@@ -29,6 +31,12 @@
 						</td>
 						<td>
                             {{waiter.branchTitle}}
+						</td>
+						<td>
+                            {{waiter.start}}
+						</td>
+						<td>
+                            {{waiter.end}}
 						</td>
 						<td >
 							<i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="waiterCtrl.openEditWaiterDialog($index)">mode_edit</i> 

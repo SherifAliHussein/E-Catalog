@@ -14,6 +14,9 @@ namespace ECatalog.BLL.DTOs
         public string Name { get; set; }
         public string BranchTitle { get; set; }
         public long BranchId { get; set; }
+
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         //public long RestaurantId { get; set; }
     }
 }

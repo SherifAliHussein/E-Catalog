@@ -288,7 +288,9 @@ angular.module('core')
             "OkLbl":"Ok",
             "pageLbl":"Page",
             "selectTemplate":"Select template for page",
-            "selectedTemplates":"Selected templates"
+            "selectedTemplates":"Selected templates",
+            "startDatelbl":"Start date",
+            "endDatelbl":"End date",
             
         }
         
@@ -449,7 +451,9 @@ angular.module('core')
             "OkLbl":"تم",
             "pageLbl":"صفحه",
             "selectTemplate":"اختار نموذج لصفحه",
-            "selectedTemplates":"النماذج المختاره"
+            "selectedTemplates":"النماذج المختاره",
+            "startDatelbl":"Start date",
+            "endDatelbl":"End date",
         }
         
         $translateProvider.translations('en',en_translations);
