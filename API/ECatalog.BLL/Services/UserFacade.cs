@@ -86,9 +86,8 @@ namespace ECatalog.BLL.Services
             ValidateRestaurantWaiter(restaurantWaiterDto, 0);
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
-
             //var consumedWaiters = restaurant.GlobalAdmin.Restaurants.Where(x => !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
-            var consumedWaiters = _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select(x => x.Waiters.Count).Sum();
+            var consumedWaiters = _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select(x => x.Waiters.Count(w=>!w.IsDeleted)).Sum();
             Package package;
 
             var packages= _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select().ToList();
