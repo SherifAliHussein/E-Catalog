@@ -16,7 +16,9 @@ namespace ECatalog.DAL.Entities.Model
         }
         public long PackageId { get; set; }
         public Guid PackageGuid { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime Start { get; set; }
+        [Column(TypeName = "datetime2")]
         public DateTime End { get; set; }
 
         [ForeignKey("GlobalAdmin")]

@@ -71,9 +71,9 @@ namespace ECatalog.BLL.Services
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             var consumedWaiters = restaurant.GlobalAdmin.Restaurants.Where(x => !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
             Package package;
-            
 
-            package = restaurant.GlobalAdmin.Packages.OrderBy(x => x.Start).FirstOrDefault();
+            var packages= _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select().ToList();
+            package = packages.OrderBy(x => x.Start).FirstOrDefault();
             while (true)
             {
                 if (package.MaxNumberOfWaiters > consumedWaiters)
@@ -85,9 +85,9 @@ namespace ECatalog.BLL.Services
                     consumedWaiters = consumedWaiters - package.MaxNumberOfWaiters;
                 }
 
-                package = restaurant.GlobalAdmin.Packages.OrderBy(x => x.Start).Skip(1).FirstOrDefault();
+                package = packages.OrderBy(x => x.Start).Skip(1).FirstOrDefault();
             }
-            var packages = restaurant.GlobalAdmin.Packages;
+            ///var packages = restaurant.GlobalAdmin.Packages;
             RestaurantWaiter restaurantWaiter = Mapper.Map<RestaurantWaiter>(restaurantWaiterDto);
             restaurantWaiter.RestaurantId = restaurant.RestaurantId;
             restaurantWaiter.Password = PasswordHelper.Encrypt(restaurantWaiterDto.Password);
@@ -195,7 +195,8 @@ namespace ECatalog.BLL.Services
                     End = globalAdminDto.End,
                     Start = globalAdminDto.Start,
                     MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters,
-                    PackageGuid = globalAdminDto.PackageGuid
+                    PackageGuid = globalAdminDto.PackageGuid,
+                    GlobalAdminId = globalAdmin.UserId
                 });
                 _packageService.InsertRange(globalAdmin.Packages);
             }
@@ -229,7 +230,7 @@ namespace ECatalog.BLL.Services
         {
             var globalAdmin = _globalAdminService.Find(globalAdminId);
             string url = ConfigurationManager.AppSettings["subscriptionURL"];
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + "/Users/EditRegisterUser");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + "/Users/EditUserConsumer");
             //request.Headers.Add("X-Auth-Token:" + token);
             request.ContentType = "application/json";
             request.Method = "POST";
