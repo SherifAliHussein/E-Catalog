@@ -30,7 +30,7 @@
     <div class="header">
         <!-- <img class="logo" src="assets/img/logo.png" alt="logo" /> -->
         <img class="logo" ng-show="globalInfo.logoUrl !=null" ng-src="{{globalInfo.logoUrl}}" alt="logo" />
-       <div ng-show="cartIcon" >
+       <div ng-show="cartIcon"  style="display: none;">
             <a ng-click="$state.go('cart');" ng-show="homeTotalNo > 0" >
             <!-- <a ng-click="$state.go('cart');" ng-show="disabled"> -->
             
