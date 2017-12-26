@@ -151,16 +151,52 @@
                     $scope.invalidLoginInfo = true;
                     $scope.inActiveUser = false;
                     $scope.restaurantInActiveUser = false;
+                    $scope.PackageExpired = false;
+                    $scope.PackageNotActivated = false;
+                    $scope.AccountDeActivated = false;
+                    
                 }
                 if (response.data.error == "inactive user") {
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
                     $scope.restaurantInActiveUser = false;
+                    $scope.PackageExpired = false;
+                    $scope.PackageNotActivated = false;
+                    $scope.AccountDeActivated = false;
+                    
                 }
                 if (response.data.error == "restaurant deactivated") {
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = false;
                     $scope.restaurantInActiveUser = true;
+                    $scope.PackageExpired = false;
+                    $scope.PackageNotActivated = false;
+                    $scope.AccountDeActivated = false;
+                    
+                }
+                if (response.data.error == "Package Expired") {
+                    $scope.invalidLoginInfo = false;
+                    $scope.inActiveUser = false;
+                    $scope.restaurantInActiveUser = false;
+                    $scope.PackageExpired = true;
+                    $scope.PackageNotActivated = false;   
+                    $scope.AccountDeActivated = false;                 
+                }
+                if (response.data.error == "Package Not Activated") {
+                    $scope.invalidLoginInfo = false;
+                    $scope.inActiveUser = false;
+                    $scope.restaurantInActiveUser = false;
+                    $scope.PackageExpired = false;
+                    $scope.PackageNotActivated = true;
+                    $scope.AccountDeActivated = false;
+                }
+                if (response.data.error == "Account deactivated") {
+                    $scope.invalidLoginInfo = false;
+                    $scope.inActiveUser = false;
+                    $scope.restaurantInActiveUser = false;
+                    $scope.PackageExpired = false;
+                    $scope.PackageNotActivated = false;
+                    $scope.AccountDeActivated = true;
                 }
             }
             if (response == null) {

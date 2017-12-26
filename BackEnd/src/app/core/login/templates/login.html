@@ -26,6 +26,10 @@
                 <div ng-if="inActiveUser" class="loginFailed">
                     <span>Your account is deleted.</span>
                 </div>
+                
+                <div ng-if="AccountDeActivated" class="loginFailed"  style="margin-left: auto;color:red">
+                    <span>Your Account is deactivated, please contact your admin.</span>
+                </div>
 				<div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
 					<button  type="submit" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>
 				</div>

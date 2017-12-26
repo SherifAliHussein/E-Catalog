@@ -99,10 +99,17 @@
                 if (response.data.error == "invalid grant") {
                     $scope.invalidLoginInfo = true;
                     $scope.inActiveUser = false;
+                    $scope.AccountDeActivated = false;
                 }
                 if (response.data.error == "inactive user") {
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
+                    $scope.AccountDeActivated = false;                    
+                }
+                if (response.data.error == "Account deactivated") {
+                    $scope.invalidLoginInfo = false;
+                    $scope.inActiveUser = false;
+                    $scope.AccountDeActivated = true;
                 }
             }
             if (response == null) {

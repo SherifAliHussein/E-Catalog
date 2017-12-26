@@ -90,6 +90,8 @@ namespace ECatalog.Common.CustomException
         BranchTitleAlreadyExist,
         BranchNotFound,
         BranchDeleted,
-        PackageExpired
+        PackageExpired,
+        PackageNotActivated,
+        GlobalAdminInactive
     }
 }

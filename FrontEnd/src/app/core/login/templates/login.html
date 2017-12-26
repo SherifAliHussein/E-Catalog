@@ -23,6 +23,16 @@
                 <div ng-if="restaurantInActiveUser" class="loginFailed"  style="margin-left: auto;color:red">
                     <span>Restaurant is not activated, please contact your admin.</span>
                 </div>
+                <div ng-if="PackageExpired" class="loginFailed"  style="margin-left: auto;color:red">
+                    <span>Your account is not expired, please contact your admin.</span>
+                </div>
+                <div ng-if="PackageNotActivated" class="loginFailed"  style="margin-left: auto;color:red">
+                    <span>Your account is not activated, please contact your admin.</span>
+                </div>
+                
+                <div ng-if="AccountDeActivated" class="loginFailed"  style="margin-left: auto;color:red">
+                    <span>Your Account is deactivated, please contact your admin.</span>
+                </div>
                 
                 <input type="submit" class="login" value="Sign In" >
                 

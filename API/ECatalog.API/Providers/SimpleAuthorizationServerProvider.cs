@@ -62,6 +62,31 @@ namespace ECatalog.API.Providers
                         new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
                     return Task.FromResult<object>(null);
                 }
+                else if (exception.ErrorCode == ErrorCodes.PackageExpired)
+                {
+                    context.SetError("Package Expired", "Package is expired.");
+                    //Add your flag to the header of the response
+                    context.Response.Headers.Add("X-Challenge",
+                        new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
+                    return Task.FromResult<object>(null);
+                }
+                else if (exception.ErrorCode == ErrorCodes.PackageNotActivated)
+                {
+                    context.SetError("Package Not Activated", "Package is not activated.");
+                    //Add your flag to the header of the response
+                    context.Response.Headers.Add("X-Challenge",
+                        new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
+                    return Task.FromResult<object>(null);
+                }
+                else if ((exception.ErrorCode == ErrorCodes.GlobalAdminInactive)|| (exception.ErrorCode == ErrorCodes.BranchDeleted))
+                {
+                    context.SetError("Account deactivated", "Your Account is deactivated.");
+                    //Add your flag to the header of the response
+                    context.Response.Headers.Add("X-Challenge",
+                        new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
+                    return Task.FromResult<object>(null);
+                }
+
             }
             catch (Exception e)
             {

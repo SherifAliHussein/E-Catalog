@@ -2909,18 +2909,20 @@
 
 	    angular
         .module('home')
-        .controller('sideItemController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SideItemResource','sideItemPrepService','ToastService',  sideItemController])
+        .controller('WaiterController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'WaiterResource' ,'BranchResource','waitersPrepService', 'WaitersLimitPrepService', 'ToastService',  WaiterController])
 
-    function sideItemController($scope ,$translate , appCONSTANTS,$uibModal, SideItemResource,sideItemPrepService,ToastService){
+    function WaiterController($scope ,$translate , appCONSTANTS,$uibModal, WaiterResource , BranchResource ,waitersPrepService, WaitersLimitPrepService,ToastService){
 
         var vm = this;
-		vm.sideItems = sideItemPrepService;
+		vm.waiters = waitersPrepService;
+		vm.waitersLimit = WaitersLimitPrepService.waiterLimit;
+		console.log(WaitersLimitPrepService)
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 
-				function refreshSideItems(){
-			var k = SideItemResource.getAllSideItems({page:vm.currentPage}).$promise.then(function(results) {
-				vm.sideItems = results
+				function refreshWaiter(){
+			var k = WaiterResource.getAllWaiters({page:vm.currentPage}).$promise.then(function(results) {
+				vm.waiters = results
 			},
             function(data, status) {
 				ToastService.show("right","bottom","fadeInUp",data.message,"error");
@@ -2929,50 +2931,35 @@
 		vm.currentPage = 1;
         vm.changePage = function (page) {
             vm.currentPage = page;
-            refreshSideItems();
+            refreshWaiter();
 		}
-		vm.openSideItemDialog = function(){		
-			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
-			{
-				var englishSideItems;
-				var k = SideItemResource.getAllSideItems({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
-                    englishSideItems = results;
-					var modalContent = $uibModal.open({
-						templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
-						controller: 'editSideItemDialogController',
-						controllerAs: 'editSideItemDlCtrl',
-						resolve:{
-							mode:function(){return "map"},
-							englishSideItems: function(){return englishSideItems.results;},
-							sideItem:function(){ return null},
-							callBackFunction:function(){return refreshSideItems;}
-						}
+		vm.openWaiterDialog = function(){		
+			var branches;
+			var k = BranchResource.getAllBranches({pagesize:0}).$promise.then(function(results) {
+				branches = results;
 
-											});
-				});
-			}
-			else{
-				var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newSideItem.html',
-					controller: 'sideItemDialogController',
-					controllerAs: 'sideItemDlCtrl',
+								var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newWaiter.html',
+					controller: 'waiterDialogController',
+					controllerAs: 'waiterDlCtrl',
 					resolve:{
-						callBackFunction:function(){return refreshSideItems;}
+						branches: function(){return branches.results;},
+						callBackFunction:function(){return refreshWaiter;}
 					}
 
-									});
-			}
-		}
+										});
+			});
+        }
 		function confirmationDelete(itemId){
-			SideItemResource.deleteSideItem({SideItemId:itemId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemDeleteSuccess'),"success");
-				refreshSideItems();
+			WaiterResource.deleteWaiter({waiterId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('WaiterDeleteSuccess'),"success");
+				refreshWaiter();
 			},
             function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
             });
 		}
-		vm.openDeleteSideItemDialog = function(name,id){			
+		vm.openDeleteWaiterDialog = function(name,id){			
 			var modalContent = $uibModal.open({
 				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
 				controller: 'confirmDeleteDialogController',
@@ -2987,22 +2974,29 @@
 							});
 		}
 
-				vm.openEditSideItemDialog = function(index){
-			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
-				controller: 'editSideItemDialogController',
-				controllerAs: 'editSideItemDlCtrl',
-				resolve:{
-					mode:function(){return "edit"},
-					englishSideItems: function(){return null;},
-					sideItem:function(){ return vm.sideItems.results[index]},
-					callBackFunction:function(){return refreshSideItems;}
-				}
+				vm.openEditWaiterDialog = function(index){
+            var waiter;
+            waiter=angular.copy(vm.waiters.results[index]);
 
-							});
+			var branches;
+			var k = BranchResource.getAllBranches({pagesize:0}).$promise.then(function(results) {
+				branches = results;
 
+								var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/editWaiter.html',
+					controller: 'editWaiterDialogController',
+					controllerAs: 'editWaiterDlCtrl',
+					resolve:{
+						mode:function(){return "edit"},
+						waiter:function(){ return waiter},
+						branches: function(){return branches.results;},
+						callBackFunction:function(){return refreshWaiter;}
 					}
 
+									});
+			});
+
+					}
 
 
 							}
@@ -3012,14 +3006,21 @@
 (function() {
     angular
       .module('home')
-      .factory('SideItemResource', ['$resource', 'appCONSTANTS', SideItemResource]);
+      .factory('WaiterResource', ['$resource', 'appCONSTANTS', WaiterResource])
+      .factory('WaitersLimitResource', ['$resource', 'appCONSTANTS', WaitersLimitResource]);
 
-      function SideItemResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'SideItems/:SideItemId', {}, {
-        getAllSideItems: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+      function WaiterResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Waiters/:waiterId', {}, {
+        getAllWaiters: { method: 'GET', useToken: true, params:{lang:'@lang'} },
         create: { method: 'POST', useToken: true },
-        deleteSideItem: { method: 'DELETE', useToken: true },
+        deleteWaiter: { method: 'DELETE', useToken: true },
         update: { method: 'PUT', useToken: true }
+      })
+    }
+
+    function WaitersLimitResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Waiters/Limit', {}, {
+        getWaitersLimit: { method: 'GET', useToken: true ,transformResponse: function (data) {return {waiterLimit: angular.fromJson(data)} }},
       })
     }
 
@@ -3029,30 +3030,31 @@
 
 	    angular
         .module('home')
-        .controller('sideItemDialogController', ['$uibModalInstance','$translate' , 'SideItemResource','ToastService','callBackFunction','$rootScope',  sideItemDialogController])
+        .controller('waiterDialogController', ['$uibModalInstance','$translate' , 'WaiterResource','ToastService', 'branches','callBackFunction','$rootScope',  waiterDialogController])
 
-	function sideItemDialogController($uibModalInstance, $translate , SideItemResource,ToastService,callBackFunction,$rootScope){
+	function waiterDialogController($uibModalInstance, $translate , WaiterResource,ToastService,branches,callBackFunction,$rootScope){
 		var vm = this;
-        vm.sideItemName = "";
-        vm.value;
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
-		vm.isChanged = false;
-		vm.AddNewSideItem = function(){
-            vm.isChanged = true;
-			var newSideItem = new SideItemResource();
-            newSideItem.sideItemName = vm.sideItemName;
-            newSideItem.value = vm.value;
-            newSideItem.$create().then(
+		vm.Branches = branches;
+		if(branches.length>0){
+			vm.selectedBranch = branches[0];
+		}
+
+				vm.AddNewWaiter = function(){
+			var newWaiter = new WaiterResource();
+            newWaiter.userName = vm.userName;
+            newWaiter.name = vm.name;
+			newWaiter.password = vm.password;
+			newWaiter.branchId = vm.selectedBranch.branchId;
+            newWaiter.$create().then(
                 function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemAddSuccess'),"success");
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('WaiterAddSuccess'),"success");
 					$uibModalInstance.dismiss('cancel');
-                    callBackFunction();
-                    vm.isChanged = false;
+					callBackFunction();
                 },
                 function(data, status) {
-                    vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
                 }
             );
@@ -3064,39 +3066,34 @@
 
 	    angular
         .module('home')
-        .controller('editSideItemDialogController', ['$uibModalInstance','$translate', 'SideItemResource','ToastService','mode','englishSideItems','sideItem','callBackFunction',  editSideItemDialogController])
+        .controller('editWaiterDialogController', ['$uibModalInstance','$translate', 'WaiterResource','ToastService','waiter', 'branches','callBackFunction',  editWaiterDialogController])
 
-	function editSideItemDialogController($uibModalInstance, $translate, SideItemResource,ToastService, mode, englishSideItems, sideItem,callBackFunction){
+	function editWaiterDialogController($uibModalInstance, $translate, WaiterResource,ToastService,  waiter, branches, callBackFunction){
 		var vm = this;
-		vm.sideItemName = "";
-
-				vm.mode = mode;
-		vm.englishSideItems = englishSideItems;
-        if(mode == "edit"){
-            vm.sideItemName = sideItem.sideItemName;
-            vm.value = sideItem.value;
-        }
-		else
-			vm.selectedSideItem = englishSideItems[0];
-		vm.close = function(){
+		vm.menuName = "";
+        vm.waiter = waiter;
+        vm.waiter.confirmPassword = waiter.password;
+        vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
+        }
+        vm.Branches = branches;
+		if(branches.length>0){
+            branches.forEach(function(element) {
+                if(element.branchId == vm.waiter.branchId){
+                    vm.selectedBranch = element;
+                }
+            }, this);
 		}
-
-				vm.updateSideItem = function(){
-			var updateSideItem = new SideItemResource();
-            updateSideItem.sideItemName = vm.sideItemName;
-
-            			if(mode == "edit"){
-				updateSideItem.sideItemId = sideItem.sideItemId;
-				updateSideItem.value = vm.value;
-			}
-			else{
-				updateSideItem.sideItemId = vm.selectedSideItem.sideItemId;
-				updateSideItem.value = vm.selectedSideItem.value;
-			}
-            updateSideItem.$update().then(
+		vm.updateWaiter = function(){
+			var newWaiter = new WaiterResource();
+            newWaiter.userName = vm.waiter.userName;
+            newWaiter.name = vm.waiter.name;
+            newWaiter.password = vm.waiter.password;
+            newWaiter.userId = waiter.userId;
+            newWaiter.branchId = vm.selectedBranch.branchId;
+            newWaiter.$update().then(
                 function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSideItemSuccess'),"success");
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('WaiterUpdateSuccess'),"success");
 					$uibModalInstance.dismiss('cancel');
 					callBackFunction();
                 },
@@ -3297,20 +3294,18 @@
 
 	    angular
         .module('home')
-        .controller('WaiterController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'WaiterResource' ,'BranchResource','waitersPrepService', 'WaitersLimitPrepService', 'ToastService',  WaiterController])
+        .controller('sideItemController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SideItemResource','sideItemPrepService','ToastService',  sideItemController])
 
-    function WaiterController($scope ,$translate , appCONSTANTS,$uibModal, WaiterResource , BranchResource ,waitersPrepService, WaitersLimitPrepService,ToastService){
+    function sideItemController($scope ,$translate , appCONSTANTS,$uibModal, SideItemResource,sideItemPrepService,ToastService){
 
         var vm = this;
-		vm.waiters = waitersPrepService;
-		vm.waitersLimit = WaitersLimitPrepService.waiterLimit;
-		console.log(WaitersLimitPrepService)
+		vm.sideItems = sideItemPrepService;
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
 		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 
-				function refreshWaiter(){
-			var k = WaiterResource.getAllWaiters({page:vm.currentPage}).$promise.then(function(results) {
-				vm.waiters = results
+				function refreshSideItems(){
+			var k = SideItemResource.getAllSideItems({page:vm.currentPage}).$promise.then(function(results) {
+				vm.sideItems = results
 			},
             function(data, status) {
 				ToastService.show("right","bottom","fadeInUp",data.message,"error");
@@ -3319,35 +3314,50 @@
 		vm.currentPage = 1;
         vm.changePage = function (page) {
             vm.currentPage = page;
-            refreshWaiter();
+            refreshSideItems();
 		}
-		vm.openWaiterDialog = function(){		
-			var branches;
-			var k = BranchResource.getAllBranches({pagesize:0}).$promise.then(function(results) {
-				branches = results;
+		vm.openSideItemDialog = function(){		
+			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
+			{
+				var englishSideItems;
+				var k = SideItemResource.getAllSideItems({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+                    englishSideItems = results;
+					var modalContent = $uibModal.open({
+						templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+						controller: 'editSideItemDialogController',
+						controllerAs: 'editSideItemDlCtrl',
+						resolve:{
+							mode:function(){return "map"},
+							englishSideItems: function(){return englishSideItems.results;},
+							sideItem:function(){ return null},
+							callBackFunction:function(){return refreshSideItems;}
+						}
 
-								var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newWaiter.html',
-					controller: 'waiterDialogController',
-					controllerAs: 'waiterDlCtrl',
+											});
+				});
+			}
+			else{
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newSideItem.html',
+					controller: 'sideItemDialogController',
+					controllerAs: 'sideItemDlCtrl',
 					resolve:{
-						branches: function(){return branches.results;},
-						callBackFunction:function(){return refreshWaiter;}
+						callBackFunction:function(){return refreshSideItems;}
 					}
 
-										});
-			});
-        }
+									});
+			}
+		}
 		function confirmationDelete(itemId){
-			WaiterResource.deleteWaiter({waiterId:itemId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('WaiterDeleteSuccess'),"success");
-				refreshWaiter();
+			SideItemResource.deleteSideItem({SideItemId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemDeleteSuccess'),"success");
+				refreshSideItems();
 			},
             function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
             });
 		}
-		vm.openDeleteWaiterDialog = function(name,id){			
+		vm.openDeleteSideItemDialog = function(name,id){			
 			var modalContent = $uibModal.open({
 				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
 				controller: 'confirmDeleteDialogController',
@@ -3362,29 +3372,22 @@
 							});
 		}
 
-				vm.openEditWaiterDialog = function(index){
-            var waiter;
-            waiter=angular.copy(vm.waiters.results[index]);
+				vm.openEditSideItemDialog = function(index){
+			var modalContent = $uibModal.open({
+				templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+				controller: 'editSideItemDialogController',
+				controllerAs: 'editSideItemDlCtrl',
+				resolve:{
+					mode:function(){return "edit"},
+					englishSideItems: function(){return null;},
+					sideItem:function(){ return vm.sideItems.results[index]},
+					callBackFunction:function(){return refreshSideItems;}
+				}
 
-			var branches;
-			var k = BranchResource.getAllBranches({pagesize:0}).$promise.then(function(results) {
-				branches = results;
-
-								var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/editWaiter.html',
-					controller: 'editWaiterDialogController',
-					controllerAs: 'editWaiterDlCtrl',
-					resolve:{
-						mode:function(){return "edit"},
-						waiter:function(){ return waiter},
-						branches: function(){return branches.results;},
-						callBackFunction:function(){return refreshWaiter;}
-					}
-
-									});
-			});
+							});
 
 					}
+
 
 
 							}
@@ -3394,21 +3397,14 @@
 (function() {
     angular
       .module('home')
-      .factory('WaiterResource', ['$resource', 'appCONSTANTS', WaiterResource])
-      .factory('WaitersLimitResource', ['$resource', 'appCONSTANTS', WaitersLimitResource]);
+      .factory('SideItemResource', ['$resource', 'appCONSTANTS', SideItemResource]);
 
-      function WaiterResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Waiters/:waiterId', {}, {
-        getAllWaiters: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+      function SideItemResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'SideItems/:SideItemId', {}, {
+        getAllSideItems: { method: 'GET', useToken: true, params:{lang:'@lang'} },
         create: { method: 'POST', useToken: true },
-        deleteWaiter: { method: 'DELETE', useToken: true },
+        deleteSideItem: { method: 'DELETE', useToken: true },
         update: { method: 'PUT', useToken: true }
-      })
-    }
-
-    function WaitersLimitResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Waiters/Limit', {}, {
-        getWaitersLimit: { method: 'GET', useToken: true ,transformResponse: function (data) {return {waiterLimit: angular.fromJson(data)} }},
       })
     }
 
@@ -3418,31 +3414,30 @@
 
 	    angular
         .module('home')
-        .controller('waiterDialogController', ['$uibModalInstance','$translate' , 'WaiterResource','ToastService', 'branches','callBackFunction','$rootScope',  waiterDialogController])
+        .controller('sideItemDialogController', ['$uibModalInstance','$translate' , 'SideItemResource','ToastService','callBackFunction','$rootScope',  sideItemDialogController])
 
-	function waiterDialogController($uibModalInstance, $translate , WaiterResource,ToastService,branches,callBackFunction,$rootScope){
+	function sideItemDialogController($uibModalInstance, $translate , SideItemResource,ToastService,callBackFunction,$rootScope){
 		var vm = this;
+        vm.sideItemName = "";
+        vm.value;
 		vm.close = function(){
 			$uibModalInstance.dismiss('cancel');
 		}
-		vm.Branches = branches;
-		if(branches.length>0){
-			vm.selectedBranch = branches[0];
-		}
-
-				vm.AddNewWaiter = function(){
-			var newWaiter = new WaiterResource();
-            newWaiter.userName = vm.userName;
-            newWaiter.name = vm.name;
-			newWaiter.password = vm.password;
-			newWaiter.branchId = vm.selectedBranch.branchId;
-            newWaiter.$create().then(
+		vm.isChanged = false;
+		vm.AddNewSideItem = function(){
+            vm.isChanged = true;
+			var newSideItem = new SideItemResource();
+            newSideItem.sideItemName = vm.sideItemName;
+            newSideItem.value = vm.value;
+            newSideItem.$create().then(
                 function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('WaiterAddSuccess'),"success");
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemAddSuccess'),"success");
 					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
+                    callBackFunction();
+                    vm.isChanged = false;
                 },
                 function(data, status) {
+                    vm.isChanged = false;
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
                 }
             );
@@ -3454,34 +3449,39 @@
 
 	    angular
         .module('home')
-        .controller('editWaiterDialogController', ['$uibModalInstance','$translate', 'WaiterResource','ToastService','waiter', 'branches','callBackFunction',  editWaiterDialogController])
+        .controller('editSideItemDialogController', ['$uibModalInstance','$translate', 'SideItemResource','ToastService','mode','englishSideItems','sideItem','callBackFunction',  editSideItemDialogController])
 
-	function editWaiterDialogController($uibModalInstance, $translate, WaiterResource,ToastService,  waiter, branches, callBackFunction){
+	function editSideItemDialogController($uibModalInstance, $translate, SideItemResource,ToastService, mode, englishSideItems, sideItem,callBackFunction){
 		var vm = this;
-		vm.menuName = "";
-        vm.waiter = waiter;
-        vm.waiter.confirmPassword = waiter.password;
-        vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
+		vm.sideItemName = "";
+
+				vm.mode = mode;
+		vm.englishSideItems = englishSideItems;
+        if(mode == "edit"){
+            vm.sideItemName = sideItem.sideItemName;
+            vm.value = sideItem.value;
         }
-        vm.Branches = branches;
-		if(branches.length>0){
-            branches.forEach(function(element) {
-                if(element.branchId == vm.waiter.branchId){
-                    vm.selectedBranch = element;
-                }
-            }, this);
+		else
+			vm.selectedSideItem = englishSideItems[0];
+		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
 		}
-		vm.updateWaiter = function(){
-			var newWaiter = new WaiterResource();
-            newWaiter.userName = vm.waiter.userName;
-            newWaiter.name = vm.waiter.name;
-            newWaiter.password = vm.waiter.password;
-            newWaiter.userId = waiter.userId;
-            newWaiter.branchId = vm.selectedBranch.branchId;
-            newWaiter.$update().then(
+
+				vm.updateSideItem = function(){
+			var updateSideItem = new SideItemResource();
+            updateSideItem.sideItemName = vm.sideItemName;
+
+            			if(mode == "edit"){
+				updateSideItem.sideItemId = sideItem.sideItemId;
+				updateSideItem.value = vm.value;
+			}
+			else{
+				updateSideItem.sideItemId = vm.selectedSideItem.sideItemId;
+				updateSideItem.value = vm.selectedSideItem.value;
+			}
+            updateSideItem.$update().then(
                 function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('WaiterUpdateSuccess'),"success");
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSideItemSuccess'),"success");
 					$uibModalInstance.dismiss('cancel');
 					callBackFunction();
                 },

@@ -271,7 +271,13 @@ namespace ECatalog.BLL.Services
 
         public PagedResultsDto GetAllRestaurant(string language, int page, int pageSize, long userId)
         {
-            return _restaurantTranslationService.GetAllRestaurant(language, page, pageSize,userId);
+            var allRestaurant = _restaurantTranslationService.GetAllRestaurant(language, page, pageSize,userId);
+            foreach (var restaurant in (List<RestaurantDTO>)allRestaurant.Data)
+            {
+                restaurant.ConsumedWaiters = _restaurantWaiterService
+                    .GetAllRestaurantWaiters(restaurant.RestaurantId, 1, 0, Strings.DefaultLanguage).TotalCount;
+            }
+            return allRestaurant;
         }
 
         public void ActivateRestaurant(long restaurantId)

@@ -27,22 +27,25 @@ namespace ECatalog.BLL.Services
         private IRestaurantService _restaurantService;
         private IGlobalAdminService _globalAdminService;
         private IPackageService _packageService;
+        private IRestaurantAdminService _restaurantAdminService;
 
         public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService, IGlobalAdminService globalAdminService,IPackageService packageService
-            , IUnitOfWorkAsync unitOFWork) : base(unitOFWork)
+            , IUnitOfWorkAsync unitOFWork, IRestaurantAdminService restaurantAdminService) : base(unitOFWork)
         {
             _UserService = userService;
             _restaurantWaiterService = restaurantWaiterService;
             _restaurantService = restaurantService;
             _globalAdminService = globalAdminService;
             _packageService = packageService;
+            _restaurantAdminService = restaurantAdminService;
         }
 
-        public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService)
+        public UserFacade(IUserService userService, IRestaurantWaiterService restaurantWaiterService, IRestaurantService restaurantService, IRestaurantAdminService restaurantAdminService)
         {
             _UserService = userService;
             _restaurantWaiterService = restaurantWaiterService;
             _restaurantService = restaurantService;
+            _restaurantAdminService = restaurantAdminService;
         }
         public UserDto ValidateUser(string email, string password)
         {
@@ -53,8 +56,23 @@ namespace ECatalog.BLL.Services
             {
                 var waiter = _restaurantWaiterService.Find(user.UserId);
                 var restaurant = _restaurantService.Find(waiter.RestaurantId);
+                if(!restaurant.GlobalAdmin.IsActive) throw new ValidationException(ErrorCodes.GlobalAdminInactive);
                 if (!restaurant.IsActive) throw new ValidationException(ErrorCodes.RestaurantIsNotActivated);
-                if(DateTime.Now.Date > waiter.Package.End) throw new ValidationException(ErrorCodes.PackageExpired);
+                if(DateTime.Now.Date > waiter.Package.End.Date) throw new ValidationException(ErrorCodes.PackageExpired);
+                if (DateTime.Now.Date < waiter.Package.Start.Date) throw new ValidationException(ErrorCodes.PackageNotActivated);
+                if(waiter.Branch.IsDeleted || !waiter.Branch.IsActive) throw new ValidationException(ErrorCodes.BranchDeleted);
+            }
+            else if (user.Role == Enums.RoleType.RestaurantAdmin)
+            {
+                var restaurantAdmin = _restaurantAdminService.Find(user.UserId);
+                var restaurant = _restaurantService.Find(restaurantAdmin.RestaurantId);
+                if (!restaurant.GlobalAdmin.IsActive) throw new ValidationException(ErrorCodes.GlobalAdminInactive);
+            }
+            else if (user.Role == Enums.RoleType.GlobalAdmin)
+            {
+                var globalAdmin = _globalAdminService.Find(user.UserId);
+                if (!globalAdmin.IsActive) throw new ValidationException(ErrorCodes.GlobalAdminInactive);
+
             }
             return user;
         }
@@ -66,10 +84,11 @@ namespace ECatalog.BLL.Services
         public void AddRestaurantWaiter(RestaurantWaiterDTO restaurantWaiterDto, long restaurantAdminId)
         {
             ValidateRestaurantWaiter(restaurantWaiterDto, 0);
-
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
-            var consumedWaiters = restaurant.GlobalAdmin.Restaurants.Where(x => !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
+
+            //var consumedWaiters = restaurant.GlobalAdmin.Restaurants.Where(x => !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
+            var consumedWaiters = _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select(x => x.Waiters.Count).Sum();
             Package package;
 
             var packages= _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select().ToList();
@@ -95,7 +114,7 @@ namespace ECatalog.BLL.Services
             restaurantWaiter.PackageId = package.PackageId;
             _restaurantWaiterService.Insert(restaurantWaiter);
             SaveChanges();
-            UpdateSubscription(restaurant.GlobalAdminId, package.PackageGuid,package.Waiters.Count);
+            UpdateSubscription(restaurant.GlobalAdminId, package.PackageGuid, package.Waiters.Count);
         }
 
         public RestaurantWaiterDTO GetRestaurantWaiter(long waiterId)

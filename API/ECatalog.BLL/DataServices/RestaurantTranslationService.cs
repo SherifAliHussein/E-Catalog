@@ -54,6 +54,7 @@ namespace ECatalog.BLL.DataServices
                                 .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
                             restaurant.RestaurantType.RestaurantTypeTranslations = restaurant.RestaurantType.RestaurantTypeTranslations
                                 .Where(x => x.Language.ToLower() == language.ToLower()).ToList();
+
                         }
 
                     }

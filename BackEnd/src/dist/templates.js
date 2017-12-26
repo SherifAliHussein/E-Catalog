@@ -2138,6 +2138,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/core/login/templates/login.html',
     '<div class="logincard" ng-if="!isLoggedIn()">\n' +
     '  	<div class="pmd-card card-default pmd-z-depth">\n' +
@@ -2167,6 +2178,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <div ng-if="inActiveUser" class="loginFailed">\n' +
     '                    <span>Your account is deleted.</span>\n' +
     '                </div>\n' +
+    '                \n' +
+    '                <div ng-if="AccountDeActivated" class="loginFailed"  style="margin-left: auto;color:red">\n' +
+    '                    <span>Your Account is deactivated, please contact your admin.</span>\n' +
+    '                </div>\n' +
     '				<div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
     '					<button  type="submit" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
     '				</div>\n' +
@@ -2177,15 +2192,4 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	</div>\n' +
     '</div>\n' +
     '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
 }]);
