@@ -11,7 +11,7 @@ namespace ECatalog.BLL.DataServices.Interfaces
 {
     public interface IBranchTranslationService:IService<BranchTranslation>
     {
-        bool CheckBranchTitleExist(string branchTitle, string language, long branchId);
+        bool CheckBranchTitleExist(string branchTitle, string language, long branchId, long restaurantAdminId);
         PagedResultsDto GetAllBranchesByRestaurantAdminId(string language, long restaurantAdminId, int page,int pageSize);
     }
 }

@@ -14,7 +14,7 @@ namespace ECatalog.BLL.Services.Interfaces
         void ActivateBranch(long branchId);
         void DeActivateBranch(long branchId);
         void DeleteBranch(long branchId);
-        void UpdateBranch(BranchDto branchDto);
+        void UpdateBranch(BranchDto branchDto, long restaurantAdminId);
         PagedResultsDto GetAllBranches(string language, long restaurantAdminId, int page, int pageSize);
     }
 }
