@@ -21,5 +21,10 @@ namespace ECatalog.BLL.DataServices
         {
             return _repository.Query(x => x.GlobalAdminId == globalAdminId).Select(x => x.MaxNumberOfWaiters).Sum();
         }
+
+        public List<Package> GetAllPackagesByGlobalAdminId(long globalAdminId)
+        {
+            return _repository.Query(x => x.GlobalAdminId == globalAdminId).Include(x=>x.Waiters).Select().ToList();
+        }
     }
 }

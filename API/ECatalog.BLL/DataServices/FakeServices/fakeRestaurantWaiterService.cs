@@ -35,5 +35,10 @@ namespace ECatalog.BLL.DataServices.FakeServices
                 .Take(pageSize).ToList());
             return results;
         }
+
+        public List<RestaurantWaiter> GetAlRestaurantWaitersByRestaurantId(long restaurantId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

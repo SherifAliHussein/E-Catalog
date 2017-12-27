@@ -2,8 +2,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//  'API_URL': 'http://localhost:28867/api/',
-			'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
+			 'API_URL': 'http://localhost:28867/api/',
+			// 'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
 			'defaultLanguage':'en',
 			'supportedLanguage':{
 				'en-us':{'key':'en-us','value':'english'},

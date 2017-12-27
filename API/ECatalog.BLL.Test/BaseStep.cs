@@ -33,7 +33,7 @@ namespace ECatalog.BLL.Test
         public void Setup()
         {
             ECatalogBLLConfig.RegisterMappings(new MapperConfigurationExpression());
-            _RestaurantFacade = new RestaurantFacade(new fakeRestaurantTypeService(),new fakeRestaurantTypeTranslationService(),new fakeRestaurantService(), new fakeRestaurantTranlationService(),new fakeUserService(),new fakeRestaurantAdminService(),new fakeManageStorage());
+            _RestaurantFacade = new RestaurantFacade(new fakeRestaurantTypeService(),new fakeRestaurantTypeTranslationService(),new fakeRestaurantService(), new fakeRestaurantTranlationService(),new fakeUserService(),new fakeRestaurantAdminService(),new fakeManageStorage(),null);
             _MenuFacade = new MenuFacade(new fakeMenuService(),new fakeMenuTranslationService(),new fakeRestaurantService(),new fakeRestaurantTranlationService(),new fakeRestaurantWaiterService());
             _CategoryFacade = new CategoryFacade(new fakeCategoryService(), new fakeCategoryTranslationService(), new fakeMenuService(),new fakeManageStorage(),new fakeMenuTranslationService(),new fakeRestaurantService());
             _ItemFacade = new ItemFacade(new fakeCategoryService(), new fakeItemService(), new fakeItemTranslationService(),new fakeItemSizeService(), new fakeItemSideItemService(),new fakeManageStorage(), new fakeSizeTranslation(),new fakeSideItemTranslationService(), new fakeCategoryTranslationService(),new fakeMenuService(), new fakeRestaurantService());

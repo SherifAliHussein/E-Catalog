@@ -45,5 +45,10 @@ namespace ECatalog.BLL.DataServices
             });
             return results;
         }
+
+        public List<RestaurantWaiter> GetAlRestaurantWaitersByRestaurantId(long restaurantId)
+        {
+            return _repository.Query(x => x.RestaurantId == restaurantId).Select().ToList();
+        }
     }
 }

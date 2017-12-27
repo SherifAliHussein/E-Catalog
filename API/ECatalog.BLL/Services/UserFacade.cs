@@ -89,7 +89,7 @@ namespace ECatalog.BLL.Services
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             //var consumedWaiters = restaurant.GlobalAdmin.Restaurants.Where(x => !x.IsDeleted).Select(x => x.WaitersLimit).Sum();
-            var consumedWaiters = _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select(x => x.Waiters.Count(w=>!w.IsDeleted)).Sum();
+           // var consumedWaiters = _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Select(x => x.Waiters.Count(w=>!w.IsDeleted)).Sum();
             Package package;
 
             var packages= _packageService.Query(x => x.GlobalAdminId == restaurant.GlobalAdminId).Include(x=>x.Waiters).Select().ToList();
@@ -97,14 +97,14 @@ namespace ECatalog.BLL.Services
             int count = 1;
             while (true)
             {
-                if (package.MaxNumberOfWaiters > consumedWaiters && package.MaxNumberOfWaiters > package.Waiters.Count(x=>!x.IsDeleted))
+                if ( package.MaxNumberOfWaiters > package.Waiters.Count(x=>!x.IsDeleted))
                 {
                     break;
                 }
-                else
-                {
-                    consumedWaiters = consumedWaiters - package.MaxNumberOfWaiters;
-                }
+                //else
+                //{
+                //    consumedWaiters = consumedWaiters - package.MaxNumberOfWaiters;
+                //}
 
                 package = packages.OrderBy(x => x.Start).Skip(count).FirstOrDefault();
                 count++;
