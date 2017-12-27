@@ -14,7 +14,7 @@ namespace ECatalog.API.Models
         public string Name { get; set; }
         public string BranchTitle { get; set; }
         public long BranchId { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
     }
 }

@@ -58,7 +58,8 @@ namespace ECatalog.BLL.Services
                 var restaurant = _restaurantService.Find(waiter.RestaurantId);
                 if(!restaurant.GlobalAdmin.IsActive) throw new ValidationException(ErrorCodes.GlobalAdminInactive);
                 if (!restaurant.IsActive) throw new ValidationException(ErrorCodes.RestaurantIsNotActivated);
-                if(DateTime.Now.Date > waiter.Package.End.Date) throw new ValidationException(ErrorCodes.PackageExpired);
+                if (restaurant.IsDeleted) throw new ValidationException(ErrorCodes.RestaurantDeleted);
+                if (DateTime.Now.Date > waiter.Package.End.Date) throw new ValidationException(ErrorCodes.PackageExpired);
                 if (DateTime.Now.Date < waiter.Package.Start.Date) throw new ValidationException(ErrorCodes.PackageNotActivated);
                 if(waiter.Branch.IsDeleted || !waiter.Branch.IsActive) throw new ValidationException(ErrorCodes.BranchDeleted);
             }
@@ -66,6 +67,7 @@ namespace ECatalog.BLL.Services
             {
                 var restaurantAdmin = _restaurantAdminService.Find(user.UserId);
                 var restaurant = _restaurantService.Find(restaurantAdmin.RestaurantId);
+                if (restaurant.IsDeleted) throw new ValidationException(ErrorCodes.RestaurantDeleted);
                 if (!restaurant.GlobalAdmin.IsActive) throw new ValidationException(ErrorCodes.GlobalAdminInactive);
             }
             else if (user.Role == Enums.RoleType.GlobalAdmin)
@@ -95,7 +97,7 @@ namespace ECatalog.BLL.Services
             int count = 1;
             while (true)
             {
-                if (package.MaxNumberOfWaiters > consumedWaiters && package.MaxNumberOfWaiters > package.Waiters.Count)
+                if (package.MaxNumberOfWaiters > consumedWaiters && package.MaxNumberOfWaiters > package.Waiters.Count(x=>!x.IsDeleted))
                 {
                     break;
                 }
@@ -115,7 +117,7 @@ namespace ECatalog.BLL.Services
             restaurantWaiter.PackageId = package.PackageId;
             _restaurantWaiterService.Insert(restaurantWaiter);
             SaveChanges();
-            UpdateSubscription(restaurant.GlobalAdminId, package.PackageGuid, package.Waiters.Count);
+            UpdateSubscription(restaurant.GlobalAdminId, package.PackageGuid, package.Waiters.Count(x => !x.IsDeleted));
         }
 
         public RestaurantWaiterDTO GetRestaurantWaiter(long waiterId)
@@ -161,8 +163,10 @@ namespace ECatalog.BLL.Services
             if (restaurantWaiter == null) throw new NotFoundException(ErrorCodes.UserNotFound);
             restaurantWaiter.IsDeleted = true;
             _restaurantWaiterService.Update(restaurantWaiter);
+            var package = _packageService.Query(x => x.PackageId == restaurantWaiter.PackageId).Include(x => x.Waiters)
+                .Select().FirstOrDefault();
             SaveChanges();
-            UpdateSubscription(restaurantWaiter.Restaurant.GlobalAdminId, restaurantWaiter.Package.PackageGuid, restaurantWaiter.Package.Waiters.Count);
+            UpdateSubscription(package.GlobalAdminId, package.PackageGuid, package.Waiters.Count(x => !x.IsDeleted));
         }
 
         public int GetWaiterLimitByRestaurantAdminId(long restaurantAdminId)

@@ -351,12 +351,13 @@ namespace ECatalog.API.Controllers
         [ResponseType(typeof(IEnumerable<ResturantInfoModel>))]
         public IHttpActionResult GetGlobalRestaurantInfo()
         {
-            var restaurants = _restaurantFacade.GetGlobalRestaurantInfo(UserId,UserRole);
+            var restaurants = _restaurantFacade.GetGlobalRestaurantInfo(UserId,UserRole,Language);
             //  var data = Mapper.Map<List<ResturantInfoModel>>(restaurants);
             var data = new ResturantInfoDto();
 
             data.LogoUrl = Url.Link("RestaurantLogo", new { restaurantId = restaurants.ResturentId });
             data.BackgroundUrl = Url.Link("BackgroundImage", new { restaurants.BackgroundId });
+            data.RestaurantName = restaurants.RestaurantName;
 
             return Ok(data);
 

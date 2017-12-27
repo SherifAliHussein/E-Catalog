@@ -16,6 +16,8 @@
         
         var totalItemsCount = 0;
         vm.isCategoryTemplateReady = false;
+		$('.pmd-sidebar-nav>li>a').removeClass("active")	
+		$($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
         function loadCategory(){
             if(vm.selectedMenu != null){
                 

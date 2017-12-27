@@ -81,9 +81,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '				<label for="first-name">{{\'AdminUserLbl\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="restaurantAdmin" ng-model="editRestCtrl.restaurant.restaurantAdminUserName">\n' +
+    '				<input required type="text" class="mat-input form-control" name="restaurantAdmin" ng-model="editRestCtrl.restaurant.restaurantAdminUserName"ng-pattern=\'/^(([^<>()\\[\\]\\.,;:\\s@\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i\'>\n' +
     '				<div ng-messages="newRestaurantForm.restaurantAdmin.$error" >\n' +
-    '                    <div ng-if="newRestaurantForm.restaurantAdmin.$error.required && !newRestaurantForm.restaurantAdmin.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '					<div ng-if="newRestaurantForm.restaurantAdmin.$error.required && !newRestaurantForm.restaurantAdmin.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '					<div ng-if="!newRestaurantForm.restaurantAdmin.$error.required && newRestaurantForm.restaurantAdmin.$error.pattern">{{\'invalidEmail\' | translate}}</div>\n' +
+    '					\n' +
     '                </div>\n' +
     '			</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
@@ -285,9 +287,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label" >\n' +
     '				<label for="first-name">{{\'AdminUserLbl\' | translate}}</label>\n' +
-    '				<input required type="text" class="mat-input form-control" name="restaurantAdmin" ng-model="rewRestCtrl.restaurantAdmin">\n' +
+    '				<input required type="text" class="mat-input form-control" name="restaurantAdmin" ng-model="rewRestCtrl.restaurantAdmin" ng-pattern=\'/^(([^<>()\\[\\]\\.,;:\\s@\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i\'>\n' +
     '				<div ng-messages="newRestaurantForm.restaurantAdmin.$error" >\n' +
     '                    <div ng-if="newRestaurantForm.restaurantAdmin.$error.required && !newRestaurantForm.restaurantAdmin.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                    <div ng-if="!newRestaurantForm.restaurantAdmin.$error.required && newRestaurantForm.restaurantAdmin.$error.pattern">{{\'invalidEmail\' | translate}}</div>\n' +
     '                </div>\n' +
     '			</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
@@ -411,7 +414,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<th >{{\'AdminUserLbl\' | translate}}</th>\n' +
     '						<th >{{\'TypeLbl\' | translate}}</th>\n' +
     '						<th>{{\'waitersLimitConsumedLbl\' | translate}}</th>\n' +
-    '						<th>{{\'ReadyLbl\' | translate}}</th>\n' +
+    '						<!-- <th>{{\'ReadyLbl\' | translate}}</th> -->\n' +
     '						<th >{{\'status\' | translate}}</th>\n' +
     '					</tr>\n' +
     '				</thead>\n' +
@@ -423,9 +426,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<td data-title="Admin user" width="15%" >{{restaurant.restaurantAdminUserName}}</td>\n' +
     '						<td data-title="Type" width="10%" >{{restaurant.restaurantTypeName}}</td>\n' +
     '						<td data-title="Type" width="5%" >{{restaurant.consumedWaiters}}/{{restaurant.waitersLimit}}</td>\n' +
-    '						<td width="5%">{{restaurant.isReady}}</td>\n' +
+    '						<!-- <td width="5%">{{restaurant.isReady}}</td> -->\n' +
     '						<td width="15%" >\n' +
-    '							<a ng-show="!restaurant.isActive" ng-class="{disabled: !restaurant.isReady}"  ng-click="restaurantCtrl.Activate(restaurant)" class="cursorPointer">{{\'ActivateBtn\' | translate}}</a>\n' +
+    '							<a ng-show="!restaurant.isActive" ng-click="restaurantCtrl.Activate(restaurant)" class="cursorPointer">{{\'ActivateBtn\' | translate}}</a>\n' +
     '							<a ng-show="restaurant.isActive" ng-click="restaurantCtrl.Deactivate(restaurant)" class="cursorPointer">{{\'DeActivateBtn\' | translate}}</a>\n' +
     '							<i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editRestaurant\', {restaurantId: restaurant.restaurantId});">mode_edit</i> \n' +
     '							<i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="restaurantCtrl.openDeleteRestaurantDialog(restaurant.restaurantName,restaurant.restaurantId)">delete</i>\n' +
@@ -2165,7 +2168,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div class="pmd-card-body">\n' +
     '					<div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting again. </div>\n' +
     '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">Username</label>\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">Email</label>\n' +
     '                        <div class="input-group">\n' +
     '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>\n' +
     '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username" ng-model="username" ng-change="reset()">\n' +

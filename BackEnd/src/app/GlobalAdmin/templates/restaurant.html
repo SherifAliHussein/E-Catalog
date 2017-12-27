@@ -22,7 +22,7 @@
 						<th >{{'AdminUserLbl' | translate}}</th>
 						<th >{{'TypeLbl' | translate}}</th>
 						<th>{{'waitersLimitConsumedLbl' | translate}}</th>
-						<th>{{'ReadyLbl' | translate}}</th>
+						<!-- <th>{{'ReadyLbl' | translate}}</th> -->
 						<th >{{'status' | translate}}</th>
 					</tr>
 				</thead>
@@ -34,9 +34,9 @@
 						<td data-title="Admin user" width="15%" >{{restaurant.restaurantAdminUserName}}</td>
 						<td data-title="Type" width="10%" >{{restaurant.restaurantTypeName}}</td>
 						<td data-title="Type" width="5%" >{{restaurant.consumedWaiters}}/{{restaurant.waitersLimit}}</td>
-						<td width="5%">{{restaurant.isReady}}</td>
+						<!-- <td width="5%">{{restaurant.isReady}}</td> -->
 						<td width="15%" >
-							<a ng-show="!restaurant.isActive" ng-class="{disabled: !restaurant.isReady}"  ng-click="restaurantCtrl.Activate(restaurant)" class="cursorPointer">{{'ActivateBtn' | translate}}</a>
+							<a ng-show="!restaurant.isActive" ng-click="restaurantCtrl.Activate(restaurant)" class="cursorPointer">{{'ActivateBtn' | translate}}</a>
 							<a ng-show="restaurant.isActive" ng-click="restaurantCtrl.Deactivate(restaurant)" class="cursorPointer">{{'DeActivateBtn' | translate}}</a>
 							<i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editRestaurant', {restaurantId: restaurant.restaurantId});">mode_edit</i> 
 							<i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="restaurantCtrl.openDeleteRestaurantDialog(restaurant.restaurantName,restaurant.restaurantId)">delete</i>

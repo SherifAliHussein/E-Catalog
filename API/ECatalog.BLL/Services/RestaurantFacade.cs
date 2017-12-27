@@ -382,7 +382,7 @@ namespace ECatalog.BLL.Services
             SaveChanges();
         }
 
-        public ResturantInfoDto GetGlobalRestaurantInfo(long userId, string role)
+        public ResturantInfoDto GetGlobalRestaurantInfo(long userId, string role,string language)
         {
             Restaurant restaurant;
             if (role == Enums.RoleType.RestaurantAdmin.ToString())
@@ -402,7 +402,8 @@ namespace ECatalog.BLL.Services
             var restaurantdto = new ResturantInfoDto
             {
                 ResturentId = restaurant.RestaurantId,
-                BackgroundId = restaurant.BackgroundId
+                BackgroundId = restaurant.BackgroundId,
+                RestaurantName = restaurant.RestaurantTranslations.FirstOrDefault(x=>x.Language.ToLower() == language.ToLower()).RestaurantName
             };
             return restaurantdto;
         }

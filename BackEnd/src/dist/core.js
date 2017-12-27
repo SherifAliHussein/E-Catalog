@@ -53,8 +53,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			 'API_URL': 'http://localhost:28867/api/',
-			// 'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
+			//  'API_URL': 'http://localhost:28867/api/',
+			'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
 			'defaultLanguage':'en',
 			'supportedLanguage':{
 				'en-us':{'key':'en-us','value':'english'},
@@ -162,7 +162,7 @@ angular.module('core')
             "NoRestaurantAvailable":"There is no restaurants.",
             "LogoLbl":"logo",
             "TypeLbl":"Type",
-            "AdminUserLbl":"Admin user",
+            "AdminUserLbl":"Admin email",
             "AdminUserPasswordLbl":"Admin password",
             "WaiterUserPasswordLbl":"Waiter password",
             "ActivateBtn":"Activate",
@@ -291,6 +291,7 @@ angular.module('core')
             "selectedTemplates":"Selected templates",
             "startDatelbl":"Start date",
             "endDatelbl":"End date",
+            "invalidEmail":"Invalid Email"
             
         }
         
@@ -317,7 +318,7 @@ angular.module('core')
             "NoRestaurantAvailable":".لا يوجد مطاعم",
             "LogoLbl":"شعار",
             "TypeLbl":"نوع",            
-            "AdminUserLbl":"المشرف",
+            "AdminUserLbl":"بريد الاكتروني لالمشرف",
             "AdminUserPasswordLbl":"كلمة مرور المشرف",
             "WaiterUserPasswordLbl":"كلمة مرور النادل",
             "ActivateBtn":"تفعيل",
@@ -454,6 +455,7 @@ angular.module('core')
             "selectedTemplates":"النماذج المختاره",
             "startDatelbl":"Start date",
             "endDatelbl":"End date",
+            "invalidEmail":"البريد الاكتروني غير صحيح"
         }
         
         $translateProvider.translations('en',en_translations);
@@ -602,9 +604,9 @@ angular.module('core')
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
+        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'RestaurantInfoResource', homeCtrl])
        
-    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage) {
+    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage,RestaurantInfoResource) {
         
         var vm=this;
         $scope.emailEmpty = false;
@@ -625,9 +627,18 @@ angular.module('core')
             $scope.selectedLanguage = $localStorage.language;
             
         $translate.use($scope.selectedLanguage); 
+        $scope.restaurantName = "";
 		$scope.init =
             function() {
-				$scope.user = authorizationService.getUser();
+                $scope.user = authorizationService.getUser();
+                if ($scope.user.role  == "RestaurantAdmin") {
+                    RestaurantInfoResource.getRestaurantInfo().$promise.then(function(results) {
+                       $scope.restaurantName = results.restaurantName;
+                    },
+                    function(data, status) {
+                    });
+    
+                } 
             }
         $scope.init();
 		
@@ -676,11 +687,17 @@ angular.module('core')
             $scope.invalidLoginInfo = false;
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
+            $scope.restaurantName = "";
             if ($scope.user.role == "GlobalAdmin") {
                 $state.go('restaurantType');
 
             } else if ($scope.user.role  == "RestaurantAdmin") {
-				$state.go('Menu');
+                $state.go('Menu');
+                RestaurantInfoResource.getRestaurantInfo().$promise.then(function(results) {
+                   $scope.restaurantName = results.restaurantName;
+                },
+                function(data, status) {
+                });
 
             } 
             else  {
@@ -700,7 +717,7 @@ angular.module('core')
                     $scope.inActiveUser = false;
                     $scope.AccountDeActivated = false;
                 }
-                if (response.data.error == "inactive user") {
+                if (response.data.error == "inactive user" || response.data.error == "Account deleted") {
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
                     $scope.AccountDeActivated = false;                    
@@ -719,6 +736,7 @@ angular.module('core')
 
         $scope.logout = function() {
             authorizationService.logout();
+            $scope.restaurantName = "";
             $state.go('login');
         }
         $scope.reset = function() {

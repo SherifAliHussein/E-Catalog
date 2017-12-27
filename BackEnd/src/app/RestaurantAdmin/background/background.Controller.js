@@ -11,7 +11,9 @@
 		vm.Backgrounds = backgroundsPrepService;
 		console.log(vm.Backgrounds);
 		vm.Now = $scope.getCurrentTime();
-		$('.pmd-sidebar-nav>li>a').removeClass("active")		
+		$('.pmd-sidebar-nav>li>a').removeClass("active")	
+		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+		
 		function refreshBackgrounds(){
 			var k = BackgroundResource.getAllBackgrounds({page:vm.currentPage }).$promise.then(function(results) {
 				vm.Backgrounds = results

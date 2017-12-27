@@ -2,6 +2,7 @@
   angular
     .module('home')
     .factory('RestaurantResource', ['$resource', 'appCONSTANTS', RestaurantResource])
+    .factory('RestaurantInfoResource', ['$resource', 'appCONSTANTS', RestaurantInfoResource])
     .factory('ActivateRestaurantResource', ['$resource', 'appCONSTANTS', ActivateRestaurantResource])
     .factory('DeactivateRestaurantResource', ['$resource', 'appCONSTANTS', DeactivateRestaurantResource])
     .factory('AdminWaitersLimitResource', ['$resource', 'appCONSTANTS', AdminWaitersLimitResource]);
@@ -30,6 +31,11 @@
   function AdminWaitersLimitResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Users/GetMaxAndConUsers', {}, {
 	    getWaitersLimitAndConsumed: { method: 'GET', useToken: true }
+    })
+  }
+  function RestaurantInfoResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Restaurants/GetGlobalRestaurantInfo', {}, {
+	    getRestaurantInfo: { method: 'GET', useToken: true }
     })
   }
 }());

@@ -156,7 +156,7 @@
                     $scope.AccountDeActivated = false;
                     
                 }
-                if (response.data.error == "inactive user") {
+                if (response.data.error == "inactive user" || response.data.error =="Account deleted") {
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
                     $scope.restaurantInActiveUser = false;

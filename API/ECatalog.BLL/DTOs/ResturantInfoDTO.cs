@@ -14,5 +14,6 @@ namespace ECatalog.BLL.DTOs
         public string BackgroundUrl { get; set; }
         public long ResturentId { get; set; }
         public string LogoUrl { get; set; }
+        public string RestaurantName { get; set; }
     }
 }
