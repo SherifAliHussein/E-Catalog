@@ -12,7 +12,7 @@
 		vm.RestaurantIsReady = RestaurantIsReadyPrepService.isReady;
 		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
+		$($('.pmd-sidebar-nav').children()[0].children[0]).addClass("active")
 		
 		function refreshMenu(){
 			var k = MenuResource.getAllMenus({page:vm.currentPage}).$promise.then(function(results) {

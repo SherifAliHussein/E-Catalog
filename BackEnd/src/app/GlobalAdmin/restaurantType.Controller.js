@@ -10,7 +10,7 @@
         var vm = this;
 		vm.restaurantTypes = restaurantTypesPrepService;
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
+		$($('.pmd-sidebar-nav').children()[0].children[0]).addClass("active")
 		
 		function refreshType(){
 			var k = RestaurantTypeResource.getAllRestaurantType().$promise.then(function(results) {

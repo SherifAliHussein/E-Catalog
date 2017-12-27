@@ -32,12 +32,13 @@ namespace ECatalog.BLL.Services
         private IManageStorage _manageStorage;
         private IRestaurantWaiterService _restaurantWaiterService;
         private IGlobalAdminService _globalAdminService;
+        private IPackageService _packageService;
 
         public RestaurantFacade(IRestaurantTypeService restaurantTypeService,
             IRestaurantTypeTranslationService restaurantTypeTranslationService
             , IRestaurantService restaurantService, IRestaurantTranslationService restaurantTranslationService,
             IUserService userService, IRestaurantAdminService restaurantAdminService
-            , IManageStorage manageStorage,IRestaurantWaiterService restaurantWaiterService, IGlobalAdminService globalAdminService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
+            , IManageStorage manageStorage,IRestaurantWaiterService restaurantWaiterService, IGlobalAdminService globalAdminService, IUnitOfWorkAsync unitOfWork, IPackageService packageService) : base(unitOfWork)
         {
             _restaurantTypeService = restaurantTypeService;
             _restaurantTypeTranslationService = restaurantTypeTranslationService;
@@ -48,12 +49,13 @@ namespace ECatalog.BLL.Services
             _manageStorage = manageStorage;
             _restaurantWaiterService = restaurantWaiterService;
             _globalAdminService = globalAdminService;
+            _packageService = packageService;
         }
 
         public RestaurantFacade(IRestaurantTypeService restaurantTypeService,
             IRestaurantTypeTranslationService restaurantTypeTranslationService,
             IRestaurantService restaurantService, IRestaurantTranslationService restaurantTranslationService,
-            IUserService userService, IRestaurantAdminService restaurantAdminService, IManageStorage manageStorage)
+            IUserService userService, IRestaurantAdminService restaurantAdminService, IManageStorage manageStorage, IPackageService packageService)
         {
             _restaurantTypeService = restaurantTypeService;
             _restaurantTypeTranslationService = restaurantTypeTranslationService;
@@ -62,6 +64,7 @@ namespace ECatalog.BLL.Services
             _userService = userService;
             _restaurantAdminService = restaurantAdminService;
             _manageStorage = manageStorage;
+            _packageService = packageService;
         }
 
         public List<RestaurantTypeDto> GetAllRestaurantType(string language, long userId)
@@ -156,13 +159,25 @@ namespace ECatalog.BLL.Services
             var restaurantType = _restaurantTypeService.Find(restaurantTypeId);
             if (restaurantType == null) throw new NotFoundException(ErrorCodes.RestaurantTypeNotFound);
             restaurantType.IsDeleted = true;
-            foreach (var type in restaurantType.Restaurants)
+            foreach (var restaurant in restaurantType.Restaurants)
             {
-                type.IsDeleted = true;
+                restaurant.IsDeleted = true;
+                restaurant.RestaurantAdmin.IsDeleted = true;
+                
+                _restaurantService.Update(restaurant);
+                var waiters = _restaurantWaiterService.GetAlRestaurantWaitersByRestaurantId(restaurant.RestaurantId);
+                waiters.ForEach(x => { x.IsDeleted = true; _restaurantWaiterService.Update(x); });
+                
+                var globalAdmin = _globalAdminService.Find(restaurant.GlobalAdminId);
+                var packages = _packageService.GetAllPackagesByGlobalAdminId(globalAdmin.UserId);
+                Parallel.ForEach(packages, (package) =>
+                {
+                    UpdateSubscription(globalAdmin, package.PackageGuid, package.Waiters.Count(x => !x.IsDeleted));
+                });
             }
             _restaurantTypeService.Update(restaurantType);
 
-            SaveChanges();
+           SaveChanges();
         }
 
         public void AddRestaurant(RestaurantDTO restaurantDto, string path, long userId)
@@ -311,8 +326,18 @@ namespace ECatalog.BLL.Services
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             restaurant.IsDeleted = true;
             restaurant.RestaurantAdmin.IsDeleted = true;
-            restaurant.RestaurantWaiters.ForEach(x => x.IsDeleted = true);
+            var waiters = _restaurantWaiterService.GetAlRestaurantWaitersByRestaurantId(restaurant.RestaurantId);
+            waiters.ForEach(x => { x.IsDeleted = true; _restaurantWaiterService.Update(x); });
+
+            var globalAdmin = _globalAdminService.Find(restaurant.GlobalAdminId);
+            var packages = _packageService.GetAllPackagesByGlobalAdminId(globalAdmin.UserId);
+            Parallel.ForEach(packages, (package) =>
+            {
+                UpdateSubscription(globalAdmin, package.PackageGuid, package.Waiters.Count(x => !x.IsDeleted));
+            });
             _restaurantService.Update(restaurant);
+            
+
             SaveChanges();
         }
 
@@ -382,7 +407,7 @@ namespace ECatalog.BLL.Services
             SaveChanges();
         }
 
-        public ResturantInfoDto GetGlobalRestaurantInfo(long userId, string role)
+        public ResturantInfoDto GetGlobalRestaurantInfo(long userId, string role,string language)
         {
             Restaurant restaurant;
             if (role == Enums.RoleType.RestaurantAdmin.ToString())
@@ -402,11 +427,44 @@ namespace ECatalog.BLL.Services
             var restaurantdto = new ResturantInfoDto
             {
                 ResturentId = restaurant.RestaurantId,
-                BackgroundId = restaurant.BackgroundId
+                BackgroundId = restaurant.BackgroundId,
+                RestaurantName = restaurant.RestaurantTranslations.FirstOrDefault(x=>x.Language.ToLower() == language.ToLower()).RestaurantName
             };
             return restaurantdto;
         }
 
-        
+        private void UpdateSubscription(GlobalAdmin globalAdmin, Guid packageGuid, int consumed)
+        {
+            string url = ConfigurationManager.AppSettings["subscriptionURL"];
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + "/Users/EditUserConsumer");
+            //request.Headers.Add("X-Auth-Token:" + token);
+            request.ContentType = "application/json";
+            request.Method = "POST";
+            var serializer = JsonConvert.SerializeObject(new
+            {
+                userConsumer = consumed,
+                userAccountId = globalAdmin.UserAccountId,
+                backageGuid = packageGuid
+            });
+            //request.ContentLength = serializer.Length;
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = serializer;
+
+                streamWriter.Write(json);
+            }
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+                var infoResponse = readStream.ReadToEnd();
+
+                response.Close();
+                receiveStream.Close();
+                readStream.Close();
+            }
+        }
+
     }
 }

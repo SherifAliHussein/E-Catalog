@@ -11,7 +11,7 @@
 		vm.branches = branchsPrepService;
 		vm.Now = $scope.getCurrentTime();
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
+		$($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
 		
 		function refreshBranches(){
 			var k = BranchResource.getAllBranches({ page:vm.currentPage }).$promise.then(function(results) {

@@ -13,14 +13,14 @@
 		// alert(WaitersLimitPrepService.waiterLimit)
 		console.log(WaitersLimitPrepService)
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+		$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
 		
 		function refreshWaiter(){
 			var k = WaiterResource.getAllWaiters({page:vm.currentPage}).$promise.then(function(results) {
 				vm.waiters = results
 			},
             function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
             });
 		}
 		vm.currentPage = 1;
@@ -51,7 +51,7 @@
 				refreshWaiter();
 			},
             function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
             });
 		}
 		vm.openDeleteWaiterDialog = function(name,id){			

@@ -27,7 +27,7 @@
             "NoRestaurantAvailable":"There is no restaurants.",
             "LogoLbl":"logo",
             "TypeLbl":"Type",
-            "AdminUserLbl":"Admin user",
+            "AdminUserLbl":"Admin email",
             "AdminUserPasswordLbl":"Admin password",
             "WaiterUserPasswordLbl":"Waiter password",
             "ActivateBtn":"Activate",
@@ -153,7 +153,10 @@
             "OkLbl":"Ok",
             "pageLbl":"Page",
             "selectTemplate":"Select template for page",
-            "selectedTemplates":"Selected templates"
+            "selectedTemplates":"Selected templates",
+            "startDatelbl":"Start date",
+            "endDatelbl":"End date",
+            "invalidEmail":"Invalid Email"
             
         }
         
@@ -180,7 +183,7 @@
             "NoRestaurantAvailable":".لا يوجد مطاعم",
             "LogoLbl":"شعار",
             "TypeLbl":"نوع",            
-            "AdminUserLbl":"المشرف",
+            "AdminUserLbl":"بريد الاكتروني لالمشرف",
             "AdminUserPasswordLbl":"كلمة مرور المشرف",
             "WaiterUserPasswordLbl":"كلمة مرور النادل",
             "ActivateBtn":"تفعيل",
@@ -314,7 +317,10 @@
             "OkLbl":"تم",
             "pageLbl":"صفحه",
             "selectTemplate":"اختار نموذج لصفحه",
-            "selectedTemplates":"النماذج المختاره"
+            "selectedTemplates":"النماذج المختاره",
+            "startDatelbl":"Start date",
+            "endDatelbl":"End date",
+            "invalidEmail":"البريد الاكتروني غير صحيح"
         }
         
         $translateProvider.translations('en',en_translations);

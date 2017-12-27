@@ -13,7 +13,7 @@
 		vm.waitersLimit = waitersLimitPrepService;
 		//vm.totalCount = restaurantsPrepService.totalCount;
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
 		
 		var allRestaurantType;
 		RestaurantTypeResource.getAllRestaurantType().$promise.then(function(results) {
@@ -109,7 +109,7 @@
 		// }
 
 		vm.Activate = function(restaurant){
-			if(restaurant.isReady){
+			// if(restaurant.isReady){
 				ActivateRestaurantResource.Activate({restaurantId:restaurant.restaurantId})
 				.$promise.then(function(result){
 					restaurant.isActive = true;
@@ -117,7 +117,7 @@
 				function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
 				})
-			}
+			// }
 		}
 
 		vm.Deactivate = function(restaurant){

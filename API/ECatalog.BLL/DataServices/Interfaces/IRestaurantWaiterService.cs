@@ -13,5 +13,6 @@ namespace ECatalog.BLL.DataServices.Interfaces
     {
         bool CheckUserNameDuplicated(string userName, long restaurantId);
         PagedResultsDto GetAllRestaurantWaiters(long restaurantId, int page, int pageSize, string language);
+        List<RestaurantWaiter> GetAlRestaurantWaitersByRestaurantId(long restaurantId);
     }
 }

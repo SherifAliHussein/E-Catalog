@@ -3,9 +3,9 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
+        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state',  '_', 'authenticationService', 'authorizationService', '$localStorage', 'RestaurantInfoResource', homeCtrl])
        
-    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage) {
+    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state, _,authenticationService, authorizationService,$localStorage,RestaurantInfoResource) {
         
         var vm=this;
         $scope.emailEmpty = false;
@@ -26,9 +26,18 @@
             $scope.selectedLanguage = $localStorage.language;
             
         $translate.use($scope.selectedLanguage); 
+        $scope.restaurantName = "";
 		$scope.init =
             function() {
-				$scope.user = authorizationService.getUser();
+                $scope.user = authorizationService.getUser();
+                if ($scope.user.role  == "RestaurantAdmin") {
+                    RestaurantInfoResource.getRestaurantInfo().$promise.then(function(results) {
+                       $scope.restaurantName = results.restaurantName;
+                    },
+                    function(data, status) {
+                    });
+    
+                } 
             }
         $scope.init();
 		
@@ -77,11 +86,17 @@
             $scope.invalidLoginInfo = false;
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
+            $scope.restaurantName = "";
             if ($scope.user.role == "GlobalAdmin") {
                 $state.go('restaurantType');
 
             } else if ($scope.user.role  == "RestaurantAdmin") {
-				$state.go('Menu');
+                $state.go('Menu');
+                RestaurantInfoResource.getRestaurantInfo().$promise.then(function(results) {
+                   $scope.restaurantName = results.restaurantName;
+                },
+                function(data, status) {
+                });
 
             } 
             else  {
@@ -101,7 +116,7 @@
                     $scope.inActiveUser = false;
                     $scope.AccountDeActivated = false;
                 }
-                if (response.data.error == "inactive user") {
+                if (response.data.error == "inactive user" || response.data.error == "Account deleted") {
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
                     $scope.AccountDeActivated = false;                    
@@ -120,6 +135,7 @@
 
         $scope.logout = function() {
             authorizationService.logout();
+            $scope.restaurantName = "";
             $state.go('login');
         }
         $scope.reset = function() {

@@ -14,5 +14,7 @@ namespace ECatalog.API.Models
         public string Name { get; set; }
         public string BranchTitle { get; set; }
         public long BranchId { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
     }
 }

@@ -111,7 +111,9 @@ namespace ECatalog.BLL
             mapperConfiguration.CreateMap<RestaurantWaiterDTO, RestaurantWaiter>();
             mapperConfiguration.CreateMap<RestaurantWaiter, RestaurantWaiterDTO>()
                 .ForMember(dto => dto.Password,m => m.MapFrom(src => PasswordHelper.Decrypt(src.Password)))
-                .ForMember(dto => dto.BranchTitle, m => m.MapFrom(src => src.Branch.BranchTranslations.FirstOrDefault().BranchTitle));
+                .ForMember(dto => dto.BranchTitle, m => m.MapFrom(src => src.Branch.BranchTranslations.FirstOrDefault().BranchTitle))
+                .ForMember(dto => dto.Start, m => m.MapFrom(src => src.Package.Start.Date.ToShortDateString()))
+                .ForMember(dto => dto.End, m => m.MapFrom(src => src.Package.End.Date.ToShortDateString()));
 
             mapperConfiguration.CreateMap<Background, BackgroundDto>();
             mapperConfiguration.CreateMap< BackgroundDto, Background>();

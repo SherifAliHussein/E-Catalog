@@ -39,8 +39,9 @@
 		
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle"><i class="material-icons">menu</i></a>	
-		  <a href="index.html" class="navbar-brand">
+			<!-- <a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle"><i class="material-icons">menu</i></a>	 -->
+		  <a class="navbar-brand">
+			  {{restaurantName}}
 			  </a>
 			  
 		</div>
@@ -57,11 +58,11 @@
 	<ul class="nav pmd-sidebar-nav">
 		
 		<!-- User info -->
-		<li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
+		<!-- <li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
 			<a ng-click="logoutFlag=!logoutFlag"  data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);">
 				<div class="media-left">
 					<img src="/assets/img/user-icon.png" alt="New User">
-					<!-- <span>{{logoutFlag}}</span> -->
+					<!-- <span>{{logoutFlag}}</span> --
 				</div>
 				<div class="media-body media-middle"  ng-cloak >{{user.name}}</div>
 				<div class="media-right media-middle"><i class="dic-more-vert dic"></i></div>
@@ -69,7 +70,8 @@
 			<ul class="dropdown-menu" style="opacity: 1;">
 				<li><a ng-click="logout()"  ng-cloak>{{'logoutBtn' | translate}}</a></li>
 			</ul>
-		</li><!-- End user info -->
+		</li> -->
+		<!-- End user info -->
 		
 		<li ng-if="user.role === 'GlobalAdmin'"> 
 			<a class="pmd-ripple-effect " ng-click="$state.go('restaurantType');" >	
@@ -180,6 +182,7 @@
 					<span class="media-body "  ng-cloak>{{'Branch' | translate}}</span>
 				</a> 
 			</li>
+			<li><a ng-click="logout()"  ng-cloak>{{'logoutBtn' | translate}}</a></li>
 	</ul>
 </aside><!-- End Left sidebar -->
 <!-- Sidebar Ends -->  

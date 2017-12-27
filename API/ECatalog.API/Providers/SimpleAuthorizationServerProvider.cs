@@ -86,6 +86,14 @@ namespace ECatalog.API.Providers
                         new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
                     return Task.FromResult<object>(null);
                 }
+                else if (exception.ErrorCode == ErrorCodes.RestaurantDeleted)
+                {
+                    context.SetError("Account deleted", "Your Account is deleted.");
+                    //Add your flag to the header of the response
+                    context.Response.Headers.Add("X-Challenge",
+                        new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
+                    return Task.FromResult<object>(null);
+                }
 
             }
             catch (Exception e)
