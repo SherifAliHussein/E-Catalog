@@ -412,7 +412,7 @@ namespace ECatalog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username is already exist.
+        ///   Looks up a localized string similar to Email is already exist.
         /// </summary>
         public static string RestaurantAdminUserNameAlreadyExist {
             get {

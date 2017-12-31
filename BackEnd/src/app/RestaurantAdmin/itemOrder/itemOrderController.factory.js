@@ -1,13 +1,20 @@
 (function() {
     angular
       .module('home')
-      .factory('BackgroundResource', ['$resource', 'appCONSTANTS', BackgroundResource])  
+      .factory('ItemOrderResource', ['$resource', 'appCONSTANTS', ItemOrderResource])
+      .factory('UpdateItemOrderResource', ['$resource', 'appCONSTANTS', UpdateItemOrderResource])  
 
-      function BackgroundResource($resource, appCONSTANTS) {  
-              return $resource(appCONSTANTS.API_URL + 'Backgrounds/GetAllBackground', {}, { 
-                getAllBackgrounds: { method: 'GET', useToken: true, params:{lang:'@lang'} }
+      function ItemOrderResource($resource, appCONSTANTS) {  
+              return $resource(appCONSTANTS.API_URL + 'Categories/:categoryId/Items/Templates', {}, { 
+                getAllItemOrder: { method: 'GET', useToken: true }
         })
     }
+
+    function UpdateItemOrderResource($resource, appCONSTANTS) {  
+        return $resource(appCONSTANTS.API_URL + 'Items/Order', {}, { 
+          updateOrder: { method: 'PUT', useToken: true,isArray: true }
+  })
+}
    
 }());
   

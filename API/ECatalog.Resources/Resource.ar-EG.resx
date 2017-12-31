@@ -189,6 +189,9 @@
   <data name="PackageExpired" xml:space="preserve">
     <value>.انتهت صلاحية حسابك، يرجى الاتصال بالمشرف</value>
   </data>
+  <data name="RestaurantAdminUserNameAlreadyExist" xml:space="preserve">
+    <value>.البريد الاكتروني موجود بالفعل</value>
+  </data>
   <data name="RestaurantIsNotReady" xml:space="preserve">
     <value>المطعم ليس جاهز</value>
   </data>

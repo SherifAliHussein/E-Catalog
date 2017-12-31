@@ -181,5 +181,14 @@ namespace ECatalog.API.Controllers
             return Ok();
         }
 
+
+        [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        [Route("api/Items/Order", Name = "UpdateItemOrder")]
+        [HttpPut]
+        public IHttpActionResult UpdateItemOrder([FromBody] ItemOrderModel itemOrder)
+        {
+            _itemFacade.UpdateItemOrder(Mapper.Map<List<ItemNamesDto>>(itemOrder.ItemNames));
+            return Ok();
+        }
     }
 }

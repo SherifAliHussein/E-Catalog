@@ -136,6 +136,7 @@
         $scope.logout = function() {
             authorizationService.logout();
             $scope.restaurantName = "";
+            $translate.use(appCONSTANTS.defaultLanguage); 
             $state.go('login');
         }
         $scope.reset = function() {

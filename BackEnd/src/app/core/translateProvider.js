@@ -158,7 +158,10 @@
             "endDatelbl":"End date",
             "invalidEmail":"Invalid Email",
             "ConsumedMsg":"Consumed",
-            "maximumMsg":"Maximum"
+            "maximumMsg":"Maximum",
+            "OrderItemUpdateSuccess":"Items sorted",
+            "TemplateUpdateSuccessfuly":"Templates updated successfuly.",
+            "orderItem":"order items"
             
         }
         
@@ -324,7 +327,10 @@
             "endDatelbl":"End date",
             "invalidEmail":"البريد الاكتروني غير صحيح",
             "ConsumedMsg":"المستخدمين",
-            "maximumMsg":"الحد الاقصي"
+            "maximumMsg":"الحد الاقصي",
+            "OrderItemUpdateSuccess":"تم ترتيب المنتاجات",
+            "TemplateUpdateSuccessfuly":".تم تحديث النموذج بنجاح",
+            "orderItem":"ترتيب المنتجات"
         }
         
         $translateProvider.translations('en',en_translations);

@@ -85,7 +85,7 @@
             newCategroyTemplate.PageModels = categoryTemplates;
             newCategroyTemplate.$create({ categoryId: vm.selectedCategory.categoryId }).then(
                 function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",'suc',"success");
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('TemplateUpdateSuccessfuly'),"success");
                 },
                 function(data, status) {
 					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");

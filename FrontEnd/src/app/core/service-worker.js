@@ -1,4 +1,4 @@
-const cacheName = 'E-Catalog-v1.2.3';
+const cacheName = 'E-Catalog-v1.2.4';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.

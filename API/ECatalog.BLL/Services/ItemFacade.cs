@@ -393,7 +393,7 @@ namespace ECatalog.BLL.Services
             var pages = _pageService.Query(x => x.CategoryId == categoryId).Include(x=>x.Template).Select().ToList();
             var items = _itemTranslationService
                 .Query(x => x.Language.ToLower() == language.ToLower() && x.Item.CategoryId == categoryId &&
-                            x.Item.IsActive && !x.Item.IsDeleted).Select(x => x.Item).ToList();
+                            x.Item.IsActive && !x.Item.IsDeleted).Select(x => x.Item).OrderBy(x=>x.OrderNumber).ToList();
             var itemsDtos = Mapper.Map<List<Item>, List<ItemDTO>>(items, opt =>
             {
                 opt.BeforeMap((src, dest) =>
@@ -417,7 +417,8 @@ namespace ECatalog.BLL.Services
                 {
                     PageNumber = pageTemplate.PageNumber,
                     TemplateId = pageTemplate.TemplateId,
-                    ItemDto = pageItems
+                    ItemDto = pageItems,
+                    ItemCount = pageTemplate.Template.ItemCount
 
                 });
                 itemCount += pageTemplate.Template.ItemCount;
@@ -436,6 +437,17 @@ namespace ECatalog.BLL.Services
                 RestaurantId = category.Menu.RestaurantId
             };
             return categoryTemplates;
+        }
+
+        public void UpdateItemOrder(List<ItemNamesDto> itemNamesDto)
+        {
+            foreach (var itemDto in itemNamesDto)
+            {
+                var item = _itemService.Find(itemDto.ItemId);
+                item.OrderNumber = itemDto.OrderNumber;
+                _itemService.Update(item);
+            }
+            SaveChanges();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace ECatalog.BLL.DTOs
         public int PageNumber { get; set; }
 
         public long TemplateId { get; set; }
+        public int ItemCount { get; set; }
         public List<ItemDTO> ItemDto { get; set; }
     }
 }

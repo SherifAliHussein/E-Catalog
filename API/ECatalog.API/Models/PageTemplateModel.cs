@@ -10,6 +10,8 @@ namespace ECatalog.API.Models
         public int PageNumber { get; set; }
 
         public long TemplateId { get; set; }
+        public string ImageURL { get; set; }
+        public int ItemCount { get; set; }
         public List<ItemModel> ItemModels { get; set; }
     }
 }

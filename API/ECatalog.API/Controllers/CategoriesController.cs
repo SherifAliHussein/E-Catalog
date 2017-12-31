@@ -194,6 +194,7 @@ namespace ECatalog.API.Controllers
             categoryPageTemplateModel.CategoryImageURL =  Url.Link("CategoryImage", new { categoryPageTemplateModel.RestaurantId, categoryPageTemplateModel.MenuId, categoryPageTemplateModel.CategoryId });
             foreach (var page in categoryPageTemplateModel.Templates)
             {
+                page.ImageURL = Url.Link("GetTemplateImage", new { templateId = page.TemplateId });
                 foreach (var item in page.ItemModels)
                 {
                     item.ImageURL = Url.Link("ItemImage", new { item.RestaurantId, item.MenuId, item.CategoryId, item.ItemID });

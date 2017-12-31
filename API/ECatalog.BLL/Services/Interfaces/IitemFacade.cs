@@ -20,5 +20,6 @@ namespace ECatalog.BLL.Services.Interfaces
         void DeActivateItem(long itemId);
         PagedResultsDto GetActivatedItemsByCategoryId(string language, long categoryId, int page, int pageSize);
         CategoryPageTemplateDTO GetActivatedItemsWithTemplatesByCategoryId(string language, long categoryId);
+        void UpdateItemOrder(List<ItemNamesDto> itemNamesDto);
     }
 }

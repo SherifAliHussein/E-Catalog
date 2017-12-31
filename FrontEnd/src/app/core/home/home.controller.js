@@ -208,6 +208,8 @@
 
         $scope.logout = function () {
            
+               $translate.use(appCONSTANTS.defaultLanguage); 
+               $localStorage.language = appCONSTANTS.defaultLanguage;
             $scope.homeTotalNo = 0; 
                         $scope.$watch("homeTotalNo", function (newValue) {
                             totalCartService.homeTotalNo = newValue;

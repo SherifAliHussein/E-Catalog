@@ -1390,6 +1390,87 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/RestaurantAdmin/templates/itemOrder.html',
+    '<style>\n' +
+    '    .list {\n' +
+    '	list-style: none outside none;\n' +
+    '	margin: 10px 0 30px;\n' +
+    '}\n' +
+    '\n' +
+    '.apps-container {\n' +
+    '  border: 2px dotted blue;\n' +
+    '  margin: 10px 10px 0 0;\n' +
+    '  padding: 5px;\n' +
+    '  min-width:200px;\n' +
+    '  min-height:50px;\n' +
+    '}\n' +
+    '\n' +
+    '.app {\n' +
+    '	width: 170px;\n' +
+    '	padding: 5px 10px;\n' +
+    '	margin: 5px 0;\n' +
+    '	border: 2px solid #444;\n' +
+    '	border-radius: 5px;\n' +
+    '	background-color: #EA8A8A;\n' +
+    '/* \n' +
+    '	font-size: 1.1em;\n' +
+    '	font-weight: bold; */\n' +
+    '	text-align: center;\n' +
+    '	cursor: move;\n' +
+    '    font-size: 15px;\n' +
+    '    background-color: #4285f4;\n' +
+    '    color: white;\n' +
+    '}\n' +
+    '\n' +
+    '\n' +
+    '/***  Extra ***/\n' +
+    '\n' +
+    'body {\n' +
+    '	font-family: Verdana, \'Trebuchet ms\', Tahoma;\n' +
+    '}\n' +
+    '\n' +
+    '.logList {\n' +
+    '	margin-top: 20px;\n' +
+    '	width: 250px;\n' +
+    '	min-height: 300px;\n' +
+    '	padding: 5px 15px;\n' +
+    '	border: 5px solid #000;\n' +
+    '	border-radius: 15px;\n' +
+    '}\n' +
+    '\n' +
+    '.logItem {\n' +
+    '  margin-bottom: 10px;\n' +
+    '}\n' +
+    '\n' +
+    '.logList:before {\n' +
+    '	content: \'log\';\n' +
+    '	padding: 0 5px;\n' +
+    '	position: relative;\n' +
+    '	top: -1.1em;\n' +
+    '	background-color: #FFF;\n' +
+    '}\n' +
+    '\n' +
+    '.container {\n' +
+    '	width: 750px;\n' +
+    '	margin: auto;\n' +
+    '}\n' +
+    '\n' +
+    'h2 {\n' +
+    '	text-align: center;\n' +
+    '}\n' +
+    '\n' +
+    '.floatleft {\n' +
+    '  float: left;\n' +
+    '}\n' +
+    '\n' +
+    '.floatright {\n' +
+    '  float: right;\n' +
+    '}\n' +
+    '\n' +
+    '.clear {\n' +
+    '  clear: both;\n' +
+    '}\n' +
+    '\n' +
+    '</style>\n' +
     '<div class="modal-content" ng-if="itemOrderDlCtrl.menus.length > 0">\n' +
     '    \n' +
     '     <div class="modal-header bordered" >        \n' +
@@ -1412,16 +1493,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                         </select>\n' +
     '                     </div>\n' +
     '                 </div>\n' +
-    '                 <div class="col-md-6">\n' +
+    '                 <!-- <div class="col-md-6">\n' +
     '                     <span>{{itemOrderDlCtrl.selectedCategory.itemCount}} / {{itemOrderDlCtrl.remainingItems}}</span>\n' +
     '                     <span>({{\'TotalRemaining\' | translate}})</span>\n' +
-    '                 </div>\n' +
+    '                 </div> -->\n' +
     '             </div>\n' +
-    '             <span ng-show="!itemOrderDlCtrl.isCategoryTemplateReady">\n' +
+    '             <!-- <span ng-show="!itemOrderDlCtrl.isCategoryTemplateReady">\n' +
     '                 {{\'selectTemplate\'|translate}} {{itemOrderDlCtrl.page}}\n' +
-    '             </span>\n' +
+    '             </span> -->\n' +
     '     </div>\n' +
-    '      <div class="floatleft">\n' +
+    '      <!-- <div class="floatleft">\n' +
     '                    <h4>All Items</h4> \n' +
     '                    <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="categoryItems">\n' +
     '                        <div class="app" ng-repeat="itemObj in categoryItems">\n' +
@@ -1436,7 +1517,32 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <i class="{{itemObj.Icon}}"></i> {{itemObj.DisplayValue}}\n' +
     '                        </div>\n' +
     '                    </div>\n' +
-    '                </div>\n' +
+    '                </div> -->\n' +
+    '            \n' +
+    '\n' +
+    '\n' +
+    '            <div class="modal-body">\n' +
+    '                <div class="row">\n' +
+    '                   \n' +
+    '                    <div ng-repeat="pageTemplate in itemOrderDlCtrl.categoryItems">\n' +
+    '                            <div class="col-md-3">\n' +
+    '                                    <div class="column">\n' +
+    '                                            <div class="row-md-2">\n' +
+    '                                <img ng-src="{{pageTemplate.imageURL}}" style="height: 200px;">\n' +
+    '                                <div ng-show="pageTemplate.itemModels.length != pageTemplate.itemCount && !$last">Template should have {{pageTemplate.itemCount}}</div>\n' +
+    '                                <div ng-show="pageTemplate.itemModels.length<1 && $last">Minimum 1</div>\n' +
+    '                                <div ui-sortable="itemOrderDlCtrl.sortableOptions" class="apps-container screen floatleft" ng-change=" itemOrderDlCtrl.isValid()" ng-model="pageTemplate.itemModels">\n' +
+    '                                    <div class="app" ng-repeat="item in pageTemplate.itemModels" >{{item.itemName}}</div>\n' +
+    '                                </div>\n' +
+    '                                            </div>\n' +
+    '                                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '              </div>\n' +
+    '              \n' +
+    '              <button ng-disabled="itemOrderDlCtrl.isChanged || itemOrderDlCtrl.error " ng-click="itemOrderDlCtrl.Save()" style="margin-top:5px;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '              </div>\n' +
+    '              \n' +
     '            </div>');
 }]);
 

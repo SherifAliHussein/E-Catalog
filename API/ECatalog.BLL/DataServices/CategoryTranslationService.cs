@@ -85,7 +85,7 @@ namespace ECatalog.BLL.DataServices
         public List<CategoryNamesDTO> GetAllCategoriesNameByMenuId(string language, long menuId)
         {
             List<Category> categories;
-                categories = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Category.MenuId == menuId)
+                categories = _repository.Query(x => !x.Category.IsDeleted && x.Language.ToLower() == language.ToLower() && x.Category.MenuId == menuId && x.Category.IsActive)
                 .Select(x => x.Category).OrderBy(x => x.CategoryId).ToList();
             return Mapper.Map<List<Category>, List<CategoryNamesDTO>>(categories, opt =>
             {

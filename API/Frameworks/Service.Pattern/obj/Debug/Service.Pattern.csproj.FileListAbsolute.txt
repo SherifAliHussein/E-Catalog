@@ -12,13 +12,6 @@ E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Repository
 E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
 E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
-C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
-C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
-C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
-C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.pdb
-C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
-C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
-C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
 E:\Projects\ECatalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
 E:\Projects\ECatalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
 E:\Projects\ECatalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
@@ -26,3 +19,10 @@ E:\Projects\ECatalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern
 E:\Projects\ECatalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\ECatalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
 E:\Projects\ECatalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb

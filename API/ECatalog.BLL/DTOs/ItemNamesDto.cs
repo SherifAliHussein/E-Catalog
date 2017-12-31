@@ -10,5 +10,6 @@ namespace ECatalog.BLL.DTOs
     {
         public long ItemId { get; set; }
         public string ItemName { get; set; }
+        public int OrderNumber { get; set; }
     }
 }

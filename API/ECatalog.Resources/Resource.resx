@@ -235,7 +235,7 @@
     <value>Password Length Must be 8-25 characters.</value>
   </data>
   <data name="RestaurantAdminUserNameAlreadyExist" xml:space="preserve">
-    <value>Username is already exist</value>
+    <value>Email is already exist</value>
   </data>
   <data name="RestaurantDeleted" xml:space="preserve">
     <value>Restaurant is deleted.</value>
