@@ -1,0 +1,48 @@
+<div class="modal-content" ng-if="itemOrderDlCtrl.menus.length > 0">
+    
+     <div class="modal-header bordered" >        
+             <div class="row">
+                 <div class="col-md-2">
+                     <div class="form-group">
+                         <select  class="select-simple form-control pmd-select2"
+                             ng-options="item.menuName for item in itemOrderDlCtrl.menus"  
+                             ng-model="itemOrderDlCtrl.selectedMenu"
+                             ng-change="itemOrderDlCtrl.changeMenu()">
+                         </select>
+                     </div>
+                 </div>
+                 <div class="col-md-2">
+                     <div class="form-group">
+                         <select   class="select-simple form-control pmd-select2"
+                             ng-options="item.categoryName for item in itemOrderDlCtrl.categories"  
+                             ng-model="itemOrderDlCtrl.selectedCategory"
+                             ng-change="itemOrderDlCtrl.changeCategory()">
+                         </select>
+                     </div>
+                 </div>
+                 <div class="col-md-6">
+                     <span>{{itemOrderDlCtrl.selectedCategory.itemCount}} / {{itemOrderDlCtrl.remainingItems}}</span>
+                     <span>({{'TotalRemaining' | translate}})</span>
+                 </div>
+             </div>
+             <span ng-show="!itemOrderDlCtrl.isCategoryTemplateReady">
+                 {{'selectTemplate'|translate}} {{itemOrderDlCtrl.page}}
+             </span>
+     </div>
+      <div class="floatleft">
+                    <h4>All Items</h4> 
+                    <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="categoryItems">
+                        <div class="app" ng-repeat="itemObj in categoryItems">
+                            <i class="{{itemObj.itemID}}"></i> {{itemObj.itemName}}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4>Selected Items </h4>
+                    <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="selectedCategoryItems">
+                        <div class="app" ng-repeat="itemObj in categoryItems">
+                            <i class="{{itemObj.Icon}}"></i> {{itemObj.DisplayValue}}
+                        </div>
+                    </div>
+                </div>
+            </div>

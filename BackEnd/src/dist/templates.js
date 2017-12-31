@@ -1388,6 +1388,58 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/RestaurantAdmin/templates/itemOrder.html',
+    '<div class="modal-content" ng-if="itemOrderDlCtrl.menus.length > 0">\n' +
+    '    \n' +
+    '     <div class="modal-header bordered" >        \n' +
+    '             <div class="row">\n' +
+    '                 <div class="col-md-2">\n' +
+    '                     <div class="form-group">\n' +
+    '                         <select  class="select-simple form-control pmd-select2"\n' +
+    '                             ng-options="item.menuName for item in itemOrderDlCtrl.menus"  \n' +
+    '                             ng-model="itemOrderDlCtrl.selectedMenu"\n' +
+    '                             ng-change="itemOrderDlCtrl.changeMenu()">\n' +
+    '                         </select>\n' +
+    '                     </div>\n' +
+    '                 </div>\n' +
+    '                 <div class="col-md-2">\n' +
+    '                     <div class="form-group">\n' +
+    '                         <select   class="select-simple form-control pmd-select2"\n' +
+    '                             ng-options="item.categoryName for item in itemOrderDlCtrl.categories"  \n' +
+    '                             ng-model="itemOrderDlCtrl.selectedCategory"\n' +
+    '                             ng-change="itemOrderDlCtrl.changeCategory()">\n' +
+    '                         </select>\n' +
+    '                     </div>\n' +
+    '                 </div>\n' +
+    '                 <div class="col-md-6">\n' +
+    '                     <span>{{itemOrderDlCtrl.selectedCategory.itemCount}} / {{itemOrderDlCtrl.remainingItems}}</span>\n' +
+    '                     <span>({{\'TotalRemaining\' | translate}})</span>\n' +
+    '                 </div>\n' +
+    '             </div>\n' +
+    '             <span ng-show="!itemOrderDlCtrl.isCategoryTemplateReady">\n' +
+    '                 {{\'selectTemplate\'|translate}} {{itemOrderDlCtrl.page}}\n' +
+    '             </span>\n' +
+    '     </div>\n' +
+    '      <div class="floatleft">\n' +
+    '                    <h4>All Items</h4> \n' +
+    '                    <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="categoryItems">\n' +
+    '                        <div class="app" ng-repeat="itemObj in categoryItems">\n' +
+    '                            <i class="{{itemObj.itemID}}"></i> {{itemObj.itemName}}\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div>\n' +
+    '                    <h4>Selected Items </h4>\n' +
+    '                    <div ui-sortable="sortableOptions" class="apps-container screen floatleft" ng-model="selectedCategoryItems">\n' +
+    '                        <div class="app" ng-repeat="itemObj in categoryItems">\n' +
+    '                            <i class="{{itemObj.Icon}}"></i> {{itemObj.DisplayValue}}\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/RestaurantAdmin/templates/menu.html',
     '<div >\n' +
     '	<div style="margin-bottom:10px">\n' +

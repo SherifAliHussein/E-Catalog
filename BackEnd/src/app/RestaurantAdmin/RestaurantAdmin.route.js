@@ -312,6 +312,22 @@
                                 branchPrepService: branchPrepService
                               }
                           })
+                          .state('itemOrder', {
+                                url: '/order',
+                                templateUrl: './app/RestaurantAdmin/templates/itemOrder.html',
+                                controller: 'itemOrderController',
+                                'controllerAs': 'itemOrderDlCtrl',
+                                data: {
+                                    permissions: {
+                                        only: ['RestaurantAdmin'],
+                                       redirectTo: 'root'
+                                    },
+                                    displayName: 'itemOrder'
+                                },
+                                resolve: {     
+                                    allMenuPrepService: allMenuPrepService
+                                }
+                            })
         });
         
         menusPrepService.$inject = ['MenuResource']
