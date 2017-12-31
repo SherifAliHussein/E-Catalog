@@ -156,7 +156,9 @@
             "selectedTemplates":"Selected templates",
             "startDatelbl":"Start date",
             "endDatelbl":"End date",
-            "invalidEmail":"Invalid Email"
+            "invalidEmail":"Invalid Email",
+            "ConsumedMsg":"Consumed",
+            "maximumMsg":"Maximum"
             
         }
         
@@ -320,7 +322,9 @@
             "selectedTemplates":"النماذج المختاره",
             "startDatelbl":"Start date",
             "endDatelbl":"End date",
-            "invalidEmail":"البريد الاكتروني غير صحيح"
+            "invalidEmail":"البريد الاكتروني غير صحيح",
+            "ConsumedMsg":"المستخدمين",
+            "maximumMsg":"الحد الاقصي"
         }
         
         $translateProvider.translations('en',en_translations);

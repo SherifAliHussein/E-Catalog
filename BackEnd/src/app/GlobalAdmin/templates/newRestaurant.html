@@ -84,7 +84,7 @@
 				<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="rewRestCtrl.restaurantNumOfUsers" max="{{rewRestCtrl.waitersLimit.maxNumUsers}}" min= "1">
 				<div ng-messages="newRestaurantForm.RestaurantNumOfUsers.$error">
 					<div ng-if="newRestaurantForm.RestaurantNumOfUsers.$error.required && !newRestaurantForm.RestaurantNumOfUsers.$pristine">{{'requiredErr' | translate}}</div>
-					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required"> maximum  {{rewRestCtrl.waitersLimit.maxNumUsers}} </div>
+					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required"> maximumMsg  {{rewRestCtrl.waitersLimit.maxNumUsers}} </div>
                 </div>
 			</div>
 			<!-- End Max Users Cycle -->

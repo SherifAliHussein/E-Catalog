@@ -53,8 +53,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//  'API_URL': 'http://localhost:28867/api/',
-			'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
+			 'API_URL': 'http://localhost:28867/api/',
+			// 'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
 			'defaultLanguage':'en',
 			'supportedLanguage':{
 				'en-us':{'key':'en-us','value':'english'},
@@ -291,7 +291,9 @@ angular.module('core')
             "selectedTemplates":"Selected templates",
             "startDatelbl":"Start date",
             "endDatelbl":"End date",
-            "invalidEmail":"Invalid Email"
+            "invalidEmail":"Invalid Email",
+            "ConsumedMsg":"Consumed",
+            "maximumMsg":"Maximum"
             
         }
         
@@ -455,7 +457,9 @@ angular.module('core')
             "selectedTemplates":"النماذج المختاره",
             "startDatelbl":"Start date",
             "endDatelbl":"End date",
-            "invalidEmail":"البريد الاكتروني غير صحيح"
+            "invalidEmail":"البريد الاكتروني غير صحيح",
+            "ConsumedMsg":"المستخدمين",
+            "maximumMsg":"الحد الاقصي"
         }
         
         $translateProvider.translations('en',en_translations);

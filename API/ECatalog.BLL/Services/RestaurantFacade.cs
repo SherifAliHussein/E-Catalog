@@ -247,7 +247,10 @@ namespace ECatalog.BLL.Services
 
             //restaurantdto.RestaurantAdminPassword = restaurantAdmin.UserName;
             //restaurantdto.RestaurantAdminPassword = restaurantAdmin.Password;
-            return Mapper.Map<RestaurantDTO>(restaurant);
+            var restaurantDto= Mapper.Map<RestaurantDTO>(restaurant);
+            restaurantDto.ConsumedWaiters = _restaurantWaiterService
+                .GetAllRestaurantWaiters(restaurant.RestaurantId, 1, 0, Strings.DefaultLanguage).TotalCount;
+            return restaurantDto;
         }
 
         private void ValidateRestaurant(RestaurantDTO restaurantDto,  long userId)

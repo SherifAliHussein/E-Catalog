@@ -73,10 +73,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '					<label for="first-name">{{\'NumOfUsersLbl\' | translate}}</label>\n' +
-    '					<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="editRestCtrl.restaurant.waitersLimit" max="{{editRestCtrl.waitersLimit.maxNumUsers}}" min= "1">\n' +
+    '					<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="editRestCtrl.restaurant.waitersLimit" max="{{editRestCtrl.waitersLimit.maxNumUsers}}" min= "{{editRestCtrl.restaurant.consumedWaiters}}">\n' +
     '					<div ng-messages="newRestaurantForm.RestaurantNumOfUsers.$error">\n' +
     '						<div ng-if="newRestaurantForm.RestaurantNumOfUsers.$error.required && !newRestaurantForm.RestaurantNumOfUsers.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '						<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required"> maximum  {{editRestCtrl.waitersLimit.maxNumUsers}} </div>\n' +
+    '						<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max && !newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required">{{\'maximumMsg\'|translate}}  {{editRestCtrl.waitersLimit.maxNumUsers}} </div>\n' +
+    '						<div ng-if="(!newRestaurantForm.RestaurantNumOfUsers.$error.max && newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required">{{\'ConsumedMsg\' | translate}} {{editRestCtrl.restaurant.consumedWaiters}} </div>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
@@ -280,7 +281,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<input required type="number" class="mat-input form-control" name="RestaurantNumOfUsers" ng-model="rewRestCtrl.restaurantNumOfUsers" max="{{rewRestCtrl.waitersLimit.maxNumUsers}}" min= "1">\n' +
     '				<div ng-messages="newRestaurantForm.RestaurantNumOfUsers.$error">\n' +
     '					<div ng-if="newRestaurantForm.RestaurantNumOfUsers.$error.required && !newRestaurantForm.RestaurantNumOfUsers.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required"> maximum  {{rewRestCtrl.waitersLimit.maxNumUsers}} </div>\n' +
+    '					<div ng-if="(newRestaurantForm.RestaurantNumOfUsers.$error.max || newRestaurantForm.RestaurantNumOfUsers.$error.min) && !newRestaurantForm.RestaurantNumOfUsers.$error.required"> maximumMsg  {{rewRestCtrl.waitersLimit.maxNumUsers}} </div>\n' +
     '                </div>\n' +
     '			</div>\n' +
     '			<!-- End Max Users Cycle -->\n' +
@@ -2168,10 +2169,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div class="pmd-card-body">\n' +
     '					<div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting again. </div>\n' +
     '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">Email</label>\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label" >Email</label>\n' +
     '                        <div class="input-group">\n' +
     '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>\n' +
-    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username" ng-model="username" ng-change="reset()">\n' +
+    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username" ng-model="username" ng-change="reset()" ng-pattern=\'/^(([^<>()\\[\\]\\.,;:\\s@\\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\\]\\.,;:\\s@\\"]+\\.)+[^<>()[\\]\\.,;:\\s@\\"]{2,})$/i\'>\n' +
+    '                            <div ng-if="!loginForm.username.$error.required && loginForm.username.$error.pattern">{{\'invalidEmail\' | translate}}</div>                            \n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '                    \n' +
@@ -2194,7 +2196,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <span>Your Account is deactivated, please contact your admin.</span>\n' +
     '                </div>\n' +
     '				<div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
-    '					<button  type="submit" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
+    '					<button ng-disabled="loginForm.$invalid" type="submit" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
     '				</div>\n' +
     '			</form>\n' +
     '		</div>\n' +
