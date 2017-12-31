@@ -18,12 +18,12 @@ namespace ECatalog.BLL.DataServices
         {
             
         }
-        public bool CheckBranchTitleExist(string branchTitle, string language, long branchId)
+        public bool CheckBranchTitleExist(string branchTitle, string language, long branchId,long restaurantAdminId)
         {
             return Queryable()
                 .Any(x => x.Language.ToLower() == language.ToLower() &&
                           x.BranchTitle.ToLower() == branchTitle.ToLower() &&
-                          x.BranchId != branchId && !x.Branch.IsDeleted);
+                          x.BranchId != branchId && !x.Branch.IsDeleted && x.Branch.Restaurant.RestaurantAdminId == restaurantAdminId);
         }
         public PagedResultsDto GetAllBranchesByRestaurantAdminId(string language, long restaurantAdminId, int page, int pageSize)
         {

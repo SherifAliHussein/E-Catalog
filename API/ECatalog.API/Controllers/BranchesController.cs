@@ -91,7 +91,7 @@ namespace ECatalog.API.Controllers
         [HttpPut]
         public IHttpActionResult UpdateBranch([FromBody] BranchModel branchModel)
         {
-            _branchFacade.UpdateBranch(Mapper.Map<BranchDto>(branchModel));
+            _branchFacade.UpdateBranch(Mapper.Map<BranchDto>(branchModel),UserId);
             return Ok();
         }
     }

@@ -30,7 +30,7 @@ namespace ECatalog.BLL.Services
             var restaurant = _restaurantService.GetRestaurantByAdminId(restaurantAdminId);
             if (restaurant == null) throw new NotFoundException(ErrorCodes.RestaurantNotFound);
             if (restaurant.IsDeleted) throw new ValidationException(ErrorCodes.RestaurantDeleted);
-            ValidateBranch(branchDto);
+            ValidateBranch(branchDto, restaurantAdminId);
 
             var branch = Mapper.Map<Branch>(branchDto);
             branch.RestaurantId = restaurant.RestaurantId;
@@ -49,7 +49,7 @@ namespace ECatalog.BLL.Services
             
         }
 
-        private void ValidateBranch(BranchDto branchDto)
+        private void ValidateBranch(BranchDto branchDto, long restaurantAdminId)
         {
             foreach (var branchTitle in branchDto.BranchTitleDictionary)
             {
@@ -57,7 +57,7 @@ namespace ECatalog.BLL.Services
                     throw new ValidationException(ErrorCodes.EmptyBranchTitle);
                 if (branchTitle.Value.Length > 300)
                     throw new ValidationException(ErrorCodes.BranchTiteExceedLength);
-                if (_branchTranslationService.CheckBranchTitleExist(branchTitle.Value, branchTitle.Key, branchDto.BranchId)
+                if (_branchTranslationService.CheckBranchTitleExist(branchTitle.Value, branchTitle.Key, branchDto.BranchId, restaurantAdminId)
                 ) throw new ValidationException(ErrorCodes.BranchTitleAlreadyExist);
             }
             foreach (var branchAddress in branchDto.BranchAddressDictionary)
@@ -112,9 +112,9 @@ namespace ECatalog.BLL.Services
             _branchService.Update(branch);
             SaveChanges();
         }
-        public void UpdateBranch(BranchDto branchDto)
+        public void UpdateBranch(BranchDto branchDto,long restaurantAdminId)
         {
-            ValidateBranch(branchDto);
+            ValidateBranch(branchDto, restaurantAdminId);
             var branch = _branchService.Find(branchDto.BranchId);
             if (branch == null) throw new NotFoundException(ErrorCodes.BranchNotFound);
             foreach (var branchTitle in branchDto.BranchTitleDictionary)
