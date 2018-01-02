@@ -137,8 +137,8 @@ h2 {
                                     <div class="column">
                                             <div class="row-md-2">
                                 <img ng-src="{{pageTemplate.imageURL}}" style="height: 200px;">
-                                <div ng-show="pageTemplate.itemModels.length != pageTemplate.itemCount && !$last">Template should have {{pageTemplate.itemCount}}</div>
-                                <div ng-show="pageTemplate.itemModels.length<1 && $last">Minimum 1</div>
+                                <div ng-show="pageTemplate.itemModels.length != pageTemplate.itemCount && !$last">{{'TelmplateErrorCount'|translate}} {{pageTemplate.itemCount}}</div>
+                                <div ng-show="pageTemplate.itemModels.length<1 && $last">{{'MinimumMsg'|translate}} 1</div>
                                 <div ui-sortable="itemOrderDlCtrl.sortableOptions" class="apps-container screen floatleft" ng-change=" itemOrderDlCtrl.isValid()" ng-model="pageTemplate.itemModels">
                                     <div class="app" ng-repeat="item in pageTemplate.itemModels" >{{item.itemName}}</div>
                                 </div>

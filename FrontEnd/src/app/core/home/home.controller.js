@@ -45,6 +45,7 @@
         // });
 
        // if (navigator.onLine) {
+           if(authorizationService.isLoggedIn()){
             var k = ResturantResource.getResturantGlobalInfo().$promise.then(function (results) {
 
                 $scope.globalInfo = results
@@ -54,6 +55,8 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
+
+           }
        // }
         var vm = this;
         $scope.emailEmpty = false;
@@ -210,6 +213,8 @@
            
                $translate.use(appCONSTANTS.defaultLanguage); 
                $localStorage.language = appCONSTANTS.defaultLanguage;
+            $scope.selectedLanguage = appCONSTANTS.defaultLanguage;
+            
             $scope.homeTotalNo = 0; 
                         $scope.$watch("homeTotalNo", function (newValue) {
                             totalCartService.homeTotalNo = newValue;

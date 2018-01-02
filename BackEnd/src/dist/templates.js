@@ -1529,8 +1529,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                    <div class="column">\n' +
     '                                            <div class="row-md-2">\n' +
     '                                <img ng-src="{{pageTemplate.imageURL}}" style="height: 200px;">\n' +
-    '                                <div ng-show="pageTemplate.itemModels.length != pageTemplate.itemCount && !$last">Template should have {{pageTemplate.itemCount}}</div>\n' +
-    '                                <div ng-show="pageTemplate.itemModels.length<1 && $last">Minimum 1</div>\n' +
+    '                                <div ng-show="pageTemplate.itemModels.length != pageTemplate.itemCount && !$last">{{\'TelmplateErrorCount\'|translate}} {{pageTemplate.itemCount}}</div>\n' +
+    '                                <div ng-show="pageTemplate.itemModels.length<1 && $last">{{\'MinimumMsg\'|translate}} 1</div>\n' +
     '                                <div ui-sortable="itemOrderDlCtrl.sortableOptions" class="apps-container screen floatleft" ng-change=" itemOrderDlCtrl.isValid()" ng-model="pageTemplate.itemModels">\n' +
     '                                    <div class="app" ng-repeat="item in pageTemplate.itemModels" >{{item.itemName}}</div>\n' +
     '                                </div>\n' +

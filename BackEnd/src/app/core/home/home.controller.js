@@ -137,6 +137,8 @@
             authorizationService.logout();
             $scope.restaurantName = "";
             $translate.use(appCONSTANTS.defaultLanguage); 
+            $localStorage.language = appCONSTANTS.defaultLanguage;
+            $scope.selectedLanguage = appCONSTANTS.defaultLanguage;            
             $state.go('login');
         }
         $scope.reset = function() {

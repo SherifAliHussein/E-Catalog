@@ -161,7 +161,9 @@
             "maximumMsg":"Maximum",
             "OrderItemUpdateSuccess":"Items sorted",
             "TemplateUpdateSuccessfuly":"Templates updated successfuly.",
-            "orderItem":"order items"
+            "orderItem":"order items",
+            "MinimumMsg":"Minimum",
+            "TelmplateErrorCount":"Template should have"
             
         }
         
@@ -330,7 +332,9 @@
             "maximumMsg":"الحد الاقصي",
             "OrderItemUpdateSuccess":"تم ترتيب المنتاجات",
             "TemplateUpdateSuccessfuly":".تم تحديث النموذج بنجاح",
-            "orderItem":"ترتيب المنتجات"
+            "orderItem":"ترتيب المنتجات",
+            "MinimumMsg":"علي الاقل",
+            "TelmplateErrorCount":"النموذج يجب يحتوي علي "
         }
         
         $translateProvider.translations('en',en_translations);

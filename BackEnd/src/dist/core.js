@@ -297,7 +297,9 @@ angular.module('core')
             "maximumMsg":"Maximum",
             "OrderItemUpdateSuccess":"Items sorted",
             "TemplateUpdateSuccessfuly":"Templates updated successfuly.",
-            "orderItem":"order items"
+            "orderItem":"order items",
+            "MinimumMsg":"Minimum",
+            "TelmplateErrorCount":"Template should have"
             
         }
         
@@ -466,7 +468,9 @@ angular.module('core')
             "maximumMsg":"الحد الاقصي",
             "OrderItemUpdateSuccess":"تم ترتيب المنتاجات",
             "TemplateUpdateSuccessfuly":".تم تحديث النموذج بنجاح",
-            "orderItem":"ترتيب المنتجات"
+            "orderItem":"ترتيب المنتجات",
+            "MinimumMsg":"علي الاقل",
+            "TelmplateErrorCount":"النموذج يجب يحتوي علي "
         }
         
         $translateProvider.translations('en',en_translations);
@@ -749,6 +753,8 @@ angular.module('core')
             authorizationService.logout();
             $scope.restaurantName = "";
             $translate.use(appCONSTANTS.defaultLanguage); 
+            $localStorage.language = appCONSTANTS.defaultLanguage;
+            $scope.selectedLanguage = appCONSTANTS.defaultLanguage;            
             $state.go('login');
         }
         $scope.reset = function() {
