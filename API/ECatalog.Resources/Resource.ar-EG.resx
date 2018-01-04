@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BranchTitleAlreadyExist" xml:space="preserve">
+    <value>هذا الفرع موجود بالفعل</value>
+  </data>
   <data name="CategoryDeleted" xml:space="preserve">
     <value>.لقد تم حذف هذا القسم</value>
   </data>
@@ -221,5 +224,8 @@
   </data>
   <data name="SizeIsNotTranslated" xml:space="preserve">
     <value>.احجام ليست مترجمة بالعربية</value>
+  </data>
+  <data name="SizeNameAlreadyExist" xml:space="preserve">
+    <value>هذا الحجم موجود بالفعل</value>
   </data>
 </root>

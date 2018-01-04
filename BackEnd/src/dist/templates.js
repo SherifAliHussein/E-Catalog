@@ -243,7 +243,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '									</div>\n' +
     '								</div>\n' +
     '								<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '									<label for="first-name">{{\'DescriptionLbl\' | translate}}</label>\n' +
+    '									<label for="first-name">{{ lang.value+\'DescriptionLbl\' | translate}}</label>\n' +
     '									<textarea required  class="form-control" name="restaurantDescriptionDictionary{{lang.value+\'Name\'}}" ng-model="rewRestCtrl.restaurantDescriptionDictionary[lang.key]"  ng-minlength="3" ng-maxlength="300"></textarea>\n' +
     '									<div ng-messages="newRestaurantForm.restaurantDescriptionDictionary{{lang.value+\'Name\'}}.$error" >\n' +
     '										<div ng-show="newRestaurantForm.restaurantDescriptionDictionary{{lang.value+\'Name\'}}.$error.required && !newRestaurantForm.restaurantDescriptionDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +

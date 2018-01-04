@@ -321,7 +321,7 @@ angular.module('core')
             "cancelBtn":"إلغاء",
             "DescriptionLbl":"وصف",
             "englishDescriptionLbl":"وصف انجليزي",
-            "arabicDescriptionLbl":"وصف انجليزي",
+            "arabicDescriptionLbl":"وصف عربي",
             "AddRestaurantBtn":"اضف مطعم جديد",
             "NoRestaurantAvailable":".لا يوجد مطاعم",
             "LogoLbl":"شعار",

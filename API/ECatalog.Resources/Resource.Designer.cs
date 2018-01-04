@@ -61,6 +61,33 @@ namespace ECatalog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Branch is deleted..
+        /// </summary>
+        public static string BranchDeleted {
+            get {
+                return ResourceManager.GetString("BranchDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch is not found..
+        /// </summary>
+        public static string BranchNotFound {
+            get {
+                return ResourceManager.GetString("BranchNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Branch title is already exist..
+        /// </summary>
+        public static string BranchTitleAlreadyExist {
+            get {
+                return ResourceManager.GetString("BranchTitleAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category is deleted..
         /// </summary>
         public static string CategoryDeleted {
