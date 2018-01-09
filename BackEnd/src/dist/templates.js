@@ -636,11 +636,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        </tr>\n' +
     '                    </thead>\n' +
     '                    <tbody>\n' +
-    '                        <tr ng-repeat="Background in backgroundCtrl.Backgrounds.results"> \n' +
+    '                        <tr ng-class="{\'red-text\': Background.isActive == true }" ng-repeat="Background in backgroundCtrl.Backgrounds.results"> \n' +
     '                            <td data-title="Image" ><img ng-src="{{Background.imageUrl}}" ng-alt="{{Background.BackgroundName}}" style="max-height: 200px;max-width: 200px;"/></td>\n' +
     '                            <!-- <td></td> -->\n' +
     '                            <td>\n' +
-    '                                 <a ng-show="Background.isActive"   class="cursorPointer">{{\'CurrentBtn\' | translate}}</a>\n' +
+    '                                 <a ng-show="Background.isActive"   class="cursorPointer" style="color: white;">{{\'CurrentBtn\' | translate}}</a>\n' +
     '                                 <a ng-show="!Background.isActive" ng-click="backgroundCtrl.Activate(Background)" class="cursorPointer">{{\'NotCurrentBtn\' | translate}}</a>\n' +
     '                            </td>\n' +
     '                          \n' +

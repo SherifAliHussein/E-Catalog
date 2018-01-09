@@ -125,7 +125,7 @@
             "backgroundUpdateSuccess":"background updated successfully.",
             "backgroundAddSuccess":"background added successfully.",
             "CurrentBtn":"Current Background",
-            "NotCurrentBtn":" Not", 
+            "NotCurrentBtn":"Select as background", 
 
             "Template":"Template",
             "RecommendedMenuImage":"Recommended dimension 477 x 286",
@@ -294,7 +294,7 @@
             "backgroundUpdateSuccess":"خلفيه المنيو تم تحديث ",
             "backgroundAddSuccess":"خلفيه المنيو تم ادخال",
             "CurrentBtn":"الخلفيه الحاليه",
-            "NotCurrentBtn":" ليست الخفيه الحاليه", 
+            "NotCurrentBtn":" اختار كخلفيه", 
 
             "Template":"نموذج",
             "RecommendedMenuImage":"477 x 286 البعد الموصى به",
