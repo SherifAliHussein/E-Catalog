@@ -1,0 +1,7 @@
+<div ng-class="{page1:(lang == 'en' && (pageitems.pageNumber % 2) === 0) || (lang == 'ar' && (pageitems.pageNumber % 2) !== 0)
+, page2:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
+<div class="cover"><img ng-src="{{pageitems.itemModels[0].imageURL}}"alt="" />
+
+<h3>{{pageitems.itemModels[0].itemName}}</h3>
+</div>
+</div>

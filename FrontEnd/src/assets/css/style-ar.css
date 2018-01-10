@@ -29,7 +29,64 @@ h3{ font-weight: bold;}
 	font-style: normal;
 }
 
+.main_data2{
+    border-bottom: 0!important;
+}
 
+.cover h3{       position: absolute;
+    text-transform: uppercase;
+    right: 62px;
+    color: #000;
+    font-size: 55px;
+    text-align: center;
+    font-weight: 700;
+    font-family: Roboto-Black;
+    width: 252px;
+    top: 43px;}
+
+.new_title_page{    padding-right: 10px!important;}
+.new_title{    margin-top: 8px!important;
+    font-size: 14px!important;}
+
+    .image_content{    position: absolute;
+        top: 20px;
+        padding-right: 13px;}
+
+       .image_content h3{font-weight: bold;
+        color: #fff!important;
+            font-size: 28px;
+            margin-bottom: 0px;}
+
+            .image_content h4{font-weight: bold;
+                color: #ffb320;
+                font-size: 24px;
+                margin-top: 2px;}
+
+
+                .main_margin{    margin-top: 5px;
+                    margin-bottom: 5px;}
+
+                .image_content2{    position: absolute;
+                    bottom: 15px;
+                    padding-right: 13px;}
+            
+                   .image_content2 h3{font-weight: bold;
+                    color: #fff!important;
+                        font-size: 21px;}
+            
+                        .image_content2 h4{font-weight: bold;
+                            color: #ffb320;
+                            font-size: 21px;
+                            margin-top: 2px;}
+
+                            .no_left{
+                                padding-left: 5px!important;
+                                padding: 0;
+                            }
+                            .no_right{
+                                padding-right: 5px!important;
+                                padding: 0;
+                            }
 
 
 .main_field{overflow: hidden;
@@ -387,8 +444,12 @@ width: 21%;
 
 .logo {
     margin-right: 3%;
-    width: 21vh;
+
     float: right;
+
+
+    min-height: 86px;
+    max-height: 88px;
 }
 
 .logout{font-size: 15px!important;
@@ -642,7 +703,7 @@ margin-bottom: 0px;
 padding-right: 12px;
 margin-top: 5px;}
 
-.row_size{
+.row_size{ 
     margin-left: -10px;
     margin-right: -20px;
     padding-top: 26px!important;
@@ -693,6 +754,7 @@ font-size: 19px;}
 
 
 .cover img{width: 99%;
+    height: 100vh;
 }
 
 .actions{width: 50%;
@@ -770,7 +832,7 @@ margin-top: 4px;
     text-align: right;
 }
 
-.img_header{padding-right: 10px;}
+.img_header{padding-left: 10px;}
 .img_header img{width:100%;}
 
 h3{}
@@ -1029,6 +1091,8 @@ width: 77%!important;
         margin-left: 3%;
         width: 13vh;
         float: left;
+
+  
     }
     
     .active {
