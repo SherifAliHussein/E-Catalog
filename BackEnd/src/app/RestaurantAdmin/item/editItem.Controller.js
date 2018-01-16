@@ -9,6 +9,7 @@
 		var vm = this;
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.item = itemPrepService;		
+		vm.item.imageURL3 = vm.item.imageURL +"?type=orignal3&date="+ $scope.getCurrentTime();
 		vm.item.imageURL2 = vm.item.imageURL +"?type=orignal2&date="+ $scope.getCurrentTime();
 		vm.item.imageURL = vm.item.imageURL +"?date="+ $scope.getCurrentTime();
 		vm.Sizes = ItemSizePrepService.results;
