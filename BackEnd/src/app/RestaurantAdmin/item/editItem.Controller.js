@@ -179,6 +179,52 @@
 
 		}
 		
+
+		vm.LoadUploadLogo3 = function() {
+			$("#itemImage3").click();
+		}
+		var itemImage3; 
+		var isItemImage3Change = false;
+		$scope.AddItemImage3 = function(element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.newItemForm.$dirty=true;
+					$scope.$apply(function() {
+						
+						itemImage3 = logoFile;
+						isItemImage3Change = true;
+						var reader = new FileReader();
+
+						reader.onloadend = function() {
+							vm.item.imageURL3= reader.result;
+							
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage3").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imageTypeError'),"error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage3").val('');
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('imgaeSizeError'),"error");
+				}
+
+			}
+
+
+		}
+
 		vm.CheckMaxSideItemValue = function(){
 			if(vm.hasSideItem){
 				var totalValues = 0;

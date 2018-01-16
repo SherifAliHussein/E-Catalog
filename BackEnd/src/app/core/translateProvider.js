@@ -132,6 +132,7 @@
             "RecommendedCategoryImage":"Recommended dimension 210 x 137",
             "RecommendedItemImage1":"Recommended dimension 423 x 139",
             "RecommendedItemImage2":"Recommended dimension 112 x 69", 
+            "RecommendedItemImage3":"Recommended dimension 527 x 735", 
             "PriceLengthError":"Price length must be 1-5 Digts.",
             "RecommendedBackgroundImage":"Recommended dimension 1920 x 1200", 
 
@@ -301,6 +302,7 @@
             "RecommendedCategoryImage":"210 x 137 البعد الموصى به",            
             "RecommendedItemImage1":"423 x 139 البعد الموصى به",
             "RecommendedItemImage2":"112 x 69 البعد الموصى به",  
+            "RecommendedItemImage3":"527 x 735 البعد الموصى به",  
             "PriceLengthError":".طول السعر يجب من 1-5ارقام ",
                      
             "RecommendedBackgroundImage":"1920 x 1200 البعد الموصى به",

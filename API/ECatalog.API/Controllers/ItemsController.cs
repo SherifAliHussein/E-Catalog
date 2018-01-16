@@ -37,13 +37,14 @@ namespace ECatalog.API.Controllers
                 throw new ValidationException(ErrorCodes.EmptyItemImage);
             var httpPostedFile = HttpContext.Current.Request.Files[0];
             var httpPostedFile2 = HttpContext.Current.Request.Files[1];
+            var httpPostedFile3 = HttpContext.Current.Request.Files[2];
 
             var itemModel = new JavaScriptSerializer().Deserialize<ItemModel>(HttpContext.Current.Request.Form.Get(0));
 
-            if (httpPostedFile == null || httpPostedFile2 == null)
+            if (httpPostedFile == null || httpPostedFile2 == null || httpPostedFile3 == null)
                 throw new ValidationException(ErrorCodes.EmptyItemImage);
 
-            if ((httpPostedFile.ContentLength > 2 * 1024 * 1000) || (httpPostedFile2.ContentLength > 2 * 1024 * 1000))
+            if ((httpPostedFile.ContentLength > 2 * 1024 * 1000) || (httpPostedFile2.ContentLength > 2 * 1024 * 1000) || (httpPostedFile3.ContentLength > 2 * 1024 * 1000))
                 throw new ValidationException(ErrorCodes.ImageExceedSize);
 
 
@@ -59,6 +60,13 @@ namespace ECatalog.API.Controllers
 
                 throw new ValidationException(ErrorCodes.InvalidImageType);
 
+
+            if (Path.GetExtension(httpPostedFile3.FileName).ToLower() != ".jpg" &&
+                Path.GetExtension(httpPostedFile3.FileName).ToLower() != ".png" &&
+                Path.GetExtension(httpPostedFile3.FileName).ToLower() != ".jpeg")
+
+                throw new ValidationException(ErrorCodes.InvalidImageType);
+
             var itemDto = Mapper.Map<ItemDTO>(itemModel);
 
             itemDto.Image = new MemoryStream();
@@ -67,6 +75,9 @@ namespace ECatalog.API.Controllers
 
             itemDto.Image2 = new MemoryStream();
             httpPostedFile2.InputStream.CopyTo(itemDto.Image2);
+
+            itemDto.Image3 = new MemoryStream();
+            httpPostedFile3.InputStream.CopyTo(itemDto.Image3);
 
             _itemFacade.AddItem(itemDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
@@ -138,6 +149,30 @@ namespace ECatalog.API.Controllers
                 //restaurantDto.Image = (MemoryStream) restaurant.Image.InputStream;
                 itemDto.Image2 = new MemoryStream();
                 httpPostedFile2.InputStream.CopyTo(itemDto.Image2);
+            }
+            if (itemModel.IsImage3Change)
+            {
+                if (!HttpContext.Current.Request.Files.AllKeys.Any())
+                    throw new ValidationException(ErrorCodes.EmptyItemImage);
+                var httpPostedFile3 = HttpContext.Current.Request.Files[2];
+
+
+                if (httpPostedFile3 == null)
+                    throw new ValidationException(ErrorCodes.EmptyCategoryImage);
+
+                if (httpPostedFile3.ContentLength > 2 * 1024 * 1000)
+                    throw new ValidationException(ErrorCodes.ImageExceedSize);
+
+
+                if (Path.GetExtension(httpPostedFile3.FileName).ToLower() != ".jpg" &&
+                    Path.GetExtension(httpPostedFile3.FileName).ToLower() != ".png" &&
+                    Path.GetExtension(httpPostedFile3.FileName).ToLower() != ".jpeg")
+
+                    throw new ValidationException(ErrorCodes.InvalidImageType);
+
+                //restaurantDto.Image = (MemoryStream) restaurant.Image.InputStream;
+                itemDto.Image3 = new MemoryStream();
+                httpPostedFile3.InputStream.CopyTo(itemDto.Image3);
             }
             _itemFacade.UpdateItem(itemDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();

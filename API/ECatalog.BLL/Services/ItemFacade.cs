@@ -120,6 +120,7 @@ namespace ECatalog.BLL.Services
             SaveChanges();
             _manageStorage.UploadImage(path + "\\" + "Restaurant-" + + category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\"+ "Category-"+ item.CategoryId + "\\Items", itemDto.Image, item.ItemId+"-1");
             _manageStorage.UploadImage(path + "\\" + "Restaurant-" + +category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image2, item.ItemId+"-2");
+            _manageStorage.UploadImage(path + "\\" + "Restaurant-" + +category.Menu.RestaurantId + "\\" + "Menu-" + category.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image3, item.ItemId + "-3");
         }
 
         public ItemDTO GetItem(long itemId, string language)
@@ -338,6 +339,8 @@ namespace ECatalog.BLL.Services
                 _manageStorage.UploadImage( path + "\\" + "Restaurant-"  + item.Category.Menu.RestaurantId + "\\" + "Menu-" + item.Category.MenuId + "\\"+ "Category-" + item.CategoryId + "\\Items" , itemDto.Image, item.ItemId+"-1");
             if (itemDto.IsImage2Change)
                 _manageStorage.UploadImage(path + "\\" + "Restaurant-" + item.Category.Menu.RestaurantId + "\\" + "Menu-" + item.Category.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image2, item.ItemId+"-2");
+            if (itemDto.IsImage3Change)
+                _manageStorage.UploadImage(path + "\\" + "Restaurant-" + item.Category.Menu.RestaurantId + "\\" + "Menu-" + item.Category.MenuId + "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image3, item.ItemId + "-3");
         }
         
         public void TranslateItem(ItemDTO itemDto, string language)

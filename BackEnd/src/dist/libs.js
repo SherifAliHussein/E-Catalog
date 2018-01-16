@@ -21446,13 +21446,16 @@ angular.module('ngResource', ['ng']).
 })(window, window.angular);
 
 
+
 (function () {
   'use strict';
+
 
 
   config.$inject = ['$stateProvider'];
   run.$inject = ['$rootScope', '$state', 'TransitionProperties', 'TransitionEvents', 'StateAuthorization', 'StatePermissionMap'];
   function config($stateProvider) {
+
     $stateProvider.decorator('parent', function (state, parentFn) {
       state.self.$$state = function () {
         return state;
@@ -21467,6 +21470,7 @@ angular.module('ngResource', ['ng']).
   }
 
   function run($rootScope, $state, TransitionProperties, TransitionEvents, StateAuthorization, StatePermissionMap) {
+
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams, options) {
 
       if (!isAuthorizationFinished()) {
@@ -21494,6 +21498,7 @@ angular.module('ngResource', ['ng']).
         }
       }
 
+
       function setTransitionProperties() {
         TransitionProperties.toState = toState;
         TransitionProperties.toParams = toParams;
@@ -21502,13 +21507,16 @@ angular.module('ngResource', ['ng']).
         TransitionProperties.options = options;
       }
 
+
       function setStateAuthorizationStatus(status) {
         angular.extend(toState, {'$$isAuthorizationFinished': status});
       }
 
+
       function isAuthorizationFinished() {
         return toState.$$isAuthorizationFinished;
       }
+
 
       function handleAuthorizedState() {
 
@@ -21522,6 +21530,7 @@ angular.module('ngResource', ['ng']).
             TransitionEvents.broadcastStateChangeSuccess();
           });
       }
+
 
       function handleUnauthorizedState(rejectedPermission, statePermissionMap) {
         TransitionEvents.broadcastStateChangePermissionDenied();
@@ -21544,11 +21553,13 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   $q.$inject = ['$delegate'];
   function $q($delegate) {
     'ngInject';
 
     $delegate.any = any;
+
 
     function any(promises) {
       var deferred = $delegate.defer(),
@@ -21590,6 +21601,7 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   var PermissionStrategies = {
     enableElement: function ($element) {
       $element.removeAttr('disabled');
@@ -21615,6 +21627,7 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   var TransitionProperties = {
     toState: undefined,
     toParams: undefined,
@@ -21632,6 +21645,7 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   TransitionEvents.$inject = ['$rootScope', 'TransitionProperties'];
   function TransitionEvents($rootScope, TransitionProperties) {
 
@@ -21641,9 +21655,11 @@ angular.module('ngResource', ['ng']).
     this.broadcastStateChangePermissionDenied = broadcastStateChangePermissionDenied;
     this.broadcastStateChangeSuccess = broadcastStateChangeSuccess;
 
+
     function areStateEventsDefaultPrevented() {
       return isStateChangePermissionStartDefaultPrevented() || isStateChangeStartDefaultPrevented();
     }
+
 
     function broadcastStateChangePermissionStart() {
       $rootScope.$broadcast('$stateChangePermissionStart',
@@ -21651,11 +21667,13 @@ angular.module('ngResource', ['ng']).
         TransitionProperties.options);
     }
 
+
     function broadcastStateChangePermissionAccepted() {
       $rootScope.$broadcast('$stateChangePermissionAccepted',
         TransitionProperties.toState, TransitionProperties.toParams,
         TransitionProperties.options);
     }
+
 
     function broadcastStateChangeSuccess() {
       $rootScope.$broadcast('$stateChangeSuccess',
@@ -21663,11 +21681,13 @@ angular.module('ngResource', ['ng']).
         TransitionProperties.fromState, TransitionProperties.fromParams);
     }
 
+
     function broadcastStateChangePermissionDenied() {
       $rootScope.$broadcast('$stateChangePermissionDenied',
         TransitionProperties.toState, TransitionProperties.toParams,
         TransitionProperties.options);
     }
+
 
     function isStateChangeStartDefaultPrevented() {
       return $rootScope.$broadcast('$stateChangeStart',
@@ -21675,6 +21695,7 @@ angular.module('ngResource', ['ng']).
         TransitionProperties.fromState, TransitionProperties.fromParams,
         TransitionProperties.options).defaultPrevented;
     }
+
 
     function isStateChangePermissionStartDefaultPrevented() {
       return $rootScope.$broadcast('$stateChangePermissionStart',
@@ -21692,8 +21713,10 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   PermissionMapFactory.$inject = ['$q', 'TransitionProperties', 'RoleStore', 'PermissionStore'];
   function PermissionMapFactory($q, TransitionProperties, RoleStore, PermissionStore) {
+
     function PermissionMap(permissionMap) {
       permissionMap = permissionMap || {};
 
@@ -21701,6 +21724,7 @@ angular.module('ngResource', ['ng']).
       this.except = normalizeMapProperty(permissionMap.except);
       this.redirectTo = permissionMap.redirectTo;
     }
+
 
     PermissionMap.prototype.resolveRedirectState = function (rejectedPermissionName) {
       if (angular.isFunction(this.redirectTo)) {
@@ -21720,6 +21744,7 @@ angular.module('ngResource', ['ng']).
       return $q.reject(null);
     };
 
+
     PermissionMap.prototype.resolvePropertyValidity = function (property) {
 
       return property.map(function (privilegeName) {
@@ -21738,6 +21763,7 @@ angular.module('ngResource', ['ng']).
       });
     };
 
+
     function resolveFunctionRedirect(redirectFunction, permission) {
       return $q
         .when(redirectFunction.call(null, permission))
@@ -21755,6 +21781,7 @@ angular.module('ngResource', ['ng']).
           throw new TypeError('When used "redirectTo" as function, returned value must be string or object');
         });
     }
+
 
     function resolveObjectRedirect(redirectObject, permission) {
       if (!angular.isDefined(redirectObject['default'])) {
@@ -21781,6 +21808,7 @@ angular.module('ngResource', ['ng']).
         });
       }
     }
+
 
     function normalizeMapProperty(property) {
       if (angular.isString(property)) {
@@ -21809,12 +21837,14 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   StatePermissionMapFactory.$inject = ['TransitionProperties', 'PermissionMap'];
   function StatePermissionMapFactory(TransitionProperties, PermissionMap) {
 
     StatePermissionMap.prototype = new PermissionMap();
     StatePermissionMap.constructor = StatePermissionMap;
     StatePermissionMap.prototype.parent = PermissionMap.prototype;
+
 
 
     function StatePermissionMap() {
@@ -21831,6 +21861,7 @@ angular.module('ngResource', ['ng']).
         }
       }, this);
     }
+
 
     StatePermissionMap.prototype.extendPermissionMap = function (permissionMap) {
       if (permissionMap.only.length) {
@@ -21853,14 +21884,17 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   PermissionFactory.$inject = ['$q', 'TransitionProperties'];
   function PermissionFactory($q, TransitionProperties) {
+
     function Permission(permissionName, validationFunction) {
       validateConstructor(permissionName, validationFunction);
 
       this.permissionName = permissionName;
       this.validationFunction = validationFunction;
     }
+
 
     Permission.prototype.validatePermission = function () {
       var validationResult = this.validationFunction.call(null, this.permissionName, TransitionProperties);
@@ -21871,6 +21905,7 @@ angular.module('ngResource', ['ng']).
 
       return validationResult;
     };
+
 
     function wrapInPromise(result, permissionName) {
       var dfd = $q.defer();
@@ -21883,6 +21918,7 @@ angular.module('ngResource', ['ng']).
 
       return dfd.promise;
     }
+
 
     function validateConstructor(permissionName, validationFunction) {
       if (!angular.isString(permissionName)) {
@@ -21905,8 +21941,10 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   RoleFactory.$inject = ['$q', 'PermissionStore', 'TransitionProperties'];
   function RoleFactory($q, PermissionStore, TransitionProperties) {
+
     function Role(roleName, permissionNames, validationFunction) {
       validateConstructor(roleName, permissionNames, validationFunction);
       this.roleName = roleName;
@@ -21917,6 +21955,7 @@ angular.module('ngResource', ['ng']).
         PermissionStore.defineManyPermissions(permissionNames, validationFunction);
       }
     }
+
 
     Role.prototype.validateRole = function () {
       if (this.permissionNames.length) {
@@ -21946,6 +21985,7 @@ angular.module('ngResource', ['ng']).
       return $q.resolve(validationResult);
     };
 
+
     function wrapInPromise(result, roleName) {
       var dfd = $q.defer();
 
@@ -21957,6 +21997,7 @@ angular.module('ngResource', ['ng']).
 
       return dfd.promise;
     }
+
 
     function validateConstructor(roleName, permissionNames, validationFunction) {
       if (!angular.isString(roleName)) {
@@ -21984,8 +22025,10 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   PermissionStore.$inject = ['Permission'];
   function PermissionStore(Permission) {
+
     var permissionStore = {};
 
     this.definePermission = definePermission;
@@ -21996,10 +22039,12 @@ angular.module('ngResource', ['ng']).
     this.getStore = getStore;
     this.clearStore = clearStore;
 
+
     function definePermission(permissionName, validationFunction) {
       var permission = new Permission(permissionName, validationFunction);
       permissionStore[permissionName] = permission;
     }
+
 
     function defineManyPermissions(permissionNames, validationFunction) {
       if (!angular.isArray(permissionNames)) {
@@ -22011,21 +22056,26 @@ angular.module('ngResource', ['ng']).
       });
     }
 
+
     function removePermissionDefinition(permissionName) {
       delete permissionStore[permissionName];
     }
+
 
     function hasPermissionDefinition(permissionName) {
       return angular.isDefined(permissionStore[permissionName]);
     }
 
+
     function getPermissionDefinition(permissionName) {
       return permissionStore[permissionName];
     }
 
+
     function getStore() {
       return permissionStore;
     }
+
 
     function clearStore() {
       permissionStore = {};
@@ -22040,6 +22090,7 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   RoleStore.$inject = ['Role'];
   function RoleStore(Role) {
     var roleStore = {};
@@ -22051,25 +22102,31 @@ angular.module('ngResource', ['ng']).
     this.getStore = getStore;
     this.clearStore = clearStore;
 
+
     function defineRole(roleName, permissions, validationFunction) {
       roleStore[roleName] = new Role(roleName, permissions, validationFunction);
     }
+
 
     function removeRoleDefinition(roleName) {
       delete roleStore[roleName];
     }
 
+
     function hasRoleDefinition(roleName) {
       return angular.isDefined(roleStore[roleName]);
     }
+
 
     function getRoleDefinition(roleName) {
       return roleStore[roleName];
     }
 
+
     function getStore() {
       return roleStore;
     }
+
 
     function clearStore() {
       roleStore = {};
@@ -22083,6 +22140,7 @@ angular.module('ngResource', ['ng']).
 
 (function () {
   'use strict';
+
 
   permissionDirective.$inject = ['$log', 'Authorization', 'PermissionMap', 'PermissionStrategies'];
   function permissionDirective($log, Authorization, PermissionMap, PermissionStrategies) {
@@ -22104,6 +22162,7 @@ angular.module('ngResource', ['ng']).
           $log.warn('Attributes "only" and "except" are deprecated since 2.2.0+ and their support ' +
             'will be removed from 2.4.0. Use scoped "permission-only" and "permission-except" instead.');
         }
+
 
         $scope.$watchGroup(['permission.only', 'permission.except',
             'permission.deprecatedOnly', 'permission.deprecatedExcept'],
@@ -22128,6 +22187,7 @@ angular.module('ngResource', ['ng']).
             }
           });
 
+
         function onAuthorizedAccess() {
           if (angular.isFunction(permission.onAuthorized)) {
             permission.onAuthorized()($element);
@@ -22135,6 +22195,7 @@ angular.module('ngResource', ['ng']).
             PermissionStrategies.showElement($element);
           }
         }
+
 
         function onUnauthorizedAccess() {
           if (angular.isFunction(permission.onUnauthorized)) {
@@ -22157,15 +22218,18 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   Authorization.$inject = ['$q'];
   function Authorization($q) {
 
     this.authorize = authorize;
 
+
     function authorize(permissionsMap) {
 
       return authorizePermissionMap(permissionsMap);
     }
+
 
     function authorizePermissionMap(map) {
       var deferred = $q.defer();
@@ -22174,6 +22238,7 @@ angular.module('ngResource', ['ng']).
 
       return deferred.promise;
     }
+
 
     function resolveExceptPrivilegeMap(deferred, map) {
       var exceptPromises = map.resolvePropertyValidity(map.except);
@@ -22186,6 +22251,7 @@ angular.module('ngResource', ['ng']).
           resolveOnlyPermissionMap(deferred, map);
         });
     }
+
 
     function resolveOnlyPermissionMap(deferred, map) {
       if (!map.only.length) {
@@ -22214,14 +22280,17 @@ angular.module('ngResource', ['ng']).
 (function () {
   'use strict';
 
+
   StateAuthorization.$inject = ['$q'];
   function StateAuthorization($q) {
 
     this.authorize = authorize;
 
+
     function authorize(statePermissionMap) {
       return authorizeStatePermissionMap(statePermissionMap);
     }
+
 
     function authorizeStatePermissionMap(map) {
       var deferred = $q.defer();
@@ -22230,6 +22299,7 @@ angular.module('ngResource', ['ng']).
 
       return deferred.promise;
     }
+
 
     function resolveExceptStatePermissionMap(deferred, map) {
       var exceptPromises = resolveStatePermissionMap(map.except, map);
@@ -22242,6 +22312,7 @@ angular.module('ngResource', ['ng']).
           resolveOnlyStatePermissionMap(deferred, map);
         });
     }
+
 
     function resolveOnlyStatePermissionMap(deferred, map) {
       if (!map.only.length) {
@@ -22259,6 +22330,7 @@ angular.module('ngResource', ['ng']).
           deferred.reject(rejectedPermission);
         });
     }
+
 
     function resolveStatePermissionMap(privilegesNames, map) {
       if (!privilegesNames.length) {
