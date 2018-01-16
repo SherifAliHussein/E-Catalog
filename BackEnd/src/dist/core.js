@@ -54,7 +54,7 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//  'API_URL': 'http://localhost:28867/api/',
+		//	  'API_URL': 'http://localhost:28867/api/',
 			'API_URL': 'http://ecatalogbackend.azurewebsites.net/api/',
 			'defaultLanguage':'en',
 			'supportedLanguage':{
@@ -261,7 +261,7 @@ angular.module('core')
             "backgroundUpdateSuccess":"background updated successfully.",
             "backgroundAddSuccess":"background added successfully.",
             "CurrentBtn":"Current Background",
-            "NotCurrentBtn":" Not", 
+            "NotCurrentBtn":"Select as background", 
 
             "Template":"Template",
             "RecommendedMenuImage":"Recommended dimension 477 x 286",
@@ -431,7 +431,7 @@ angular.module('core')
             "backgroundUpdateSuccess":"خلفيه المنيو تم تحديث ",
             "backgroundAddSuccess":"خلفيه المنيو تم ادخال",
             "CurrentBtn":"الخلفيه الحاليه",
-            "NotCurrentBtn":" ليست الخفيه الحاليه", 
+            "NotCurrentBtn":" اختار كخلفيه", 
 
             "Template":"نموذج",
             "RecommendedMenuImage":"477 x 286 البعد الموصى به",

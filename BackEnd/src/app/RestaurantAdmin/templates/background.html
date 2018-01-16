@@ -18,11 +18,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="Background in backgroundCtrl.Backgrounds.results"> 
+                        <tr ng-class="{'red-text': Background.isActive == true }" ng-repeat="Background in backgroundCtrl.Backgrounds.results"> 
                             <td data-title="Image" ><img ng-src="{{Background.imageUrl}}" ng-alt="{{Background.BackgroundName}}" style="max-height: 200px;max-width: 200px;"/></td>
                             <!-- <td></td> -->
                             <td>
-                                 <a ng-show="Background.isActive"   class="cursorPointer">{{'CurrentBtn' | translate}}</a>
+                                 <a ng-show="Background.isActive"   class="cursorPointer" style="color: white;">{{'CurrentBtn' | translate}}</a>
                                  <a ng-show="!Background.isActive" ng-click="backgroundCtrl.Activate(Background)" class="cursorPointer">{{'NotCurrentBtn' | translate}}</a>
                             </td>
                           
