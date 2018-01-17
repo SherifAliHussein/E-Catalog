@@ -1141,234 +1141,6 @@
 
 	    angular
         .module('home')
-        .controller('branchController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal', 'BranchResource','ActivateBranchResource','DeactivateBranchResource','branchsPrepService','ToastService',  branchController])
-
-    function branchController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal, BranchResource,ActivateBranchResource,DeactivateBranchResource,branchsPrepService,ToastService){
-
-        var vm = this;
-		vm.branches = branchsPrepService;
-		vm.Now = $scope.getCurrentTime();
-		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-
-				function refreshBranches(){
-			var k = BranchResource.getAllBranches({ page:vm.currentPage }).$promise.then(function(results) {
-				vm.Now = $scope.getCurrentTime();	
-				vm.branches = results;
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
-            });
-		}
-		vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshBranches();
-		}
-		vm.openBranchDialog = function(){		
-			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
-			{
-				var englishBranches;
-				var k = BranchResource.getAllBranches({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
-					englishBranches = results;
-					var modalContent = $uibModal.open({
-						templateUrl: './app/RestaurantAdmin/templates/editBranch.html',
-						controller: 'editBranchDialogController',
-						controllerAs: 'editBranchDlCtrl',
-						resolve:{
-							mode:function(){return "map"},
-							englishBranches: function(){return englishBranches.results;},
-							branch:function(){ return null},
-							callBackFunction:function(){return refreshBranches;}
-						}
-
-											});
-				});
-			}
-			else{
-				var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newBranch.html',
-					controller: 'branchDialogController',
-					controllerAs: 'branchDlCtrl',
-					resolve:{
-						callBackFunction:function(){return refreshBranches;}
-					}
-
-									});
-			}
-		}
-		function confirmationDelete(itemId){
-			BranchResource.deleteBranch({branchId:itemId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryDeleteSuccess'),"success");
-				refreshBranches();
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
-            });
-		}
-		vm.openDeleteBranchDialog = function(name,id){			
-			var modalContent = $uibModal.open({
-				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-				controller: 'confirmDeleteDialogController',
-				controllerAs: 'deleteDlCtrl',
-				resolve: {
-					itemName: function () { return name },
-					itemId: function() { return id },
-					message:function() { return null},
-					callBackFunction:function() { return confirmationDelete }
-				}
-
-							});
-		}
-
-				vm.openEditBranchDialog = function(index){
-			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editBranch.html',
-				controller: 'editBranchDialogController',
-				controllerAs: 'editBranchDlCtrl',
-				resolve:{
-					mode:function(){return "edit"},
-					englishBranches: function(){return null;},
-					branch:function(){ return vm.branches.results[index]},
-					callBackFunction:function(){return refreshBranches;}
-				}
-
-							});
-
-					}
-		vm.Activate = function(branch){
-			ActivateBranchResource.Activate({branchId:branch.branchId})
-			.$promise.then(function(result){
-				branch.isActive = true;
-			},
-			function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-			})
-		}
-
-		vm.Deactivate = function(branch){
-			DeactivateBranchResource.Deactivate({branchId:branch.branchId})
-			.$promise.then(function(result){
-				branch.isActive = false;
-			},
-			function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-			})
-		}		
-
-
-
-							}
-
-	}
-    ());
-(function() {
-    angular
-      .module('home')
-      .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource])
-      .factory('ActivateBranchResource', ['$resource', 'appCONSTANTS', ActivateBranchResource])
-      .factory('DeactivateBranchResource', ['$resource', 'appCONSTANTS', DeactivateBranchResource]);
-
-      function BranchResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Branches/:branchId', {}, {
-        getAllBranches: { method: 'GET', useToken: true, params:{lang:'@lang'} },
-        getBranch: { method: 'GET', useToken: true },
-        create: { method: 'POST', useToken: true },
-        deleteBranch: { method: 'DELETE', useToken: true },
-        update: { method: 'PUT', useToken: true }
-      })
-    }
-    function ActivateBranchResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Branches/:branchId/Activate', {}, {
-          Activate: { method: 'GET', useToken: true}
-        })
-    }
-    function DeactivateBranchResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Branches/:branchId/DeActivate', {}, {
-          Deactivate: { method: 'GET', useToken: true }
-        })
-    }
-}());
-  (function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('branchDialogController', ['$scope','$state','appCONSTANTS','$http','$translate' , 'BranchResource','ToastService','$rootScope',  branchDialogController])
-
-	function branchDialogController($scope, $state , appCONSTANTS,$http, $translate , BranchResource,ToastService,$rootScope){
-		var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-
-        		vm.close = function(){
-            $state.go('branch');            
-		}
-		vm.isChanged = false;
-		vm.AddNewBranch = function(){
-			vm.isChanged = true;
-            var newBranch = new BranchResource();
-            newBranch.branchTitleDictionary = vm.branchTitleDictionary;
-            newBranch.branchAddressDictionary = vm.branchAddressDictionary;
-            newBranch.$create().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('BranchAddSuccess'),"success");
-					 vm.isChanged = false;                     
-                     $state.go('branch');                     
-                },
-                function(data, status) {
-                    vm.isChanged = false;                     
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-        }
-
-        	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editBranchDialogController', ['$scope','$state','$http','$translate','appCONSTANTS', 'BranchResource','ToastService','branchPrepService',  editBranchDialogController])
-
-	function editBranchDialogController($scope, $state ,$http, $translate,appCONSTANTS, BranchResource,ToastService, branchPrepService,callBackFunction){
-		var vm = this;
-		vm.categoryName = "";
-		vm.language = appCONSTANTS.supportedLanguage;
-
-				vm.branch = branchPrepService;
-
-				vm.close = function(){
-			$state.go('branch');
-		}
-
-				vm.updateBranch = function(){
-            var updateBranch = new BranchResource();
-            updateBranch.branchTitleDictionary = vm.branch.branchTitleDictionary;
-            updateBranch.branchAddressDictionary = vm.branch.branchAddressDictionary;
-			updateBranch.branchId = vm.branch.branchId;
-
-						updateBranch.$update().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('BranchUpdateSuccess'),"success");
-					 vm.isChanged = false;                     
-					 $state.go('branch');
-                },
-                function(data, status) {
-                    vm.isChanged = false;                     
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-
-                    }
-
-        	}	
-})();
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
         .controller('BackgroundController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal','BackgroundResource', 'ActivatebackgroundResource','DeactivateBackgroundResource','backgroundsPrepService','ToastService',  BackgroundController])
 
     function BackgroundController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal,BackgroundResource, ActivatebackgroundResource,DeactivateBackgroundResource,backgroundsPrepService,ToastService){
@@ -1927,6 +1699,234 @@
 
 	    angular
         .module('home')
+        .controller('branchController', ['$scope','$stateParams','$translate', 'appCONSTANTS','$uibModal', 'BranchResource','ActivateBranchResource','DeactivateBranchResource','branchsPrepService','ToastService',  branchController])
+
+    function branchController($scope,$stateParams ,$translate , appCONSTANTS,$uibModal, BranchResource,ActivateBranchResource,DeactivateBranchResource,branchsPrepService,ToastService){
+
+        var vm = this;
+		vm.branches = branchsPrepService;
+		vm.Now = $scope.getCurrentTime();
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		$($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+
+				function refreshBranches(){
+			var k = BranchResource.getAllBranches({ page:vm.currentPage }).$promise.then(function(results) {
+				vm.Now = $scope.getCurrentTime();	
+				vm.branches = results;
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshBranches();
+		}
+		vm.openBranchDialog = function(){		
+			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
+			{
+				var englishBranches;
+				var k = BranchResource.getAllBranches({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+					englishBranches = results;
+					var modalContent = $uibModal.open({
+						templateUrl: './app/RestaurantAdmin/templates/editBranch.html',
+						controller: 'editBranchDialogController',
+						controllerAs: 'editBranchDlCtrl',
+						resolve:{
+							mode:function(){return "map"},
+							englishBranches: function(){return englishBranches.results;},
+							branch:function(){ return null},
+							callBackFunction:function(){return refreshBranches;}
+						}
+
+											});
+				});
+			}
+			else{
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newBranch.html',
+					controller: 'branchDialogController',
+					controllerAs: 'branchDlCtrl',
+					resolve:{
+						callBackFunction:function(){return refreshBranches;}
+					}
+
+									});
+			}
+		}
+		function confirmationDelete(itemId){
+			BranchResource.deleteBranch({branchId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('CategoryDeleteSuccess'),"success");
+				refreshBranches();
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.openDeleteBranchDialog = function(name,id){			
+			var modalContent = $uibModal.open({
+				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+				controller: 'confirmDeleteDialogController',
+				controllerAs: 'deleteDlCtrl',
+				resolve: {
+					itemName: function () { return name },
+					itemId: function() { return id },
+					message:function() { return null},
+					callBackFunction:function() { return confirmationDelete }
+				}
+
+							});
+		}
+
+				vm.openEditBranchDialog = function(index){
+			var modalContent = $uibModal.open({
+				templateUrl: './app/RestaurantAdmin/templates/editBranch.html',
+				controller: 'editBranchDialogController',
+				controllerAs: 'editBranchDlCtrl',
+				resolve:{
+					mode:function(){return "edit"},
+					englishBranches: function(){return null;},
+					branch:function(){ return vm.branches.results[index]},
+					callBackFunction:function(){return refreshBranches;}
+				}
+
+							});
+
+					}
+		vm.Activate = function(branch){
+			ActivateBranchResource.Activate({branchId:branch.branchId})
+			.$promise.then(function(result){
+				branch.isActive = true;
+			},
+			function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+			})
+		}
+
+		vm.Deactivate = function(branch){
+			DeactivateBranchResource.Deactivate({branchId:branch.branchId})
+			.$promise.then(function(result){
+				branch.isActive = false;
+			},
+			function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+			})
+		}		
+
+
+
+							}
+
+	}
+    ());
+(function() {
+    angular
+      .module('home')
+      .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource])
+      .factory('ActivateBranchResource', ['$resource', 'appCONSTANTS', ActivateBranchResource])
+      .factory('DeactivateBranchResource', ['$resource', 'appCONSTANTS', DeactivateBranchResource]);
+
+      function BranchResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Branches/:branchId', {}, {
+        getAllBranches: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        getBranch: { method: 'GET', useToken: true },
+        create: { method: 'POST', useToken: true },
+        deleteBranch: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+    function ActivateBranchResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Branches/:branchId/Activate', {}, {
+          Activate: { method: 'GET', useToken: true}
+        })
+    }
+    function DeactivateBranchResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Branches/:branchId/DeActivate', {}, {
+          Deactivate: { method: 'GET', useToken: true }
+        })
+    }
+}());
+  (function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('branchDialogController', ['$scope','$state','appCONSTANTS','$http','$translate' , 'BranchResource','ToastService','$rootScope',  branchDialogController])
+
+	function branchDialogController($scope, $state , appCONSTANTS,$http, $translate , BranchResource,ToastService,$rootScope){
+		var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+
+        		vm.close = function(){
+            $state.go('branch');            
+		}
+		vm.isChanged = false;
+		vm.AddNewBranch = function(){
+			vm.isChanged = true;
+            var newBranch = new BranchResource();
+            newBranch.branchTitleDictionary = vm.branchTitleDictionary;
+            newBranch.branchAddressDictionary = vm.branchAddressDictionary;
+            newBranch.$create().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('BranchAddSuccess'),"success");
+					 vm.isChanged = false;                     
+                     $state.go('branch');                     
+                },
+                function(data, status) {
+                    vm.isChanged = false;                     
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+        }
+
+        	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editBranchDialogController', ['$scope','$state','$http','$translate','appCONSTANTS', 'BranchResource','ToastService','branchPrepService',  editBranchDialogController])
+
+	function editBranchDialogController($scope, $state ,$http, $translate,appCONSTANTS, BranchResource,ToastService, branchPrepService,callBackFunction){
+		var vm = this;
+		vm.categoryName = "";
+		vm.language = appCONSTANTS.supportedLanguage;
+
+				vm.branch = branchPrepService;
+
+				vm.close = function(){
+			$state.go('branch');
+		}
+
+				vm.updateBranch = function(){
+            var updateBranch = new BranchResource();
+            updateBranch.branchTitleDictionary = vm.branch.branchTitleDictionary;
+            updateBranch.branchAddressDictionary = vm.branch.branchAddressDictionary;
+			updateBranch.branchId = vm.branch.branchId;
+
+						updateBranch.$update().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('BranchUpdateSuccess'),"success");
+					 vm.isChanged = false;                     
+					 $state.go('branch');
+                },
+                function(data, status) {
+                    vm.isChanged = false;                     
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+
+                    }
+
+        	}	
+})();
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
         .controller('CategoryTemplateController', ['$scope','$translate', '$stateParams', 'appCONSTANTS','$uibModal','allMenuPrepService','templatesPrepService','ToastService' ,'GetCategoriesNameResource','CategoryTemplateResource' ,  CategoryTemplateController])
 
     function CategoryTemplateController($scope,$translate,$stateParams, appCONSTANTS,$uibModal, allMenuPrepService, templatesPrepService, ToastService, GetCategoriesNameResource, CategoryTemplateResource){
@@ -2109,11 +2109,13 @@
 			updatedItem.itemID = vm.item.itemID;
 			updatedItem.isImageChange = isItemImageChange;
 			updatedItem.isImage2Change = isItemImage2Change;
+			updatedItem.isImage3Change = isItemImage3Change;
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(updatedItem));
 			model.append('file', itemImage);
 			model.append('file2', itemImage2);
+			model.append('file3', itemImage3);
 			$http({
 				method: 'put',
 				url: appCONSTANTS.API_URL + 'Items/',
@@ -2821,209 +2823,6 @@
 
 	    angular
         .module('home')
-        .controller('sideItemController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SideItemResource','sideItemPrepService','ToastService',  sideItemController])
-
-    function sideItemController($scope ,$translate , appCONSTANTS,$uibModal, SideItemResource,sideItemPrepService,ToastService){
-
-        var vm = this;
-		vm.sideItems = sideItemPrepService;
-		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
-
-				function refreshSideItems(){
-			var k = SideItemResource.getAllSideItems({page:vm.currentPage}).$promise.then(function(results) {
-				vm.sideItems = results
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
-            });
-		}
-		vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshSideItems();
-		}
-		vm.openSideItemDialog = function(){		
-			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
-			{
-				var englishSideItems;
-				var k = SideItemResource.getAllSideItems({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
-                    englishSideItems = results;
-					var modalContent = $uibModal.open({
-						templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
-						controller: 'editSideItemDialogController',
-						controllerAs: 'editSideItemDlCtrl',
-						resolve:{
-							mode:function(){return "map"},
-							englishSideItems: function(){return englishSideItems.results;},
-							sideItem:function(){ return null},
-							callBackFunction:function(){return refreshSideItems;}
-						}
-
-											});
-				});
-			}
-			else{
-				var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newSideItem.html',
-					controller: 'sideItemDialogController',
-					controllerAs: 'sideItemDlCtrl',
-					resolve:{
-						callBackFunction:function(){return refreshSideItems;}
-					}
-
-									});
-			}
-		}
-		function confirmationDelete(itemId){
-			SideItemResource.deleteSideItem({SideItemId:itemId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemDeleteSuccess'),"success");
-				refreshSideItems();
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            });
-		}
-		vm.openDeleteSideItemDialog = function(name,id){			
-			var modalContent = $uibModal.open({
-				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-				controller: 'confirmDeleteDialogController',
-				controllerAs: 'deleteDlCtrl',
-				resolve: {
-					itemName: function () { return name },
-					itemId: function() { return id },
-					message:function() { return null},
-					callBackFunction:function() { return confirmationDelete }
-				}
-
-							});
-		}
-
-				vm.openEditSideItemDialog = function(index){
-			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
-				controller: 'editSideItemDialogController',
-				controllerAs: 'editSideItemDlCtrl',
-				resolve:{
-					mode:function(){return "edit"},
-					englishSideItems: function(){return null;},
-					sideItem:function(){ return vm.sideItems.results[index]},
-					callBackFunction:function(){return refreshSideItems;}
-				}
-
-							});
-
-					}
-
-
-
-							}
-
-	}
-());
-(function() {
-    angular
-      .module('home')
-      .factory('SideItemResource', ['$resource', 'appCONSTANTS', SideItemResource]);
-
-      function SideItemResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'SideItems/:SideItemId', {}, {
-        getAllSideItems: { method: 'GET', useToken: true, params:{lang:'@lang'} },
-        create: { method: 'POST', useToken: true },
-        deleteSideItem: { method: 'DELETE', useToken: true },
-        update: { method: 'PUT', useToken: true }
-      })
-    }
-
-      }());
-  (function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('sideItemDialogController', ['$uibModalInstance','$translate' , 'SideItemResource','ToastService','callBackFunction','$rootScope',  sideItemDialogController])
-
-	function sideItemDialogController($uibModalInstance, $translate , SideItemResource,ToastService,callBackFunction,$rootScope){
-		var vm = this;
-        vm.sideItemName = "";
-        vm.value;
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
-		vm.isChanged = false;
-		vm.AddNewSideItem = function(){
-            vm.isChanged = true;
-			var newSideItem = new SideItemResource();
-            newSideItem.sideItemName = vm.sideItemName;
-            newSideItem.value = vm.value;
-            newSideItem.$create().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemAddSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-                    callBackFunction();
-                    vm.isChanged = false;
-                },
-                function(data, status) {
-                    vm.isChanged = false;
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editSideItemDialogController', ['$uibModalInstance','$translate', 'SideItemResource','ToastService','mode','englishSideItems','sideItem','callBackFunction',  editSideItemDialogController])
-
-	function editSideItemDialogController($uibModalInstance, $translate, SideItemResource,ToastService, mode, englishSideItems, sideItem,callBackFunction){
-		var vm = this;
-		vm.sideItemName = "";
-
-				vm.mode = mode;
-		vm.englishSideItems = englishSideItems;
-        if(mode == "edit"){
-            vm.sideItemName = sideItem.sideItemName;
-            vm.value = sideItem.value;
-        }
-		else
-			vm.selectedSideItem = englishSideItems[0];
-		vm.close = function(){
-			$uibModalInstance.dismiss('cancel');
-		}
-
-				vm.updateSideItem = function(){
-			var updateSideItem = new SideItemResource();
-            updateSideItem.sideItemName = vm.sideItemName;
-
-            			if(mode == "edit"){
-				updateSideItem.sideItemId = sideItem.sideItemId;
-				updateSideItem.value = vm.value;
-			}
-			else{
-				updateSideItem.sideItemId = vm.selectedSideItem.sideItemId;
-				updateSideItem.value = vm.selectedSideItem.value;
-			}
-            updateSideItem.$update().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSideItemSuccess'),"success");
-					$uibModalInstance.dismiss('cancel');
-					callBackFunction();
-                },
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
         .controller('menuController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'MenuResource','menusPrepService','RestaurantIsReadyPrepService','ToastService','ActivateMenuResource','DeactivateMenuResource','PublishRestaurantResource',  menuController])
 
     function menuController($scope ,$translate , appCONSTANTS,$uibModal, MenuResource,menusPrepService,RestaurantIsReadyPrepService,ToastService,ActivateMenuResource,DeactivateMenuResource,PublishRestaurantResource){
@@ -3372,6 +3171,209 @@
 			}
 
 
+		}
+	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('sideItemController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SideItemResource','sideItemPrepService','ToastService',  sideItemController])
+
+    function sideItemController($scope ,$translate , appCONSTANTS,$uibModal, SideItemResource,sideItemPrepService,ToastService){
+
+        var vm = this;
+		vm.sideItems = sideItemPrepService;
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		$($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+				function refreshSideItems(){
+			var k = SideItemResource.getAllSideItems({page:vm.currentPage}).$promise.then(function(results) {
+				vm.sideItems = results
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshSideItems();
+		}
+		vm.openSideItemDialog = function(){		
+			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
+			{
+				var englishSideItems;
+				var k = SideItemResource.getAllSideItems({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+                    englishSideItems = results;
+					var modalContent = $uibModal.open({
+						templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+						controller: 'editSideItemDialogController',
+						controllerAs: 'editSideItemDlCtrl',
+						resolve:{
+							mode:function(){return "map"},
+							englishSideItems: function(){return englishSideItems.results;},
+							sideItem:function(){ return null},
+							callBackFunction:function(){return refreshSideItems;}
+						}
+
+											});
+				});
+			}
+			else{
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newSideItem.html',
+					controller: 'sideItemDialogController',
+					controllerAs: 'sideItemDlCtrl',
+					resolve:{
+						callBackFunction:function(){return refreshSideItems;}
+					}
+
+									});
+			}
+		}
+		function confirmationDelete(itemId){
+			SideItemResource.deleteSideItem({SideItemId:itemId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemDeleteSuccess'),"success");
+				refreshSideItems();
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+            });
+		}
+		vm.openDeleteSideItemDialog = function(name,id){			
+			var modalContent = $uibModal.open({
+				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+				controller: 'confirmDeleteDialogController',
+				controllerAs: 'deleteDlCtrl',
+				resolve: {
+					itemName: function () { return name },
+					itemId: function() { return id },
+					message:function() { return null},
+					callBackFunction:function() { return confirmationDelete }
+				}
+
+							});
+		}
+
+				vm.openEditSideItemDialog = function(index){
+			var modalContent = $uibModal.open({
+				templateUrl: './app/RestaurantAdmin/templates/editSideItem.html',
+				controller: 'editSideItemDialogController',
+				controllerAs: 'editSideItemDlCtrl',
+				resolve:{
+					mode:function(){return "edit"},
+					englishSideItems: function(){return null;},
+					sideItem:function(){ return vm.sideItems.results[index]},
+					callBackFunction:function(){return refreshSideItems;}
+				}
+
+							});
+
+					}
+
+
+
+							}
+
+	}
+());
+(function() {
+    angular
+      .module('home')
+      .factory('SideItemResource', ['$resource', 'appCONSTANTS', SideItemResource]);
+
+      function SideItemResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'SideItems/:SideItemId', {}, {
+        getAllSideItems: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        create: { method: 'POST', useToken: true },
+        deleteSideItem: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+
+      }());
+  (function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('sideItemDialogController', ['$uibModalInstance','$translate' , 'SideItemResource','ToastService','callBackFunction','$rootScope',  sideItemDialogController])
+
+	function sideItemDialogController($uibModalInstance, $translate , SideItemResource,ToastService,callBackFunction,$rootScope){
+		var vm = this;
+        vm.sideItemName = "";
+        vm.value;
+		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
+		vm.isChanged = false;
+		vm.AddNewSideItem = function(){
+            vm.isChanged = true;
+			var newSideItem = new SideItemResource();
+            newSideItem.sideItemName = vm.sideItemName;
+            newSideItem.value = vm.value;
+            newSideItem.$create().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('SideItemAddSuccess'),"success");
+					$uibModalInstance.dismiss('cancel');
+                    callBackFunction();
+                    vm.isChanged = false;
+                },
+                function(data, status) {
+                    vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+		}
+	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editSideItemDialogController', ['$uibModalInstance','$translate', 'SideItemResource','ToastService','mode','englishSideItems','sideItem','callBackFunction',  editSideItemDialogController])
+
+	function editSideItemDialogController($uibModalInstance, $translate, SideItemResource,ToastService, mode, englishSideItems, sideItem,callBackFunction){
+		var vm = this;
+		vm.sideItemName = "";
+
+				vm.mode = mode;
+		vm.englishSideItems = englishSideItems;
+        if(mode == "edit"){
+            vm.sideItemName = sideItem.sideItemName;
+            vm.value = sideItem.value;
+        }
+		else
+			vm.selectedSideItem = englishSideItems[0];
+		vm.close = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
+
+				vm.updateSideItem = function(){
+			var updateSideItem = new SideItemResource();
+            updateSideItem.sideItemName = vm.sideItemName;
+
+            			if(mode == "edit"){
+				updateSideItem.sideItemId = sideItem.sideItemId;
+				updateSideItem.value = vm.value;
+			}
+			else{
+				updateSideItem.sideItemId = vm.selectedSideItem.sideItemId;
+				updateSideItem.value = vm.selectedSideItem.value;
+			}
+            updateSideItem.$update().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSideItemSuccess'),"success");
+					$uibModalInstance.dismiss('cancel');
+					callBackFunction();
+                },
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
 		}
 	}	
 }());

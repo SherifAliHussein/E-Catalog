@@ -106,7 +106,7 @@ namespace ECatalog.API.Controllers
             {
                 if (!HttpContext.Current.Request.Files.AllKeys.Any())
                     throw new ValidationException(ErrorCodes.EmptyItemImage);
-                var httpPostedFile = HttpContext.Current.Request.Files[0];
+                var httpPostedFile = HttpContext.Current.Request.Files["file"];
 
 
                 if (httpPostedFile == null)
@@ -130,7 +130,7 @@ namespace ECatalog.API.Controllers
             {
                 if (!HttpContext.Current.Request.Files.AllKeys.Any())
                     throw new ValidationException(ErrorCodes.EmptyItemImage);
-                var httpPostedFile2 = HttpContext.Current.Request.Files[1];
+                var httpPostedFile2 = HttpContext.Current.Request.Files["file2"];
 
 
                 if (httpPostedFile2 == null)
@@ -154,7 +154,7 @@ namespace ECatalog.API.Controllers
             {
                 if (!HttpContext.Current.Request.Files.AllKeys.Any())
                     throw new ValidationException(ErrorCodes.EmptyItemImage);
-                var httpPostedFile3 = HttpContext.Current.Request.Files[2];
+                var httpPostedFile3 = HttpContext.Current.Request.Files["file3"];
 
 
                 if (httpPostedFile3 == null)

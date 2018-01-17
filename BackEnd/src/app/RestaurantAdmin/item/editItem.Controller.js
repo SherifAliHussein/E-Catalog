@@ -69,11 +69,13 @@
 			updatedItem.itemID = vm.item.itemID;
 			updatedItem.isImageChange = isItemImageChange;
 			updatedItem.isImage2Change = isItemImage2Change;
+			updatedItem.isImage3Change = isItemImage3Change;
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(updatedItem));
 			model.append('file', itemImage);
 			model.append('file2', itemImage2);
+			model.append('file3', itemImage3);
 			$http({
 				method: 'put',
 				url: appCONSTANTS.API_URL + 'Items/',
