@@ -1129,6 +1129,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<div ng-if="newItemForm.itemImage2.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
     '					</div>\n' +
     '			</div>\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">       \n' +
+    '					<input id="itemImage3" name="itemImage3" style="display: none;" onchange="angular.element(this).scope().AddItemImage3(this.files)" type="file" required>\n' +
+    '					<button ng-click="editItemCtrl.LoadUploadLogo3()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedItemImage3\' | translate}}</span>\n' +
+    '					<img ng-src="{{editItemCtrl.item.imageURL3}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '					<div ng-messages="newItemForm.itemImage3.$error" >\n' +
+    '						<div ng-if="newItemForm.itemImage3.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '			</div>\n' +
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
@@ -1924,11 +1933,20 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					</div>\n' +
     '			</div>\n' +
     '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed" >       \n' +
+    '					<input id="itemImage3" name="itemImage3" style="display: none;" onchange="angular.element(this).scope().AddItemImage3(this.files)" type="file" required>\n' +
+    '					<button ng-click="newItemCtrl.LoadUploadLogo3()" >{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '					<span > <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedItemImage3\' | translate}}</span>\n' +
+    '					<img ng-src="{{newItemCtrl.itemImage3}}" style="max-height: 69px;max-width: 112px;">\n' +
+    '					<div ng-messages="newItemForm.itemImage3.$error" >\n' +
+    '						<div ng-if="newItemForm.itemImage3.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '			</div>\n' +
     '\n' +
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newItemForm.$invalid ||  (newItemCtrl.itemImage== null || newItemCtrl.itemImage2 == null)\n' +
+    '		<button ng-disabled="newItemForm.$invalid ||  (newItemCtrl.itemImage== null || newItemCtrl.itemImage2 == null || newItemCtrl.itemImage3 == null)\n' +
     '		|| (newItemCtrl.SelectedSize.length<=0 )  \n' +
     '		|| (newItemCtrl.hasSideItem && newItemCtrl.SelectedSideItems.length<=0) || (newItemCtrl.hasSideItem && newItemCtrl.maxSideItemValueError) \n' +
     '		|| newItemCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.addNewItem()">{{\'saveChangesBtn\' | translate}}</button>\n' +

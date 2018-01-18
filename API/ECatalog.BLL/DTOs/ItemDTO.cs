@@ -22,8 +22,10 @@ namespace ECatalog.BLL.DTOs
         public List<SideItemDTO> SideItems{ get; set; }
         public MemoryStream Image { get; set; }
         public MemoryStream Image2 { get; set; }
+        public MemoryStream Image3 { get; set; }
         public bool IsImageChange { get; set; }
         public bool IsImage2Change { get; set; }
+        public bool IsImage3Change { get; set; }
         public int MaxSideItemValue { get; set; }
         public bool IsActive { get; set; }
     }

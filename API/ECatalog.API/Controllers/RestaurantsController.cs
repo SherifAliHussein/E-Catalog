@@ -273,6 +273,14 @@ namespace ECatalog.API.Controllers
                         .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == itemId + "-2" &&
                                              !Path.GetFileName(x).Contains("thumb"));
                 }
+                else if (type == "orignal3")
+                {
+                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" +
+                                                  "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" +
+                                                  "Category-" + categoryId + "\\Items")
+                        .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == itemId + "-3" &&
+                                             !Path.GetFileName(x).Contains("thumb"));
+                }
                 else
                 {
                     filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\" + "Restaurant-" + restaurantId + "\\" + "Menu-" + menuId + "\\" + "Category-" + categoryId + "\\Items")
