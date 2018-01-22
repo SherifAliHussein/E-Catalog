@@ -111,7 +111,8 @@ namespace ECatalog.BLL.Services
                     ItemId = item.ItemId
                 });
             }
-            item.OrderNumber = category.Items.Select(x => x.OrderNumber).Max();
+            item.OrderNumber = 100000;
+            //  item.OrderNumber = category.Items.Select(x => x.OrderNumber).Max();
             //item.CategoryId = categoryId;
             _itemSideItemService.InsertRange(item.ItemSideItems);
             _itemTranslationService.InsertRange(item.ItemTranslations);

@@ -261,9 +261,6 @@
     <Content Include="Images\9\9.png" />
     <Content Include="Images\Background\10.jpg" />
     <Content Include="Images\Background\11.jpg" />
-    <Content Include="Images\Background\12.jpg" />
-    <Content Include="Images\Background\16-thumbnail.png" />
-    <Content Include="Images\Background\16.png" />
     <Content Include="Images\Background\3.jpg" />
     <Content Include="Images\Background\4.jpg" />
     <Content Include="Images\Background\5.jpg" />
@@ -340,6 +337,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\BackendAPi.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

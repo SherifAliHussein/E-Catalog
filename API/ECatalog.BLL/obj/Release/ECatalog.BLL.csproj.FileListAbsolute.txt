@@ -22,3 +22,29 @@ C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL\bin\
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL\obj\Release\ECatalog.BLL.csprojResolveAssemblyReference.cache
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL\obj\Release\ECatalog.BLL.dll
 C:\Users\Sherif\Documents\Visual Studio 2015\Projects\ECatalog\ECatalog.BLL\obj\Release\ECatalog.BLL.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\ECatalog.BLL.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\ECatalog.BLL.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\AutoMapper.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\ECatalog.Common.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\ECatalog.DAL.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Microsoft.Practices.Unity.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Newtonsoft.Json.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Repository.Pattern.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Repository.Pattern.Ef6.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Service.Pattern.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\EntityFramework.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\LinqKit.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\ECatalog.Common.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\ECatalog.DAL.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Repository.Pattern.Ef6.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Repository.Pattern.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Service.Pattern.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\AutoMapper.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Microsoft.Practices.Unity.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\Newtonsoft.Json.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\EntityFramework.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\LinqKit.pdb
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\bin\Release\LinqKit.xml
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\obj\Release\ECatalog.BLL.csprojResolveAssemblyReference.cache
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\obj\Release\ECatalog.BLL.dll
+E:\Projects\E-Menu\E-Catalog\API\ECatalog.BLL\obj\Release\ECatalog.BLL.pdb

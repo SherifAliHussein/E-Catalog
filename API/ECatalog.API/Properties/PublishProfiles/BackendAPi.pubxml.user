@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>E:\Projects\E-Menu\Rerease\api</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="ApplicationInsights.config">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="bin/ApplicationInsights.config">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="bin/ar-EG/ECatalog.Resources.resources.dll">
+      <publishTime>01/18/2018 11:06:57</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/ECatalog.API.dll">
+      <publishTime>01/18/2018 11:11:55</publishTime>
+    </File>
+    <File Include="bin/ECatalog.BLL.dll">
+      <publishTime>01/18/2018 11:06:59</publishTime>
+    </File>
+    <File Include="bin/ECatalog.Common.dll">
+      <publishTime>01/18/2018 11:06:57</publishTime>
+    </File>
+    <File Include="bin/ECatalog.DAL.dll">
+      <publishTime>01/18/2018 11:06:58</publishTime>
+    </File>
+    <File Include="bin/ECatalog.Resources.dll">
+      <publishTime>01/18/2018 11:06:57</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/LinqKit.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.DependencyCollector.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.PerfCounterCollector.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.ServerTelemetryChannel.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.Web.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AI.WindowsServer.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.ApplicationInsights.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Cors.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.ServiceLocation.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.Configuration.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.RegistrationByConvention.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Repository.Pattern.dll">
+      <publishTime>01/18/2018 11:06:57</publishTime>
+    </File>
+    <File Include="bin/Repository.Pattern.Ef6.dll">
+      <publishTime>01/18/2018 11:06:58</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Service.Pattern.dll">
+      <publishTime>01/18/2018 11:06:58</publishTime>
+    </File>
+    <File Include="bin/Swashbuckle.Core.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/System.Web.Cors.dll">
+      <publishTime>11/21/2017 16:26:14</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Cors.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Owin.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/Unity.WebApi.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="bin/WebActivatorEx.dll">
+      <publishTime>11/21/2017 16:26:15</publishTime>
+    </File>
+    <File Include="Images/1/1-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/1.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/1-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/1.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/2-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/2.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/3-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/3.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/3/14-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/1/2/3/14.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/10/10-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/10/10.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/2/1/1-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/2/1/1.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/2/1/1/1-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/2/1/1/1.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/2/2-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/2/2.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/5/5-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/5/5.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/7/7-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/7/7.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/8/8-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/8/8.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/10-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/10.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/11-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/11.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/12-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/12.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/13-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/13.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/9-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/13/6/9.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/1-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/1.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/2-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/2.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/3-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/3.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/4-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/4.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/5-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/5.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/6-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/4/6.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/5-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/5.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/5/7-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/5/7.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/5/8-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/14/5/8.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/9-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/9/9.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Background/10.jpg">
+      <publishTime>12/02/2017 16:31:10</publishTime>
+    </File>
+    <File Include="Images/Background/11.jpg">
+      <publishTime>12/02/2017 16:30:35</publishTime>
+    </File>
+    <File Include="Images/Background/3.jpg">
+      <publishTime>12/02/2017 16:32:31</publishTime>
+    </File>
+    <File Include="Images/Background/4.jpg">
+      <publishTime>12/02/2017 16:32:24</publishTime>
+    </File>
+    <File Include="Images/Background/5.jpg">
+      <publishTime>12/02/2017 16:32:13</publishTime>
+    </File>
+    <File Include="Images/Background/6.jpg">
+      <publishTime>12/02/2017 16:32:07</publishTime>
+    </File>
+    <File Include="Images/Background/7.jpg">
+      <publishTime>12/02/2017 16:31:59</publishTime>
+    </File>
+    <File Include="Images/Background/8.jpg">
+      <publishTime>12/02/2017 16:31:53</publishTime>
+    </File>
+    <File Include="Images/Background/9.jpg">
+      <publishTime>12/02/2017 16:31:45</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/1-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/1.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/Menu-2/2-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/Menu-2/2.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/Menu-2/Category-2/2-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/Menu-2/Category-2/2.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/Menu-2/Category-2/Items/3-thumbnail.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Restaurant-1/Menu-2/Category-2/Items/3.png">
+      <publishTime>11/21/2017 16:26:12</publishTime>
+    </File>
+    <File Include="Images/Templates/1/1.png">
+      <publishTime>11/21/2017 16:26:13</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>12/11/2017 21:13:45</publishTime>
+    </File>
+    <File Include="scripts/ai.0.22.9-build00167.js">
+      <publishTime>11/21/2017 16:26:13</publishTime>
+    </File>
+    <File Include="scripts/ai.0.22.9-build00167.min.js">
+      <publishTime>11/21/2017 16:26:13</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>01/18/2018 11:09:35</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
