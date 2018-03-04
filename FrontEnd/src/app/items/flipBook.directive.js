@@ -36,8 +36,20 @@ angular.module('home').directive('flipbook', function($timeout){
             $timeout(function(){
               iElement.turn({
               
-               pages: 8
-             })
+               pages: 20,
+               page: 2,
+               when: {   
+                turning: function(event, page, pageObj) {
+                  if(page == 1) {
+                    event.preventDefault();
+                }
+                }
+              }
+              }).bind("start", function(event, pageObject, corner) {
+                if(pageObject.next == 1) {
+                  event.preventDefault();
+              }
+              })
            }, 0);
           }
               

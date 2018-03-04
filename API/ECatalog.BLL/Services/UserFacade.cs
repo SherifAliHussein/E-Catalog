@@ -218,7 +218,7 @@ namespace ECatalog.BLL.Services
                 {
                     End = globalAdminDto.End,
                     Start = globalAdminDto.Start,
-                    MaxNumberOfWaiters = globalAdminDto.MaxNumberOfWaiters,
+                    MaxNumberOfWaiters = globalAdminDto.Limit,
                     PackageGuid = globalAdminDto.PackageGuid,
                     GlobalAdminId = globalAdmin.UserId
                 });
