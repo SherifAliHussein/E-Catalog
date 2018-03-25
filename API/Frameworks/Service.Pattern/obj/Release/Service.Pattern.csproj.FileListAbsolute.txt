@@ -12,3 +12,10 @@ E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\bin\Release\Reposito
 E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Release\Service.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Release\Service.Pattern.dll
 E:\Projects\E-Menu\E-Catalog\API\Frameworks\Service.Pattern\obj\Release\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Release\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Release\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\bin\Release\Repository.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Release\Service.Pattern.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Release\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\Frameworks\Service.Pattern\obj\Release\Service.Pattern.pdb

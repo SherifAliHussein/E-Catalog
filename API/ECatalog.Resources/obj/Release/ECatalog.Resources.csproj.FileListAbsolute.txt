@@ -18,3 +18,13 @@ E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resourc
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Release\ar-EG\ECatalog.Resources.resources.dll
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.dll
 E:\Projects\E-Menu\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\bin\Release\ECatalog.Resources.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\bin\Release\ECatalog.Resources.pdb
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\bin\Release\ar-EG\ECatalog.Resources.resources.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.Resource.resources
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.Resource.ar-EG.resources
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.csproj.GenerateResource.Cache
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Release\ar-EG\ECatalog.Resources.resources.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.dll
+C:\Users\Sherif\Desktop\Projects\E-Catalog\API\ECatalog.Resources\obj\Release\ECatalog.Resources.pdb

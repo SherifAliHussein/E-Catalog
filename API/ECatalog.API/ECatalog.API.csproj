@@ -340,6 +340,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\BackendAPi.pubxml" />
+    <None Include="Properties\PublishProfiles\ECatalogBackEnd-Prod - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ECatalogBackEnd-Prod - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
