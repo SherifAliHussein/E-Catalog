@@ -366,7 +366,7 @@ namespace ECatalog.API.Controllers
             data.LogoUrl = Url.Link("RestaurantLogo", new { restaurantId = restaurants.ResturentId });
             data.BackgroundUrl = Url.Link("BackgroundImage", new { restaurants.BackgroundId });
             data.RestaurantName = restaurants.RestaurantName;
-
+            data.Rate = restaurants.Rate;
             return Ok(data);
 
         }

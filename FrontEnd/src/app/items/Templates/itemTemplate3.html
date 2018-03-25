@@ -1,7 +1,7 @@
 <div ng-class="{page2:(lang == 'en' && (pageitems.pageNumber % 2) === 0) || (lang == 'ar' && (pageitems.pageNumber % 2) !== 0)
 , page1:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
             <div class="img_header">
-                <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: 139px;" />
+                <img ng-src="{{pageitems.itemModels[0].imageURL}}?time={{pageitems.itemModels[0].modifyTime}}" style="max-height: 139px;" />
             </div>
 
             <div class="main_data">
@@ -37,7 +37,7 @@
             </div>
 
             <div class="img_header" ng-show="pageitems.itemModels[1] != null">
-                <img ng-src="{{pageitems.itemModels[1].imageURL}}" style="max-height: 139px;" />
+                <img ng-src="{{pageitems.itemModels[1].imageURL}}?time={{pageitems.itemModels[1].modifyTime}}" style="max-height: 139px;" />
             </div>
 
             <div class="main_data" ng-show="pageitems.itemModels[1] != null">

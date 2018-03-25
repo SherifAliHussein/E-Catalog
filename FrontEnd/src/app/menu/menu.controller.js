@@ -54,19 +54,27 @@
                 console.log(results)
                 if ('serviceWorker' in navigator) {
                       navigator.serviceWorker.ready.then(function (reg) {
+                          var now = new Date(Date.now()).toISOString();
                         results.forEach(function(menu) {
-                            navigator.serviceWorker.controller.postMessage(menu.imageURL);
+                           if(OfflineDataResource.getLastUpdate() == null ||  new Date (OfflineDataResource.getLastUpdate()) < new Date ( menu.modifyTime+"z")){
+                               navigator.serviceWorker.controller.postMessage(menu.imageURL+"?time="+menu.modifyTime);
+                            }
                             menu.categoryModels.forEach(function(category) {
-                                navigator.serviceWorker.controller.postMessage(category.imageURL);
+                                if(OfflineDataResource.getLastUpdate() == null ||  new Date (OfflineDataResource.getLastUpdate()) <  new Date (category.modifyTime+"z") ){
+                                    navigator.serviceWorker.controller.postMessage(category.imageURL+"?time="+category.modifyTime);
+                                }
                                 category.categoryPageTemplateModel.templates.forEach(function(template) {
                                     template.itemModels.forEach(function(item) {
-                                        navigator.serviceWorker.controller.postMessage(item.imageURL);
-                                        navigator.serviceWorker.controller.postMessage(item.imageURL+"?type=orignal2");
+                                        if(OfflineDataResource.getLastUpdate() == null ||  new Date (OfflineDataResource.getLastUpdate()) < new Date (item.modifyTime+"z")){
+                                            navigator.serviceWorker.controller.postMessage(item.imageURL+"?time="+item.modifyTime);
+                                            navigator.serviceWorker.controller.postMessage(item.imageURL+"?type=orignal2&time="+item.modifyTime);
+                                        }
                                     }, this);
                                 }, this);
                             }, this);
                           }, this);
                         
+                OfflineDataResource.setLastUpdate(now);
                     
                       })
                     }
@@ -74,7 +82,7 @@
                 
             },
             function (data, status) {
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                //ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
             });
             MenuOfflineResource.getAllMenus({lang:'ar'}).$promise.then(function (results) {
               
@@ -82,10 +90,17 @@
                 
             },
             function (data, status) {
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+               // ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
             });
 
         }
+        if(navigator.onLine){
+            $scope.now = new Date(Date.now()).toISOString()
+        }
+        else{
+            $scope.now = OfflineDataResource.getLastUpdate();
+        }
+        
     }
 
 

@@ -65,6 +65,9 @@ namespace ECatalog.API.App_Start
             mapperConfiguration.CreateMap<BranchModel, BranchDto>();
             mapperConfiguration.CreateMap<BranchDto, BranchModel>();
 
+            mapperConfiguration.CreateMap<FeedBackModel, FeedBackDto>();
+            mapperConfiguration.CreateMap<FeedBackDto, FeedBackModel>();
+
             mapperConfiguration.CreateMap<GlobalAdminModel, GlobalAdminDto>();
             
             mapperConfiguration.CreateMap<MaxAndConsUserDTO, MaxAndConsUserModel>();

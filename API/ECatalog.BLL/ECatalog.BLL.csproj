@@ -78,12 +78,14 @@
     <Compile Include="DataServices\FakeServices\fakeSizeService.cs" />
     <Compile Include="DataServices\FakeServices\fakeSizeTranslation.cs" />
     <Compile Include="DataServices\FakeServices\fakeUserService.cs" />
+    <Compile Include="DataServices\FeedBackService.cs" />
     <Compile Include="DataServices\GlobalAdminService.cs" />
     <Compile Include="DataServices\Interfaces\IBackgroundService.cs" />
     <Compile Include="DataServices\Interfaces\IBranchService.cs" />
     <Compile Include="DataServices\Interfaces\IBranchTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IFeedBackService.cs" />
     <Compile Include="DataServices\Interfaces\IGlobalAdminService.cs" />
     <Compile Include="DataServices\Interfaces\IitemService.cs" />
     <Compile Include="DataServices\Interfaces\IItemSideItemService.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="DTOs\CategoryDTO.cs" />
     <Compile Include="DTOs\CategoryNamesDTO.cs" />
     <Compile Include="DTOs\CategoryPageTemplateDTO.cs" />
+    <Compile Include="DTOs\FeedBackDto.cs" />
     <Compile Include="DTOs\GlobalAdminDto.cs" />
     <Compile Include="DTOs\MaxAndConsUserDTO.cs" />
     <Compile Include="DTOs\PageTemplateDTO.cs" />
@@ -156,8 +159,10 @@
     <Compile Include="Services\BaseFacade.cs" />
     <Compile Include="Services\BranchFacade.cs" />
     <Compile Include="Services\CategoryFacade.cs" />
+    <Compile Include="Services\FeedBackFacade.cs" />
     <Compile Include="Services\Interfaces\IBackgroundFacade.cs" />
     <Compile Include="Services\Interfaces\IBranchFacade.cs" />
+    <Compile Include="Services\Interfaces\IFeedBackFacade.cs" />
     <Compile Include="Services\TemplateFacade.cs" />
     <Compile Include="Services\Interfaces\ICategoryFacade.cs" />
     <Compile Include="Services\Interfaces\ITemplateFacade.cs" />

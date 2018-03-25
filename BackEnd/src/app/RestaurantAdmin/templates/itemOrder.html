@@ -130,10 +130,24 @@ h2 {
 
 
             <div class="modal-body">
-                <div class="row">
+                    <table>
+                            <tbody>
+                                <tr ng-repeat="pageTemplate in itemOrderDlCtrl.categoryItems">
+                                    <td style="padding-bottom: 20px"> <img ng-src="{{pageTemplate.imageURL}}" style="height: 200px;"></td>
+                                    <td style="padding-bottom: 20px">
+                                        <div ui-sortable="itemOrderDlCtrl.sortableOptions" class="apps-container screen floatleft" ng-change=" itemOrderDlCtrl.isValid()" ng-model="pageTemplate.itemModels">
+                                                <div class="app" ng-repeat="item in pageTemplate.itemModels" >{{item.itemName}}</div>
+                                        </div>
+                                        <div ng-show="pageTemplate.itemModels.length != pageTemplate.itemCount && !$last">{{'TelmplateErrorCount'|translate}} {{pageTemplate.itemCount}}</div>
+                                        <div ng-show="pageTemplate.itemModels.length<1 && $last">{{'MinimumMsg'|translate}} 1</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                <!-- <div class="row">
                    
-                    <div ng-repeat="pageTemplate in itemOrderDlCtrl.categoryItems">
-                            <div class="col-md-3">
+                    <div ng-repeat="pageTemplate in itemOrderDlCtrl.categoryItems" class="col-md-3"style="min-height: auto">
+                            <div >
                                     <div class="column">
                                             <div class="row-md-2">
                                 <img ng-src="{{pageTemplate.imageURL}}" style="height: 200px;">
@@ -146,7 +160,7 @@ h2 {
                                             </div>
                         </div>
                     </div>
-              </div>
+              </div> -->
               
               <button ng-disabled="itemOrderDlCtrl.isChanged || itemOrderDlCtrl.error " ng-click="itemOrderDlCtrl.Save()" style="margin-top:5px;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'saveChangesBtn' | translate}}</button>
               </div>

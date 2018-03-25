@@ -164,7 +164,15 @@
             "TemplateUpdateSuccessfuly":"Templates updated successfuly.",
             "orderItem":"order items",
             "MinimumMsg":"Minimum",
-            "TelmplateErrorCount":"Template should have"
+            "TelmplateErrorCount":"Template should have",
+            "likelbl":"Like",
+            "dislike":"Dislike",
+            "feedBacksBtn":"feedBacks",
+            "Comment":"Comment",
+            "createdate":"date",
+            "Rate":"Rate",
+            "Guest":"Guest",
+            "NoFeedBacksAvailable":"there is no feedback"
             
         }
         
@@ -336,7 +344,15 @@
             "TemplateUpdateSuccessfuly":".تم تحديث النموذج بنجاح",
             "orderItem":"ترتيب المنتجات",
             "MinimumMsg":"علي الاقل",
-            "TelmplateErrorCount":"النموذج يجب يحتوي علي "
+            "TelmplateErrorCount":"النموذج يجب يحتوي علي ",
+            "likelbl":"Like",
+            "dislike":"لم يعجبنى",
+            "feedBacksBtn":"تقييمات",
+            "Comment":"تعليق",
+            "createdate":"تاريخ",
+            "Rate":"تقيم",
+            "Guest":"زائر",
+            "NoFeedBacksAvailable":"لا يوجد تقييمات"
         }
         
         $translateProvider.translations('en',en_translations);

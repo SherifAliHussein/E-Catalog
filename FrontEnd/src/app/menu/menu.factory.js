@@ -5,6 +5,7 @@
       .factory('MenuOfflineResource', ['$resource', 'appCONSTANTS', MenuOfflineResource])
       .factory('CategoriesResource', ['$resource', 'appCONSTANTS', CategoriesResource])
       .factory('ResturantResource', ['$resource', 'appCONSTANTS', ResturantResource])
+      .factory('FeedBackResource', ['$resource', 'appCONSTANTS', FeedBackResource])
 
     function MenuResource($resource, appCONSTANTS) {
       return $resource(appCONSTANTS.API_URL + 'Menus/:MenuId', {}, {
@@ -29,6 +30,14 @@
         getAllMenus: { method: 'GET', useToken: true, params:{lang:'@lang'},isArray:true } 
       })
     }
+
+    function FeedBackResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'FeedBacks/', {}, {
+        getAllFeedBack: { method: 'GET', useToken: true },
+        createFeedBack: { method: 'POST', useToken: true }
+      })
+  }
+
 
 }());
   

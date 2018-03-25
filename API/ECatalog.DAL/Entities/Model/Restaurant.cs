@@ -19,6 +19,8 @@ namespace ECatalog.DAL.Entities.Model
 
             RestaurantWaiters = new List<RestaurantWaiter>();
             Branches = new List<Branch>();
+
+            FeedBacks = new List<FeedBack>();
         }
         public long RestaurantId { get; set; }
         public bool IsActive { get; set; }
@@ -49,6 +51,9 @@ namespace ECatalog.DAL.Entities.Model
         [ForeignKey("GlobalAdmin")]
         public long GlobalAdminId { get; set; }
         public virtual GlobalAdmin GlobalAdmin { get; set; }
+
+        public virtual ICollection<FeedBack> FeedBacks { get; set; }
+
 
     }
 }

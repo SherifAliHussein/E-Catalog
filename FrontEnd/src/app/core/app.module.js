@@ -14,6 +14,7 @@
       'ngProgressLite',
     'ui.bootstrap',
     'pascalprecht.translate',
-    'checklist-model'
+    'checklist-model',
+    'jkAngularRatingStars'
     ]);
 }());

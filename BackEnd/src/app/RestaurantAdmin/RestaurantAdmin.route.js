@@ -327,6 +327,22 @@
                                 resolve: {     
                                     allMenuPrepService: allMenuPrepService
                                 }
+                            }).state('feedBacks', {
+                                url: '/feedback',
+                                templateUrl: './app/RestaurantAdmin/templates/feedbacks.html',
+                                controller: 'feedBackController',
+                                'controllerAs': 'feedBackCtrl',
+                                data: {
+                                    permissions: {
+                                        only: ['RestaurantAdmin'],
+                                       redirectTo: 'root'
+                                    },
+                                    displayName: 'Menu'
+                                },
+                                resolve: {
+                                    feedBacksPrepService: feedBacksPrepService
+                                }
+                             
                             })
         });
         
@@ -433,5 +449,10 @@
         WaitersLimitPrepService.$inject = ['WaitersLimitResource']
         function WaitersLimitPrepService(WaitersLimitResource) {
             return WaitersLimitResource.getWaitersLimit().$promise;
+        }
+
+        feedBacksPrepService.$inject = ['FeedBackResource']
+        function feedBacksPrepService(FeedBackResource) {
+            return FeedBackResource.getAllFeedBack().$promise;
         }
 }());

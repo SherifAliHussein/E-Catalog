@@ -3,9 +3,9 @@
 
     angular
         .module('home')
-        .controller('ItemController', ['$scope', '$translate', '$stateParams', 'appCONSTANTS', 'categoryItemsTemplatePrepService', 'totalCartService','CartIconService', ItemController])
+        .controller('ItemController', ['$scope', '$translate', '$stateParams', 'appCONSTANTS', 'categoryItemsTemplatePrepService', 'totalCartService','CartIconService','ItemsResource','OfflineDataResource', ItemController])
 
-    function ItemController($scope, $translate, $stateParams, appCONSTANTS, categoryItemsTemplatePrepService,  totalCartService,CartIconService) {
+    function ItemController($scope, $translate, $stateParams, appCONSTANTS, categoryItemsTemplatePrepService,  totalCartService,CartIconService, ItemsResource,OfflineDataResource) {
  
         var vm = this;
         $scope.cartIcon = true;
@@ -19,6 +19,7 @@
         //     console.log(item)
         // vm.itemDetails = categoryItemsTemplatePrepService.templates[0].itemModels[0];
         // } 
+        
        vm.currentItem=0; 
        vm.selectedSize = 10;
         vm.selectedSide = 10; 
@@ -163,6 +164,48 @@ return;
             }
             $scope.selectedCount = $scope.selectedCount-1;  
         };
+
+        vm.likeItem = function(item){
+            item.like++;
+            if(navigator.onLine){
+                ItemsResource.likeItem({itemId:item.itemID});
+            }
+            else{
+                var like = []
+                var oldLike = OfflineDataResource.get("itemLike");
+                if(oldLike != null)
+                {
+                    like = like.concat(oldLike)
+                }
+                like.push(item.itemID)
+                OfflineDataResource.setAllData("itemLike",like);
+                
+            }
+        }
+        vm.dislikeItem = function(item){
+            item.dislike++;
+            if(navigator.onLine){
+                ItemsResource.dislikeItem({itemId:item.itemID});
+            }
+            else{
+                var disLike = []
+                var oldDisLike = OfflineDataResource.get("itemDisLike");
+                if(oldDisLike != null)
+                {
+                    disLike= disLike.concat(oldDisLike)
+                }
+                disLike.push(item.itemID)
+                OfflineDataResource.setAllData("itemDisLike",disLike);
+                
+            }
+
+        }
+        if(navigator.onLine){
+            $scope.now = new Date(Date.now()).toISOString()
+        }
+        else{
+            $scope.now = OfflineDataResource.getLastUpdate();
+        }
     }
 
 }

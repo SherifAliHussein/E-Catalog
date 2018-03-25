@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +27,10 @@ namespace ECatalog.DAL.Entities.Model
         public int  MaxSideItemValue { get; set; }
         public bool IsActive { get; set; }
         public int OrderNumber { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime ModifyTime { get; set; }
+
+        public int Like { get; set; }
+        public int Dislike { get; set; }
     }
 }

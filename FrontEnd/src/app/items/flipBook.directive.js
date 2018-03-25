@@ -36,7 +36,8 @@ angular.module('home').directive('flipbook', function($timeout){
             $timeout(function(){
               iElement.turn({
               
-               pages: 20,
+               pages: 8, acceleration: true, gradients: true,
+              //  pagesInDOM = 20,
                page: 2,
                when: {   
                 turning: function(event, page, pageObj) {

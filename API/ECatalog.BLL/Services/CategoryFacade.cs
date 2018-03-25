@@ -61,6 +61,7 @@ namespace ECatalog.BLL.Services
                     Language = categoryName.Key
                 });
             }
+            category.ModifyTime = DateTime.Now;
             _categoryTranslationService.InsertRange(category.CategoryTranslations);
             _categoryService.Insert(category);
             SaveChanges();
@@ -205,6 +206,8 @@ namespace ECatalog.BLL.Services
                     categoryTranslation.CategoryName = categoryName.Value;
                 }
             }
+            if(categoryDto.IsImageChange)
+                category.ModifyTime = DateTime.Now;
             _categoryService.Update(category);
             SaveChanges();
             if (categoryDto.IsImageChange)

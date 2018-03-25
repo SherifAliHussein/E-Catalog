@@ -30,7 +30,7 @@
 <flipbook itempagectrl="itemCtrl.catgoryTemplates.templates" itemdetails="itemCtrl.itemDetails"></flipbook>
 <div id="inline2" class="main_lity lity-hide">
     <div class="col-sm-6 col-xs-6 col-md-6 header_pop">
-        <img src="{{itemCtrl.itemDetails.imageURL}}" alt="" style="max-height: 139px;"/>
+        <img src="{{itemCtrl.itemDetails.imageURL}}?time={{itemCtrl.itemDetails.modifyTime}}" alt="" style="max-height: 139px;"/>
         <div class="menu_plus">
             
               
@@ -49,6 +49,13 @@
           </div>
           <div class="col-sm-6 col-xs-6 col-md-6 "> 
             <h3>{{itemCtrl.itemDetails.itemName}}</h3>
+            <div style="color: #a9a9a9;">
+                <img src="assets/img/like.svg" style="height: 22px;cursor: pointer;" ng-click="itemCtrl.likeItem(itemCtrl.itemDetails)"> ({{itemCtrl.itemDetails.like}})
+                <img src="assets/img/dislike.svg" style="height: 22px;cursor: pointer;" ng-click="itemCtrl.dislikeItem(itemCtrl.itemDetails)">({{itemCtrl.itemDetails.dislike}})
+                <!-- <jk-rating-stars rating="2"read-only="true"  class="my-custom-stars main_arrow"
+                ></jk-rating-stars>
+                <i style="color: #ee9a00; cursor: pointer;" class="material-icons">rate_review</i> -->
+            </div>
             <p>{{itemCtrl.itemDetails.itemDescription}}</p>
        
                 <!--<div class="menu_plus" style="    margin-top: 41px;">

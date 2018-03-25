@@ -134,6 +134,10 @@ namespace ECatalog.BLL
 
             mapperConfiguration.CreateMap<GlobalAdminDto, GlobalAdmin>();
 
+            mapperConfiguration.CreateMap<FeedBackDto, FeedBack>();
+            mapperConfiguration.CreateMap<FeedBack, FeedBackDto>();
+
+
             Mapper.Initialize(mapperConfiguration);
             //Mapper.Initialize(m =>
             //{
@@ -172,7 +176,8 @@ namespace ECatalog.BLL
                 .RegisterType<IBranchService, BranchService>(new PerResolveLifetimeManager())
                 .RegisterType<IBranchTranslationService, BranchTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IGlobalAdminService, GlobalAdminService>(new PerResolveLifetimeManager())
-                .RegisterType<IPackageService, PackageService>(new PerResolveLifetimeManager());
+                .RegisterType<IPackageService, PackageService>(new PerResolveLifetimeManager())
+                .RegisterType<IFeedBackService, FeedBackService>(new PerResolveLifetimeManager());
         }
     }
 

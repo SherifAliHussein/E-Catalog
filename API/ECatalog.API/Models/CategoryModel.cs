@@ -18,6 +18,7 @@ namespace ECatalog.API.Models
         public bool IsImageChange { get; set; }
 
         public CategoryPageTemplateModel CategoryPageTemplateModel { get; set; }
-        
+        public DateTime ModifyTime { get; set; }
+
     }
 }

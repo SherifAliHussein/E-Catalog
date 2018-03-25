@@ -17,5 +17,7 @@ namespace ECatalog.API.Models
         public long RestaurantId { get; set; }
 
         public List<CategoryModel> CategoryModels { get; set; }
+        public DateTime ModifyTime { get; set; }
+
     }
 }

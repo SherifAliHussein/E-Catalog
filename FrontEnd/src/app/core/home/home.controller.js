@@ -3,14 +3,14 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope', '$translate', '$scope', 'HomeResource', 'ResturantResource', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', 'CartIconService', 'totalCartService','$location', '$window', homeCtrl])
+        .controller('homeCtrl', ['$rootScope', '$translate', '$scope', 'HomeResource', 'ResturantResource', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', 'userRolesEnum', 'ToastService', 'CartIconService', 'totalCartService','$location', '$window', 'FeedBackResource','$filter','OfflineDataResource','ItemsResource','$timeout', homeCtrl])
 
 
-    function homeCtrl($rootScope, $translate, $scope, HomeResource, ResturantResource, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService,CartIconService,  totalCartService,$location,$window) {
+    function homeCtrl($rootScope, $translate, $scope, HomeResource, ResturantResource, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, userRolesEnum, ToastService,CartIconService,  totalCartService,$location,$window, FeedBackResource,$filter,OfflineDataResource,ItemsResource,$timeout) {
         // Event listener for state change.
-        if ($location.protocol() !== 'https') {
-            $window.location.href = $location.absUrl().replace('http', 'https');
-        }
+        // if ($location.protocol() !== 'https') {
+        //     $window.location.href = $location.absUrl().replace('http', 'https');
+        // }
 
         var vm = this;
         vm.total = 0;
@@ -234,10 +234,169 @@
         $scope.changeLanguage = function (language) {
             $scope.selectedLanguage = language;
             $localStorage.language = $scope.selectedLanguage;
-            $state.reload();
             $translate.use(language);
+            $state.reload();
+            // $route.reload();
         }
         
+        $scope.rate = 0;
+        $scope.createBy = "";
+        $scope.comment = "";
+        $scope.feedbacks= [] ;
+        $scope.page = 1;
+        $scope.getAllComments = function(){
+            $scope.rate = 0;
+            $scope.createBy = "";
+            $scope.comment = "";
+            $scope.page = 1;
+            if(navigator.onLine){                
+            ResturantResource.getResturantGlobalInfo().$promise.then(function (results) {
+                $scope.globalInfo = results
+            });
+
+           
+            FeedBackResource.getAllFeedBack({pagesize:4}).$promise.then(function (results) {
+                $scope.feedbacks = results;
+                
+                $scope.feedbacks.results.forEach(function(element) {
+                    element.createTime = element.createTime+"z"
+                    element.createTime = $filter('date')(new Date(element.createTime), "dd/MM/yyyy hh:mm a");
+                    
+                }, this);
+            },
+            function (data, status) {
+
+             });
+            }
+            else{
+                var allFeedBack = OfflineDataResource.get("feedbacks");
+                $scope.feedbacks.results = allFeedBack.slice(0, 4);
+                $scope.feedbacks.nextPageURL = 4;
+                var allRates = $filter('filter')(allFeedBack, { rate: '!0' });
+                var rate = 0;
+                allRates.forEach(function(element) {
+                    if(element != null){
+                        rate += element.rate;
+                    }
+                }, this);
+                $scope.globalInfo.rate = rate/allRates.length;
+            }
+                
+        }
+        $scope.getMoreComments = function(){
+            $scope.page ++;
+            if(navigator.onLine){
+                FeedBackResource.getAllFeedBack({page:$scope.page,pagesize:4}).$promise.then(function (results) {
+                    
+                    results.results.forEach(function(element) {
+                        element.createTime = element.createTime+"z"
+                        element.createTime = $filter('date')(new Date(element.createTime), "dd/MM/yyyy hh:mm a");
+                        
+                    }, this);
+                    $scope.feedbacks.results = $scope.feedbacks.results.concat(results.results);
+                    $scope.feedbacks.nextPageURL = results.nextPageURL;
+                },
+                function (data, status) {
+                    // $scope.feedbacks.results = $scope.feedbacks.results.concat(results.results);
+                    // $scope.feedbacks.nextPageURL = results.nextPageURL;
+                 });
+            }
+            else{
+                var allFeedBack = OfflineDataResource.get("feedbacks");
+                $scope.feedbacks.results = $scope.feedbacks.results.concat(allFeedBack.slice($scope.feedbacks.nextPageURL, $scope.feedbacks.nextPageURL+4));
+                $scope.feedbacks.nextPageURL = $scope.feedbacks.nextPageURL+4;
+                if($scope.feedbacks.nextPageURL >= allFeedBack.length)
+                $scope.feedbacks.nextPageURL = null;
+            }
+                
+        }   
+        // $window.addEventListener("offline", function() {
+        //     $state.reload();
+        // }, false);
+        
+        $window.addEventListener("online", function() {
+      //  $scope.$watch(function () { return navigator.onLine }, function (newValue) {
+        $timeout(function(){
+            
+            if (navigator.onLine) {
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.ready.then(function (reg) {
+                        FeedBackResource.getAllFeedBack({pagesize:0}).$promise.then(function (results) {
+                            results.results.forEach(function(element) {
+                                element.createTime = element.createTime+"z"
+                                element.createTime = $filter('date')(new Date(element.createTime), "dd/MM/yyyy hh:mm a");
+                                
+                            }, this);
+                            OfflineDataResource.setAllData("feedbacks",results.results);
+                        },
+                        function (data, status) {
+    
+                        });
+                    })
+                }
+                var allFeedBack = OfflineDataResource.get("newFeedbacks");
+                if(allFeedBack!= null && allFeedBack.length>0){
+                    allFeedBack.forEach(function(element) {
+                        if(element != null){
+                            var newComment = new FeedBackResource();
+                            newComment.rate = element.rate;
+                            newComment.createBy = element.createBy;
+                            newComment.comment = element.comment;
+                            newComment.createTime = element.createTime;
+                            newComment.$createFeedBack();
+                        }
+                    }, this);
+                    OfflineDataResource.setAllData("newFeedbacks",null);
+                }
+
+                var likeItem = OfflineDataResource.get("itemLike");
+                if(likeItem!= null && likeItem.length>0){
+                    likeItem.forEach(function(element) {
+                        if(element != null){
+                            ItemsResource.likeItem({itemId:element});
+                        }
+                    }, this);
+                    OfflineDataResource.setAllData("itemLike",null);
+                }
+
+                var disLikeItem = OfflineDataResource.get("itemDisLike");
+                if(disLikeItem!= null && disLikeItem.length>0){
+                    disLikeItem.forEach(function(element) {
+                        if(element != null){
+                            ItemsResource.dislikeItem({itemId:element});
+                        }
+                    }, this);
+                    OfflineDataResource.setAllData("itemDisLike",null);
+                }
+            }
+        },3000);
+        
+        }, false);
+        
+        $scope.applyComment = function(rate,createBy,comment)
+        {
+            if(navigator.onLine){
+                var newComment = new FeedBackResource();
+                newComment.rate = rate;
+                newComment.createBy = createBy;
+                newComment.comment = comment;
+                newComment.createTime = (new Date()).toISOString();
+                newComment.$createFeedBack();
+            }
+            else{
+                var newFeedBack = [];
+                newFeedBack.push({rate:rate,createBy:createBy,comment:comment,createTime: $filter('date')(new Date(), "dd/MM/yyyy hh:mm a")})
+                var allFeedBack = newFeedBack.concat(OfflineDataResource.get("feedbacks"));
+                OfflineDataResource.setAllData("feedbacks",allFeedBack);
+                
+                var feedBackCopy = angular.copy(newFeedBack)
+                feedBackCopy[0].createTime = (new Date()).toISOString();
+                feedBackCopy = feedBackCopy.concat(OfflineDataResource.get("newFeedbacks"));
+                OfflineDataResource.setAllData("newFeedbacks",feedBackCopy);
+                
+            }
+            
+        }
     }
 }
 

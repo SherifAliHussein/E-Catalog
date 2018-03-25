@@ -28,5 +28,8 @@ namespace ECatalog.BLL.DTOs
         public bool IsImage3Change { get; set; }
         public int MaxSideItemValue { get; set; }
         public bool IsActive { get; set; }
+        public DateTime ModifyTime { get; set; }
+        public int Like { get; set; }
+        public int Dislike { get; set; }
     }
 }

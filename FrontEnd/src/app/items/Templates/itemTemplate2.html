@@ -2,7 +2,7 @@
 , page1:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
             <div class="main_data" ng-repeat="item in pageitems.itemModels">
                 <div class="col-sm-4 col-xs-4 col-md-4">
-                    <img ng-src="{{item.imageURL}}?type=orignal2" alt="" style="max-height: 69px;" />
+                    <img ng-src="{{item.imageURL}}?type=orignal2&time={{item.modifyTime}}" alt="" style="max-height: 69px;" />
 
                 </div> <div class="col-sm-8 col-xs-8 col-md-8">
                   

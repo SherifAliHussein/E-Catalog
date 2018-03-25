@@ -17,5 +17,6 @@ namespace ECatalog.BLL.DTOs
         public bool IsActive { get; set; }
         public MemoryStream Image { get; set; }
         public bool IsImageChange { get; set; }
+        public DateTime ModifyTime { get; set; }
     }
 }

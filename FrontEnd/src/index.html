@@ -9,7 +9,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <!-- <link rel="stylesheet" href="{{selectedLanguage == 'ar'? 'bundle-ar.css?v=#{VERSION_REPlACE}#': 'bundle-en.css?v=#{VERSION_REPlACE}#'}}" />  -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     
     <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=#{VERSION_REPlACE}#" /> 
@@ -23,7 +24,20 @@
         font-size: 15px;
         float: right;
     }
-    </style>
+    
+    .my-custom-stars .button .material-icons {
+  font-size: 15px; 
+}
+.my-custom-stars .button .material-icons a:focus, a:hover{
+    text-decoration: none;
+}
+.hideMinus a:first-child{
+    display: none;
+}
+.isloaded{
+  display: none;
+}
+</style>
 </head> 
 <body style="background-image:url({{isLoggedIn()? globalInfo.backgroundUrl:'../assets/img/bg.jpg'}})">
     <!-- <body style="background-image:url({{globalInfo.backgroundUrl}})"> -->
@@ -48,15 +62,59 @@
                     <a ng-if="selectedLanguage == 'en'" href="javascript:void(0)" ng-click="changeLanguage('ar')" ng-show="globalInfo.logoUrl !=null">
                             <p class="lang">AR</p>
                         </a>
-
+                        <a ng-show="globalInfo.logoUrl !=null" href="javascript:void(0);" ng-click="getAllComments()"  data-lity-target="#comments" data-lity>
+                            <!-- <i class="material-icons" style="font-size: 30px;margin-top: 5px;cursor: pointer;">feedback</i> -->
+                            <p class="logout">{{'feedbackbtn' | translate}}</p>
+                        </a>
                         <a   href="javascript:void(0)" ng-click="logout()" ng-show="globalInfo.logoUrl !=null">
                             <p class="logout">{{'Logout' | translate}}</p>
                         </a>
+                        
+
                     </div>
     </div>
        
 	<div ui-view layout="column" ></div>
-	
+    <div id="comments" class="main_lity lity-hide isloaded" >
+        <div style="    text-align: center;">
+                <jk-rating-stars rating="globalInfo.rate"  read-only="true" ></jk-rating-stars>
+        </div>
+            <div>
+                <jk-rating-stars rating="rate"  class="my-custom-stars hideMinus"></jk-rating-stars>
+                <!-- <div> -->
+                    <div> <input type="text" ng-model="createBy" placeholder="{{'Name' |translate}}" style="border-radius: 25px;padding: 5px;"> </div>
+                    <div>
+                    <textarea rows="4" style="resize: none;padding: 5px;     width: 100%;
+                    margin-bottom: 5px;
+                    margin-top: 5px;
+                    border-radius: 25px;" ng-max="200" ng-model="comment" placeholder="{{'yourComment' |translate}}"></textarea>
+                    
+                    <div >
+                        <span class="col-md-11">
+                            <button style="border-radius: 10px;" ng-click="applyComment(rate,createBy,comment)" 
+                            data-lity-close ng-disabled="(comment == '' || comment.length>200) && rate <=0"> {{'SumbitReviewBtn'|translate}}</button>
+                        </span>
+                       <div >  {{200- comment.length}}</div>
+                    </div>
+                </div>
+                <hr style="margin-top: 20px !important">
+            </div>
+            <div style="overflow: auto;max-height: 300px;">
+                <div ng-repeat="feedback in feedbacks.results">
+                    <span ng-if=" feedback.createBy ==''">{{'Guest' | translate}}</span>
+                    <span>{{feedback.createBy}}</span>
+                    <div style="direction: ltr;">{{feedback.createTime}}</div>
+                    <jk-rating-stars ng-if="feedback.rate>0" rating="feedback.rate"read-only="true"  class="my-custom-stars"></jk-rating-stars>
+                    <span>{{feedback.comment}}</span>
+                    <hr>
+                </div>
+                <div style="text-align: center" ng-if="feedbacks.nextPageURL != null">
+                    <a href="javascript:void(0)" ng-click="getMoreComments()" style="cursor: pointer;">{{'morereviewsbtn' | translate}}</a>
+                </div>
+            </div>
+            
+        </div>
+    
     <!-- scripts area -->
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
@@ -69,8 +127,11 @@
     <script ng-src="turn.min-ar.js" ng-if="selectedLanguage == 'ar'"></script>
  
     <script>
+        $(document).ready(function(){
+            $('.isloaded').removeClass("isloaded")	
+        });
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('serviceWorker.js').then(function(registration) {
+            navigator.serviceWorker.register('serviceWorker.js?v=#{VERSION_REPlACE}#').then(function(registration) {
                 console.log('Service Worker registered');
             }).catch(function(err) {
                 console.log('Service Worker registration failed: ', err);

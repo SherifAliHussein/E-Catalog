@@ -24,5 +24,8 @@ namespace ECatalog.DAL.Entities.Model
         public virtual ICollection<Category> Categories { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        [Column(TypeName = "datetime2")]
+        public DateTime ModifyTime { get; set; }
     }
 }

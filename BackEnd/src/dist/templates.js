@@ -558,6 +558,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <th >{{\'size\' | translate}}</th>\n' +
     '                        <!-- <th >{{\'sideItem\' | translate}}</th> -->\n' +
     '                        <!-- <th >{{\'MaxValueLbl\' | translate}}</th> -->\n' +
+    '                        <th >{{\'Review\' | translate}}</th>\n' +
     '                        <th >{{\'status\' | translate}}</th>\n' +
     '                        <th ></th>\n' +
     '                    </tr>\n' +
@@ -591,6 +592,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            </div>\n' +
     '                        </td>          -->\n' +
     '                        <!-- <td data-title="Description"  width="5%">{{item.maxSideItemValue}}</td>                                        -->\n' +
+    '                        <td  >{{item.like}} {{\'likelbl\' |translate}} / {{item.dislike}} {{\'dislike\'|translate}}</td>\n' +
     '                        <td>\n' +
     '                            <a ng-show="!item.isActive" ng-click="itemCtrl.Activate(item)" class="cursorPointer">{{\'ActivateBtn\' | translate}}</a>\n' +
     '                            <a ng-show="item.isActive" ng-click="itemCtrl.Deactivate(item)" class="cursorPointer">{{\'DeActivateBtn\' | translate}}</a>\n' +
@@ -1398,6 +1400,46 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/RestaurantAdmin/templates/feedbacks.html',
+    '<div >\n' +
+    '    \n' +
+    '    <div ng-if="feedBackCtrl.feedBacks.results.length == 0">\n' +
+    '            <span>{{\'NoFeedBacksAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="feedBackCtrl.feedBacks.results.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th >{{\'Name\' | translate}}</th>\n' +
+    '                        <th >{{\'Comment\' | translate}}</th>\n' +
+    '                        <th >{{\'createdate\' | translate}}</th>\n' +
+    '                        <th >{{\'Rate\' | translate}}</th>\n' +
+    '                        <th ></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="feedback in feedBackCtrl.feedBacks.results">\n' +
+    '                        <td data-title="Name"  ><span ng-if=" feedback.createBy ==\'\'">{{\'Guest\' | translate}}</span>{{feedback.createBy}}</td>\n' +
+    '                        <td data-title="Image" ><span ng-if=" feedback.comment ==\'\'">-</span>{{feedback.comment}}</td>\n' +
+    '                        <td data-title="Description">{{feedback.createTime}}</td>                        \n' +
+    '                        <td data-title="Description"><span ng-if=" feedback.rate == 0">-</span><span ng-if=" feedback.rate >0">{{feedback.rate}} / 5</span></td>                        \n' +
+    '                        \n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '        <div style="text-align:center;" paging page="1" page-size="10" total="feedBackCtrl.feedBacks.totalCount" paging-action="feedBackCtrl.changePage( page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '           </div>\n' +
+    '    </div> \n' +
+    '\n' +
+    '\n' +
+    '</div>					\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/RestaurantAdmin/templates/itemOrder.html',
     '<style>\n' +
     '    .list {\n' +
@@ -1531,10 +1573,24 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '            <div class="modal-body">\n' +
-    '                <div class="row">\n' +
+    '                    <table>\n' +
+    '                            <tbody>\n' +
+    '                                <tr ng-repeat="pageTemplate in itemOrderDlCtrl.categoryItems">\n' +
+    '                                    <td style="padding-bottom: 20px"> <img ng-src="{{pageTemplate.imageURL}}" style="height: 200px;"></td>\n' +
+    '                                    <td style="padding-bottom: 20px">\n' +
+    '                                        <div ui-sortable="itemOrderDlCtrl.sortableOptions" class="apps-container screen floatleft" ng-change=" itemOrderDlCtrl.isValid()" ng-model="pageTemplate.itemModels">\n' +
+    '                                                <div class="app" ng-repeat="item in pageTemplate.itemModels" >{{item.itemName}}</div>\n' +
+    '                                        </div>\n' +
+    '                                        <div ng-show="pageTemplate.itemModels.length != pageTemplate.itemCount && !$last">{{\'TelmplateErrorCount\'|translate}} {{pageTemplate.itemCount}}</div>\n' +
+    '                                        <div ng-show="pageTemplate.itemModels.length<1 && $last">{{\'MinimumMsg\'|translate}} 1</div>\n' +
+    '                                    </td>\n' +
+    '                                </tr>\n' +
+    '                            </tbody>\n' +
+    '                        </table>\n' +
+    '                <!-- <div class="row">\n' +
     '                   \n' +
-    '                    <div ng-repeat="pageTemplate in itemOrderDlCtrl.categoryItems">\n' +
-    '                            <div class="col-md-3">\n' +
+    '                    <div ng-repeat="pageTemplate in itemOrderDlCtrl.categoryItems" class="col-md-3"style="min-height: auto">\n' +
+    '                            <div >\n' +
     '                                    <div class="column">\n' +
     '                                            <div class="row-md-2">\n' +
     '                                <img ng-src="{{pageTemplate.imageURL}}" style="height: 200px;">\n' +
@@ -1547,7 +1603,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                            </div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
-    '              </div>\n' +
+    '              </div> -->\n' +
     '              \n' +
     '              <button ng-disabled="itemOrderDlCtrl.isChanged || itemOrderDlCtrl.error " ng-click="itemOrderDlCtrl.Save()" style="margin-top:5px;" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '              </div>\n' +

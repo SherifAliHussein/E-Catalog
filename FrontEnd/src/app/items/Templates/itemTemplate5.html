@@ -1,6 +1,6 @@
 <div ng-class="{page2:(lang == 'en' && (pageitems.pageNumber % 2) === 0) || (lang == 'ar' && (pageitems.pageNumber % 2) !== 0)
 , page1:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
-<div class="cover"><img ng-src="{{pageitems.itemModels[0].imageURL}}?type=orignal2"alt="" />
+<div class="cover"><img ng-src="{{pageitems.itemModels[0].imageURL}}?type=orignal2&time={{pageitems.itemModels[0].modifyTime}}"alt="" />
 
 <h3>{{pageitems.itemModels[0].itemName}}</h3>
 </div>

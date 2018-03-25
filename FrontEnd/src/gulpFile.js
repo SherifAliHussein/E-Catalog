@@ -76,6 +76,7 @@ var runSequence = require('run-sequence').use(gulp);
      './node_modules/angular-translate/dist/angular-translate.min.js',
      './node_modules/angular-ui-event/dist/event.min.js',
      './node_modules/select2/dist/js/select2.full.min.js', 
+     './node_modules/angular-jk-rating-stars/dist/jk-rating-stars.min.js', 
      './assets/js/*.js',
   
   ],
@@ -101,6 +102,7 @@ var runSequence = require('run-sequence').use(gulp);
     './assets/css/bootstrap.min.css', 
     './assets/css/lity.css', 
     './assets/css/style.css', 
+    './node_modules/angular-jk-rating-stars/dist/jk-rating-stars.min.css', 
     
   ],
   
@@ -116,6 +118,7 @@ var runSequence = require('run-sequence').use(gulp);
     './assets/css/bootstrap.min.css', 
     './assets/css/lity-ar.css', 
     './assets/css/style-ar.css', 
+    './node_modules/angular-jk-rating-stars/dist/jk-rating-stars.min.css', 
     
   ],
   templates: [

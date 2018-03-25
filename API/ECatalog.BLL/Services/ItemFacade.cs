@@ -112,6 +112,7 @@ namespace ECatalog.BLL.Services
                 });
             }
             item.OrderNumber = 100000;
+            item.ModifyTime = DateTime.Now;
             //  item.OrderNumber = category.Items.Select(x => x.OrderNumber).Max();
             //item.CategoryId = categoryId;
             _itemSideItemService.InsertRange(item.ItemSideItems);
@@ -230,6 +231,23 @@ namespace ECatalog.BLL.Services
             }
             SaveChanges();
         }
+        public void LikeItem(long itemId)
+        {
+            var item = _itemService.Find(itemId);
+            if (item == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
+            item.Like = item.Like + 1;
+            _itemService.Update(item);
+            SaveChanges();
+        }
+
+        public void DislikeItem(long itemId)
+        {
+            var item = _itemService.Find(itemId);
+            if (item == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
+            item.Dislike = item.Dislike + 1;
+            _itemService.Update(item);
+            SaveChanges();
+        }
 
         public void DeleteItem(long itemId)
         {
@@ -334,6 +352,8 @@ namespace ECatalog.BLL.Services
                 _itemSideItemService.Delete(itemSideItem.ItemSideItemId);
             }
             item.MaxSideItemValue = itemDto.MaxSideItemValue;
+            if(itemDto.IsImageChange || itemDto.IsImage2Change || itemDto.IsImage3Change)
+                item.ModifyTime = DateTime.Now;
             //item.Price = itemDto.Price;
             _itemService.Update(item);
             SaveChanges();

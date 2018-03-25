@@ -41,6 +41,7 @@ namespace ECatalog.DAL.Entities
         public DbSet<Branch> Branches { get; set; }
         public DbSet<BranchTranslation> BranchTranslations { get; set; }
         public DbSet<Package> Packages { get; set; }
+        public DbSet<FeedBack> FeedBacks { get; set; }
 
 
         public ECatalogContext() : base("name=ECatalogDB")

@@ -1,7 +1,7 @@
 <div ng-class="{page2:(lang == 'en' && (pageitems.pageNumber % 2) === 0) || (lang == 'ar' && (pageitems.pageNumber % 2) !== 0)
     , page1:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
     <div class="img_header">
-        <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: 139px" />
+        <img ng-src="{{pageitems.itemModels[0].imageURL}}?time={{pageitems.itemModels[0].modifyTime}}" style="max-height: 139px" />
         <!-- <img src="assets/img/img1.jpg" /> -->
 
     </div>
@@ -66,12 +66,12 @@
         </div>
 
         <div class="col-sm-4 col-xs-4 col-md-4">
-            <img ng-src="{{pageitems.itemModels[1].imageURL}}?type=orignal2" style="max-height: 69px;" alt="" />
+            <img ng-src="{{pageitems.itemModels[1].imageURL}}?type=orignal2&time={{pageitems.itemModels[1].modifyTime}}" style="max-height: 69px;" alt="" />
         </div>
     </div>
     <div class="main_data" ng-show="pageitems.itemModels[2] != null">
         <div class="col-sm-4 col-xs-4 col-md-4">
-            <img ng-src="{{pageitems.itemModels[2].imageURL}}?type=orignal2" style="max-height: 69px;" alt="" />
+            <img ng-src="{{pageitems.itemModels[2].imageURL}}?type=orignal2&time={{pageitems.itemModels[2].modifyTime}}" style="max-height: 69px;" alt="" />
         </div>
         <div class="col-sm-8 col-xs-8 col-md-8">
             <h3>

@@ -2,7 +2,7 @@
 , page1:(lang == 'en' && (pageitems.pageNumber % 2) !== 0) || (lang == 'ar' && (pageitems.pageNumber % 2) === 0)}">
 
     <div class="img_header">
-        <img ng-src="{{pageitems.itemModels[0].imageURL}}" style="max-height: 139px" />
+        <img ng-src="{{pageitems.itemModels[0].imageURL}}?time={{pageitems.itemModels[0].modifyTime}}" style="max-height: 139px" />
         <div class="image_content">
             <h3>{{pageitems.itemModels[0].itemName}}</h3>
         </div>
@@ -12,7 +12,7 @@
 
         <div class="new_image">
             <div class="col-sm-6 col-xs-6 col-md-6 no_left">
-                <img ng-src="{{pageitems.itemModels[1].imageURL}}?type=orignal2" alt="" />
+                <img ng-src="{{pageitems.itemModels[1].imageURL}}?type=orignal2&time={{pageitems.itemModels[1].modifyTime}}" alt="" />
                 <div class="image_content2">
                     <h3>{{pageitems.itemModels[1].itemName}}</h3>
 
@@ -20,7 +20,7 @@
             </div>
             <div class="col-sm-6 col-xs-6 col-md-6 no_right">
 
-                <img ng-src="{{pageitems.itemModels[2].imageURL}}?type=orignal2" alt="" />
+                <img ng-src="{{pageitems.itemModels[2].imageURL}}?type=orignal2&time={{pageitems.itemModels[2].modifyTime}}" alt="" />
                 <div class="image_content2">
                     <h3>{{pageitems.itemModels[2].itemName}}</h3>
 
@@ -42,9 +42,9 @@
 
                     <a href="javascript:void(0);" ng-click="viewItemDetail(item)" data-lity-target="#inline2" data-lity><img src="assets/img/view.png" alt=""/></a>
                     <!-- <a href="#"><img src="assets/img/plus.png" alt=""/></a> -->
-                    <a style="cursor: pointer;" ng-click="addItemToCart(pageitems.itemModels[0])">
-                        <!-- <img src="assets/img/plus.png" alt=""/> -->
-                    </a>
+                    <!-- <a style="cursor: pointer;" ng-click="addItemToCart(pageitems.itemModels[0])">
+                        <!-- <img src="assets/img/plus.png" alt=""/> --
+                    </a> -->
                 </div>
             </div>
             

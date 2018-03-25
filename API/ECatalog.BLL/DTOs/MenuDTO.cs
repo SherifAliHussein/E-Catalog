@@ -16,6 +16,6 @@ namespace ECatalog.BLL.DTOs
         public MemoryStream Image { get; set; }
         public bool IsImageChange { get; set; }
         public long RestaurantId { get; set; }
-
+        public DateTime ModifyTime { get; set; }
     }
 }

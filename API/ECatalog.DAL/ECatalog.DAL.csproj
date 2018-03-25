@@ -73,6 +73,7 @@
     <Compile Include="Entities\Model\BranchTranslation.cs" />
     <Compile Include="Entities\Model\Category.cs" />
     <Compile Include="Entities\Model\CategoryTranslation.cs" />
+    <Compile Include="Entities\Model\FeedBack.cs" />
     <Compile Include="Entities\Model\GlobalAdmin.cs" />
     <Compile Include="Entities\Model\Item.cs" />
     <Compile Include="Entities\Model\ItemSideItem.cs" />

@@ -61,7 +61,8 @@ namespace ECatalog.API
                 .RegisterType<ISideItemFacade, SideItemFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IBackgroundFacade, BackgroundFacade>(new PerResolveLifetimeManager())
                 .RegisterType<ITemplateFacade, TemplateFacade>(new PerResolveLifetimeManager())
-                .RegisterType<IBranchFacade, BranchFacade>(new PerResolveLifetimeManager());
+                .RegisterType<IBranchFacade, BranchFacade>(new PerResolveLifetimeManager())
+                .RegisterType<IFeedBackFacade, FeedBackFacade>(new PerResolveLifetimeManager());
 
 
             ECatalogBLLConfig.RegisterTypes(container);

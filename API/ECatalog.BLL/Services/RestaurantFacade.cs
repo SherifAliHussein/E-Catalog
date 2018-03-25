@@ -431,7 +431,8 @@ namespace ECatalog.BLL.Services
             {
                 ResturentId = restaurant.RestaurantId,
                 BackgroundId = restaurant.BackgroundId,
-                RestaurantName = restaurant.RestaurantTranslations.FirstOrDefault(x=>x.Language.ToLower() == language.ToLower()).RestaurantName
+                RestaurantName = restaurant.RestaurantTranslations.FirstOrDefault(x=>x.Language.ToLower() == language.ToLower()).RestaurantName,
+                Rate = restaurant.FeedBacks.Where(x => x.Rate > 0).Select(x => x.Rate).Any()?(int)restaurant.FeedBacks.Where(x=>x.Rate >0).Select(x=>x.Rate).Average():0
             };
             return restaurantdto;
         }

@@ -1,16 +1,16 @@
-const cacheName = 'E-Catalog-v1.3.3';
+const cacheName = 'E-Catalog-v1.5';
 const RUNTIME = 'runtime';
 
 // A list of local resources we always want to be cached.
 const files = [
   // 'index.html',
   // './', // Alias for index.html
-  'bundle-en.css',
-  'bundle-ar.css',
-  'app.js',
-  'core.js',
-  'libs.js',
-  'templates.js',
+  'bundle-en.css'+self.location.search,
+  'bundle-ar.css'+self.location.search,
+  'app.js'+self.location.search,
+  'core.js'+self.location.search,
+  'libs.js'+self.location.search,
+  'templates.js'+self.location.search,
   'turn.min-en.js',
   'turn.min-ar.js',
   'assets/img/back.png',
@@ -20,7 +20,9 @@ const files = [
   'assets/img/page1.png',
   'assets/img/page2.png',
   'assets/img/plus.png',
-  'assets/img/view.png'
+  'assets/img/view.png',
+  'assets/img/like.svg',
+  'assets/img/dislike.svg'
 ];
 
 self.addEventListener('install', (event) => {

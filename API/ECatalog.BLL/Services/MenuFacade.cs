@@ -62,6 +62,7 @@ namespace ECatalog.BLL.Services
                 });
             }
             menu.RestaurantId = restaurant.RestaurantId;
+            menu.ModifyTime = DateTime.Now;
             _menuTranslationService.InsertRange(menu.MenuTranslations);
             _menuService.Insert(menu);
             SaveChanges();
@@ -119,6 +120,7 @@ namespace ECatalog.BLL.Services
             //result.IsParentTranslated = language == Strings.DefaultLanguage || _restaurantTranslationService.CheckRestaurantByLanguage(restaurantAdminId, language);
             return result;
         }
+
         public void ActivateMenu(long menuId)
         {
             var menu = _menuService.Find(menuId);
@@ -187,6 +189,8 @@ namespace ECatalog.BLL.Services
                     menuTranslation.MenuName = menuName.Value;
                 }
             }
+            if(menuDto.IsImageChange)
+                menu.ModifyTime = DateTime.Now;
             _menuService.Update(menu);
             SaveChanges();
             if (menuDto.IsImageChange)

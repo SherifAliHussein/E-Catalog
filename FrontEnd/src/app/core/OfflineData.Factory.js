@@ -6,6 +6,12 @@
     function OfflineDataResource($localStorage) {
         var categories;
         return {
+            setLastUpdate:function(lastUpdate){
+                $localStorage.offlineData["lastUpdate"] = lastUpdate;                 
+            },
+            getLastUpdate:function(){
+                return $localStorage.offlineData["lastUpdate"];                 
+            },
             setAllData: function(lang,allMenus) {
                 if($localStorage.offlineData == null)
                 {
@@ -47,6 +53,9 @@
                 // }, this);
                 return items;
                 // return $localStorage.offlineData[menuId];
+            },
+            get:function(name){
+                return $localStorage.offlineData[name]
             }
             
         }

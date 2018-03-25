@@ -131,7 +131,12 @@
             "SAR":" SAR",
             "Total":"TOTAL",
             "Size":"Size",
-            "Logout":"Logout"
+            "Logout":"Logout",
+            "feedbackbtn":"FeedBack",
+            "Guest":"Guest",
+            "yourComment":"Write your comment",
+            "SumbitReviewBtn":"Submit review",
+            "morereviewsbtn":"View more reviews"
         }
         
         var ar_translations = {
@@ -267,7 +272,12 @@
             "SAR":" ريال",
             "Total":"المجموع",
             "Size":"الحجم",
-            "Logout":"خروج"
+            "Logout":"خروج",
+            "feedbackbtn":"تقييمات",
+            "Guest":"زائر",
+            "yourComment":"تعليقك",
+            "SumbitReviewBtn":"أضف تقييمك",
+            "morereviewsbtn":"مزيد من التقييمات"
         }
         
         $translateProvider.translations('en',en_translations);
